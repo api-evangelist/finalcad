@@ -1,0 +1,62 @@
+generated: '2026-08-17'
+method: searched
+source: https://developer.finalcad.com/
+docs: https://developer.finalcad.com/
+notes: >-
+  Finalcad runs a separate sandbox environment on its own host. It is named in the provider's own
+  documentation (the "Retrieve data in Power BI" tutorial uses
+  https://developer.sandbox.finalcad.cloud/api in its worked curl example, and the Create-hook
+  example posts a callback to the same host), and the host resolves and answers live. There is no
+  self-service sandbox signup, no test-mode key prefix and no published test fixtures.
+
+environments:
+- name: production
+  base_url: https://developer.finalcad.cloud/api
+  probe_status: 403
+  probe_note: 'GET / returns {"message":"Missing Authentication Token"}; /api/organizations returns 401 UnauthorizedException'
+  tls: TLSv1.3
+- name: sandbox
+  base_url: https://developer.sandbox.finalcad.cloud/api
+  probe_status: 403
+  probe_note: 'Same AWS API Gateway shape as production — live host, auth-gated'
+  tls: TLSv1.3
+  cert_expires: '2027-01-07'
+  source: >-
+    Published by Finalcad in the "Retrieve data in Power BI" tutorial:
+    curl -X POST 'https://developer.sandbox.finalcad.cloud/api/organizations/your_organization_id/data/config'
+
+self_service: false
+self_service_note: >-
+  There is no developer signup, no free tier and no sandbox provisioning form. Access to either
+  environment requires an organization on the Enterprise licence and an API key Finalcad issues
+  after validating eligibility. The web app login (https://finalcadone-web.eu.finalcad.com/login,
+  and the Asia-Pacific instance https://finalcadone-web.ap.finalcad.com/login) is for existing
+  customers.
+
+key_modes:
+  test_live_prefixes: false
+  note: >-
+    Keys are not prefixed by mode. Environment selection is by HOST, not by key — the same
+    X-API-Key header name is used against either base URL, so an integration switches environments
+    by changing the base URL and the key together. There is no way to tell from a key which
+    environment it belongs to.
+
+test_data:
+  fixtures: false
+  test_accounts: false
+  test_clocks: false
+  triggers: false
+  note: >-
+    No test fixtures, seeded projects, simulated events or time-travel tooling are published. The
+    collection's example UUIDs are obvious placeholders (00000000-1111-2222-3333-444444444444).
+
+webhook_testing:
+  endpoint: https://developer.sandbox.finalcad.cloud/api/webhooks/wait
+  source: >-
+    Used as the client_url in Finalcad's own Create-hook example body. Finalcad does not document it
+    as a public webhook echo service, so treat it as an internal test target rather than a supported
+    tool.
+
+gaps:
+- No self-service sandbox — the environment exists but a prospective integrator cannot reach it.
+- No mock server is published for the collection, and the sandbox host does not answer anonymously.

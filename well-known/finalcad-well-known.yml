@@ -1,0 +1,149 @@
+generated: '2026-08-17'
+method: probed
+source: live HTTPS probes, 2026-08-17
+notes: >-
+  Every standard /.well-known/ path probed against all four Finalcad hosts. NOTHING was served.
+  No WellKnown, SecurityTxt or APICatalog pointer is emitted in apis.yml, because this file records
+  an ABSENCE, not a presence. Two failure modes are worth distinguishing below: the API host answers
+  403 from AWS API Gateway (it never routes /.well-known/ at all), while the docs host answers a
+  404 HTML page from the Postman documenter.
+result: none
+hit_count: 0
+
+hosts:
+- host: developer.finalcad.cloud
+  role: API base host
+  infrastructure: AWS API Gateway
+  paths:
+  - path: /.well-known/security.txt
+    status: 403
+    file: null
+  - path: /.well-known/openid-configuration
+    status: 403
+    file: null
+  - path: /.well-known/oauth-authorization-server
+    status: 403
+    file: null
+  - path: /.well-known/api-catalog
+    status: 403
+    file: null
+  - path: /.well-known/ai-plugin.json
+    status: 403
+    file: null
+  - path: /.well-known/agent-card.json
+    status: 403
+    file: null
+  - path: /.well-known/agent.json
+    status: 403
+    file: null
+  - path: /llms.txt
+    status: 403
+    file: null
+  note: >-
+    All 403 with body {"message":"Forbidden"} or {"message":"Missing Authentication Token"} —
+    the gateway has no route for these paths.
+- host: developer.finalcad.com
+  role: developer portal (Postman public documenter)
+  paths:
+  - path: /.well-known/security.txt
+    status: 404
+    file: null
+  - path: /.well-known/openid-configuration
+    status: 404
+    file: null
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+    file: null
+  - path: /.well-known/api-catalog
+    status: 404
+    file: null
+  - path: /.well-known/ai-plugin.json
+    status: 404
+    file: null
+  - path: /.well-known/agent-card.json
+    status: 404
+    file: null
+  - path: /.well-known/agent.json
+    status: 404
+    file: null
+  - path: /llms.txt
+    status: 404
+    file: null
+- host: help.finalcad.com
+  role: help centre (Intercom)
+  paths:
+  - path: /.well-known/security.txt
+    status: 404
+    file: null
+  - path: /.well-known/openid-configuration
+    status: 404
+    file: null
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+    file: null
+  - path: /.well-known/api-catalog
+    status: 404
+    file: null
+  - path: /.well-known/ai-plugin.json
+    status: 404
+    file: null
+  - path: /.well-known/agent-card.json
+    status: 404
+    file: null
+  - path: /.well-known/agent.json
+    status: 404
+    file: null
+  - path: /llms.txt
+    status: 200
+    file: null
+    soft_200: true
+    content_type: text/html; charset=utf-8
+    note: >-
+      NOT a document. The help centre's Next.js catch-all answers 200 with the site's HTML shell for
+      any unmatched path — the body starts "<!DOCTYPE html>". Counted as a MISS, not a hit.
+- host: www.finalcad.com
+  role: marketing site
+  paths:
+  - path: /.well-known/security.txt
+    status: 301
+    file: null
+  - path: /.well-known/openid-configuration
+    status: 301
+    file: null
+  - path: /.well-known/oauth-authorization-server
+    status: 301
+    file: null
+  - path: /.well-known/api-catalog
+    status: 301
+    file: null
+  - path: /.well-known/ai-plugin.json
+    status: 301
+    file: null
+  - path: /.well-known/agent-card.json
+    status: 301
+    file: null
+  - path: /.well-known/agent.json
+    status: 301
+    file: null
+  - path: /llms.txt
+    status: 301
+    file: null
+  note: >-
+    Every path 301s toward https://www.orisha.com/fr/construction/ following the March 2025
+    acquisition of Advae (Finalcad + Wizzcad) by Orisha. The redirect target serves the Orisha
+    marketing page, not a well-known document; www.orisha.com/.well-known/security.txt is itself 404.
+
+agent_surfaces:
+  agent_card: absent
+  mcp: absent
+  mcp_probes:
+  - url: https://developer.finalcad.cloud/mcp
+    method: 'POST tools/list'
+    status: 403
+  - url: https://developer.finalcad.cloud/api/mcp
+    method: 'POST tools/list'
+    status: 403
+  - url: https://developer.finalcad.cloud/sse
+    method: 'POST tools/list'
+    status: 403
+  llms_txt: absent

@@ -1,0 +1,202 @@
+generated: '2026-08-17'
+method: searched
+source: https://developer.finalcad.com/
+docs: https://developer.finalcad.com/
+notes: >-
+  Finalcad publishes a dated "Release notes" section as the first item of its developer portal
+  (the Finalcad One API Postman documenter). Entries below are transcribed from it. The full
+  history runs from API 1.0 (19 May 2021) to API 2.41 (10 June 2025); the recent window is
+  captured here and the complete text is preserved in
+  collections/finalcad.postman_collection.json.
+
+scheme: release-train
+version_in_url: false
+current_version: '2.41'
+current_version_date: '2025-06-10'
+first_version: '1.0'
+first_version_date: '2021-05-19'
+release_count: 33
+staleness:
+  days_since_last_release: 434
+  as_of: '2026-08-17'
+  note: >-
+    The most recent published release note is API 2.41, 10 June 2025 — over fourteen months before
+    this pass. In March 2025 Finalcad's parent Advae (the Finalcad + Wizzcad merger) was acquired by
+    Orisha and the product became part of Orisha Construction; finalcad.com now 301s to
+    orisha.com/fr/construction/. The API host and the developer portal are still live, but the
+    release cadence visible on the portal stops shortly after the acquisition. Treat the version as
+    current-but-quiet rather than actively shipping until a newer note appears.
+
+breaking_change_policy:
+  published: false
+  note: >-
+    No deprecation window, sunset policy or breaking-change policy is published. Historical release
+    notes DO record breaking renames shipped inside a normal release — API 2.11 (31 July 2023)
+    "fix positon_x attribute to position_x", "fix icone attribute to icon",
+    "fix PinPositonX & PinPositonY to PositionX & PositionY", "fix AssignedCompanyId to CompanyId",
+    "fix AssigneeTo to AssigneeId" — five field renames announced only in the changelog.
+
+entries:
+- version: '2.41'
+  date: '2025-06-10'
+  breaking: false
+  additions:
+  - Get module trades
+  - Get trade common observations
+  - Get form template status
+  - Get folder plans content
+  - Get folder documents content
+  - Get projects filtered by workspaces
+  changes:
+  - Module and parent filter on Get project
+  - Parent filter on Get workspaces
+  - Category filter on Get project form templates
+  - Workspace filter on Get organization modules
+  - Translated names in observation priority and status libraries
+  - Translated names in form priority libraries
+  - Enhanced Power BI step-by-step documentation
+- version: '2.40'
+  date: '2025-04-02'
+  breaking: false
+  additions:
+  - Delete project
+  - Restore project
+- version: '2.39'
+  date: '2025-02-20'
+  breaking: false
+  changes:
+  - Fix errors badly returned
+  - summary_field information for form grid field
+  - client_created_at and client_updated_at on some endpoints
+  - Documents can be linked in groups
+- version: '2.38'
+  date: '2025-01-10'
+  breaking: false
+  changes:
+  - ProjectsUsersRoles dataset added (users with their role in each project)
+  - Users dataset gains a Role column
+- version: '2.37'
+  date: '2024-12-12'
+  breaking: false
+  additions:
+  - Endpoint to get a downloadable media url
+- version: '2.36'
+  date: '2024-12-04'
+  breaking: false
+  changes:
+  - Performance improvements to form answers and form template translations
+  - Bulk role update at organization level
+  - Fix media download for binary files (pdf/docx)
+- version: '2.35'
+  date: '2024-11-29'
+  breaking: false
+  changes:
+  - Priorities dataset added
+  - UserActivities dataset added
+  - Projects dataset gains address and status columns
+- version: '2.34'
+  date: '2024-11-13'
+  breaking: false
+  changes:
+  - Fix plan update
+  - Performance improvements
+- version: '2.33'
+  date: '2024-10-17'
+  breaking: false
+  additions:
+  - Delete documents, plans and folders
+  - Find out which discussions share an item
+  - Get a URL to download a dataset
+- version: '2.32'
+  date: '2024-08-13'
+  breaking: false
+  additions:
+  - Add members to projects without sending an email to the user
+  - Associate a form template with a custom report and generate customized form reports
+- version: '2.31'
+  date: '2024-07-25'
+  breaking: false
+  additions:
+  - Internal identification (client reference) on companies
+  - Organization dataset settings for Power BI
+  - Forms PDF unit report generation
+- version: '2.30'
+  date: '2024-06-10'
+  breaking: false
+  additions:
+  - Project discussion-group management (list, detail, add/remove users, messages)
+  - Observations can be linked to a group at creation
+  - Latitude and longitude on observations and form instances
+  changes:
+  - Differential endpoints uniformization
+- version: '2.19'
+  date: '2024-05-17'
+  breaking: false
+  additions:
+  - Get form template description
+  changes:
+  - More information in observation lists
+- version: '2.18'
+  date: '2024-04-29'
+  breaking: false
+  additions:
+  - XLSX report generation for observations and forms at project level
+  - Upload and process 3D models (IFC and RVT)
+  - Update or delete referentials
+  - Generate default answers in forms
+  - Get, add and remove project logos
+- version: '2.17'
+  date: '2024-02-26'
+  breaking: false
+  additions:
+  - Convert a document into a plan
+- version: '2.16'
+  date: '2024-01-22'
+  breaking: false
+  additions:
+  - 'Webhooks: get event list, get hooks by organization, get hook, create, update and delete hook'
+  - Companies member add/remove endpoints
+  - Create a plan from a document
+  - Form instance messages (get and add comment); link item to answer
+  - Observation messages
+  - Data referential get and create
+  deprecations:
+  - Project-level media endpoints deprecated in favour of the application-level ones
+- version: '2.15'
+  date: '2023-11-02'
+  breaking: false
+  additions:
+  - Get project forms differential
+- version: '2.14'
+  date: '2023-10-24'
+  breaking: false
+  additions:
+  - Meeting module enable/disable, get and update
+- version: '2.13'
+  date: '2023-10-05'
+  breaking: false
+  additions:
+  - Form-type modules at organization and workspace level; forms filtered by module
+- version: '2.12'
+  date: '2023-08-21'
+  breaking: false
+  changes:
+  - Module settings attribute on create/update and in module responses
+- version: '2.11'
+  date: '2023-07-31'
+  breaking: true
+  breaking_detail: >-
+    Five request/response attribute renames shipped in this release — positon_x to position_x,
+    icone to icon, PinPositonX/PinPositonY to PositionX/PositionY, AssignedCompanyId to CompanyId,
+    AssigneeTo to AssigneeId. Announced in the release note only.
+  additions:
+  - Organization member get/add/remove and change-role endpoints
+  - Project member remove and change-role endpoints
+  - Get connected user
+- version: '2.10'
+  date: '2023-07-17'
+  breaking: false
+  additions:
+  - 'API key authorization — the authentication endpoint is no longer required to obtain a token'
+  - Workspace create/update, and workspace member get/add/remove
+  - position_x and position_y on observations

@@ -1,0 +1,104 @@
+generated: '2026-08-17'
+method: searched
+source: >-
+  registry.npmjs.org, pypi.org, rubygems.org, api.github.com/orgs/FinalCAD,
+  https://developer.finalcad.com/, https://help.finalcad.com/en/collections/20-public-api
+notes: >-
+  Searched npm, PyPI and RubyGems for a Finalcad One API client, and read the developer portal and
+  help centre for an SDK page. There is NO first-party (or third-party) client library for the
+  Finalcad One API on any registry. The only integration artifacts Finalcad publishes are the
+  Postman collection itself and a Power BI dashboard template. The packages listed below are real
+  first-party open-source releases from the FinalCAD GitHub organization, but they are internal
+  Ruby/iOS engineering utilities — none of them wraps the API — so no `SDKs` pointer is emitted for
+  this provider.
+
+api_client_libraries: []
+sdk_count: 0
+official_sdk_count: 0
+
+registry_searches:
+- registry: npm
+  query: finalcad
+  results: 0
+- registry: npm
+  query: finalcad-one
+  results: 0
+- registry: pypi
+  package: finalcad
+  status: 404
+- registry: rubygems
+  query: finalcad
+  results: 0
+  note: FinalCAD-owned gems exist under their own names (below), none is an API client.
+
+integration_artifacts:
+- name: Finalcad One API Postman collection
+  kind: postman-collection
+  official: true
+  registry: cdn
+  url: https://developer.finalcad.com/
+  source_url: https://developer.finalcad.com/api/collections/10995648/Tz5v1Es2
+  version: null
+  published: null
+  note: >-
+    The collection carries no semantic version and no published date. Its Postman version tag is
+    "latest" and it floats — a consumer importing it cannot tell which API release it matches. The
+    content corresponds to API 2.41 (10 June 2025), the newest entry in the portal's Release notes.
+    Saved in this repo at collections/finalcad.postman_collection.json.
+- name: Finalcad Power BI dashboard template
+  kind: bi-template
+  official: true
+  registry: cdn
+  url: https://developer.finalcad.com/
+  version: null
+  published: null
+  note: >-
+    Referenced from the "Use a custom dashboard template in Power BI" tutorial. Distribution is via
+    links inside the tutorial rather than a registry, and no version is pinned.
+
+other_published_packages:
+  note: >-
+    Published by the FinalCAD GitHub organization (github.com/FinalCAD, 79 public repos, Paris,
+    created 2014). These are general-purpose engineering libraries, NOT clients for the Finalcad One
+    API. Recorded for currency evidence only. Every one of them last shipped between 2015 and 2017 —
+    the org's open-source surface has been dormant for roughly nine years.
+  packages:
+  - name: dir_model
+    registry: rubygems
+    url: https://rubygems.org/gems/dir_model
+    repository: https://github.com/FinalCAD/dir_model
+    official: true
+    api_client: false
+    version: 0.7.1
+    published: '2017-12-21'
+    downloads: 41916
+    description: Import and export directories with an ORM-like interface.
+  - name: zip_dir
+    registry: rubygems
+    url: https://rubygems.org/gems/zip_dir
+    repository: https://github.com/FinalCAD/zip_dir
+    official: true
+    api_client: false
+    version: 0.1.5
+    published: '2016-03-30'
+    downloads: 25533
+    description: Zip and unzip directories.
+  - name: FINALCAD-CleanAndFix
+    registry: github
+    url: https://github.com/FinalCAD/FINALCAD-CleanAndFix
+    official: true
+    api_client: false
+    version: null
+    published: '2016-05-30'
+    note: >-
+      AutoCAD plugin with commands to clean and fix plans — the CAD-side companion to the platform,
+      distributed as source only with no release tag, so `version` is null by fact rather than by
+      omission. Last push 30 May 2016.
+
+gaps:
+- >-
+  No language SDK in any registry means every integrator hand-rolls HTTP against a two-header auth
+  scheme and a cursor format Finalcad describes only in prose.
+- >-
+  The Postman collection is the de-facto client artifact and it is unversioned, so there is no way
+  to pin an integration to an API release.

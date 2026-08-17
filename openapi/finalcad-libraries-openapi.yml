@@ -1,0 +1,567 @@
+openapi: 3.1.0
+info:
+  title: Finalcad One Libraries API
+  version: '2.41'
+  summary: Read-only Finalcad reference libraries — module colors, module icons, module suggestions, application languages
+    and time zones — used when creating content in an organization or project.
+  description: 'Read-only Finalcad reference libraries — module colors, module icons, module suggestions, application languages
+    and time zones — used when creating content in an organization or project.
+
+
+    DERIVED, NOT PUBLISHED BY THE PROVIDER. Finalcad publishes no OpenAPI. This document was mechanically derived by API Evangelist
+    from the first-party public Postman collection "Finalcad One API" served by Finalcad at https://developer.finalcad.com/
+    (collection JSON: https://developer.finalcad.com/api/collections/10995648/Tz5v1Es2), saved in this repo at collections/finalcad.postman_collection.json.
+    Every path, method, header, query parameter, example request body and example response below is carried over from that
+    collection; nothing was invented. Request/response bodies are typed as generic objects because the collection carries
+    examples, not schemas. Four Finalcad employees'' personal e-mail addresses that appeared in the collection''s example
+    payloads were replaced with placeholders; nothing else was changed.'
+  contact:
+    name: Finalcad One API — developer portal
+    url: https://developer.finalcad.com/
+  x-generated-by: API Evangelist enrichment pipeline (derived from the first-party Postman collection)
+  x-source: collections/finalcad.postman_collection.json
+  x-source-url: https://developer.finalcad.com/
+servers:
+- url: https://developer.finalcad.cloud/api
+  description: Production — the baseUrl variable published in the Finalcad One API Postman collection.
+- url: https://developer.sandbox.finalcad.cloud/api
+  description: Sandbox — published by Finalcad in the 'Retrieve data in Power BI' tutorial of the same collection.
+security:
+- apiKey: []
+  tokenAuth: []
+tags:
+- name: Languages
+- name: Libraries
+- name: Modules
+paths:
+  /languages:
+    get:
+      operationId: languagesGetLanguages
+      summary: Get languages
+      description: Get all the languages usable for libraries and items.
+      tags:
+      - Languages
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    langs:
+                    - code: en
+                      name: English
+                    - code: ca
+                      name: Catalan
+                    - code: de
+                      name: German
+                    - code: es
+                      name: Spanish
+                    - code: fr
+                      name: French
+                    - code: it
+                      name: Italian
+                    - code: ja
+                      name: Japanese
+                    - code: ko
+                      name: Korean
+                    - code: nl
+                      name: Dutch
+                    - code: pt
+                      name: Portuguese
+                    - code: th
+                      name: Thai
+                    - code: vi
+                      name: Vietnamese
+                    - code: zh
+                      name: Chinese
+                    count: 13
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /modules/colors:
+    get:
+      operationId: modulesGetModuleColors
+      summary: Get module colors
+      description: Get all the colors usable for module creation.
+      tags:
+      - Modules
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Get_modules_colors:
+                  value:
+                    icons:
+                    - code: '#E94F3D'
+                    - code: '#ED75A0'
+                    - code: '#7783FF'
+                    - code: '#3B7CDE'
+                    - code: '#92D8FF'
+                    - code: '#01D194'
+                    - code: '#C0DF43'
+                    - code: '#F7CE46'
+                    - code: '#FFC267'
+                    - code: '#FF8029'
+                    count: 0
+                    total_count: 0
+                    limit: 0
+                    offset: 0
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /modules/icons:
+    get:
+      operationId: modulesGetModuleIcons
+      summary: Get module icons
+      description: Get all the icon names usable for module creation.
+      tags:
+      - Modules
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Get_modules_icons:
+                  value:
+                    icons:
+                    - name: typePin
+                    - name: alert
+                    - name: clipboard
+                    - name: bookOpen
+                    - name: draw
+                    - name: checkCircle
+                    - name: filesAndFolders
+                    - name: people
+                    - name: alertTriangle
+                    - name: measure
+                    - name: plan
+                    - name: camera
+                    - name: clock
+                    - name: calendar
+                    - name: flag
+                    - name: eye
+                    - name: help
+                    - name: info
+                    - name: key
+                    - name: signature
+                    - name: rail
+                    - name: road
+                    - name: zap
+                    - name: euro
+                    - name: search
+                    - name: truck
+                    - name: cardboard
+                    - name: focus
+                    - name: parcel
+                    - name: star
+                    - name: helmet
+                    - name: clean
+                    - name: environment
+                    - name: brush
+                    - name: hammer
+                    - name: bricks
+                    count: 0
+                    total_count: 0
+                    limit: 0
+                    offset: 0
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /modules/suggestions:
+    get:
+      operationId: modulesGetModuleSuggestions
+      summary: Get module suggestions
+      description: Get all the predefined modules for custom module creation.
+      tags:
+      - Modules
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Get_modules_suggestions:
+                  value:
+                    suggestions:
+                    - id: 44d459d4-fa20-4484-b4bf-fd520c459566
+                      name: Observations
+                      icon: alert
+                      color: '#E94F3D'
+                      type: Observations
+                      names:
+                      - language: en
+                        translation: Observations
+                      - language: fr
+                        translation: Observations
+                      - language: es
+                        translation: Observaciones
+                    - id: 117f1c84-e69d-4429-baf9-74e052f5e0bc
+                      name: Forms
+                      icon: clipboard
+                      color: '#F7CE46'
+                      type: Forms
+                      names:
+                      - language: en
+                        translation: Forms
+                      - language: fr
+                        translation: Formulaires
+                      - language: es
+                        translation: Formularios
+                    - id: 7fe77495-2ae5-4345-b647-f455be6a19d4
+                      name: Tasks
+                      icon: checklist
+                      color: '#3B7CDE'
+                      type: Observations
+                      names:
+                      - language: en
+                        translation: Tasks
+                      - language: fr
+                        translation: Tâches
+                      - language: es
+                        translation: Tareas
+                    - id: 125ae973-3e43-4862-9af4-3cb13dcac81c
+                      name: Quality
+                      icon: star
+                      color: '#01D194'
+                      type: Observations
+                      names:
+                      - language: en
+                        translation: Quality
+                      - language: fr
+                        translation: Qualité
+                      - language: es
+                        translation: Calidad
+                    - id: 3fd4f4af-089b-4e06-a924-32ee4f600f02
+                      name: Security
+                      icon: helmet
+                      color: '#FF8029'
+                      type: Observations
+                      names:
+                      - language: en
+                        translation: Security
+                      - language: fr
+                        translation: Securité
+                      - language: es
+                        translation: Seguridad
+                    - id: eab12a4a-7b44-46c1-abbb-9a6624369335
+                      name: Hygiene
+                      icon: clean
+                      color: '#92D8FF'
+                      type: Observations
+                      names:
+                      - language: en
+                        translation: Hygiene
+                      - language: fr
+                        translation: Hygiène
+                      - language: es
+                        translation: Higiene
+                    - id: 1d0ae170-f499-4649-b17d-d44008220600
+                      name: Environment
+                      icon: environment
+                      color: '#7FCE1A'
+                      type: Observations
+                      names:
+                      - language: en
+                        translation: Environment
+                      - language: fr
+                        translation: Environnemment
+                      - language: es
+                        translation: Medio Ambiente
+                    - id: 478eb22c-30ee-4691-b27e-f2539f644794
+                      name: Quote
+                      icon: euro
+                      color: '#7783FF'
+                      type: Observations
+                      names:
+                      - language: en
+                        translation: Quote
+                      - language: fr
+                        translation: Chiffrage
+                      - language: es
+                        translation: Presupuesto
+                    - id: be73ba88-1584-4d87-98a2-fee38da1b467
+                      name: Additional works
+                      icon: brush
+                      color: '#FFC267'
+                      type: Observations
+                      names:
+                      - language: en
+                        translation: Additional works
+                      - language: fr
+                        translation: Travaux supplémentaires
+                      - language: es
+                        translation: Trabajos adicionales
+                    - id: 391ede05-46a9-4676-99d7-cfe0d07f8a75
+                      name: Construction diary
+                      icon: diary
+                      color: '#4CABF2'
+                      type: Observations
+                      names:
+                      - language: en
+                        translation: Construction diary
+                      - language: fr
+                        translation: Journal de chantier
+                      - language: es
+                        translation: Diario de obra
+                    - id: e53cc00d-4980-409e-9a52-40706fd77b5f
+                      name: Equipment
+                      icon: hammer
+                      color: '#01D194'
+                      type: Observations
+                      names:
+                      - language: en
+                        translation: Equipment
+                      - language: fr
+                        translation: Équipement
+                      - language: es
+                        translation: Equipamiento
+                    - id: 70df7ea5-7ef6-4b71-9b52-848ec968a680
+                      name: Materials
+                      icon: bricks
+                      color: '#FF8029'
+                      type: Observations
+                      names:
+                      - language: en
+                        translation: Materials
+                      - language: fr
+                        translation: Matériaux
+                      - language: es
+                        translation: Materiales
+                    - id: bbb01e29-efb0-4a11-9ab7-63849c58fd48
+                      name: Staff
+                      icon: people
+                      color: '#ED75A0'
+                      type: Observations
+                      names:
+                      - language: en
+                        translation: Staff
+                      - language: fr
+                        translation: 'Personnel '
+                      - language: es
+                        translation: Colaboradores
+                    count: 0
+                    total_count: 0
+                    limit: 0
+                    offset: 0
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /time-zones:
+    get:
+      operationId: getListOfTimeZones
+      summary: Get list of time zones
+      description: "Each project is linked to a specific time zone.\n\n By default, if not specified, Paris time is chosen.\
+        \ To create your project, you may want to select a different time zone.\n\n To assist you in this process, you can\
+        \ request the list of available time zones here."
+      tags:
+      - Libraries
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    time_zones:
+                    - id: Pacific/Niue
+                      display_name: (UTC-11:00) Niue Time
+                      standard_name: Niue Time
+                      utc_offset: '-11:00:00'
+                    - id: Pacific/Midway
+                      display_name: (UTC-11:00) Samoa Standard Time
+                      standard_name: Samoa Standard Time
+                      utc_offset: '-11:00:00'
+                    - id: Pacific/Pago_Pago
+                      display_name: (UTC-11:00) Samoa Standard Time
+                      standard_name: Samoa Standard Time
+                      utc_offset: '-11:00:00'
+                    - id: Pacific/Rarotonga
+                      display_name: (UTC-10:00) Cook Islands Standard Time
+                      standard_name: Cook Islands Standard Time
+                      utc_offset: '-10:00:00'
+                    - id: Pacific/Honolulu
+                      display_name: (UTC-10:00) Hawaii-Aleutian Standard Time
+                      standard_name: Hawaii-Aleutian Standard Time
+                      utc_offset: '-10:00:00'
+                    - id: America/Adak
+                      display_name: (UTC-10:00) Hawaii-Aleutian Standard Time
+                      standard_name: Hawaii-Aleutian Standard Time
+                      utc_offset: '-10:00:00'
+                    - id: Pacific/Tahiti
+                      display_name: (UTC-10:00) Tahiti Time
+                      standard_name: Tahiti Time
+                      utc_offset: '-10:00:00'
+                    - id: Pacific/Marquesas
+                      display_name: (UTC-09:30) Marquesas Time
+                      standard_name: Marquesas Time
+                      utc_offset: -09:30:00
+                    - id: America/Nome
+                      display_name: (UTC-09:00) Alaska Standard Time
+                      standard_name: Alaska Standard Time
+                      utc_offset: -09:00:00
+                    - id: America/Anchorage
+                      display_name: (UTC-09:00) Alaska Standard Time
+                      standard_name: Alaska Standard Time
+                      utc_offset: -09:00:00
+                    count: 10
+                    total_count: 425
+                    limit: 10
+                    offset: 0
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+components:
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: Organization API key issued by Finalcad to organizations on an Enterprise licence. Sent on every call.
+    tokenAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: '`Authorization: token <your_api_key>`, or `Authorization: bearer <user_token>` for the legacy user-token
+        flow (POST /auth).'
+  schemas:
+    ApiError:
+      type: object
+      description: Finalcad One error envelope. `api_code` is either a static code (mostly 4xx, e.g. INVALID_INSTANCE_STATE)
+        or a constructed code of the form {ProcessCode}_ERR{n} / {ProcessCode}_WRN{n} (mostly 5xx).
+      properties:
+        statut:
+          type: integer
+          description: HTTP status code, repeated in the body (spelled `statut`).
+        api_code:
+          type: string
+          description: Internal Finalcad API error code.
+        message:
+          type: string
+          description: Short explanation of the abnormality encountered.
+        data:
+          type: object
+          description: Complementary data to help understand the error.
+          additionalProperties: true
+    Paginated:
+      type: object
+      description: Finalcad's shared pagination / differential envelope. Re-sending the last continuous_token returns only
+        elements added, modified or deleted since that call.
+      properties:
+        need_to_relaunch:
+          type: boolean
+          description: True when more elements remain to retrieve.
+        continuous_token:
+          type: string
+          description: Opaque cursor to send on the next call.
+        count:
+          type: integer
+          description: Number of elements returned by this call.
+        total_count:
+          type: integer
+          description: Total number of elements across all calls.
+        limit:
+          type: integer
+          description: Maximum elements per page. Default 50.
+        offset:
+          type: integer
+          description: Offset paging; must be a multiple of limit.
+  parameters:
+    AcceptLanguage:
+      name: Accept-Language
+      in: header
+      required: false
+      schema:
+        type: string
+        default: en
+      description: Language the API operates in. Allowed values come from GET /languages. Default English (en).

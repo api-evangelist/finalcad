@@ -1,0 +1,115 @@
+generated: '2026-08-17'
+method: searched
+source: https://developer.finalcad.com/
+docs: https://developer.finalcad.com/
+notes: >-
+  Versioning and release facts read from the Release notes section of Finalcad's developer portal;
+  status pages probed live; deprecation posture derived from the OBSOLETE markers Finalcad writes
+  into its own collection.
+
+versioning:
+  scheme: release-train
+  current: '2.41'
+  current_date: '2025-06-10'
+  in_url: false
+  in_header: false
+  policy_published: false
+  note: >-
+    Releases are announced as "API <major>.<minor> - <date>" in the portal's Release notes. There is
+    no version segment in the base path (https://developer.finalcad.cloud/api), no version header
+    and no version query parameter, so every caller is on the current release at all times.
+  detail: changelog/finalcad-changelog.yml
+
+deprecation:
+  policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  practice: in-band-docs-marker
+  practice_note: >-
+    Finalcad marks superseded surfaces in prose inside its own documentation rather than with a
+    policy or a header. Two folders in the published collection are titled
+    "OBSOLETE - Please use the media endpoints at the application level"
+    (API / Project / Medias handeling, and its Chunk upload sub-folder — 6 operations), and the
+    API 2.16 release note of 22 January 2024 says "our endpoint medias at project level are
+    depreciated". No sunset date was given, and those operations are still published and still
+    documented more than two years later.
+  deprecated_operations:
+  - operationId: mediasHandelingUploadMedias
+    path: /projects/{project_id}/medias/uploads
+    replacement: /medias/uploads
+  - operationId: mediasHandelingGetMediaResource
+    path: /medias/{media_id}
+    replacement: /medias/{media_id}
+  - operationId: mediasHandelingChunkUploadInit
+    path: /projects/{project_id}/medias/uploadinit
+    replacement: /medias/uploadinit
+  - operationId: mediasHandelingChunkUploadUpload
+    path: /projects/{project_id}/medias/{media_id}/uploadappend
+    replacement: /medias/{media_id}/uploadappend
+  - operationId: mediasHandelingChunkUploadTerminate
+    path: /projects/{project_id}/medias/{media_id}/uploadterminate
+    replacement: /medias/{media_id}/uploadterminate
+  - operationId: mediasHandelingChunkUploadAbort
+    path: /projects/{project_id}/medias/{media_id}/uploadabort
+    replacement: /medias/{media_id}/uploadabort
+  legacy_operations:
+  - operationId: getUserToken
+    path: /auth
+    note: >-
+      Described by Finalcad as "Legacy endpoint to get user_token". Superseded by the API-key form
+      introduced in API 2.10 (17 July 2023), which states the authentication endpoint is no longer
+      required. Still published, no sunset date.
+
+status_pages:
+- url: https://status.finalcad.cloud/
+  provider: StatusCake
+  http_status: 200
+  machine_readable: false
+  note: >-
+    Public StatusCake report on Finalcad's own API domain. The uptime table is rendered client-side,
+    so there is no JSON summary endpoint to poll.
+- url: https://finalcad.statuspage.io/
+  provider: Atlassian Statuspage
+  http_status: 200
+  machine_readable: true
+  api: https://finalcad.statuspage.io/api/v2/summary.json
+  observed:
+    page_name: Finalcad
+    page_id: t7w1hj6vmr7b
+    indicator: none
+    description: All Systems Operational
+    updated_at: '2026-08-16T19:44:25.329Z'
+  note: >-
+    Live and updating, but the components[] array is empty — the page reports one global indicator
+    and no per-service breakdown, so a consumer cannot tell whether the API specifically is
+    affected.
+
+sla:
+  published: false
+  note: No uptime commitment, credit schedule or support-response SLA is published on the public surface.
+
+support:
+  channels:
+  - type: HelpCenter
+    url: https://help.finalcad.com/
+  - type: Documentation
+    url: https://help.finalcad.com/en/collections/20-public-api
+  note: >-
+    API access itself is gated on an Enterprise licence, and the API key is issued only after
+    Finalcad validates the organization's eligibility — so first-line API support runs through the
+    customer's account relationship rather than a public developer support channel.
+
+corporate:
+  event: acquisition
+  date: '2025-03-04'
+  detail: >-
+    Finalcad merged with Wizzcad to form Advae, and Orisha acquired Advae in March 2025. Finalcad is
+    now a solution of Orisha Construction. www.finalcad.com 301s to
+    https://www.orisha.com/fr/construction/logiciel/finalcad/ and www.finalcad.com/products/integration
+    301s to https://www.orisha.com/fr/construction/logiciel/finalcad-api/. The API host
+    (developer.finalcad.cloud), the sandbox host, the developer portal (developer.finalcad.com) and
+    the help centre remain live on the Finalcad domains.
+  sources:
+  - https://www.orisha.com/blog/news/advae-rejoind-orisha/
+  - https://construction.orisha.com/blog/corporate/editeur-logiciels-advae-finalcad-wizzcad-rejoint-orisha-construction/

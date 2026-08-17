@@ -1,0 +1,62 @@
+generated: '2026-08-17'
+method: searched
+source: https://developer.finalcad.com/
+docs: https://developer.finalcad.com/
+notes: >-
+  Finalcad publishes no rate limits. The whole developer portal — Getting started, Common behaviors
+  (Errors, Differential behavior, Language selection), every endpoint description and every
+  step-by-step tutorial — contains no quota, no throttle, no burst allowance, no 429 response and no
+  rate-limit header. Live unauthenticated probes of the API host returned no RateLimit-*,
+  X-RateLimit-* or Retry-After headers either. What Finalcad publishes instead are two PAGING
+  limits, which are not rate limits and are recorded separately below so they are not mistaken for
+  one.
+limit_count: 0
+published: false
+headers: []
+exhaustion_status: null
+retry_after: false
+
+probes:
+- url: https://developer.finalcad.cloud/api
+  status: 403
+  rate_limit_headers: none
+  observed_headers: [date, content-type, content-length, x-amzn-requestid, x-amzn-errortype, x-amz-apigw-id]
+- url: https://developer.finalcad.cloud/api/organizations
+  status: 401
+  rate_limit_headers: none
+  observed_headers: [date, content-type, content-length, x-amzn-requestid, x-amzn-errortype, x-amz-apigw-id]
+- url: https://developer.sandbox.finalcad.cloud/api
+  status: 403
+  rate_limit_headers: none
+
+not_rate_limits:
+- name: pagination limit
+  value: 50 (default), sent as the `limit` query parameter
+  detail: >-
+    Maximum number of elements returned per call. Published examples also show limit=500 in
+    organization and project listings, so the ceiling is higher than the default; the ceiling itself
+    is not documented. Constraint: `offset` must be a multiple of `limit` or the call returns 400
+    INVALID_INSTANCE_STATE.
+- name: media chunk size
+  value: 5242880 bytes
+  detail: >-
+    Minimum (and, except for the final part, exact) size of an upload part in the chunked media
+    flow. Files at or below 5 MB may use the single-shot upload instead.
+- name: chunked upload session TTL
+  value: 3600 seconds
+  detail: expires_after_secs returned by POST /medias/uploadinit.
+- name: dataset generation cadence
+  value: once a day at 06:00
+  detail: >-
+    Organization datasets for Power BI are regenerated daily, which is an effective freshness limit
+    on the bulk-export path rather than a request limit.
+
+inference_risk: >-
+  The API is fronted by AWS API Gateway (x-amz-apigw-id on every response), which has account- and
+  stage-level throttling available. Whether Finalcad has configured any is not observable without a
+  key, and no limit is asserted here on the strength of the infrastructure alone.
+
+gaps:
+- An integrator cannot size a bulk backfill — there is no documented request-per-second budget.
+- No 429 is documented anywhere, so client retry logic has nothing to key on.
+- No rate-limit headers means limits, if they exist, are invisible at runtime.

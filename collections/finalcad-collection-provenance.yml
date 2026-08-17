@@ -1,0 +1,56 @@
+generated: '2026-08-17'
+method: searched
+source: https://developer.finalcad.com/api/collections/10995648/Tz5v1Es2
+fetched: '2026-08-17'
+http_status: 200
+content_type: application/json
+notes: >-
+  Finalcad's own public Postman collection "Finalcad One API", the ONLY machine-readable contract
+  the company publishes. Served from Finalcad's own developer portal (developer.finalcad.com, a
+  Postman public documenter — publishedId Tz5v1Es2, collectionId
+  a8e78571-d78c-444d-973d-81b9f8ac4bc0, Postman team 10995648). Ownership is unambiguous: the
+  collection is named "Finalcad One API", its baseUrl variable is https://developer.finalcad.cloud/api
+  (a Finalcad-owned domain that answers live), and its description links the Finalcad iOS and Android
+  apps and the Finalcad One web app.
+schema: https://schema.getpostman.com/json/collection/v2.1.0/collection.json
+collection_name: Finalcad One API
+requests: 201
+variables: 20
+folders_top_level:
+- Release notes
+- Uses cases
+- Common behaviors
+- API
+- Step-by-step tutorials
+version_tag: latest
+version_note: >-
+  The collection carries no semantic version. Its content corresponds to API 2.41 (10 June 2025),
+  the newest entry in the portal's own Release notes.
+redactions:
+  applied: true
+  reason: >-
+    API Evangelist PII policy — a third-party profile does not republish identifiable individuals.
+  items:
+  - kind: personal-email
+    count: 27
+    detail: >-
+      Finalcad employees' work e-mail addresses used as example values in request and response
+      payloads, including plus-addressed variants, replaced with person.redacted@example.com.
+      Role/generic addresses (sandbox@, test@, feedback.eu@, feedback.esp@, feedback.apac@) were
+      left as published.
+  - kind: jwt
+    count: 1
+    detail: >-
+      The example user_token in the POST /auth "Succes" response — an Okta-issued JWT that expired
+      2021-04-29 and whose payload carried a named individual's e-mail address in its `sub` claim.
+      Replaced with REDACTED_JWT_EXAMPLE_TOKEN.
+  unchanged: >-
+    Every path, method, header, query parameter, folder description, release note, tutorial and
+    example body is otherwise carried over byte-for-byte.
+derived_artifacts:
+- openapi/finalcad-authentication-openapi.yml
+- openapi/finalcad-libraries-openapi.yml
+- openapi/finalcad-medias-openapi.yml
+- openapi/finalcad-organizations-openapi.yml
+- openapi/finalcad-projects-openapi.yml
+- openapi/finalcad-webhooks-openapi.yml

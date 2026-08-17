@@ -1,0 +1,418 @@
+generated: '2026-08-17'
+method: derived
+source: >-
+  openapi/*.yml (path nesting) and the id-reference fields observed in the example payloads of
+  collections/finalcad.postman_collection.json
+notes: >-
+  The Finalcad One API publishes no schemas — the collection carries examples, not component
+  definitions — so this entity graph is derived from two real signals: the resource nesting of the
+  201 published paths, and the *_id fields that actually appear in Finalcad's own example request
+  and response bodies (frequency counts retained below as evidence). Cardinalities follow the path
+  structure; where the direction is inferred rather than stated, `confidence` says so.
+
+identifier_convention:
+  format: uuid
+  note: >-
+    Almost every id is a UUID, but Finalcad also uses a COMPOUND form in several examples —
+    "f5b14d0b-386b3d38-76dd-4a11-a602-c275f89160d3" (project_id) and
+    "3a93b7d2-6cdbc225-1324-44ca-ba13-67e865d3620a" (user_id) carry an extra leading segment. Do not
+    validate Finalcad ids with a strict RFC 4122 regex.
+  no_type_prefixes: true
+  legacy_id: >-
+    Several objects also carry a `legacy_id`, evidence of a migration from an earlier Finalcad data
+    model; it is not documented and should not be used as a join key.
+
+hierarchy:
+  root: Organization
+  chain: Organization > Workspace (optional) > Project > Module > Item (Observation | Form | Meeting)
+  parallel_trees:
+  - Locations — Folder > Plan (infinite depth, folders are self-referencing via parent_id)
+  - Documents — Folder > Document (a SEPARATE tree; Finalcad states the two folder hierarchies are
+    completely independent despite the shared name)
+
+entities:
+- name: Organization
+  aliases: [business_organization]
+  key: organization_id
+  scope: tenant root
+  note: >-
+    Must exist before the API can be used — organizations are created on web or mobile, never via
+    the API, and must hold an Enterprise licence.
+  relationships:
+  - has_many: Workspace
+    via: organization_id
+  - has_many: Project
+    via: organization_id
+  - has_many: OrganizationMember
+    via: organization_id
+  - has_many: Trade
+    via: organization_id
+  - has_many: CommonObservation
+    via: organization_id
+  - has_many: Status
+    via: organization_id
+  - has_many: Priority
+    via: organization_id
+  - has_many: FormTemplate
+    via: organization_id
+  - has_many: Module
+    via: organization_id
+  - has_many: DataReferential
+    via: organization_id
+  - has_many: Dataset
+    via: organization_id
+  - has_many: Webhook
+    via: business_organization_id
+- name: Workspace
+  key: workspace_id
+  belongs_to: Organization
+  relationships:
+  - belongs_to: Organization
+    via: organization_id
+  - has_one: Workspace
+    via: parent_id
+    label: parent workspace
+    confidence: medium
+    note: Get workspaces accepts parent_id and with_children, so workspaces nest.
+  - has_many: Project
+    via: workspace_id
+  - has_many: FormTemplate
+    via: workspace_id
+  - has_many: Module
+    via: workspace_id
+  - has_many: Priority
+    via: workspace_id
+  - has_many: WorkspaceMember
+    via: workspace_id
+- name: Project
+  key: project_id
+  belongs_to: Organization
+  optional_parent: Workspace
+  fields_of_note: [case_number, language, time_zone, address, start_date, end_date, member_count, is_archived, is_active, status, media_resource]
+  relationships:
+  - belongs_to: Organization
+    via: organization_id
+  - belongs_to: Workspace
+    via: workspace_id
+  - has_many: ProjectMember
+    via: project_id
+  - has_many: Module
+    via: project_id
+  - has_many: Phase
+    via: project_id
+  - has_many: Company
+    via: project_id
+  - has_many: Folder
+    via: project_id
+  - has_many: Plan
+    via: project_id
+  - has_many: Document
+    via: project_id
+  - has_many: DiscussionGroup
+    via: project_id
+  - has_many: Observation
+    via: project_id
+  - has_many: FormInstance
+    via: project_id
+  - has_many: Meeting
+    via: project_id
+  - has_one: MediaResource
+    via: media_resource
+    label: project image
+  inherits: >-
+    At creation a project inherits the organization's (or workspace's) libraries — trades, common
+    observations, priorities and statuses. Later changes to a library affect only subsequently
+    created items.
+- name: Module
+  key: module_id
+  types: [Observations, Forms, Meetings]
+  belongs_to: Project | Workspace | Organization
+  fields_of_note: [name, 'names[]', order, icon, color, type, enabled, settings]
+  relationships:
+  - belongs_to: Project
+    via: project_id
+  - has_many: Trade
+    via: module_id
+  - has_many: Category
+    via: module_id
+  - has_many: FormTemplate
+    via: link-forms
+    label: many-to-many, managed by link-forms / unlink-forms
+  - has_many: Observation
+    via: module_id
+  - has_many: FormInstance
+    via: module_id
+  note: >-
+    The module is the customization seam — it renames and re-skins a Finalcad capability inside one
+    project and owns its own category/model library.
+- name: Trade
+  aliases: [category on the platform]
+  key: trade_id
+  belongs_to: Module
+  relationships:
+  - belongs_to: Module
+    via: module_id
+  - has_many: CommonObservation
+    via: trade_id
+- name: CommonObservation
+  aliases: [model]
+  key: common_observation_id
+  belongs_to: Trade
+  relationships:
+  - belongs_to: Trade
+    via: trade_id
+  - belongs_to: Organization
+    via: organization_id
+    label: library scope
+- name: Status
+  key: status_id
+  belongs_to: Organization
+  fields_of_note: [name, color, is_default]
+  relationships:
+  - has_many: Status
+    via: next-statuses
+    label: workflow successor set, per project role
+    confidence: high
+    note: GET /projects/{project_id}/statuses/{status_id}/next-statuses returns the allowed transitions.
+- name: Priority
+  key: priority_id
+  belongs_to: Organization | Workspace
+  variants: [observation priorities, form priorities]
+  note: The two priority libraries are independent of each other.
+- name: FormTemplate
+  key: form_id
+  belongs_to: Organization | Workspace
+  relationships:
+  - has_many: FormTemplateSection
+    via: form_template_section_id
+  - has_many: FormField
+    via: form_field_id
+  - has_many: FormInstance
+    via: form_id
+  - has_one: CustomReportTemplate
+    via: custom_template_id
+    label: optional custom report association
+- name: FormInstance
+  key: form_instance_id
+  belongs_to: Project
+  fields_of_note: [num, name, template_name, status, assignee_id, priority_id, company_id, phase_id, due_date, description, latitude, longitude]
+  relationships:
+  - belongs_to: FormTemplate
+    via: form_id
+  - belongs_to: Module
+    via: module_id
+  - belongs_to: Phase
+    via: phase_id
+  - belongs_to: Company
+    via: company_id
+  - belongs_to: User
+    via: assignee_id
+  - has_many: FormAnswer
+    via: form_instance_id
+  - has_many: Message
+    via: form_instance_id
+- name: FormAnswer
+  key: form_answer_id
+  belongs_to: FormInstance
+  relationships:
+  - belongs_to: FormField
+    via: field_id
+  - has_many: MediaResource
+    via: attach-media / detach-media
+  - has_many: LinkedItem
+    via: form-answers/link
+    label: an answer can reference another platform item
+  note: Grid fields create rows, then fill elements — two calls against the same endpoint.
+- name: Observation
+  key: observation_id
+  belongs_to: Project
+  fields_of_note: [status_id, priority_id, trade_id, common_observation_id, assignee_id, assigned_company_id, phase_id, position_x, position_y, latitude, longitude, plan_id]
+  relationships:
+  - belongs_to: Module
+    via: module_id
+  - belongs_to: Trade
+    via: trade_id
+  - belongs_to: CommonObservation
+    via: common_observation_id
+  - belongs_to: Status
+    via: status_id
+  - belongs_to: Priority
+    via: priority_id
+  - belongs_to: Phase
+    via: phase_id
+  - belongs_to: Company
+    via: assigned_company_id
+  - belongs_to: User
+    via: assignee_id
+  - belongs_to: Plan
+    via: plan_id
+    label: pinned at position_x / position_y on a plan
+  - belongs_to: DiscussionGroup
+    via: group_id
+    label: optional, set at creation
+  - has_many: MediaResource
+    via: attach-media
+  - has_many: Message
+    via: observation_id
+- name: Phase
+  key: phase_id
+  belongs_to: Project
+  note: Milestone grouping; observations and form instances may be assigned to one.
+- name: Company
+  key: company_id
+  belongs_to: Project
+  fields_of_note: [name, client_reference]
+  relationships:
+  - has_many: ProjectMember
+    via: companies/{company_id}/add-members
+- name: Folder
+  key: folder_id
+  belongs_to: Project
+  trees: [locations, documents]
+  relationships:
+  - has_one: Folder
+    via: parent_id
+    label: parent folder — infinite depth
+  - has_many: Plan
+    via: folder_id
+    label: locations tree only
+  - has_many: Document
+    via: parent_id
+    label: documents tree only
+- name: Plan
+  key: plan_id
+  belongs_to: Project
+  relationships:
+  - belongs_to: Folder
+    via: folder_id
+  - has_one: MediaResource
+    via: media_id
+  - has_many: Observation
+    via: plan_id
+    label: pinned observations
+  formats: [PDF, DWG, IFC, RVT]
+- name: Document
+  key: document_id
+  belongs_to: Project
+  relationships:
+  - belongs_to: Folder
+    via: parent_id
+  - has_one: MediaResource
+    via: media_id
+  - has_many: DiscussionGroup
+    via: groups/item?item_type=Document
+- name: MediaResource
+  key: media_id
+  fields_of_note: [file_name, mime_type]
+  relationships:
+  - has_many: MediaChunk
+    via: chunk_id
+  note: >-
+    Uploaded once at application level, then referenced by id from plans, documents, observations,
+    form answers, project logos and user avatars. The upload is a 4-step chunked flow for files
+    over 5 MB.
+- name: DiscussionGroup
+  key: group_id
+  belongs_to: Project
+  relationships:
+  - has_many: User
+    via: add_members / remove_members
+  - has_many: Message
+    via: group_id
+  - has_many: LinkedItem
+    via: groups/item
+    label: 'shared items — item_type observed: Document'
+- name: Message
+  key: message_id
+  polymorphic_parent: [Observation, FormInstance, DiscussionGroup]
+  relationships:
+  - has_many: MediaResource
+    via: attach file
+  - has_one: LinkedItem
+    via: link item
+- name: User
+  key: user_id
+  relationships:
+  - has_many: OrganizationMember
+    via: user_id
+  - has_many: ProjectMember
+    via: user_id
+  - has_one: MediaResource
+    via: media_resource
+    label: avatar
+- name: OrganizationMember
+  key: user_id + organization_id
+  fields_of_note: [role, authorization_role_id, higher_role_id]
+  note: >-
+    authorization_role_id and higher_role_id appear together in role payloads, implying a role
+    hierarchy where a higher role can grant the roles beneath it. Finalcad does not document the
+    semantics; confidence medium.
+- name: ProjectMember
+  key: user_id + project_id
+  relationships:
+  - belongs_to: ProjectRole
+    via: project_role_id
+  - belongs_to: Company
+    via: company_id
+- name: DataReferential
+  key: referentialId
+  belongs_to: Organization
+  note: Defines a form structure from customer-supplied files.
+- name: Webhook
+  key: hook_id
+  belongs_to: Organization
+  relationships:
+  - belongs_to: Project
+    via: project_id
+  detail: asyncapi/finalcad-webhooks.yml
+- name: Dataset
+  key: name
+  belongs_to: Organization
+  members: [Observations, Statuses, CommonObservations, FormInstances, FormInstanceStatuses, FormTemplates, Plans, Companies, Phases, Modules, Users, Projects, Workspaces, Priorities, UserActivities, ProjectsUsersRoles]
+  format: parquet
+  cadence: daily at 06:00
+  note: >-
+    The flattened analytics view of the whole graph, produced for BI tools. This is the only bulk
+    read path — the transactional API has no equivalent export.
+
+audit_fields:
+  present_on: nearly every entity
+  fields: [created_at, created_by, updated_at, updated_by]
+  client_fields: [client_created_at, client_updated_at]
+  note: >-
+    Added in API 2.2 (server timestamps) and API 2.39 (client timestamps). The distinction matters
+    on a construction site: created_at is when Finalcad's server saved the record, client_created_at
+    is when the field user actually performed the action, which may be much earlier if the device
+    was offline.
+
+localization:
+  pattern: names[] array of {language, translation}
+  applies_to: [Module, Trade, CommonObservation, Priority, Status]
+  note: A single item carries every translation at once; there is no per-locale resource.
+
+id_field_frequency:
+  note: Count of each id-bearing field across all example payloads in the published collection.
+  container_id: 199
+  parent_id: 123
+  module_id: 81
+  project_id: 44
+  form_id: 34
+  user_id: 34
+  trade_id: 30
+  phase_id: 24
+  authorization_role_id: 22
+  higher_role_id: 22
+  plan_id: 22
+  assignee_id: 22
+  status_id: 20
+  priority_id: 20
+  company_id: 20
+  category_id: 19
+  message_id: 19
+  workspace_id: 18
+  legacy_id: 18
+  organization_id: 16
+  media_id: 12
+  observation_id: 11
+  common_observation_id: 10
+  folder_id: 9

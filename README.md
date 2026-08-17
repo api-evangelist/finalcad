@@ -42,6 +42,10 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Finalcad is a company surfaced as a portfolio company of serena and added to the API Evangelist network as a stub for enrichment. Sector: saas. This profile is a lead awaiting the enrichment pipeline.
+Finalcad is a French construction-technology company, founded in Paris in 2011, whose Finalcad One platform digitizes work on building sites — punch lists and defects ("observations"), quality and safety inspection forms, site meetings, plans and BIM models, documents, phases and subcontractor companies — across iOS and Android field apps, a web app, an AutoCAD plugin and the Finalcad One API.
+
+This profile was built from Finalcad's public developer surface: the developer portal at https://developer.finalcad.com/ (a Postman public documenter carrying 201 published requests), the help centre's Public API collection, and live probes of the API host. Finalcad publishes no OpenAPI; the OpenAPI documents in `openapi/` are mechanical derivations of the provider's own Postman collection, which is saved verbatim in `collections/` — with a handful of Finalcad employees' personal e-mail addresses and one expired example JWT replaced by placeholders.
+
+Finalcad merged with Wizzcad to form Advae, and Orisha acquired Advae in March 2025; Finalcad is now a solution of Orisha Construction, and www.finalcad.com redirects to orisha.com. The developer portal, the API host (developer.finalcad.cloud), the sandbox host and the help centre all remain live on the Finalcad domains.
 
 Source: portfolio company of [serena](https://github.com/api-evangelist/serena) — http://www.finalcad.com/

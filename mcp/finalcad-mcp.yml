@@ -1,0 +1,189 @@
+generated: '2026-08-17'
+method: derived
+source: openapi/*.yml
+status: candidate
+notes: >-
+  Finalcad ships NO MCP server. Searched the developer portal, help centre, the FinalCAD GitHub
+  organization (79 public repos), npm and PyPI, and probed the API host directly for an MCP
+  endpoint. Nothing. The tools below are a CANDIDATE surface derived from the operations Finalcad
+  publishes — a design proposal, not a running server. Do not read any endpoint into this file:
+  there is none. NO `MCPServer` pointer is emitted in apis.yml for exactly that reason — the
+  pointer would assert that Finalcad operates an agent surface, and it does not.
+
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: api-key
+  auth_note: >-
+    If Finalcad were to ship a server it would need both headers — X-API-Key for the organization
+    and Authorization for the caller's rights. See authentication/finalcad-authentication.yml.
+  verified: probed
+  probes:
+  - url: https://developer.finalcad.cloud/mcp
+    method: 'POST {"jsonrpc":"2.0","id":1,"method":"tools/list"}'
+    status: 403
+    body: '{"message":"Forbidden"}'
+  - url: https://developer.finalcad.cloud/api/mcp
+    method: 'POST {"jsonrpc":"2.0","id":1,"method":"tools/list"}'
+    status: 403
+    body: '{"message":"Missing Authentication Token"}'
+  - url: https://developer.finalcad.cloud/sse
+    method: 'POST {"jsonrpc":"2.0","id":1,"method":"tools/list"}'
+    status: 403
+  - registry: npm
+    query: finalcad
+    results: 0
+  - registry: github
+    org: FinalCAD
+    mcp_repos: 0
+
+candidate_tools:
+- name: list_organizations
+  operationId: userOrganizationsGetOrganizationId
+  method: GET
+  path: /organizations
+  read_only: true
+  description: List the organizations the calling API key can reach. The entry point for every flow.
+- name: list_projects
+  operationId: projectDetailsGetProjectsListFiltered
+  method: GET
+  path: /organizations/{organization_id}/projects
+  read_only: true
+  description: >-
+    List an organization's projects, optionally filtered by workspace. Finalcad publishes two
+    requests against this path+method (plain and workspace-filtered); the filtered form is the
+    superset and is the one carried in openapi/.
+- name: get_project
+  operationId: projectDetailsCheckProjectSettings
+  method: GET
+  path: /projects/{project_id}
+  read_only: true
+  description: Read a project's settings, status, dates, member count and image.
+- name: list_project_observations
+  operationId: observationsGetProjectObservationsList
+  method: GET
+  path: /projects/{project_id}/observations
+  read_only: true
+  description: >-
+    List observations (defects, tasks, remarks) for a project. Supports the continuous_token
+    change feed, so an agent can poll for what changed since its last call.
+- name: get_observation
+  operationId: observationsGetObservationDetails
+  method: GET
+  path: /projects/{project_id}/observations/{observation_id}
+  read_only: true
+- name: create_observation
+  operationId: observationsCreateObservation
+  method: POST
+  path: /projects/{project_id}/observations
+  read_only: false
+  consequence: write
+  description: >-
+    Creates a punch-list item on a live construction project. Requires module_id, and optionally
+    trade, common observation, status, priority, phase, company, assignee and a pin position on a
+    plan — resolve each from the project libraries first.
+- name: update_observation
+  operationId: observationsUpdateObservation
+  method: PUT
+  path: /projects/{projectId}/observations/{observationId}
+  read_only: false
+  consequence: write
+- name: comment_on_observation
+  operationId: observationsAddObservationComment
+  method: POST
+  path: /projects/{project_id}/observations/{observation_id}/messages
+  read_only: false
+  consequence: write
+  description: Post a message into an observation thread; can carry text, a linked item or a file.
+- name: list_project_forms
+  operationId: formsGetProjectFormsList
+  method: GET
+  path: /projects/{project_id}/forms
+  read_only: true
+- name: get_form_answers
+  operationId: formsGetFormAnswers
+  method: GET
+  path: /projects/{project_id}/forms/{form_id}/form-instances/{form_instance_id}
+  read_only: true
+  description: Read every answer of a completed form instance — the inspection record itself.
+- name: create_form
+  operationId: formsCreateForm
+  method: POST
+  path: /projects/{project_id}/forms
+  read_only: false
+  consequence: write
+- name: answer_form_field
+  operationId: formsCreateAnswer
+  method: POST
+  path: /projects/{project_id}/form-answers
+  read_only: false
+  consequence: write
+- name: list_project_members
+  operationId: projectMembersManagementGetMembers
+  method: GET
+  path: /projects/{project_id}/members
+  read_only: true
+  personal_data: true
+  note: Returns named people. Treat as personal data under GDPR; do not log or cache freely.
+- name: list_documents
+  operationId: documentsGetDocumentsAndFolders
+  method: GET
+  path: /projects/{project_id}/documents
+  read_only: true
+- name: list_plans
+  operationId: locationsGetPlanTree
+  method: GET
+  path: /projects/{project_id}/plans
+  read_only: true
+- name: get_media_url
+  operationId: getMediaResourceUrl
+  method: GET
+  path: /medias/{media_id}/url
+  read_only: true
+  description: Resolve a media id to a downloadable URL — photos attached to observations and forms.
+- name: get_dataset_url
+  operationId: datasetsGetDatasetUrl
+  method: GET
+  path: /organizations/{organization_id}/data/config/dataseturl
+  read_only: true
+  description: >-
+    Get a download URL for a daily Parquet dataset. The only bulk read path; better than paging the
+    transactional API for analysis.
+- name: list_webhook_events
+  operationId: getEventsList
+  method: GET
+  path: /webhooks/getevents
+  read_only: true
+
+excluded_operations:
+  note: >-
+    Deliberately NOT proposed as tools. Recorded so the omission reads as a decision, not an
+    oversight.
+  entries:
+  - operations: [projectDetailsDeleteAProject, locationsDeletePlan, locationsDeleteFolder, documentsDeleteDocumentOrFolder, phasesDeletePhase, formsDeleteAnswer, librariesObservationLibraryDeleteOrganizationTrades, companiesDeleteProjectCompanies]
+    reason: >-
+      Destructive against live construction records. Only projectDetailsDeleteAProject has a documented
+      Restore counterpart (projectDetailsRestoreAProject); the rest have none.
+  - operations: [membersAddMembers, membersRemoveMembers, membersChangeRole, membersChangeSeveralRoles, projectMembersManagementAddMembersToAProject, projectMembersManagementRemoveMembersInAProject]
+    reason: >-
+      Membership and role changes are access-control decisions, and they return named people.
+      Human-in-the-loop, not agent-in-the-loop.
+  - operations: [getUserToken]
+    reason: Legacy password-grant endpoint; an agent should never be handed a login and password.
+  - operations: [mediasHandelingUploadMedias, mediasHandelingChunkUploadInit, mediasHandelingChunkUploadUpload, mediasHandelingChunkUploadTerminate, mediasHandelingChunkUploadAbort, mediasHandelingGetMediaResource]
+    reason: Marked OBSOLETE by Finalcad in favour of the application-level media endpoints.
+
+design_notes:
+- >-
+  Every write tool inherits the partial-success rule — a bulk call can return 206, and the api_code
+  suffix (ERR = rolled back, WRN = did not) is the only retry-safety signal. There is no idempotency
+  key, so an MCP server would have to expose that distinction rather than swallow it.
+- >-
+  Reads should prefer the continuous_token change feed over full listing; it is the same endpoint
+  with a cursor and it is how Finalcad expects integrations to stay in sync.
+- >-
+  The observation and form creation paths need four or five library lookups first (module, trade,
+  common observation, status, priority, phase). A useful server would fold those into resolution
+  helpers rather than making the model chain them.

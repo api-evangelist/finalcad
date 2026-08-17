@@ -1,0 +1,417 @@
+openapi: 3.1.0
+info:
+  title: Finalcad One Webhooks API
+  version: '2.41'
+  summary: Webhook subscription management for the Finalcad One platform — list subscribable event codes, and create, read,
+    update and delete hooks that POST to a client URL when an event fires.
+  description: 'Webhook subscription management for the Finalcad One platform — list subscribable event codes, and create,
+    read, update and delete hooks that POST to a client URL when an event fires.
+
+
+    DERIVED, NOT PUBLISHED BY THE PROVIDER. Finalcad publishes no OpenAPI. This document was mechanically derived by API Evangelist
+    from the first-party public Postman collection "Finalcad One API" served by Finalcad at https://developer.finalcad.com/
+    (collection JSON: https://developer.finalcad.com/api/collections/10995648/Tz5v1Es2), saved in this repo at collections/finalcad.postman_collection.json.
+    Every path, method, header, query parameter, example request body and example response below is carried over from that
+    collection; nothing was invented. Request/response bodies are typed as generic objects because the collection carries
+    examples, not schemas. Four Finalcad employees'' personal e-mail addresses that appeared in the collection''s example
+    payloads were replaced with placeholders; nothing else was changed.'
+  contact:
+    name: Finalcad One API — developer portal
+    url: https://developer.finalcad.com/
+  x-generated-by: API Evangelist enrichment pipeline (derived from the first-party Postman collection)
+  x-source: collections/finalcad.postman_collection.json
+  x-source-url: https://developer.finalcad.com/
+servers:
+- url: https://developer.finalcad.cloud/api
+  description: Production — the baseUrl variable published in the Finalcad One API Postman collection.
+- url: https://developer.sandbox.finalcad.cloud/api
+  description: Sandbox — published by Finalcad in the 'Retrieve data in Power BI' tutorial of the same collection.
+security:
+- apiKey: []
+  tokenAuth: []
+tags:
+- name: Webhooks
+paths:
+  /webhooks:
+    post:
+      operationId: createHook
+      summary: Create hook
+      description: "Subscribe to a new webhook.\n\n body mandatory info \n Details \n\n event \n code of the event \n\n business_organization_id\
+        \ \n id of the organization \n\n project_id \n id of the project \n\n client_url \n url to be called then the hook\
+        \ occurs \n\n body optionals info \n\n client_token \n\n client_header_key"
+      tags:
+      - Webhooks
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              event: 100
+              business_organization_id: <uuid>
+              project_id: <uuid>
+              client_url: https://developer.sandbox.finalcad.cloud/api/webhooks/wait
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    hook_id: fe00b1a1-f604-481d-8b81-624f288e88c9
+                    event: Meeting
+                    business_organization_id: 2421734c-f191-4237-acd8-becf216eaae4
+                    project_id: c75aafca-d318ac66-fa08-4613-8ce0-745e56917d9e
+                    user_id: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    client_url: https://localhost:5001/api/response/99
+                    is_enabled: true
+                    created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    created_at: '2023-11-02T14:33:21.6122138Z'
+                    updated_at: '2023-11-02T14:33:21.6122138Z'
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /webhooks/getevents:
+    get:
+      operationId: getEventsList
+      summary: Get events list
+      description: "Get the list of all possible events. \nA generic event automatically subscribes to all sub-events (those\
+        \ with the same hundreds digit)."
+      tags:
+      - Webhooks
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    events:
+                    - code: 100
+                      designation: Meeting
+                      generic: 'yes'
+                    - code: 104
+                      designation: MeetingGeneration
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /webhooks/organization/{organizationId}:
+    get:
+      operationId: getHooksForTheOrganization
+      summary: Get hooks for the organization
+      description: "Get the list of subscribed webhook events for a given organization.\n\n Details \n\n organization_id \n\
+        \ id of the organization"
+      tags:
+      - Webhooks
+      parameters:
+      - name: organizationId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `organizationId` as published in the collection.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    webhooks:
+                    - hook_id: 140d8f4c-7eee-447b-a148-6f35db1f721e
+                      event: Meeting
+                      business_organization_id: 2421734c-f191-4237-acd8-becf216eaae4
+                      project_id: 320625a3-7a1c31c9-b138-4d0e-aea8-ba610d2f997f
+                      user_id: 3a93b7d2-6cdbc225-1324-44ca-ba13-67e865d3620a
+                      client_url: https://localhost:5001/api/response/50
+                      is_enabled: true
+                      created_by: 3a93b7d2-6cdbc225-1324-44ca-ba13-67e865d3620a
+                      updated_by: 3a93b7d2-6cdbc225-1324-44ca-ba13-67e865d3620a
+                      created_at: '2023-11-02T14:30:55.324Z'
+                      updated_at: '2023-11-02T14:30:55.324Z'
+                    - hook_id: 47277860-f814-4e25-b05f-948064281055
+                      event: MeetingGeneration
+                      business_organization_id: 2421734c-f191-4237-acd8-becf216eaae4
+                      project_id: 320625a3-7a1c31c9-b138-4d0e-aea8-ba610d2f997f
+                      user_id: 3a93b7d2-6cdbc225-1324-44ca-ba13-67e865d3620a
+                      client_url: https://localhost:5001/api/response/99
+                      is_enabled: true
+                      created_by: 3a93b7d2-6cdbc225-1324-44ca-ba13-67e865d3620a
+                      updated_by: 3a93b7d2-6cdbc225-1324-44ca-ba13-67e865d3620a
+                      created_at: '2023-11-02T14:30:55.258Z'
+                      updated_at: '2023-11-02T14:30:55.258Z'
+                    count: 2
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /webhooks/{hookId}:
+    get:
+      operationId: getHook
+      summary: Get hook
+      description: "Get the details of a specific webhook.\n\n Endpoint mandatory info \n Details \n\n hook_id \n The ID of\
+        \ the hook"
+      tags:
+      - Webhooks
+      parameters:
+      - name: hookId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `hookId` as published in the collection.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    hook_id: 140d8f4c-7eee-447b-a148-6f35db1f721e
+                    event: Meeting
+                    business_organization_id: 2421734c-f191-4237-acd8-becf216eaae4
+                    project_id: 320625a3-7a1c31c9-b138-4d0e-aea8-ba610d2f997f
+                    user_id: 3a93b7d2-6cdbc225-1324-44ca-ba13-67e865d3620a
+                    client_url: https://localhost:5001/api/response/50
+                    is_enabled: true
+                    created_by: 3a93b7d2-6cdbc225-1324-44ca-ba13-67e865d3620a
+                    updated_by: 3a93b7d2-6cdbc225-1324-44ca-ba13-67e865d3620a
+                    created_at: '2023-11-02T14:30:55.324Z'
+                    updated_at: '2023-11-02T14:30:55.324Z'
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /webhooks/{hook_id}:
+    delete:
+      operationId: deleteHook
+      summary: Delete hook
+      description: "You can delete a subscription.\n\n Details \n\n hook_id \n id of the hook"
+      tags:
+      - Webhooks
+      parameters:
+      - name: hook_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `hook_id` as published in the collection.
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+    put:
+      operationId: updateHook
+      summary: Update hook
+      description: "You can update a subscription.\n\n Details \n\n hook_id \n id of the hook \n\n body params \n\n same as\
+        \ hook creation"
+      tags:
+      - Webhooks
+      parameters:
+      - name: hook_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `hook_id` as published in the collection.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              client_url: https://localhost:5001/api/v1.0/webhooks/wait
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    hook_id: 140d8f4c-7eee-447b-a148-6f35db1f721e
+                    event: Meeting
+                    business_organization_id: 2421734c-f191-4237-acd8-becf216eaae4
+                    project_id: 320625a3-7a1c31c9-b138-4d0e-aea8-ba610d2f997f
+                    user_id: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    client_token: mon token
+                    client_url: https://localhost:5001/api/response/50
+                    is_enabled: true
+                    created_by: 3a93b7d2-6cdbc225-1324-44ca-ba13-67e865d3620a
+                    updated_by: 3a93b7d2-6cdbc225-1324-44ca-ba13-67e865d3620a
+                    created_at: '2023-11-02T14:30:55.324Z'
+                    updated_at: '2023-11-02T14:30:55.324Z'
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+components:
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: Organization API key issued by Finalcad to organizations on an Enterprise licence. Sent on every call.
+    tokenAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: '`Authorization: token <your_api_key>`, or `Authorization: bearer <user_token>` for the legacy user-token
+        flow (POST /auth).'
+  schemas:
+    ApiError:
+      type: object
+      description: Finalcad One error envelope. `api_code` is either a static code (mostly 4xx, e.g. INVALID_INSTANCE_STATE)
+        or a constructed code of the form {ProcessCode}_ERR{n} / {ProcessCode}_WRN{n} (mostly 5xx).
+      properties:
+        statut:
+          type: integer
+          description: HTTP status code, repeated in the body (spelled `statut`).
+        api_code:
+          type: string
+          description: Internal Finalcad API error code.
+        message:
+          type: string
+          description: Short explanation of the abnormality encountered.
+        data:
+          type: object
+          description: Complementary data to help understand the error.
+          additionalProperties: true
+    Paginated:
+      type: object
+      description: Finalcad's shared pagination / differential envelope. Re-sending the last continuous_token returns only
+        elements added, modified or deleted since that call.
+      properties:
+        need_to_relaunch:
+          type: boolean
+          description: True when more elements remain to retrieve.
+        continuous_token:
+          type: string
+          description: Opaque cursor to send on the next call.
+        count:
+          type: integer
+          description: Number of elements returned by this call.
+        total_count:
+          type: integer
+          description: Total number of elements across all calls.
+        limit:
+          type: integer
+          description: Maximum elements per page. Default 50.
+        offset:
+          type: integer
+          description: Offset paging; must be a multiple of limit.
+  parameters:
+    AcceptLanguage:
+      name: Accept-Language
+      in: header
+      required: false
+      schema:
+        type: string
+        default: en
+      description: Language the API operates in. Allowed values come from GET /languages. Default English (en).

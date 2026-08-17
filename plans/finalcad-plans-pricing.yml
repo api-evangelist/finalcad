@@ -1,0 +1,39 @@
+generated: '2026-08-17'
+method: searched
+source: https://www.finalcad.com/pricing
+notes: >-
+  Finalcad no longer publishes a plans or pricing page. https://www.finalcad.com/pricing 301s into
+  https://www.orisha.com/fr/construction/logiciel/finalcad/ following the March 2025 acquisition of
+  Advae (the Finalcad + Wizzcad merger) by Orisha, and that destination page carries no tiers, no
+  prices and no quota table — only a contact/demo call to action. The one commercial fact Finalcad
+  DOES publish is the API entitlement gate, recorded below. Third-party software directories quote a
+  per-seat figure, but that is not provider-published and is deliberately not recorded here.
+plan_count: 0
+currency: null
+billing_model: contact-sales
+
+api_entitlement:
+  required_plan: Enterprise
+  statement: >-
+    "Using Finalcad One API is restricted to organizations with a subscription to Entreprise
+    licence." The API key is provided by Finalcad once the organization's eligibility to access API
+    services has been validated.
+  source: https://developer.finalcad.com/
+  self_service: false
+  free_tier: false
+  trial: null
+
+evidence:
+- url: https://www.finalcad.com/pricing
+  status: 301
+  redirects_to: https://www.orisha.com/fr/construction/logiciel/finalcad/
+- url: https://www.orisha.com/fr/construction/logiciel/finalcad/
+  status: 200
+  note: Orisha Construction product page — no published tiers or prices.
+- url: https://developer.finalcad.com/
+  status: 200
+  note: Source of the Enterprise-licence entitlement statement.
+
+gaps:
+- No published price, tier, quota or overage for any Finalcad One plan.
+- No published API-specific pricing, call allowance or metering.

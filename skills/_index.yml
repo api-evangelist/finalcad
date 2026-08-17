@@ -1,0 +1,57 @@
+generated: '2026-08-17'
+method: generated
+source: >-
+  openapi/*.yml (all operationIds verified against the specs), conventions/finalcad-conventions.yml,
+  errors/finalcad-problem-types.yml, https://developer.finalcad.com/
+notes: >-
+  Finalcad publishes no AGENTS.md and no skills of its own. These four are API Evangelist packaged
+  operating instructions, one per marquee flow named in Finalcad's own "Uses cases" section, and
+  every operationId in them exists verbatim in openapi/. They encode the two things a caller cannot
+  learn from the endpoint list alone: the continuous_token feed is both pagination and change feed,
+  and there is no idempotency key so retry safety must be read off the api_code suffix.
+
+skills:
+- name: finalcad-onboard-project
+  file: finalcad-onboard-project.md
+  flow: Create a project from an upstream ERP job and staff it with members, companies and phases.
+  operations: 10
+  use_case: >-
+    Finalcad's own "A project for each construction site" and "Easy users accesses" use cases —
+    eliminate manual project setup and re-keying for field teams.
+- name: finalcad-sync-observations
+  file: finalcad-sync-observations.md
+  flow: Pull site observations into an external tracker or warehouse using the differential feed.
+  operations: 9
+  use_case: >-
+    The read-side integration behind "Get site pulse" — defects, tasks and remarks flowing back into
+    a defect tracker or client report.
+- name: finalcad-upload-plans-and-documents
+  file: finalcad-upload-plans-and-documents.md
+  flow: Push drawings, BIM models and documents from an EDM/CDE, including the chunked upload flow.
+  operations: 12
+  use_case: >-
+    Finalcad's "The right blueprint at the right time" use case — digital continuity between the
+    design office and the field.
+- name: finalcad-export-datasets-to-bi
+  file: finalcad-export-datasets-to-bi.md
+  flow: Configure and download the daily Parquet datasets for Power BI or a warehouse.
+  operations: 5
+  use_case: Finalcad's published Power BI dashboard template path.
+
+excluded:
+- flow: Member and role administration
+  reason: >-
+    The membership operations (membersAddMembers, membersChangeRole, membersChangeSeveralRoles,
+    projectMembersManagementRemoveMembersInAProject and their project-level siblings) are
+    access-control decisions that also return named individuals. They appear as a supporting step
+    inside finalcad-onboard-project, but are deliberately not packaged as a standalone skill an
+    agent could run unattended.
+- flow: Deletion
+  reason: >-
+    Only projectDetailsDeleteAProject has a documented restore counterpart. Deleting plans, folders,
+    documents, phases, answers, trades or companies is irreversible against live construction
+    records, and there is no idempotency or dry-run affordance to make it safe.
+- flow: Authentication via POST /auth
+  reason: >-
+    Finalcad labels it a legacy endpoint and it takes a login and password in the request body.
+    Skills use the API-key form Finalcad introduced in API 2.10 instead.

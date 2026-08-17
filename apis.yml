@@ -1,19 +1,174 @@
 aid: finalcad
 name: Finalcad
-description: 'Finalcad is a company surfaced as a portfolio company of serena and added to the API Evangelist
-  network as a stub for enrichment. Sector: saas. This profile is a lead awaiting the enrichment pipeline.'
+description: 'Finalcad is a French construction-technology company, founded in Paris in 2011, whose
+  Finalcad One platform digitizes work on building sites — punch lists and defects ("observations"),
+  quality and safety inspection forms, site meetings, plans and BIM models, documents, phases and
+  subcontractor companies — across iOS and Android field apps, a web app (EU and APAC instances), an
+  AutoCAD plugin and the Finalcad One API. The API is a REST surface of 201 published operations
+  spanning organization and workspace administration, project setup and libraries, observations,
+  forms and form answers, locations (folders, plans, IFC/RVT upload), documents, media upload,
+  webhooks, XLSX/PDF exports and a daily Parquet dataset feed for Power BI. Access is restricted to
+  organizations on the Enterprise licence, authenticated with an organization API key plus a
+  per-caller authorization token. Finalcad merged with Wizzcad to form Advae, and Orisha acquired
+  Advae in March 2025; Finalcad is now a solution of Orisha Construction, though the developer
+  portal, the API host and the help centre remain live on the Finalcad domains.'
+image: https://res.cloudinary.com/postman/image/upload/t_team_logo_pubdoc/v1/team/7ab6f429a9b1c16b8650531c70d19d77d2e28100973615e0de9f1663a5faf6b7
 url: https://raw.githubusercontent.com/api-evangelist/finalcad/refs/heads/main/apis.yml
 x-type: company
 x-source: serena-portfolio
-x-tier: stub
-x-tier-reason: portfolio-lead
 specificationVersion: '0.20'
 created: '2026-08-17'
 modified: '2026-08-17'
+x-enrichment:
+  date: '2026-08-17'
+  status: enriched
+  artifacts_added: 35
+  pass: local-v1
 tags:
 - Company
-- Saas
-apis: []
+- Construction
+- Construction Technology
+- Field Management
+- Project Management
+- Quality Control
+- Safety
+- BIM
+- Documents
+- Collaboration
+- SaaS
+apis:
+- aid: finalcad:finalcad-one-project-api
+  name: Finalcad One Project API
+  description: Project-level operations for Finalcad One construction projects — project details and
+    settings, project libraries, members and roles, locations (folders, plans, IFC/RVT upload),
+    discussion groups, companies, modules for observations, forms and meetings, observations and
+    their threads, forms and form answers, documents, phases, meetings and XLSX/PDF exports. 115
+    operations.
+  humanURL: https://developer.finalcad.com/
+  baseURL: https://developer.finalcad.cloud/api
+  tags:
+  - Project
+  - Observations
+  - Forms
+  - Documents
+  - Locations
+  properties:
+  - type: OpenAPI
+    url: openapi/finalcad-projects-openapi.yml
+  - type: PostmanCollection
+    url: collections/finalcad.postman_collection.json
+  - type: Overlay
+    url: overlays/finalcad-projects-overlay.yaml
+  - type: Documentation
+    url: https://developer.finalcad.com/
+  - type: APIReference
+    url: https://developer.finalcad.com/
+- aid: finalcad:finalcad-one-organization-api
+  name: Finalcad One Organization Management API
+  description: Organization-level administration of a Finalcad One Enterprise tenant — workspaces,
+    members and roles, the observation status, trade, common-observation, priority and form-template
+    libraries, form and observation module types, data referentials, and daily Parquet dataset
+    configuration for BI. 65 operations.
+  humanURL: https://developer.finalcad.com/
+  baseURL: https://developer.finalcad.cloud/api
+  tags:
+  - Organization Management
+  - Workspaces
+  - Libraries
+  - Members
+  - Datasets
+  properties:
+  - type: OpenAPI
+    url: openapi/finalcad-organizations-openapi.yml
+  - type: PostmanCollection
+    url: collections/finalcad.postman_collection.json
+  - type: Overlay
+    url: overlays/finalcad-organizations-overlay.yaml
+  - type: Documentation
+    url: https://developer.finalcad.com/
+  - type: APIReference
+    url: https://developer.finalcad.com/
+- aid: finalcad:finalcad-one-medias-api
+  name: Finalcad One Medias API
+  description: Media upload and retrieval for the Finalcad One platform — single-shot upload for
+    files up to 5 MB, a four-step chunked upload (init, append, terminate, abort) above that, media
+    resource lookup and downloadable media URLs. 7 operations.
+  humanURL: https://developer.finalcad.com/
+  baseURL: https://developer.finalcad.cloud/api
+  tags:
+  - Medias
+  - Uploads
+  properties:
+  - type: OpenAPI
+    url: openapi/finalcad-medias-openapi.yml
+  - type: PostmanCollection
+    url: collections/finalcad.postman_collection.json
+  - type: Overlay
+    url: overlays/finalcad-medias-overlay.yaml
+  - type: Documentation
+    url: https://developer.finalcad.com/
+- aid: finalcad:finalcad-one-webhooks-api
+  name: Finalcad One Webhooks API
+  description: Webhook subscription management for the Finalcad One platform — list subscribable
+    event codes, then create, read, update and delete hooks that POST to a client URL when meetings,
+    observations, forms, documents, plans, folders, trades, common observations or companies change.
+    6 operations.
+  humanURL: https://developer.finalcad.com/
+  baseURL: https://developer.finalcad.cloud/api
+  tags:
+  - Webhooks
+  - Events
+  properties:
+  - type: OpenAPI
+    url: openapi/finalcad-webhooks-openapi.yml
+  - type: Webhooks
+    url: asyncapi/finalcad-webhooks.yml
+  - type: PostmanCollection
+    url: collections/finalcad.postman_collection.json
+  - type: Overlay
+    url: overlays/finalcad-webhooks-overlay.yaml
+  - type: Documentation
+    url: https://developer.finalcad.com/
+- aid: finalcad:finalcad-one-libraries-api
+  name: Finalcad One Libraries API
+  description: Read-only Finalcad reference libraries — module colors, module icons, module
+    suggestions, application languages and time zones — that must be resolved before creating
+    content in an organization or project. 5 operations.
+  humanURL: https://developer.finalcad.com/
+  baseURL: https://developer.finalcad.cloud/api
+  tags:
+  - Libraries
+  - Reference Data
+  properties:
+  - type: OpenAPI
+    url: openapi/finalcad-libraries-openapi.yml
+  - type: PostmanCollection
+    url: collections/finalcad.postman_collection.json
+  - type: Overlay
+    url: overlays/finalcad-libraries-overlay.yaml
+  - type: Documentation
+    url: https://developer.finalcad.com/
+- aid: finalcad:finalcad-one-authentication-api
+  name: Finalcad One Authentication API
+  description: Authentication surface of the Finalcad One API — the legacy user-token exchange and
+    the connected-user lookup. Current integrations authenticate with an organization API key in
+    X-API-Key plus an Authorization token header rather than calling the token endpoint. 2
+    operations.
+  humanURL: https://developer.finalcad.com/
+  baseURL: https://developer.finalcad.cloud/api
+  tags:
+  - Authentication
+  properties:
+  - type: OpenAPI
+    url: openapi/finalcad-authentication-openapi.yml
+  - type: Authentication
+    url: authentication/finalcad-authentication.yml
+  - type: PostmanCollection
+    url: collections/finalcad.postman_collection.json
+  - type: Overlay
+    url: overlays/finalcad-authentication-overlay.yaml
+  - type: Documentation
+    url: https://developer.finalcad.com/
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -21,4 +176,62 @@ maintainers:
   email: info@apis.io
 common:
 - type: Website
-  url: http://www.finalcad.com/
+  url: https://www.finalcad.com/
+- type: DeveloperPortal
+  url: https://developer.finalcad.com/
+- type: Documentation
+  url: https://developer.finalcad.com/
+- type: APIReference
+  url: https://developer.finalcad.com/
+- type: GettingStarted
+  url: https://help.finalcad.com/en/articles/43-introductory-guide-to-apis
+- type: Postman
+  url: https://developer.finalcad.com/
+- type: PostmanCollection
+  url: collections/finalcad.postman_collection.json
+- type: Support
+  url: https://help.finalcad.com/
+- type: HelpCenter
+  url: https://help.finalcad.com/en/collections/20-public-api
+- type: Login
+  url: https://finalcadone-web.eu.finalcad.com/login
+- type: GitHubOrganization
+  url: https://github.com/FinalCAD
+- type: StatusPage
+  url: https://status.finalcad.cloud/
+- type: PrivacyPolicy
+  url: https://www.orisha.com/en/legal/privacy-policy/
+- type: TermsOfService
+  url: https://www.orisha.com/fr/legal/mentions-legales/
+- type: Blog
+  url: https://www.orisha.com/fr/construction/blog/
+- type: Authentication
+  url: authentication/finalcad-authentication.yml
+- type: Conventions
+  url: conventions/finalcad-conventions.yml
+- type: ErrorCatalog
+  url: errors/finalcad-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/finalcad-lifecycle.yml
+- type: ChangeLog
+  url: changelog/finalcad-changelog.yml
+- type: DataModel
+  url: data-model/finalcad-data-model.yml
+- type: Conformance
+  url: conformance/finalcad-conformance.yml
+- type: Webhooks
+  url: asyncapi/finalcad-webhooks.yml
+- type: Sandbox
+  url: sandbox/finalcad-sandbox.yml
+- type: Plans
+  url: plans/finalcad-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/finalcad-rate-limits.yml
+- type: Packages
+  url: packages/finalcad-packages.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: LLMsTxt
+  url: llms/finalcad-llms.txt
+- type: DomainSecurity
+  url: security/finalcad-domain-security.yml

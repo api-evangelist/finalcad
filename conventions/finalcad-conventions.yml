@@ -1,0 +1,165 @@
+generated: '2026-08-17'
+method: searched
+source: https://developer.finalcad.com/
+docs: https://developer.finalcad.com/
+notes: >-
+  Cross-cutting request/response semantics for the Finalcad One API, read from the "Common
+  behaviors" section Finalcad publishes on its developer portal (Errors, Differential behavior,
+  Language selection) and cross-checked against the operations in openapi/.
+
+authentication:
+  style: two-header
+  headers:
+  - name: X-API-Key
+    carries: calling organization identity
+  - name: 'Authorization'
+    carries: 'caller rights — `token <api_key>` (current) or `bearer <user_token>` (legacy)'
+  detail: authentication/finalcad-authentication.yml
+
+idempotency:
+  supported: false
+  header: null
+  note: >-
+    Finalcad publishes no idempotency key, no request-replay window and no safe-retry guarantee.
+    What it publishes instead is a PARTIAL-SUCCESS model: "when an error raises, two behaviors are
+    implemented — a full rollback is done on all actions executed until the raised error, or the
+    process continues on next steps". Endpoints that process a list and can complete at least one
+    task return HTTP 206 rather than 500. A client therefore cannot blind-retry a failed bulk write;
+    it must read the api_code suffix (ERR = rolled back, WRN = did not roll back) to decide.
+  api_code_semantics:
+    ERR: the endpoint rolled back — the whole call had no effect, retry is safe
+    WRN: the endpoint could not roll back — some tasks completed, retry will duplicate
+  source: https://developer.finalcad.com/
+
+pagination:
+  style: cursor-and-offset
+  cursor:
+    param: continuous_token
+    location: query
+    response_fields:
+    - need_to_relaunch
+    - continuous_token
+    - count
+    - total_count
+    note: >-
+      Finalcad calls this "Differential behavior" and it is the same mechanism for BOTH paging and
+      change-feed. Page forward by re-sending the returned continuous_token while need_to_relaunch
+      is true. Once need_to_relaunch is false, keeping the last continuous_token and calling again
+      later returns ONLY the elements added, modified or deleted since that call — a delta feed with
+      no separate endpoint. Token format observed in the published examples is "<ticks>|<offset>".
+  offset:
+    params:
+    - limit
+    - offset
+    default_limit: 50
+    constraint: >-
+      offset must be a multiple of limit, or the API returns 400 INVALID_INSTANCE_STATE with
+      "Offset should be a multiple of Limit to manage to get all results."
+  source: https://developer.finalcad.com/
+
+localization:
+  header: Accept-Language
+  default: en
+  allowed_values_from: GET /languages (operationId languagesGetLanguages)
+  note: >-
+    Content in Finalcad One is multilingual by design — names on modules, trades, priorities and
+    statuses are returned as a names[] array of {language, translation}. Accept-Language selects the
+    API's own operating language; the names[] array is unaffected.
+  source: https://developer.finalcad.com/
+
+versioning:
+  style: release-train
+  in_url: false
+  current: '2.41'
+  note: >-
+    The API is versioned as a product release train ("API 2.41 — 10 June 2025") announced in the
+    Release notes section of the developer portal. There is no version segment in the path, no
+    version header and no version query parameter — a release lands for everyone at once.
+  detail: lifecycle/finalcad-lifecycle.yml
+
+error_envelope:
+  format: proprietary
+  rfc9457: false
+  media_type: application/json
+  fields:
+    statut: HTTP status code, repeated in the body (spelled "statut")
+    api_code: static code (mostly 4xx) or constructed {ProcessCode}_ERR{n} / _WRN{n} (mostly 5xx)
+    message: short explanation of the abnormality encountered
+    data: object of complementary data to help understand the error
+  partial_success_status: 206
+  detail: errors/finalcad-problem-types.yml
+
+rate_limits:
+  published: false
+  response_headers: []
+  detail: rate-limits/finalcad-rate-limits.yml
+
+request_tracing:
+  request_id_header: null
+  observed:
+  - header: x-amzn-RequestId
+    note: >-
+      Emitted by the AWS API Gateway fronting developer.finalcad.cloud on unauthenticated 401/403
+      responses. Finalcad does not document it as a support correlation id, so treat it as
+      infrastructure, not a published contract.
+  - header: x-amz-apigw-id
+
+field_expansion:
+  supported: false
+  note: >-
+    No expand / fields / sparse-fieldset parameter is published. Related objects are fetched by a
+    second call on the returned id (see data-model/finalcad-data-model.yml).
+
+metadata:
+  custom_fields: true
+  note: >-
+    Customer-defined structure is carried by first-class product concepts rather than a metadata
+    bag — data referentials (/organizations/{organization_id}/datareferentials), form templates and
+    form answers, and case_number on a project for the customer's own internal project reference.
+
+bulk_operations:
+  supported: true
+  note: >-
+    Several endpoints take arrays and are explicitly bulk — e.g. changeSeveralRoles
+    (POST /organizations/{organization_id}/change-members-role-bulk), addMembers, removeMembers,
+    deleteOrganizationTrades. These are the operations governed by the 206 partial-success rule
+    above.
+
+async_operations:
+  supported: true
+  pattern: generate-then-poll
+  note: >-
+    Report generation is asynchronous — POST /projects/{project_id}/forms/report/generate starts the
+    job and POST /projects/{project_id}/forms/report/get polls it; the published examples include an
+    "In Progress" 200 response distinct from the completed one. Custom-report template association
+    (GET /organizations/{organization_id}/forms/{form_id}/custom/infos) uses the same
+    In Progress / Success shape.
+
+large_uploads:
+  pattern: chunked
+  min_chunk_bytes: 5242880
+  sequence:
+  - POST /medias/uploadinit
+  - POST /medias/{media_id}/uploadappend (per part, segment_index starts at 1)
+  - POST /medias/{media_id}/uploadterminate
+  abort: POST /medias/{media_id}/uploadabort
+  integrity: md5 per part and for the whole file
+  init_ttl_seconds: 3600
+  note: >-
+    Files at or under 5 MB may use the single-shot POST /medias/uploads instead. The project-scoped
+    copies of these endpoints (/projects/{project_id}/medias/...) are marked OBSOLETE by Finalcad in
+    favour of the application-level ones.
+
+bulk_export:
+  supported: true
+  note: >-
+    Organization datasets are generated once a day at 06:00 and downloaded as Parquet via
+    GET /organizations/{organization_id}/data/config/dataseturl?name=<dataset>, which returns a
+    time-limited URL. Thirteen datasets are selectable (Observations, Statuses, CommonObservations,
+    FormInstances, FormInstanceStatuses, FormTemplates, Plans, Companies, Phases, Modules, Users,
+    Projects, Workspaces), plus ProjectsUsersRoles and Priorities and UserActivities added in later
+    releases. This is the documented path for BI tools; Finalcad ships a Power BI template for it.
+
+webhooks:
+  supported: true
+  detail: asyncapi/finalcad-webhooks.yml

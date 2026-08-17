@@ -1,0 +1,170 @@
+generated: '2026-08-17'
+method: searched
+source: https://developer.finalcad.com/
+docs: https://developer.finalcad.com/
+format: proprietary
+rfc9457: false
+media_type: application/json
+notes: >-
+  Taken from the "Common behaviors → Errors" reference Finalcad publishes on its developer portal,
+  including the two verbatim example payloads it ships, and cross-checked against the 4xx/5xx
+  responses in openapi/. Finalcad does NOT use application/problem+json; it uses a proprietary
+  envelope whose HTTP status is repeated in a body field spelled "statut".
+
+envelope:
+  fields:
+  - name: statut
+    type: integer
+    description: HTTP error code (400, 500, ...), repeated in the body.
+  - name: api_code
+    type: string
+    description: Internal Finalcad API error code — static or constructed (see code_families).
+  - name: message
+    type: string
+    description: Short explanation of the abnormality encountered.
+  - name: data
+    type: object
+    description: List of complementary data that should help to understand the error.
+
+status_families:
+- range: 2xx
+  meaning: Success
+- code: 206
+  meaning: >-
+    Partial result. Returned when an endpoint processing a list of elements could not roll back but
+    was able to execute at least one of its tasks.
+- range: 4xx
+  meaning: Error that failed given the information provided
+- range: 5xx
+  meaning: Error with our servers
+
+code_families:
+- family: static
+  applies_to: mostly 4xx
+  description: A fixed, documented identifier such as INVALID_INSTANCE_STATE.
+- family: constructed
+  applies_to: mostly 5xx
+  pattern: '{CalledMethodCode}_{ERR|WRN}{n}'
+  description: >-
+    Called-method code + ERR (the endpoint rolled back) or WRN (the endpoint could not roll back) +
+    the number of errors or warnings encountered. Published examples "GetOrga_WRN1",
+    "SetOrgaStatus_ERR2".
+  remediation: >-
+    Read the suffix before retrying. ERR means the call had no effect and is safe to replay; WRN
+    means part of the work landed and a blind replay will duplicate it.
+
+problem_types:
+- code: INVALID_INSTANCE_STATE
+  family: static
+  http_status: 400
+  title: The state of the entity {Entity} is not valid.
+  detail: Parameters sent to the endpoint are not consistent.
+  media_upload_related: false
+  remediation: >-
+    Check the parameter combination against the operation. A published instance of this code is
+    paging: "Offset should be a multiple of Limit to manage to get all results."
+- code: UNKNOWN_COMMON_OBSERVATION_ID_IN_ORGANIZATION
+  family: static
+  http_status: 400
+  title: >-
+    Common observation Id {CommonObservationId} is unknown for business organization
+    {BusinessOrganizationId}, trade {TradeId}.
+  media_upload_related: false
+  remediation: >-
+    Re-read the organization's observation library
+    (GET /organizations/{organization_id}/trades) and use a common-observation id that belongs to
+    the trade you are referencing.
+- code: EMPTY_FILE
+  family: static
+  http_status: 400
+  title: The file {FileName} in section {FileSection} is empty
+  media_upload_related: true
+  remediation: Send a non-empty part; the chunked upload rejects zero-byte segments.
+- code: FILE_EXTENSION
+  family: static
+  http_status: 400
+  title: >-
+    The file type of {FileName} in section {FileSection} isn't permitted or the file's signature
+    doesn't match the file's extension.
+  media_upload_related: true
+  remediation: >-
+    Finalcad checks the magic bytes, not just the name. Send the real content type; renaming a file
+    will not pass.
+- code: BAD_HEADER
+  family: static
+  http_status: 400
+  title: 'The content-type header must be formated like : multipart/form-data; boundary=...'
+  media_upload_related: true
+  remediation: Set a multipart/form-data content type including the boundary parameter.
+- code: MISSING_FILE_NAME
+  family: static
+  http_status: 400
+  title: The file name is missing in section {SectionName}.
+  media_upload_related: true
+  remediation: Include a filename in the content-disposition of each file part.
+- code: EMPTY_MULTIPART_FORM_DATA_CONTENT
+  family: static
+  http_status: 400
+  title: The MultipartFormDataContent is empty.
+  media_upload_related: true
+  remediation: Attach at least one part to the multipart body.
+- code: MISSING_FILE_SECTION
+  family: static
+  http_status: 400
+  title: Section {ContentDisposition} in MultipartFormData is missing it's name.
+  media_upload_related: true
+  remediation: Give every multipart section a name.
+
+transport_errors:
+- http_status: 401
+  api_code: null
+  source: probed
+  body_shape: '{"message":"Unauthorized"}'
+  detail: >-
+    Emitted by the AWS API Gateway in front of developer.finalcad.cloud before the application is
+    reached, with x-amzn-errortype UnauthorizedException. It does NOT carry the Finalcad envelope —
+    a client parsing for api_code will find nothing on an auth failure.
+  probe: https://developer.finalcad.cloud/api/organizations
+- http_status: 403
+  api_code: null
+  source: probed
+  body_shape: '{"message":"Missing Authentication Token"}'
+  detail: >-
+    Gateway response for an unrouted path. Same caveat — no Finalcad envelope.
+  probe: https://developer.finalcad.cloud/api
+
+examples:
+- name: Server Error
+  http_status: 500
+  body: |-
+    {
+        "statut": 500,
+        "api_code": "{ProcessCode}_ERR1",
+        "message": "Response status code does not indicate success: 500 (Internal Server Error).",
+        "data": {
+            "error_message": "Error during {Process} work.",
+            "data-1": "Calling {Process}.",
+            "data-2": "Response status code does not indicate success: 500 (Internal Server Error)."
+        }
+    }
+- name: Bad Request
+  http_status: 400
+  body: |-
+    {
+        "statut": 400,
+        "api_code": "INVALID_INSTANCE_STATE",
+        "message": "The state of the entity GetOrganizationsInputs is not valid.",
+        "data": {
+            "": "Offset should be a multiple of Limit to manage to get all results."
+        }
+    }
+
+gaps:
+- >-
+  Finalcad publishes seven static codes and one constructed-code pattern. It does not publish the
+  set of {ProcessCode} values, so a client cannot enumerate 5xx codes ahead of time.
+- >-
+  No error is documented for rate limiting, and no 429 appears anywhere in the collection.
+- >-
+  The gateway-level 401/403 use a different body shape from the application errors; clients need
+  two parsers.

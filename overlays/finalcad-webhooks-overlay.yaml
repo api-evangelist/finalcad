@@ -1,0 +1,81 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements — Finalcad One Webhooks API
+  version: 1.0.0
+extends: ../openapi/finalcad-webhooks-openapi.yml
+x-generated: '2026-08-17'
+x-method: generated
+x-source: openapi/finalcad-webhooks-openapi.yml, conventions/finalcad-conventions.yml
+x-note: Captures API Evangelist's enhancements over the derived contract without mutating it — the cross-cutting
+  semantics Finalcad documents in prose (idempotency posture, pagination and change feed, error envelope, Accept-Language)
+  plus the deprecations Finalcad announces in release notes but never encodes. 5 paths in the target document.
+actions:
+- target: $.info
+  description: Record that the contract is a derivation of the provider's Postman collection, not a provider-published
+    OpenAPI.
+  update:
+    x-api-evangelist:
+      profile: https://apis.io/provider/finalcad
+      derived-from: collections/finalcad.postman_collection.json
+      provider-publishes-openapi: false
+- target: $.info
+  description: Attach the cross-cutting semantics Finalcad documents in prose but does not encode in any contract.
+  update:
+    x-conventions:
+      idempotency:
+        supported: false
+        retry-signal: api_code suffix — _ERR{n} rolled back (safe to replay), _WRN{n} did not (replay duplicates)
+        partial-success-status: 206
+      pagination:
+        style: cursor+offset
+        cursor-param: continuous_token
+        response-fields:
+        - need_to_relaunch
+        - continuous_token
+        - count
+        - total_count
+        default-limit: 50
+        offset-constraint: offset must be a multiple of limit
+        doubles-as-change-feed: true
+      rate-limits:
+        published: false
+        headers: []
+      error-envelope:
+        rfc9457: false
+        fields:
+        - statut
+        - api_code
+        - message
+        - data
+        gateway-shape: '{"message": "..."} with no api_code on 401/403'
+      detail: conventions/finalcad-conventions.yml
+- target: $.components.parameters
+  description: Declare the Accept-Language header Finalcad documents globally under 'Language selection'.
+  update:
+    AcceptLanguage:
+      name: Accept-Language
+      in: header
+      required: false
+      schema:
+        type: string
+        default: en
+      description: Language the API operates in. Allowed values come from GET /languages. Default English (en).
+- target: $.paths.*.*
+  description: Every operation accepts the documented Accept-Language header.
+  update:
+    x-accepts-language: true
+- target: $.paths.*.get
+  description: Mark reads as agent-safe; writes are deliberately left unmarked because there is no idempotency key.
+  update:
+    x-agentic-access:
+      action-class: read
+      consequence: connected
+- target: $.info
+  description: Record the webhook surface's unpublished parts so an integrator sees the gaps in the contract itself.
+  update:
+    x-webhook-gaps:
+      payload-schema: not published
+      callback-signature: none — static client_token in a caller-named header only
+      retry-policy: not published
+      event-catalog: auth-gated behind GET /webhooks/getevents
+      detail: asyncapi/finalcad-webhooks.yml

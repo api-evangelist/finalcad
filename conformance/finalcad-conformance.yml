@@ -1,0 +1,147 @@
+generated: '2026-08-17'
+method: derived
+source: >-
+  openapi/*.yml, https://developer.finalcad.com/, live probes of developer.finalcad.cloud and the
+  Finalcad web hosts
+notes: >-
+  Cross-cutting and industry standards asserted against the Finalcad One API. Each entry records
+  whether the API conforms and the evidence for that call. Finalcad publishes no compliance or
+  certification claims on any public page reachable from its developer portal, help centre or the
+  Orisha Construction product pages, so no `Compliance` pointer is emitted.
+
+standards:
+- id: openapi
+  conforms: false
+  evidence: >-
+    Finalcad publishes no OpenAPI. The machine-readable contract it does publish is a Postman
+    Collection v2.1 (201 requests) served from its developer portal. The specs in openapi/ are
+    API Evangelist derivations of that collection, not provider artifacts.
+- id: postman-collection-2.1
+  conforms: true
+  evidence: >-
+    https://developer.finalcad.com/api/collections/10995648/Tz5v1Es2 returns a valid v2.1 collection
+    (info/item/event/variable) with 201 requests, 20 collection variables and saved response
+    examples on most operations.
+- id: asyncapi
+  conforms: false
+  evidence: Webhook surface documented in prose; no AsyncAPI document, no event schemas.
+- id: cloudevents
+  conforms: false
+  evidence: No CloudEvents envelope, type or source is published for webhook deliveries.
+- id: rfc9457
+  conforms: false
+  evidence: >-
+    Errors use a proprietary envelope (statut / api_code / message / data) served as
+    application/json, not application/problem+json. See errors/finalcad-problem-types.yml.
+- id: rfc7807
+  conforms: false
+  evidence: Same as rfc9457 — no problem+json media type anywhere in the published surface.
+- id: oauth2
+  conforms: partial
+  evidence: >-
+    Finalcad states that a user must authenticate on the platform to obtain an OAuth 2.0 token
+    carrying their rights, and the legacy POST /auth response is an Okta-issued JWT. But no
+    authorization endpoint, token endpoint, client registration, grant type or scope list is
+    published, and /.well-known/oauth-authorization-server 403s. Not usable as a public OAuth
+    integration.
+- id: oidc
+  conforms: false
+  evidence: /.well-known/openid-configuration returns 403 on the API host and 404 on the docs host.
+- id: rfc8414
+  conforms: false
+  evidence: No authorization server metadata document is served on any Finalcad host.
+- id: rfc9116
+  conforms: false
+  evidence: No /.well-known/security.txt on any host — see well-known/finalcad-well-known.yml.
+- id: rfc8594
+  conforms: false
+  evidence: >-
+    No Sunset or Deprecation headers. Deprecation is communicated by writing "OBSOLETE" into the
+    documentation folder title.
+- id: rfc9457-idempotency
+  conforms: false
+  evidence: >-
+    No Idempotency-Key header and no replay window. Retry safety is instead signalled after the fact
+    by the ERR/WRN suffix of the api_code, plus a 206 partial-success status on bulk operations.
+- id: pagination
+  conforms: true
+  evidence: >-
+    Two coherent, documented mechanisms — offset paging (limit/offset, default 50, offset must be a
+    multiple of limit) and an opaque continuous_token cursor that doubles as a change feed
+    (need_to_relaunch / count / total_count). Documented once under "Differential behavior" and
+    applied uniformly since API 2.30.
+- id: http-content-negotiation
+  conforms: partial
+  evidence: >-
+    Accept-Language is honoured with a documented allowed-value endpoint (GET /languages) and an
+    explicit default of en. Media-type negotiation is not offered — JSON only.
+- id: rest-resource-modelling
+  conforms: partial
+  evidence: >-
+    Mostly resource-oriented and correctly nested (/organizations/{id}/workspaces/{id}/modules), but
+    a substantial number of operations are RPC verbs on a collection — /modules/delete,
+    /add-members, /remove-members, /change-members-role-bulk, /link-forms, /unlink-forms,
+    /set-referential, /set-name, /restore, /filter, /report/generate, /report/get. Several DELETEs
+    also take a request body (delete organization trades, delete project companies).
+- id: http-method-semantics
+  conforms: partial
+  evidence: >-
+    GET/PUT/DELETE are used conventionally, but POST is used for read operations in at least two
+    places — POST /organizations/{organization_id}/members ("Get members") and
+    POST /projects/{project_id}/observations/filter — so a caller cannot assume POST means write.
+- id: uri-consistency
+  conforms: false
+  evidence: >-
+    Path-variable naming is inconsistent within the same API — :organization_id vs :organizationId
+    vs :organizationid, :project_id vs :projectId, :folder_id vs :folderId, :referentialId. A
+    generated client will produce differently-named parameters for the same concept depending on the
+    endpoint.
+- id: tls
+  conforms: true
+  evidence: TLSv1.3 on www.finalcad.com, developer.finalcad.cloud and developer.sandbox.finalcad.cloud.
+- id: hsts
+  conforms: false
+  evidence: No Strict-Transport-Security header on any probed host.
+- id: dnssec
+  conforms: false
+  evidence: Not enabled on finalcad.com or finalcad.cloud.
+- id: caa
+  conforms: false
+  evidence: No CAA records on finalcad.com or finalcad.cloud.
+- id: spf
+  conforms: partial
+  evidence: SPF and DMARC present on finalcad.com (p=none); neither present on finalcad.cloud.
+- id: gdpr
+  conforms: unknown
+  evidence: >-
+    Finalcad is a French company (Paris) and its data is now covered by Orisha's group privacy
+    policy at https://www.orisha.com/en/legal/privacy-policy/. No Finalcad-specific DPA, subprocessor
+    list or data-residency statement is published on the developer surface. Two regional web
+    instances exist (eu and ap), which implies regional hosting, but Finalcad does not document a
+    residency guarantee.
+
+certifications:
+  published: []
+  note: >-
+    No SOC 2, ISO 27001, PCI DSS, HIPAA or FedRAMP claim is published on any Finalcad or Orisha
+    Construction page reachable from the developer surface, and there is no trust centre. Absence
+    here is a documentation finding, not an assertion that no certification exists.
+
+industry:
+  sector: construction technology / field management
+  sector_standards_checked:
+  - id: buildingsmart-ifc
+    conforms: partial
+    evidence: >-
+      The API ingests IFC and RVT building models — POST /projects/{project_id}/plans/upload_bim
+      ("Upload IFC"), added in API 2.18. Finalcad does not publish which IFC schema versions are
+      accepted, and exposes no IFC-native read model; the models become plans in the Locations
+      hierarchy.
+  - id: bcf
+    conforms: false
+    evidence: >-
+      No BIM Collaboration Format (BCF) endpoint or export. Observations — the natural BCF
+      analogue — are exported as XLSX and PDF only.
+  - id: cobie
+    conforms: false
+    evidence: No COBie exchange is published.

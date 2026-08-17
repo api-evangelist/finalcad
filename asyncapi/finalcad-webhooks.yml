@@ -1,0 +1,142 @@
+generated: '2026-08-17'
+method: searched
+source: https://developer.finalcad.com/
+docs: https://developer.finalcad.com/
+type: webhooks
+asyncapi_published: false
+notes: >-
+  Finalcad publishes a webhook surface but no AsyncAPI, no CloudEvents binding and no event-schema
+  reference. This file captures the webhook catalog as Finalcad documents it, in the Webhook folder
+  of its developer portal and in the API 2.16 release note of 22 January 2024 that introduced it.
+  NOTHING here is invented: where Finalcad does not publish the payload shape or the full event
+  list, that is recorded as a gap rather than filled in.
+
+subscription_model:
+  direction: outbound
+  transport: HTTPS POST to a subscriber-supplied client_url
+  managed_via: the Finalcad One API itself (see openapi/finalcad-webhooks-openapi.yml)
+  scope: >-
+    A hook is created against BOTH a business_organization_id and a project_id, so subscriptions are
+    per project, not per organization. There is no documented way to subscribe once for every
+    project in an organization.
+  management_operations:
+  - operationId: getEventsList
+    method: GET
+    path: /webhooks/getevents
+    purpose: List every subscribable event code.
+  - operationId: createHook
+    method: POST
+    path: /webhooks
+    purpose: Subscribe to an event.
+  - operationId: getHooksForTheOrganization
+    method: GET
+    path: /webhooks/organization/{organizationId}
+    purpose: List an organization's subscriptions.
+  - operationId: getHook
+    method: GET
+    path: /webhooks/{hookId}
+    purpose: Read one subscription.
+  - operationId: updateHook
+    method: PUT
+    path: /webhooks/{hook_id}
+    purpose: Change the client_url or client_token of a subscription.
+  - operationId: deleteHook
+    method: DELETE
+    path: /webhooks/{hook_id}
+    purpose: Unsubscribe.
+
+subscription_object:
+  fields:
+    hook_id: uuid of the subscription
+    event: event name (returned) / event code as integer (sent on create)
+    business_organization_id: organization the hook belongs to
+    project_id: project the hook is scoped to
+    user_id: user who owns the subscription
+    client_url: the URL Finalcad calls when the event fires
+    client_token: optional secret value the subscriber supplies
+    client_header_key: optional header name the client_token is sent in
+    is_enabled: boolean
+    created_at / created_by / updated_at / updated_by: audit fields
+
+authentication_to_subscriber:
+  mechanism: static shared secret in a caller-named header
+  detail: >-
+    The subscriber chooses a header name (client_header_key) and a value (client_token); Finalcad
+    sends that header on the callback. There is NO HMAC signature, no timestamp, no replay window
+    and no published signing key, so a subscriber cannot verify that a callback body was not
+    tampered with — only that whoever sent it knew a static secret. Both fields are optional and
+    both are empty in every published example.
+  hmac: false
+  replay_protection: false
+
+event_codes:
+  numbering: >-
+    Codes are grouped in hundreds. Finalcad states "a generic event automatically subscribes to all
+    sub-events (those with the same hundreds digit)" — subscribing to the generic 100 also delivers
+    104 and every other 1xx event.
+  published_examples:
+  - code: 100
+    designation: Meeting
+    generic: true
+  - code: 104
+    designation: MeetingGeneration
+    generic: false
+  completeness: partial
+  completeness_note: >-
+    The two codes above are the only ones in Finalcad's published example response. The FULL list is
+    only obtainable from GET /webhooks/getevents, which requires an organization API key — so the
+    authoritative event catalog is auth-gated. The prose in the release notes names the covered
+    entity families (below) but not their numeric codes.
+
+documented_event_families:
+- entity: Meeting
+  actions: [created, updated, deleted]
+  introduced: '2.16'
+- entity: Observation
+  actions: [created, updated, deleted]
+  introduced: '2.16'
+- entity: Form
+  actions: [created, updated, deleted]
+  introduced: '2.16'
+- entity: Document
+  actions: [created, updated, deleted]
+  introduced: '2.16'
+- entity: Plan
+  actions: [created, updated, deleted]
+  introduced: '2.16'
+- entity: Folder
+  actions: [created, updated, deleted]
+  introduced: '2.16'
+- entity: Trade
+  actions: [created, updated, deleted]
+  introduced: '2.16'
+- entity: CommonObservation
+  actions: [created, updated, deleted]
+  introduced: '2.16'
+- entity: Company
+  actions: [created, updated, deleted]
+  introduced: '2.16'
+
+delivery:
+  retries: undocumented
+  timeout: undocumented
+  ordering: undocumented
+  payload_schema: undocumented
+  payload_note: >-
+    Finalcad publishes no example of a delivered webhook body — only of the subscription object.
+    An integrator cannot know the callback payload shape without subscribing and observing it.
+
+alternative_change_feed:
+  mechanism: differential polling
+  detail: >-
+    Finalcad's own primary change mechanism is polling, not push — every differential endpoint
+    returns a continuous_token which, replayed later, yields only what changed since. See
+    conventions/finalcad-conventions.yml. For most integrations that is the documented path; the
+    webhook surface is the thinner of the two.
+
+gaps:
+- Full event-code list is behind an API key.
+- No payload schema or example for any delivered event.
+- No signature, timestamp or replay protection on the callback.
+- No retry, backoff or dead-letter policy.
+- No AsyncAPI, no CloudEvents, no event registry.
