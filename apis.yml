@@ -35,6 +35,18 @@ tags:
 - BIM
 - Documents
 - Collaboration
+- Software-as-a-Service
+tags_raw:
+- Company
+- Construction
+- Construction Technology
+- Field Management
+- Project Management
+- Quality Control
+- Safety
+- BIM
+- Documents
+- Collaboration
 - SaaS
 apis:
 - aid: finalcad:finalcad-one-project-api
@@ -116,6 +128,9 @@ apis:
   humanURL: https://developer.finalcad.com/
   baseURL: https://developer.finalcad.cloud/api
   tags:
+  - Webhook
+  - Event
+  tags_raw:
   - Webhooks
   - Events
   properties:
