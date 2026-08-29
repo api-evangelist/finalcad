@@ -12,6 +12,18 @@ description: 'Finalcad is a French construction-technology company, founded in P
   per-caller authorization token. Finalcad merged with Wizzcad to form Advae, and Orisha acquired
   Advae in March 2025; Finalcad is now a solution of Orisha Construction, though the developer
   portal, the API host and the help centre remain live on the Finalcad domains.'
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 image: https://res.cloudinary.com/postman/image/upload/t_team_logo_pubdoc/v1/team/7ab6f429a9b1c16b8650531c70d19d77d2e28100973615e0de9f1663a5faf6b7
 url: https://raw.githubusercontent.com/api-evangelist/finalcad/refs/heads/main/apis.yml
 x-type: company
