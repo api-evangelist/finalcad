@@ -1,0 +1,997 @@
+openapi: 3.2.0
+info:
+  title: Finalcad One Project Forms API
+  version: '2.41'
+  summary: 'Project-level operations for Finalcad One construction projects: project details, project libraries, members, locations (folders / plans / IFC), discussion groups, companies, modules (observations / forms / meetings), observations, forms and form answers, documents, phases, meetings and XLSX/PDF exports.'
+  description: 'Project-level operations for Finalcad One construction projects: project details, project libraries, members, locations (folders / plans / IFC), discussion groups, companies, modules (observations / forms / meetings), observations, forms and form answers, documents, phases, meetings and XLSX/PDF exports.
+
+
+    DERIVED, NOT PUBLISHED BY THE PROVIDER. Finalcad publishes no OpenAPI. This document was mechanically derived by API Evangelist from the first-party public Postman collection "Finalcad One API" served by Finalcad at https://developer.finalcad.com/ (collection JSON: https://developer.finalcad.com/api/collections/10995648/Tz5v1Es2), saved in this repo at collections/finalcad.postman_collection.json. Every path, method, header, query parameter, example request body and example response below is carried over from that collection; nothing was invented. Request/response bodies are typed as generic objects because the collection carries examples, not schemas. Four Finalcad employees'' personal e-mail addresses that appeared in the collection''s example payloads were replaced with placeholders; nothing else was changed.'
+  contact:
+    name: Finalcad One API — developer portal
+    url: https://developer.finalcad.com/
+  x-generated-by: API Evangelist enrichment pipeline (derived from the first-party Postman collection)
+  x-source: collections/finalcad.postman_collection.json
+  x-source-url: https://developer.finalcad.com/
+servers:
+- url: https://developer.finalcad.cloud/api
+  description: Production — the baseUrl variable published in the Finalcad One API Postman collection.
+- url: https://developer.sandbox.finalcad.cloud/api
+  description: Sandbox — published by Finalcad in the 'Retrieve data in Power BI' tutorial of the same collection.
+security:
+- apiKey: []
+  tokenAuth: []
+tags:
+- name: Forms
+paths:
+  /projects/{project_id}/form-answers:
+    post:
+      operationId: formsCreateAnswer
+      summary: Create answer
+      description: "Based on a form ID, you can fill the different fields of the form. Here is the list of field types you can fill from the API:\n\n Short answer\n\n Paragraph\n\n Single choice\n\n Multiple choice\n\n Control\n\n Phone\n\n Email\n\n Disclaimer\n\n Grid\n\n Signature\n\n Linked files\n\n To do so, you have to get the field ID and type by using the \"Get form answer\" endpoint. Include the following info in the endpoint.\n\n Endpoint mandatory info \n Details \n\n project_id \n The ID of the project where the form has been created \n\n Body mandatory info \n Details \n\n form_instance_id \n The ID of the form instance \n\n field_id \n The ID of the field you want to update \n\n Depending on type_field_presentation and type_field_data for each field you have to fill in the endpoint the following information\n\n Type \n type_field_data \n type_field_presentation \n Other field data \n Value to fill in the endpoint \n\n Text \n Text \n ShortAnswer \n \n value_string \n\n Paragraph \n Text \n Paragraph \n \n value_string \n\n Phone number \n Text \n PhoneNumber \n \n value_string \n\n Email \n Text \n Email \n \n value_string \n\n Number \n Number \n ShortAnswer \n \n value_numeric \n\n Date \n Calendar \n ShortAnswer \n form_field_sa_calendar.format_calendar \n=DateOnly \n value_date1 \n\n Time \n Calendar \n ShortAnswer \n form_field_sa_calendar.format_calendar \n=TimeOnly \n value_time1 \n\n Date&Time \n Calendar \n ShortAnswer \n form_field_sa_calendar.format_calendar \n=DateAndTime \n value_date1 and value_time1 \n\n RadioButton \n Text \n SingleChoice \n \n array_field_choices \n\n Checkboxes \n Text \n MultipleChoice \n \n array_field_choices \n\n OkKo (control) \nOkKoNeutral \n Text \n Control \n \n array_field_choices \n\n OkKo+NA \n Text \n Control \n form_field_sa_control.na_values_allowed=true \n na_value/ array_field_choices \n\n Grid \n Resources \n \n FormLink \n\n Disclaimer \n Text \n Disclaimer \n \n value_boolean \n\n Linked file \n Resources \n Attachments \n \n see below \n\n Signature \n Resources \n Signature \n \n see below \n\n Theses fields can not be set \n\n formula \n Text \n Formula \n\n For attaching files to a linked files field \nfirst, create a text answer for the field\nnext,use the 'link file to answer' to attach a media\nrepeat theses 2 steps for attaching another file\n\n For attaching files to to a signature field \nfirst, create a text answer for the field\nnext,use the 'link file to answer' to attach an image media\n\n For attaching items to a control field \nfirst, create an answer for the field\nnext,use the 'link item to answer' to attach an item\nrepeat the second step for attaching another item\n\n For grid row creation ,\nthe body should include 2 others keys :\ncreate_form_template_instance with value=true\ncreate_form_template_instance_for_grid with value=true\n\n For grid field creation \nthe body should include 2 others keys\ncreate_form_template_instance with value=true\nform_template_instance_id with value returned in value_form_template_instance_id by the grid creation\n\n It is not recommended to create a grid row without filling its fields\n\n For paragraph's you can add formated text html syntax with the following tag's"
+      tags:
+      - Forms
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              field_id: 001a6c1b-dfa7-4429-b4ef-570ccc684598
+              form_instance_id: <uuid>
+              create_form_template_instance: true
+              value_string: Exemple de texte
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success_Text:
+                  value:
+                    id: 0e0ff199-6c3f-4051-84ec-710a5507d510
+                    field_id: 4f665120-f630-41b3-b2ea-d36db0a77736
+                    form_template_instance_id: d1f71cb7-0658-41e0-9da8-d7a8304f3a49
+                    order: 0
+                    value_string: text line
+                    na_value: false
+                    is_valid_content: true
+                    client_created_at: '2023-03-09T09:33:39.3992492Z'
+                    client_updated_at: '2023-03-09T09:33:39.3992492Z'
+                Success_Date:
+                  value:
+                    id: 6698c260-7c7d-418e-995d-3bf5b25d8b5e
+                    field_id: 314e2745-b5f2-46cb-95a2-fdcb9c880265
+                    form_template_instance_id: d1f71cb7-0658-41e0-9da8-d7a8304f3a49
+                    order: 0
+                    value_date1: '2023-02-20T00:00:00Z'
+                    na_value: false
+                    is_valid_content: true
+                    client_created_at: '2023-03-09T09:36:16.8152788Z'
+                    client_updated_at: '2023-03-09T09:36:16.8152788Z'
+                Success_Choice:
+                  value:
+                    id: 2765e3f7-c46a-465b-9657-a1e0afef4137
+                    field_id: b6756d2f-d9b9-4061-acbd-eddba04ea9f9
+                    form_template_instance_id: d1f71cb7-0658-41e0-9da8-d7a8304f3a49
+                    order: 0
+                    array_field_choices:
+                    - c9cd70be-2fe3-4a4a-8e22-fefc43ca528e
+                    na_value: false
+                    is_valid_content: true
+                    client_created_at: '2023-03-09T09:38:09.437417Z'
+                    client_updated_at: '2023-03-09T09:38:09.437417Z'
+                Create_Grid_Row:
+                  value:
+                    id: b85fb353-c880-491c-ab7d-db94b5111aea
+                    field_id: 6c253a05-87d6-40ce-94f4-c5bb86e1b52a
+                    form_template_instance_id: 8e6e4f9c-41d9-4bc7-916d-5bb09c16896d
+                    order: 0
+                    value_form_template_instance_id: da946843-440c-4f8a-b299-8d73d10b9a76
+                    na_value: false
+                    is_valid_content: true
+                    client_created_at: '2024-11-19T13:48:10.4054638Z'
+                    client_updated_at: '2024-11-19T13:48:10.4054638Z'
+                Fill_Grid_Element:
+                  value:
+                    id: 8b732b87-103d-4799-863d-d716e607ef7f
+                    field_id: 57001aa5-d5ab-4681-be7c-b1cd153405e3
+                    form_template_instance_id: da946843-440c-4f8a-b299-8d73d10b9a76
+                    order: 0
+                    value_string: xxxx
+                    na_value: false
+                    is_valid_content: true
+                    client_created_at: '2024-11-19T13:50:09.1496227Z'
+                    client_updated_at: '2024-11-19T13:50:09.1496227Z'
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /projects/{project_id}/form-answers/link:
+    post:
+      operationId: formsLinkItemToAnswer
+      summary: Link item to answer
+      description: "You can link an observation or a form to a form answer of a control field.\n\n Details \n\n project_id \n The ID of the project where the form reside \n\n Body mandatory info \n Details \n\n form_instance_id \n The ID of the form instance \n\n form_answer_id \n The ID of the answer you want to link \n\n target_id \n id of the linked item \n\n target_type \n sould be \"Observation\" or \"Form\" depending of the type of the linked item"
+      tags:
+      - Forms
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              form_instance_id: <uuid>
+              form_answer_id: <uuid>
+              target_id: <uuid>
+              target_type: Observation
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    message_id: '523152392112308224'
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /projects/{project_id}/form-answers/{answer_id}:
+    put:
+      operationId: formsUpdateAnswer
+      summary: Update answer
+      description: "Based on a form ID, you can update the different fields of the form. Here is the list of field types you can fill from the API:\n\n Short answer\n\n Paragraph\n\n Single choice\n\n Multiple choice\n\n Control\n\n Phone\n\n Email\n\n Grid\n\n Disclaimer\n\n To do so, you have to get the field ID and type by using the \"Get form answer\" endpoint. Include the following info in the endpoint.\n\n Endpoint mandatory info \n Details \n\n project_id \n The ID of the project where the form has been created \n\n form_answer_id \n The ID of the form anwser \n\n Depending on type_field_presentation and type_field_data for each field you have to fill in the endpoint the following information\nbut the value_form_template_instance_id is mandatory\n\n Check the table on Post create form answer.\n\n if no value is sent in the endpoint, the existing value will remain the same\n\n for linked files type,\nyou can remove an attached file by deleting the answer"
+      tags:
+      - Forms
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      - name: answer_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `answer_id` as published in the collection.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    id: 179b7fcb-b15b-4cfe-8e4b-6ac91deb2463
+                    field_id: 5d8c3490-b252-4156-b926-9e26b20f4117
+                    form_template_instance_id: d1f71cb7-0658-41e0-9da8-d7a8304f3a49
+                    order: 0
+                    value_numeric: 1000
+                    value_form_template_instance_id: d1f71cb7-0658-41e0-9da8-d7a8304f3a49
+                    na_value: false
+                    is_valid_content: true
+                    client_created_at: '2023-03-09T09:44:13.4808035Z'
+                    client_updated_at: '2023-03-09T09:44:13.4808035Z'
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+    delete:
+      operationId: formsDeleteAnswer
+      summary: Delete answer
+      description: "Based on a form ID, you can delete the form answer of a form.\n\n Endpoint mandatory info \n Details \n\n project_id \n The ID of the project where the form has been created \n\n form_answer_id \n The ID of the form anwser"
+      tags:
+      - Forms
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      - name: answer_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `answer_id` as published in the collection.
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /projects/{project_id}/form-answers/{answer_id}/attach-media:
+    post:
+      operationId: formsLinkFileToAnswer
+      summary: Link file to answer
+      description: "You can link a file to the following form answer types:\n\n attachments\n\n signature\n\n Details \n\n project_id \n The ID of the project where the form reside \n\n answer_id \n if of the answer \n\n Body mandatory info \n Details \n\n media_id \n id of the previously uploaded media"
+      tags:
+      - Forms
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      - name: answer_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `answer_id` as published in the collection.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              media_id: <uuid>
+      responses:
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    id: 3c788ea7-681b-4776-bc31-d6d4c17a321a
+                    field_id: 56b550fe-fe4c-453b-a6f9-be0797376c1a
+                    form_template_instance_id: 7e5d3d16-ae18-41e8-bf43-bea879314a5b
+                    order: 0
+                    value_string: test
+                    value_media_resources:
+                    - id: 5491c7d7-eb1f-459c-a160-5cee027ec786
+                      file_name: LogoTest.png
+                      mime_type: image/png
+                      created_at: '2024-12-03T10:50:37.9123366Z'
+                    na_value: false
+                    is_valid_content: true
+                    client_created_at: '2024-12-03T10:50:23.628405Z'
+                    client_updated_at: '2024-12-03T10:50:23.628405Z'
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /projects/{project_id}/form-answers/{answer_id}/detach-media:
+    post:
+      operationId: formsUnlinkFileToAnswer
+      summary: Unlink file to answer
+      description: "You can unlink a file in signature form answers.\n\n Details \n\n project_id \n The ID of the project where the form reside \n\n answer_id \n if of the answer \n\n Body mandatory info \n Details \n\n media_ids \n list of the media associated with the answer"
+      tags:
+      - Forms
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      - name: answer_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `answer_id` as published in the collection.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              media_ids:
+              - 7b355a9e-f6ac-4c86-9c72-b92475195af4
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /projects/{project_id}/forms:
+    get:
+      operationId: formsGetProjectFormsList
+      summary: Get project forms list
+      description: "For a given project, you can list all the existing forms by IDs.\n\n Details \n\n project_Id \n The Id of the project \n\n Query params optionals \n\n see Commmon behaviors / differential"
+      tags:
+      - Forms
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Get_project_forms_list:
+                  value:
+                    form_instance_ids:
+                    - form_instance_id: bc6419a9-c5ca-42c5-8d5b-525634495ff6
+                      form_id: 9b2de0df-6504-48db-a923-b71d6553e48b
+                      name: ess in categ
+                      num: 2
+                      template_name: Test link item
+                      module_id: 117f1c84-e69d-4429-baf9-74e052f5e0bc
+                      category_id: 594f4f7c-6f7a-410b-bb5e-5aa6ef488a9c
+                    - form_instance_id: 19ff0620-c2be-4d81-a46a-a482c6e5c185
+                      form_id: dd51ccda-0f53-444d-b9f5-45252c37ca37
+                      name: Alaska
+                      num: 1
+                      template_name: avec grid
+                      module_id: 117f1c84-e69d-4429-baf9-74e052f5e0bc
+                    limit: 50
+                    offset: 0
+                    count: 2
+                    total_count: 2
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+    post:
+      operationId: formsCreateForm
+      summary: Create form
+      description: "Going along with the option to create a project from scratch, you can now also create forms using just a few parameters.\n\n Details \n\n project_id \n The ID of the project where the form will be created \n\n body optional info \n Details \n\n form_id \n The ID of the form template to be used \n\n name \n the name of the form instance \n\n body optional info \n Details \n\n priority_id \n The ID of the priority the form will be assigned \n\n status_id \n The ID of the status used for the new form. If not set the default one will be used \n\n assignee_id \n The user ID of the person that will be assigned to the form \n\n company_id \n The ID of the company that will be assigned to the form \n\n phase_id \n The ID of the phase that is set for the new form \n\n plan_id \n The ID of the plan that will be used ofr the form \n\n position_x \n X position of the pin on the plan \n\n position_y \n Y position of the pin on the plan \n\n due_date \n The date the form is due, set as a timestamp \n\n module_id \n Id of the module \n\n category_id \n id of the category \n\n latitude \n in decimal degres following ISO6709 \n\n longitude \n in decimal degres \nfollowing ISO6709 \n\n NOTICE: This endpoint only creates the form. It cannot edit the fields of the form"
+      tags:
+      - Forms
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              form_id: <uuid>
+              name: <string>
+              module_id: <uuid>
+              category_id: '{{category_id}}'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Create_Form_with_phase:
+                  value:
+                    id: 6c5d14e5-3504-4516-a742-78c24d4b8c34
+                    name: <string>
+                    form_id: c5b6b135-89c2-484e-81a9-8d13f49086e2
+                    status_id: a4abaa43-801c-4470-8e60-d093ebb611a0
+                    priority_id: c5988ff9-62f1-4849-8403-38d5791be730
+                    position_x: 0.5
+                    position_y: 0.5
+                    client_created_at: '2022-10-17T14:05:27.3993788Z'
+                    module_id: 1e870757-f1df-452f-a86c-d4115c10bf43
+                    phase_id: 7675aa39-d7bd-4c5d-98eb-6025a668862d
+                    created_at: '2022-10-17T14:05:30.3430471Z'
+                    created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    updated_at: '2022-10-17T14:05:30.3430471Z'
+                    updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                Create_Form:
+                  value:
+                    id: 0c49b94c-7d7e-4b62-89fe-034338acbaaf
+                    name: up
+                    form_id: cf9d18bd-d473-400a-909a-e48ea0eb1404
+                    status_id: b9865da6-5267-4e9e-99a9-c280e743533e
+                    priority_id: f160d63c-5531-41d3-a80a-678a3026f6e7
+                    position_x: 0.5
+                    position_y: 0.5
+                    client_created_at: '2024-04-11T14:37:41.1213818Z'
+                    client_updated_at: '2024-04-11T14:37:41.1213818Z'
+                    module_id: 117f1c84-e69d-4429-baf9-74e052f5e0bc
+                    category_id: 2a9558c9-de86-4d6d-8b82-93f9896870d9
+                    created_at: '2024-04-11T14:37:41.2843793Z'
+                    created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    updated_at: '2024-04-11T14:37:41.2843793Z'
+                    updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /projects/{project_id}/forms/differential:
+    get:
+      operationId: formsGetProjectFormsDifferential
+      summary: Get project forms differential
+      description: "For a given project, you can list all the existing form instances.\n\n Details \n\n project_id \n The ID of the project \n\n Query params optionals \n\n see Commmon behaviors / differential"
+      tags:
+      - Forms
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    forms:
+                    - id: bb8060b9-4334-4f1d-a44b-07a3a16891e9
+                      form_id: 1aa8afc4-3106-446b-a471-55fc413d9867
+                      name: '11111111111'
+                      project_id: 45d2b228-25681789-2dbe-42d7-8310-491ab3ab360f
+                      status_id: ab7060f9-a5c2-458d-ab14-4dc9a720b087
+                      priority_id: a93401c6-abc2-4ced-bb82-b558c1692581
+                      num: 1
+                      client_created_at: '2024-05-22T12:47:28.436Z'
+                      client_updated_at: '2024-05-22T12:47:28.436Z'
+                      module_id: 117f1c84-e69d-4429-baf9-74e052f5e0bc
+                      created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                      updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                      created_at: '2024-05-22T12:47:28.521403Z'
+                      updated_at: '2024-05-22T12:47:28.521403Z'
+                      enabled: true
+                    - id: cab6a6b3-ae05-4faf-a033-6314d582c2f4
+                      form_id: 1aa8afc4-3106-446b-a471-55fc413d9867
+                      name: '2222222222'
+                      project_id: 45d2b228-25681789-2dbe-42d7-8310-491ab3ab360f
+                      status_id: ab7060f9-a5c2-458d-ab14-4dc9a720b087
+                      priority_id: a93401c6-abc2-4ced-bb82-b558c1692581
+                      num: 2
+                      client_created_at: '2024-05-22T12:47:39.632Z'
+                      client_updated_at: '2024-05-22T12:47:39.632Z'
+                      module_id: 117f1c84-e69d-4429-baf9-74e052f5e0bc
+                      created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                      updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                      created_at: '2024-05-22T12:47:39.624331Z'
+                      updated_at: '2024-05-22T12:47:39.624331Z'
+                      enabled: true
+                    need_to_relaunch: true
+                    continuous_token: 0|2
+                    count: 2
+                    total_count: 6
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /projects/{project_id}/forms/{form_id}/form-instances/{form_instance_id}:
+    get:
+      operationId: formsGetFormAnswers
+      summary: Get form answers
+      description: "Based on a form ID and a form instance ID, we can access all the answers filled by users.\n\n Details \n\n project_Id \n the id of the project to be modified \n\n form_id \n id the the form template used by the form instance (look at get form detail to found it) \n\n form_instance_id \n id of the form instance to be checked"
+      tags:
+      - Forms
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      - name: form_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `form_id` as published in the collection.
+      - name: form_instance_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `form_instance_id` as published in the collection.
+      - name: Accept-Language
+        in: header
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    id: 668f333e-209a-41a0-bd5a-08cffd7e3a5e
+                    name: Test Luc Form
+                    parent_id: a353c628-ceea-487b-8117-8509f983ca6b
+                    version: 1
+                    parts:
+                    - id: bde7bfde-4b46-412e-a865-41ac0364af32
+                      form_template_id: 668f333e-209a-41a0-bd5a-08cffd7e3a5e
+                      name: part name
+                      num: 0
+                      sections:
+                      - id: 562f12d3-b845-4263-b61d-eee50f009746
+                        part_id: 00000000-0000-0000-0000-000000000000
+                        name: section name
+                        num: 0
+                        qr_code: false
+                    progress: 0
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /projects/{project_id}/forms/{form_id}/messages:
+    post:
+      operationId: formsAddFormInstanceComment
+      summary: Add form instance comment
+      description: "You can add comments, link files, or link items to a form instance.\n\n Details \n\n project_id \n The ID of the project where the the form will be commented \n\n form_id \n The ID of the form instace \n\n Body optional infos \n Details \n\n for sending a comment \n\n text \n your text \n\n to attach a file or an image \n\n media_resource_id \n the id of a previously uploaded file via the upload media endpoint \n\n media_resource_name \n the display name of the file \n\n to link an observation \n\n reference_type \n \"Observation\" \n\n reference_id \n the id of the linked observation \n\n to link a form instance \n\n reference_type \n \"Form\" \n\n reference_id \n the id of the linked form instance"
+      tags:
+      - Forms
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      - name: form_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `form_id` as published in the collection.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    message_id: '531046467809312768'
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /projects/{project_id}/forms/{form_instance_id}:
+    get:
+      operationId: formsGetFormDetails
+      summary: Get form details
+      description: "Based on a form instance ID, we can access its full properties.\n\n To go deeper, you will need to check user, plan, company info, and form answers based on the returned IDs.\n\n Details \n\n project_Id \n the id of the project to be modified \n\n form_instance_id \n the id of the form instance to be checked"
+      tags:
+      - Forms
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      - name: form_instance_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `form_instance_id` as published in the collection.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Get_form_details:
+                  value:
+                    id: bc6419a9-c5ca-42c5-8d5b-525634495ff6
+                    enabled: true
+                    form_id: 9b2de0df-6504-48db-a923-b71d6553e48b
+                    project_id: 443aa663-aa766dc1-b82c-46d2-b2fc-05c327e688b7
+                    description: ess in categ
+                    template_name: Test link item
+                    status:
+                      id: 335ca72f-11cc-417b-8811-37a7569e57c8
+                      color: '#EBBB1C'
+                      name: To do
+                    priority:
+                      id: f160d63c-5531-41d3-a80a-678a3026f6e7
+                      color: '#49CB0C'
+                      icon: ChevronDown
+                      name: Low
+                    module_id: 117f1c84-e69d-4429-baf9-74e052f5e0bc
+                    category_id: 594f4f7c-6f7a-410b-bb5e-5aa6ef488a9c
+                    created_at: '2024-02-22T14:50:24.775757Z'
+                    created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    updated_at: '2024-02-22T14:50:24.775757Z'
+                    updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+    put:
+      operationId: formsUpdateForm
+      summary: Update form
+      description: "You now have the possibility to update form details via the API.\n\n If you don't include information for an optional detail in the endpoint, the existing value will be kept.\n\n Endpoint mandatory info \n Details \n\n project_id \n The ID of the project where the form will be created \n\n form_instance_id \n The ID of the form instance \n\n body optional info \n Details \n\n name \n The name you want to be assigned to the form \n\n priority_id \n The ID of the priority the form will be assigned \n\n status_id \n The ID of the status used for the form. If not set the default one will be used \n\n assignee_id \n The user ID of the person that will be assigned to the form \n\n company_id \n The ID of the company that will be assigned to the form \n\n phase_id \n The ID of the phase that is set for the form \n\n plan_id \n The ID of the plan that will be used for the form \n\n position_x \n X coordinate of the item regarding the affected 2D plan \n\n position_y \n Y coordinate of the item regarding the affected 2D plan \n\n due_date \n The date the form is due, set as a timestamp \n\n latitude \n in decimal degres following ISO6709 \n\n longitude \n in decimal degres \nfollowing ISO6709"
+      tags:
+      - Forms
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      - name: form_instance_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `form_instance_id` as published in the collection.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    id: 67fea526-ed18-4f31-9a85-62b94eaec617
+                    name: Test update 2
+                    form_id: 482de6de-f53e-4c7b-bb12-b00624b4e26d
+                    status_id: 3eac1151-9f39-4618-86ef-33ddbb76dfa6
+                    priority_id: b7384959-ef65-4e5d-8cf1-94bc0c3f5b7b
+                    position_x: 0.5
+                    position_y: 0.5
+                    client_created_at: '2023-03-13T13:15:25.045198Z'
+                    client_updated_at: '2023-03-14T07:58:38.3211502Z'
+                    module_id: 1e870757-f1df-452f-a86c-d4115c10bf43
+                    phase_id: 2b71c5fd-ae17-49a7-8cdd-658e280e012d
+                    created_at: '2023-03-13T13:15:28.687231Z'
+                    created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    updated_at: '2023-03-14T07:58:45.3896935Z'
+                    updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /projects/{project_id}/forms/{form_instance_id}/messages:
+    get:
+      operationId: formsGetFormInstanceMessages
+      summary: Get form instance messages
+      description: "Based on a form instance ID, we can access its activity history.\n\n Details \n\n project_id \n The ID of the project where the the observation will be created \n\n form_id \n The ID of the form instance \n\n Query optional infos \n Details \n\n message_id \n id of a message to begin the reading \n\n get_newest \n if true, get the messages newest as the message_id \nfalse is the default value"
+      tags:
+      - Forms
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      - name: form_instance_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `form_instance_id` as published in the collection.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    messages:
+                    - message_id: '531045308637904896'
+                      channel_type: Form
+                      content_type: Content
+                      created_at: '2024-01-05T09:44:27.9246649Z'
+                      client_created_at: '2024-01-05T09:44:27.046Z'
+                      message:
+                        text:
+                          value: Test 1
+                    - message_id: '531045309233496064'
+                      channel_type: Form
+                      content_type: Content
+                      created_at: '2024-01-05T09:44:28.067104Z'
+                      client_created_at: '2024-01-05T09:44:27.262Z'
+                      message:
+                        text:
+                          value: Test 2
+                    - message_id: '531046467809312768'
+                      channel_type: Form
+                      content_type: Content
+                      created_at: '2024-01-05T09:49:04.292853Z'
+                      client_created_at: '2024-01-05T09:49:04.2608409Z'
+                      message:
+                        references:
+                        - type: Form
+                          id: 3e9ae473-fbda-4fb5-9f1b-83028e8b6a34
+                    count: 3
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+components:
+  schemas:
+    ApiError:
+      type: object
+      description: Finalcad One error envelope. `api_code` is either a static code (mostly 4xx, e.g. INVALID_INSTANCE_STATE) or a constructed code of the form {ProcessCode}_ERR{n} / {ProcessCode}_WRN{n} (mostly 5xx).
+      properties:
+        statut:
+          type: integer
+          description: HTTP status code, repeated in the body (spelled `statut`).
+        api_code:
+          type: string
+          description: Internal Finalcad API error code.
+        message:
+          type: string
+          description: Short explanation of the abnormality encountered.
+        data:
+          type: object
+          description: Complementary data to help understand the error.
+          additionalProperties: true
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: Organization API key issued by Finalcad to organizations on an Enterprise licence. Sent on every call.
+    tokenAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: '`Authorization: token <your_api_key>`, or `Authorization: bearer <user_token>` for the legacy user-token flow (POST /auth).'

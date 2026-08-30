@@ -1,0 +1,370 @@
+openapi: 3.2.0
+info:
+  title: Finalcad One Project Medias handeling API
+  version: '2.41'
+  summary: 'Project-level operations for Finalcad One construction projects: project details, project libraries, members, locations (folders / plans / IFC), discussion groups, companies, modules (observations / forms / meetings), observations, forms and form answers, documents, phases, meetings and XLSX/PDF exports.'
+  description: 'Project-level operations for Finalcad One construction projects: project details, project libraries, members, locations (folders / plans / IFC), discussion groups, companies, modules (observations / forms / meetings), observations, forms and form answers, documents, phases, meetings and XLSX/PDF exports.
+
+
+    DERIVED, NOT PUBLISHED BY THE PROVIDER. Finalcad publishes no OpenAPI. This document was mechanically derived by API Evangelist from the first-party public Postman collection "Finalcad One API" served by Finalcad at https://developer.finalcad.com/ (collection JSON: https://developer.finalcad.com/api/collections/10995648/Tz5v1Es2), saved in this repo at collections/finalcad.postman_collection.json. Every path, method, header, query parameter, example request body and example response below is carried over from that collection; nothing was invented. Request/response bodies are typed as generic objects because the collection carries examples, not schemas. Four Finalcad employees'' personal e-mail addresses that appeared in the collection''s example payloads were replaced with placeholders; nothing else was changed.'
+  contact:
+    name: Finalcad One API — developer portal
+    url: https://developer.finalcad.com/
+  x-generated-by: API Evangelist enrichment pipeline (derived from the first-party Postman collection)
+  x-source: collections/finalcad.postman_collection.json
+  x-source-url: https://developer.finalcad.com/
+servers:
+- url: https://developer.finalcad.cloud/api
+  description: Production — the baseUrl variable published in the Finalcad One API Postman collection.
+- url: https://developer.sandbox.finalcad.cloud/api
+  description: Sandbox — published by Finalcad in the 'Retrieve data in Power BI' tutorial of the same collection.
+security:
+- apiKey: []
+  tokenAuth: []
+tags:
+- name: Medias handeling
+paths:
+  /medias/{media_id}:
+    get:
+      operationId: mediasHandelingGetMediaResource
+      summary: Get media resource
+      description: "OBSOLETE – Please use the media endpoints at the application level. \n\n Given a media_resource_id , you can retrieve the associated media content.\n\n ⚠️ Warnings \n\n This endpoint does not support retrieval of 3D media.\n\n The media_resource_id refers to the ID returned by an endpoint that links a media to another resource (e.g., the endpoint used to create a plan). It is not the same as the media_id used in media upload endpoints.\n\n Endpoint mandatory infos \n Details \n\n media_resource_id \n the id of the media to be downloaded"
+      tags:
+      - Medias handeling
+      parameters:
+      - name: media_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `media_id` as published in the collection.
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /projects/{project_id}/medias/uploadinit:
+    post:
+      operationId: mediasHandelingChunkUploadInit
+      summary: Init
+      description: "OBSOLETE - Please use the media endpoints at the application level. \n\n Initialize the chunk upload process by using the init endpoint.\n\n Endpoint mandatory infos \n Details \n\n project_Id \n the id of the project to be modified \n\n body mandatory infos \n Details \n\n file_name \n name of the madia \n\n total_bytes \n total size in bytes of the media \n\n md5 \n md5 of the media \n\n returned infos \n Details \n\n chunk_id \n id of the chunk \n\n media_id \n id of the new media"
+      tags:
+      - Medias handeling
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              file_name: lang1.png
+              total_bytes: 445721
+              md5: 55ed5b904a472b4d576f20caaef21c24
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    expires_after_secs: 3600
+                    chunk_id: cc1aca15-a9f2-41b2-8968-c3905545b376
+                    media_id: 03457d15-6ee1-4860-ba24-f554bf595962
+                    min_chunk_size: 5242880
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /projects/{project_id}/medias/uploads:
+    post:
+      operationId: mediasHandelingUploadMedias
+      summary: Upload medias
+      description: "OBSOLETE – Please use the media endpoints at the application level. \n\n For media files ≤ 5 MB, use the standard upload endpoint\n\n For media files > 5 MB, use the chunked upload process\n\n Endpoint mandatory infos \n Details \n\n project_Id \n the id of the project to be modified \n\n form_data mandatory infos \n Details \n\n media \n stream of the media \n\n returned infos \n Details \n\n id \n id of the newly created media \n\n file_name \n filename of the media \n\n mime_type \n mime type of the media"
+      tags:
+      - Medias handeling
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                media:
+                  type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    id: 3019742b-8567-413b-8c40-af46acb58d2c
+                    file_name: Small r+1 A.dwg
+                    mime_type: application/dwg
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /projects/{project_id}/medias/{media_id}/uploadabort:
+    post:
+      operationId: mediasHandelingChunkUploadAbort
+      summary: Abort
+      description: "OBSOLETE – Please use the media endpoints at the application level. \n Abort the chunk upload process.\n\n Endpoint mandatory infos \n Details \n\n project_Id \n the id of the project to be modified \n\n media_id \n id of the media in progress \n\n body mandatory infos \n Details \n\n chunk_id \n id of the chunk in proress"
+      tags:
+      - Medias handeling
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      - name: media_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `media_id` as published in the collection.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              chunk_id: '{{chunk_id}}'
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /projects/{project_id}/medias/{media_id}/uploadappend:
+    post:
+      operationId: mediasHandelingChunkUploadUpload
+      summary: Upload
+      description: "OBSOLETE - Please use the media endpoints at the application level. \n\n Upload a file part during the chunk upload process by using the upload endpoint.\n\n Endpoint mandatory infos \n Details \n\n project_Id \n the id of the project to be modified \n\n media_id \n id of the media in progress \n\n form-data mandatory infos \n Details \n\n chunk_id \n chunk id of the media in progress \n\n segment_index \n number of the chunk segment (first is 1) \n\n last_chunk \n true if it is the last chunk \n\n stream \n chunk content \n\n md5 \n md5 of the stream"
+      tags:
+      - Medias handeling
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      - name: media_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `media_id` as published in the collection.
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                chunk_id:
+                  type: string
+                  description: chunk id returned by init function
+                segment_index:
+                  type: string
+                  description: chunk segment number first = 1
+                last_chunk:
+                  type: string
+                  description: is it the last segment ?
+                stream:
+                  type: string
+                md5:
+                  type: string
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /projects/{project_id}/medias/{media_id}/uploadterminate:
+    post:
+      operationId: mediasHandelingChunkUploadTerminate
+      summary: Terminate
+      description: "OBSOLETE - Please use the media endpoints at the application level. \n\n Validate the chunk upload process by using the terminate endpoint.\n\n Endpoint mandatory infos \n Details \n\n project_Id \n the id of the project to be modified \n\n media_id \n id of the media in progress \n\n body mandatory infos \n Details \n\n chunk_id \n id of the chunk in progress"
+      tags:
+      - Medias handeling
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      - name: media_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `media_id` as published in the collection.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              chunk_id: '{{chunk_id}}'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    id: 3a9d8d0b-0b53-4d24-b786-3b6a53aab795
+                    file_name: lang1.png
+                    mime_type: image/png
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+components:
+  schemas:
+    ApiError:
+      type: object
+      description: Finalcad One error envelope. `api_code` is either a static code (mostly 4xx, e.g. INVALID_INSTANCE_STATE) or a constructed code of the form {ProcessCode}_ERR{n} / {ProcessCode}_WRN{n} (mostly 5xx).
+      properties:
+        statut:
+          type: integer
+          description: HTTP status code, repeated in the body (spelled `statut`).
+        api_code:
+          type: string
+          description: Internal Finalcad API error code.
+        message:
+          type: string
+          description: Short explanation of the abnormality encountered.
+        data:
+          type: object
+          description: Complementary data to help understand the error.
+          additionalProperties: true
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: Organization API key issued by Finalcad to organizations on an Enterprise licence. Sent on every call.
+    tokenAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: '`Authorization: token <your_api_key>`, or `Authorization: bearer <user_token>` for the legacy user-token flow (POST /auth).'

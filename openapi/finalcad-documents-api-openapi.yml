@@ -1,0 +1,449 @@
+openapi: 3.2.0
+info:
+  title: Finalcad One Project Documents API
+  version: '2.41'
+  summary: 'Project-level operations for Finalcad One construction projects: project details, project libraries, members, locations (folders / plans / IFC), discussion groups, companies, modules (observations / forms / meetings), observations, forms and form answers, documents, phases, meetings and XLSX/PDF exports.'
+  description: 'Project-level operations for Finalcad One construction projects: project details, project libraries, members, locations (folders / plans / IFC), discussion groups, companies, modules (observations / forms / meetings), observations, forms and form answers, documents, phases, meetings and XLSX/PDF exports.
+
+
+    DERIVED, NOT PUBLISHED BY THE PROVIDER. Finalcad publishes no OpenAPI. This document was mechanically derived by API Evangelist from the first-party public Postman collection "Finalcad One API" served by Finalcad at https://developer.finalcad.com/ (collection JSON: https://developer.finalcad.com/api/collections/10995648/Tz5v1Es2), saved in this repo at collections/finalcad.postman_collection.json. Every path, method, header, query parameter, example request body and example response below is carried over from that collection; nothing was invented. Request/response bodies are typed as generic objects because the collection carries examples, not schemas. Four Finalcad employees'' personal e-mail addresses that appeared in the collection''s example payloads were replaced with placeholders; nothing else was changed.'
+  contact:
+    name: Finalcad One API — developer portal
+    url: https://developer.finalcad.com/
+  x-generated-by: API Evangelist enrichment pipeline (derived from the first-party Postman collection)
+  x-source: collections/finalcad.postman_collection.json
+  x-source-url: https://developer.finalcad.com/
+servers:
+- url: https://developer.finalcad.cloud/api
+  description: Production — the baseUrl variable published in the Finalcad One API Postman collection.
+- url: https://developer.sandbox.finalcad.cloud/api
+  description: Sandbox — published by Finalcad in the 'Retrieve data in Power BI' tutorial of the same collection.
+security:
+- apiKey: []
+  tokenAuth: []
+tags:
+- name: Documents
+paths:
+  /projects/{project_id}/documents:
+    post:
+      operationId: documentsCreateDocumentOrFolders
+      summary: Create document or folders
+      description: "Folders allow for document organization, as well as preview and context. Each folder comes with a name.\n\n You can specify where to add the folder in your hierarchy by designating its parent (another folder or the root).\n\n All kinds of documents can be added within this document module.\n\n Endpoint mandatory infos \n Details \n\n project_Id \n the id of the project to be modified \n\n body mandatory infos \n Details \n\n name \n name of the folder or document \n\n media_id \n id of the document media \nsould be present only for document generation \n(a folder has no media) \n\n body optional infos \n Details \n\n parent_id \n the id of the parent folder in the hierarchy"
+      tags:
+      - Documents
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success_folder:
+                  value:
+                    id: ce962734-9fd7-4bec-ab2c-1455e48425a5
+                    type: Folder
+                    name: docFold
+                    enabled: true
+                    created_at: '2022-11-29T15:35:29.5113161Z'
+                    created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    updated_at: '2022-11-29T15:35:29.5113192Z'
+                    updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                Success_document:
+                  value:
+                    id: 8ce4b833-d6c5-448c-a754-322b35f9d468
+                    type: Document
+                    name: mydoc
+                    parent_id: ce962734-9fd7-4bec-ab2c-1455e48425a5
+                    media_resource:
+                      id: 372f17d7-2e27-4efc-bb9b-c7322300c7eb
+                      mime_type: image/png
+                    enabled: true
+                    created_at: '2022-11-29T15:38:02.7754111Z'
+                    created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    updated_at: '2022-11-29T15:38:02.7754205Z'
+                    updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+    get:
+      operationId: documentsGetDocumentsAndFolders
+      summary: Get documents and folders
+      description: "Before creating folders or documents, you might want to have an overview of those already deployed in your project. This helps you manage them based on the current context.\n\n Endpoint mandatory infos \n Details \n\n project_Id \n the id of the project to be modified \n\n Query params optionals \n\n see Commmon behaviors / differential"
+      tags:
+      - Documents
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    documents:
+                    - id: 1b8f0877-fedb-4f50-867b-2256c23321f1
+                      type: Folder
+                      name: QSD
+                      enabled: true
+                      created_at: '2024-05-28T12:59:42.238Z'
+                      created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                      updated_at: '2024-05-28T12:59:42.238Z'
+                      updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    - id: f8de6f6c-87a4-47a7-8bba-efe542f04af8
+                      type: Document
+                      name: LogoClient.png
+                      media_resource:
+                        id: ad702b87-bc2b-4073-b868-6c5d24b802c3
+                        mime_type: image/png
+                        created_at: '2024-05-28T12:59:54.067Z'
+                      enabled: true
+                      file_type: Image
+                      created_at: '2024-05-28T12:59:54.067Z'
+                      created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                      updated_at: '2024-05-28T12:59:54.067Z'
+                      updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    need_to_relaunch: true
+                    continuous_token: 638524979940680000|e30=
+                    count: 2
+                    total_count: 7
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /projects/{project_id}/documents/filter:
+    get:
+      operationId: documentsGetDocumentsAndFoldersByParent
+      summary: Get documents and folders by parent
+      description: "Before creating folders or documents, you might want to have an overview of those already deployed in your project. This helps you manage them based on the current context.\n\n Endpoint mandatory infos \n Details \n\n project_Id \n the id of the project to be modified \n\n Query params optionals \n\n see Commmon behaviors / differential"
+      tags:
+      - Documents
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    documents:
+                    - id: c0fad6b3-2501-4bc5-b0ce-1c7e0587447a
+                      type: Document
+                      name: Arrow right.png
+                      parent_id: cbf271ae-357a-4af4-b955-75bea02155ac
+                      media_resource:
+                        file_name: Arrow right.png
+                        mime_type: image/png
+                        created_at: '2025-04-22T08:51:23.135Z'
+                      enabled: true
+                      file_type: Image
+                      created_at: '2025-04-22T08:51:23.135Z'
+                      created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                      updated_at: '2025-04-22T08:51:23.135Z'
+                      updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    - id: a58960f5-a792-40a0-ad08-278ceb2eb2f8
+                      type: Document
+                      name: Building.png
+                      parent_id: cbf271ae-357a-4af4-b955-75bea02155ac
+                      media_resource:
+                        file_name: Building.png
+                        mime_type: image/png
+                        created_at: '2025-04-22T08:51:23.69Z'
+                      enabled: true
+                      file_type: Image
+                      created_at: '2025-04-22T08:51:23.69Z'
+                      created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                      updated_at: '2025-04-22T08:51:23.69Z'
+                      updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    - id: f633b9b9-2b46-4aed-ab53-cff6e9b9973e
+                      type: Document
+                      name: Logo-Color.png
+                      parent_id: cbf271ae-357a-4af4-b955-75bea02155ac
+                      media_resource:
+                        file_name: Logo-Color.png
+                        mime_type: image/png
+                        created_at: '2025-04-22T08:51:24.04Z'
+                      enabled: true
+                      file_type: Image
+                      created_at: '2025-04-22T08:51:24.04Z'
+                      created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                      updated_at: '2025-04-22T08:51:24.04Z'
+                      updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    count: 3
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /projects/{project_id}/documents/{document_id}:
+    get:
+      operationId: documentsGetDocumentOrFolder
+      summary: Get document or folder
+      description: "Before creating folders or documents, you might want to have an overview of those already deployed in your project. This helps you manage them based on the current context.\n\n You can retrieve both folders and documents.\n\n Endpoint mandatory infos \n Details \n\n project_Id \n the id of the project to be modified \n\n document_id \n id the the document or folde to be checked"
+      tags:
+      - Documents
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      - name: document_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `document_id` as published in the collection.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Get_folder:
+                  value:
+                    id: c36dd915-498e-4d9d-9758-e95719083cdd
+                    type: Folder
+                    name: Handmade
+                    enabled: true
+                Get_document:
+                  value:
+                    id: 80579b1e-8581-49df-90a8-132eaad7b9cf
+                    type: Document
+                    name: for
+                    parent_id: c36dd915-498e-4d9d-9758-e95719083cdd
+                    media_resource:
+                      id: 84600611-01f6-49dd-a521-e7a7eaab6d24
+                    enabled: true
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+    put:
+      operationId: documentsUpdateDocumentOrFolder
+      summary: Update document or folder
+      description: "You can move and edit folder names. You can also move, edit document names, and update documents.\n\n Endpoint mandatory infos \n Details \n\n project_Id \n the id of the project to be modified \n\n document_id \n id of the document or folder to be modified \n\n body optional infos \n Details \n\n name \n new name of the document or folder \n\n parent_id \n the id of the new parent folder in the hierarchy \n\n media_id \n id of new media (for document change only)"
+      tags:
+      - Documents
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      - name: document_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `document_id` as published in the collection.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              name: <string>
+              media_id: <uuid>
+              parent_id: <string>
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    id: 8ce4b833-d6c5-448c-a754-322b35f9d468
+                    type: Document
+                    name: renamed2
+                    parent_id: ce962734-9fd7-4bec-ab2c-1455e48425a5
+                    media_resource:
+                      id: 01d907a3-0324-4026-800b-f823e8247577
+                      mime_type: image/png
+                    enabled: true
+                    created_at: '2022-11-29T15:38:02.775Z'
+                    created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    updated_at: '2022-11-30T15:45:00.7855601Z'
+                    updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+    delete:
+      operationId: documentsDeleteDocumentOrFolder
+      summary: Delete document or folder
+      description: "You can delete a document or a folder of documents.\n\n Details \n\n project_Id \n the id of the project to be modified \n\n document_id \n id of the document or folder to be deleted"
+      tags:
+      - Documents
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      - name: document_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `document_id` as published in the collection.
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+components:
+  schemas:
+    ApiError:
+      type: object
+      description: Finalcad One error envelope. `api_code` is either a static code (mostly 4xx, e.g. INVALID_INSTANCE_STATE) or a constructed code of the form {ProcessCode}_ERR{n} / {ProcessCode}_WRN{n} (mostly 5xx).
+      properties:
+        statut:
+          type: integer
+          description: HTTP status code, repeated in the body (spelled `statut`).
+        api_code:
+          type: string
+          description: Internal Finalcad API error code.
+        message:
+          type: string
+          description: Short explanation of the abnormality encountered.
+        data:
+          type: object
+          description: Complementary data to help understand the error.
+          additionalProperties: true
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: Organization API key issued by Finalcad to organizations on an Enterprise licence. Sent on every call.
+    tokenAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: '`Authorization: token <your_api_key>`, or `Authorization: bearer <user_token>` for the legacy user-token flow (POST /auth).'

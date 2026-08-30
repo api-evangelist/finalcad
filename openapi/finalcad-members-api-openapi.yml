@@ -1,0 +1,1543 @@
+openapi: 3.2.0
+info:
+  title: Finalcad One Organization Management Members API
+  version: '2.41'
+  summary: 'Organization-level administration of a Finalcad One Enterprise tenant: workspaces, members and roles, observation status / trade / common-observation / priority / form-template libraries, form and observation module types, data referentials, and Power BI dataset configuration.'
+  description: 'Organization-level administration of a Finalcad One Enterprise tenant: workspaces, members and roles, observation status / trade / common-observation / priority / form-template libraries, form and observation module types, data referentials, and Power BI dataset configuration.
+
+
+    DERIVED, NOT PUBLISHED BY THE PROVIDER. Finalcad publishes no OpenAPI. This document was mechanically derived by API Evangelist from the first-party public Postman collection "Finalcad One API" served by Finalcad at https://developer.finalcad.com/ (collection JSON: https://developer.finalcad.com/api/collections/10995648/Tz5v1Es2), saved in this repo at collections/finalcad.postman_collection.json. Every path, method, header, query parameter, example request body and example response below is carried over from that collection; nothing was invented. Request/response bodies are typed as generic objects because the collection carries examples, not schemas. Four Finalcad employees'' personal e-mail addresses that appeared in the collection''s example payloads were replaced with placeholders; nothing else was changed.'
+  contact:
+    name: Finalcad One API — developer portal
+    url: https://developer.finalcad.com/
+  x-generated-by: API Evangelist enrichment pipeline (derived from the first-party Postman collection)
+  x-source: collections/finalcad.postman_collection.json
+  x-source-url: https://developer.finalcad.com/
+servers:
+- url: https://developer.finalcad.cloud/api
+  description: Production — the baseUrl variable published in the Finalcad One API Postman collection.
+- url: https://developer.sandbox.finalcad.cloud/api
+  description: Sandbox — published by Finalcad in the 'Retrieve data in Power BI' tutorial of the same collection.
+security:
+- apiKey: []
+  tokenAuth: []
+tags:
+- name: Members
+paths:
+  /organizations/user-infos/{user_id}:
+    get:
+      operationId: membersGetUserInformation
+      summary: Get user information
+      description: "You can check member info.\n\n Endpoint mandatory infos \n Details \n\n user_id \n the id of the user to be checked"
+      tags:
+      - Members
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `user_id` as published in the collection.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    id: <my_user_id>
+                    first_name: <my_first_name>
+                    last_name: <my_name>
+                    email: <my_email>
+                    is_active: 'true'
+                    email_validated: 'true'
+                    created_at: '2022-06-02T07:28:34.483278Z'
+                    updated_at: '2023-07-26T13:24:40.68237Z'
+                    media_resource:
+                      id: 737a4362-0371-4742-9b58-ffe4d4d2e768
+                      file_name: logo.png
+                      mime_type: image/png
+                      created_at: '2023-07-26T13:24:40.672379Z'
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /organizations/{organization_id}/add-members:
+    post:
+      operationId: membersAddMembers
+      summary: Add members
+      description: "To ease this step, you can directly add a list of members. Your invitations can fall into two cases:\n\n The email is already linked to a Finalcad One account. The member will be directly added to the project and receive a notification.\n\n The email is not linked to a Finalcad One account. The member will be invited to create an account by email. Meanwhile, the invitations will be visible as pending in the organization member list.\n\n To invite a member to your project, an email needs to be associated with a project role. See Get roles . \n\n Endpoint mandatory infos \n Details \n\n organization_id \n the id of the project to be modified \n\n body mandatory infos \n Details \n\n role_users \n list of roles and users \neach contains : \n\n role_id \n organization role id to be used \nif missing , use the default one \n\n users_info \n list of user_id or email as string"
+      tags:
+      - Members
+      parameters:
+      - name: organization_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `organization_id` as published in the collection.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              role_users:
+              - role_id: e735e603-225a-47d1-bd39-72a1afae7c9f
+                users_info:
+                - the_user_email
+                - another_email
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /organizations/{organization_id}/change-members-role:
+    post:
+      operationId: membersChangeRole
+      summary: Change role
+      description: "You can change the role of a user.\n\n Endpoint mandatory infos \n Details \n\n organization_id \n the id of the project to be modified \n\n body mandatory infos \n Details \n\n role_id \n organization role id to be used \n\n users_info \n list of user_id to be changed"
+      tags:
+      - Members
+      parameters:
+      - name: organization_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `organization_id` as published in the collection.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              role_id: fbaed956-2c60-42b5-8763-8f62d6dd74a7
+              users_info:
+              - the_user_id
+              - another_user_id
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /organizations/{organization_id}/change-members-role-bulk:
+    post:
+      operationId: membersChangeSeveralRoles
+      summary: Change several roles
+      description: "You can change several roles for several users.\n\n Endpoint mandatory infos \n Details \n\n organization_id \n the id of the organization to be modified \n\n body mandatory infos \n Details \n --- \n\n List of \n\n role_id \n organization role id to be used \n\n users_info \n list of user_id to be changed"
+      tags:
+      - Members
+      parameters:
+      - name: organization_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `organization_id` as published in the collection.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /organizations/{organization_id}/members:
+    post:
+      operationId: membersGetMembers
+      summary: Get members
+      description: "Before adding members to your project, you might want to have an overview of the current organization users and their roles.\n\n Endpoint mandatory infos \n Details \n\n organization_id \n the id of the organization to be checked \n\n Query params optionals \n\n see Commmon behaviors / differential \n\n Body optional infos \n Details \n\n search_term \n search term for the email user field \n\n roles \n list of organization roles to filter the users list \nthis filed is ignored if the search_term is used \n\n with_processing_members \n include or not the processing users"
+      tags:
+      - Members
+      parameters:
+      - name: organization_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `organization_id` as published in the collection.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              with_processing_members: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    organization_members:
+                    - id: 427380db-f465-48bd-a2d7-6788a4b07adc
+                      membership_type: Member
+                      user_id: 674ddb3e-6ce0fe28-6e85-4d0b-9efc-666f8c7fe7e6
+                      legacy_id: 500001965
+                      email: person.redacted@example.com
+                      first_name: Damien
+                      last_name: IROUVA
+                      organization_role:
+                        id: 932c489a-06dc-427b-912c-ca2d9709ac8e
+                        name: Organization member
+                        names:
+                          translation_fallback: Organization member
+                          translations:
+                          - language: nl
+                            translation: Lid organisatie
+                          - language: ja
+                            translation: 組織メンバー
+                          - language: pt
+                            translation: Membro da organização
+                          - language: it
+                            translation: Membro organizzazione
+                          - language: fr
+                            translation: Membre de l'organisation
+                          - language: vi
+                            translation: Thành viên của tổ chức
+                          - language: ca
+                            translation: Membre de l'organització
+                          - language: de
+                            translation: Mitglied der Organisation
+                          - language: zh
+                            translation: 组织成员
+                          - language: th
+                            translation: สมาชิกองค์กร
+                          - language: en
+                            translation: Organization member
+                          - language: es
+                            translation: Miembro de la organización
+                        is_default: true
+                        is_default_invitation_role: false
+                        user_count: 14
+                        position: 0
+                        authorization_role_id: 932c489a-06dc-427b-912c-ca2d9709ac8e
+                        higher_role_id: fbaed956-2c60-42b5-8763-8f62d6dd74a7
+                        is_lower_role: false
+                      is_pending: false
+                      is_processing: false
+                      created_at: '2023-06-21T13:04:10.052724Z'
+                      updated_at: '2023-06-21T13:04:18.272385Z'
+                    - id: 966112b7-c1ab-4d43-895c-0dac53f13b41
+                      membership_type: Member
+                      user_id: 4b9382b5-e2d6a638-5011-4a9a-b3ac-9f87db62800b
+                      legacy_id: 500004270
+                      email: person.redacted+sandbox@example.com
+                      first_name: Eivyda
+                      last_name: JANKUNAITE
+                      media_resource:
+                        id: 024afa60-36f5-4db4-99c9-306d10f7e1b9
+                        file_name: images.jpeg
+                        mime_type: image/jpeg
+                        created_at: '2023-03-20T08:57:51.725998Z'
+                      organization_role:
+                        id: 932c489a-06dc-427b-912c-ca2d9709ac8e
+                        name: Organization member
+                        names:
+                          translation_fallback: Organization member
+                          translations:
+                          - language: nl
+                            translation: Lid organisatie
+                          - language: ja
+                            translation: 組織メンバー
+                          - language: pt
+                            translation: Membro da organização
+                          - language: it
+                            translation: Membro organizzazione
+                          - language: fr
+                            translation: Membre de l'organisation
+                          - language: vi
+                            translation: Thành viên của tổ chức
+                          - language: ca
+                            translation: Membre de l'organització
+                          - language: de
+                            translation: Mitglied der Organisation
+                          - language: zh
+                            translation: 组织成员
+                          - language: th
+                            translation: สมาชิกองค์กร
+                          - language: en
+                            translation: Organization member
+                          - language: es
+                            translation: Miembro de la organización
+                        is_default: true
+                        is_default_invitation_role: false
+                        user_count: 14
+                        position: 0
+                        authorization_role_id: 932c489a-06dc-427b-912c-ca2d9709ac8e
+                        higher_role_id: fbaed956-2c60-42b5-8763-8f62d6dd74a7
+                        is_lower_role: false
+                      is_pending: false
+                      is_processing: false
+                      created_at: '2023-03-02T13:16:29.80972Z'
+                      updated_at: '2023-03-02T13:16:29.809737Z'
+                    - id: 2b478519-c316-4026-9d3a-4293fe3fe110
+                      membership_type: Member
+                      user_id: b7a277a7-fadc0b1f-26b5-4800-97a1-33d935552c53
+                      legacy_id: 500004484
+                      email: person.redacted@example.com
+                      first_name: Jade
+                      last_name: ab
+                      media_resource:
+                        id: f775f8db-74f2-4bc6-a160-d34be8220f81
+                        file_name: immeuble-de-bureaux-de-plan-52367600.jpeg
+                        mime_type: image/jpeg
+                        created_at: '2022-12-13T16:04:16.474872Z'
+                      organization_role:
+                        id: 932c489a-06dc-427b-912c-ca2d9709ac8e
+                        name: Organization member
+                        names:
+                          translation_fallback: Organization member
+                          translations:
+                          - language: nl
+                            translation: Lid organisatie
+                          - language: ja
+                            translation: 組織メンバー
+                          - language: pt
+                            translation: Membro da organização
+                          - language: it
+                            translation: Membro organizzazione
+                          - language: fr
+                            translation: Membre de l'organisation
+                          - language: vi
+                            translation: Thành viên của tổ chức
+                          - language: ca
+                            translation: Membre de l'organització
+                          - language: de
+                            translation: Mitglied der Organisation
+                          - language: zh
+                            translation: 组织成员
+                          - language: th
+                            translation: สมาชิกองค์กร
+                          - language: en
+                            translation: Organization member
+                          - language: es
+                            translation: Miembro de la organización
+                        is_default: true
+                        is_default_invitation_role: false
+                        user_count: 14
+                        position: 0
+                        authorization_role_id: 932c489a-06dc-427b-912c-ca2d9709ac8e
+                        higher_role_id: fbaed956-2c60-42b5-8763-8f62d6dd74a7
+                        is_lower_role: false
+                      is_pending: false
+                      is_processing: false
+                      created_at: '2022-12-08T09:15:10.413826Z'
+                      updated_at: '2022-12-08T09:15:10.413848Z'
+                    - id: cd404d0f-ce28-4d42-bea7-969b8283ac20
+                      membership_type: Member
+                      user_id: 8b05d23b-b521f61b-de1c-46d1-9f81-c5b2621fe740
+                      legacy_id: 500004839
+                      email: person.redacted+plan@example.com
+                      first_name: Jade
+                      last_name: Abr
+                      organization_role:
+                        id: 932c489a-06dc-427b-912c-ca2d9709ac8e
+                        name: Organization member
+                        names:
+                          translation_fallback: Organization member
+                          translations:
+                          - language: nl
+                            translation: Lid organisatie
+                          - language: ja
+                            translation: 組織メンバー
+                          - language: pt
+                            translation: Membro da organização
+                          - language: it
+                            translation: Membro organizzazione
+                          - language: fr
+                            translation: Membre de l'organisation
+                          - language: vi
+                            translation: Thành viên của tổ chức
+                          - language: ca
+                            translation: Membre de l'organització
+                          - language: de
+                            translation: Mitglied der Organisation
+                          - language: zh
+                            translation: 组织成员
+                          - language: th
+                            translation: สมาชิกองค์กร
+                          - language: en
+                            translation: Organization member
+                          - language: es
+                            translation: Miembro de la organización
+                        is_default: true
+                        is_default_invitation_role: false
+                        user_count: 14
+                        position: 0
+                        authorization_role_id: 932c489a-06dc-427b-912c-ca2d9709ac8e
+                        higher_role_id: fbaed956-2c60-42b5-8763-8f62d6dd74a7
+                        is_lower_role: false
+                      is_pending: false
+                      is_processing: false
+                      created_at: '2023-02-08T14:09:43.698678Z'
+                      updated_at: '2023-02-08T15:01:08.940749Z'
+                    - id: 798ca3db-bcb0-4b98-bbe9-8959c3b071b6
+                      membership_type: Member
+                      user_id: fdab2bfe-87196ebb-56c0-46ed-83c6-4bf803d86cf9
+                      legacy_id: 500004723
+                      email: person.redacted+test@example.com
+                      organization_role:
+                        id: 932c489a-06dc-427b-912c-ca2d9709ac8e
+                        name: Organization member
+                        names:
+                          translation_fallback: Organization member
+                          translations:
+                          - language: nl
+                            translation: Lid organisatie
+                          - language: ja
+                            translation: 組織メンバー
+                          - language: pt
+                            translation: Membro da organização
+                          - language: it
+                            translation: Membro organizzazione
+                          - language: fr
+                            translation: Membre de l'organisation
+                          - language: vi
+                            translation: Thành viên của tổ chức
+                          - language: ca
+                            translation: Membre de l'organització
+                          - language: de
+                            translation: Mitglied der Organisation
+                          - language: zh
+                            translation: 组织成员
+                          - language: th
+                            translation: สมาชิกองค์กร
+                          - language: en
+                            translation: Organization member
+                          - language: es
+                            translation: Miembro de la organización
+                        is_default: true
+                        is_default_invitation_role: false
+                        user_count: 14
+                        position: 0
+                        authorization_role_id: 932c489a-06dc-427b-912c-ca2d9709ac8e
+                        higher_role_id: fbaed956-2c60-42b5-8763-8f62d6dd74a7
+                        is_lower_role: false
+                      is_pending: true
+                      is_processing: false
+                      created_at: '2023-01-11T13:02:05.713988Z'
+                      updated_at: '2023-01-11T13:02:05.714Z'
+                    - id: f7172dae-fde8-42a2-8930-957e8d344666
+                      membership_type: Member
+                      user_id: 6996b70d-8fa9ce3a-dcf9-4bdd-a690-86d76294ec60
+                      legacy_id: 500004724
+                      email: person.redacted+test2@example.com
+                      organization_role:
+                        id: 932c489a-06dc-427b-912c-ca2d9709ac8e
+                        name: Organization member
+                        names:
+                          translation_fallback: Organization member
+                          translations:
+                          - language: nl
+                            translation: Lid organisatie
+                          - language: ja
+                            translation: 組織メンバー
+                          - language: pt
+                            translation: Membro da organização
+                          - language: it
+                            translation: Membro organizzazione
+                          - language: fr
+                            translation: Membre de l'organisation
+                          - language: vi
+                            translation: Thành viên của tổ chức
+                          - language: ca
+                            translation: Membre de l'organització
+                          - language: de
+                            translation: Mitglied der Organisation
+                          - language: zh
+                            translation: 组织成员
+                          - language: th
+                            translation: สมาชิกองค์กร
+                          - language: en
+                            translation: Organization member
+                          - language: es
+                            translation: Miembro de la organización
+                        is_default: true
+                        is_default_invitation_role: false
+                        user_count: 14
+                        position: 0
+                        authorization_role_id: 932c489a-06dc-427b-912c-ca2d9709ac8e
+                        higher_role_id: fbaed956-2c60-42b5-8763-8f62d6dd74a7
+                        is_lower_role: false
+                      is_pending: true
+                      is_processing: false
+                      created_at: '2023-01-11T13:07:46.741989Z'
+                      updated_at: '2023-01-11T13:07:46.741991Z'
+                    - id: 8f128201-35cf-4872-a928-d203eec7afd4
+                      membership_type: Member
+                      user_id: 5cf12ec0-fa67d814-befe-4055-a480-3bbbb34f6c01
+                      legacy_id: 500003043
+                      email: person.redacted@example.com
+                      first_name: Josh
+                      last_name: Josh
+                      media_resource:
+                        id: 28ceea7d-7741-4506-9191-cfbd5aa4bde2
+                        file_name: josh.jpg
+                        mime_type: image/jpeg
+                        created_at: '2021-01-11T14:38:45.921Z'
+                      organization_role:
+                        id: 932c489a-06dc-427b-912c-ca2d9709ac8e
+                        name: Organization member
+                        names:
+                          translation_fallback: Organization member
+                          translations:
+                          - language: nl
+                            translation: Lid organisatie
+                          - language: ja
+                            translation: 組織メンバー
+                          - language: pt
+                            translation: Membro da organização
+                          - language: it
+                            translation: Membro organizzazione
+                          - language: fr
+                            translation: Membre de l'organisation
+                          - language: vi
+                            translation: Thành viên của tổ chức
+                          - language: ca
+                            translation: Membre de l'organització
+                          - language: de
+                            translation: Mitglied der Organisation
+                          - language: zh
+                            translation: 组织成员
+                          - language: th
+                            translation: สมาชิกองค์กร
+                          - language: en
+                            translation: Organization member
+                          - language: es
+                            translation: Miembro de la organización
+                        is_default: true
+                        is_default_invitation_role: false
+                        user_count: 14
+                        position: 0
+                        authorization_role_id: 932c489a-06dc-427b-912c-ca2d9709ac8e
+                        higher_role_id: fbaed956-2c60-42b5-8763-8f62d6dd74a7
+                        is_lower_role: false
+                      is_pending: false
+                      is_processing: false
+                      created_at: '2023-01-10T08:44:18.619122Z'
+                      updated_at: '2023-01-10T08:44:18.619122Z'
+                    - id: 5733cec1-5c27-492c-bf1d-c9feb90b6577
+                      membership_type: Member
+                      user_id: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                      legacy_id: 500004439
+                      email: person.redacted+sandbox@example.com
+                      first_name: Luc
+                      last_name: Vallot
+                      organization_role:
+                        id: e735e603-225a-47d1-bd39-72a1afae7c9f
+                        name: Organization admin
+                        names:
+                          translation_fallback: Organization admin
+                          translations:
+                          - language: es
+                            translation: Administrador de la organización
+                          - language: ja
+                            translation: 組織管理者
+                          - language: zh
+                            translation: 组织管理员
+                          - language: vi
+                            translation: Quản trị viên của tổ chức
+                          - language: fr
+                            translation: Administrateur de l'organisation
+                          - language: ca
+                            translation: Administrador de l'organització
+                          - language: nl
+                            translation: Beheer organisatie
+                          - language: th
+                            translation: ผู้ดูแลองค์กร
+                          - language: de
+                            translation: Administrator der Organisation
+                          - language: it
+                            translation: Amministratore organizzazione
+                          - language: pt
+                            translation: Admin da organização
+                          - language: en
+                            translation: Organization admin
+                        is_default: false
+                        is_default_invitation_role: false
+                        user_count: 3
+                        position: 0
+                        authorization_role_id: e735e603-225a-47d1-bd39-72a1afae7c9f
+                        is_lower_role: false
+                      is_pending: false
+                      is_processing: false
+                      created_at: '2022-06-30T08:35:05.940464Z'
+                      updated_at: '2022-06-30T08:35:06.862619Z'
+                    - id: 164dee2f-46db-47c1-80bf-db10c078504f
+                      membership_type: Member
+                      user_id: 8f0eebde-0fa7f000-f573-4054-b1a6-b92b002a513e
+                      legacy_id: 5493
+                      email: person-c@example.com
+                      first_name: Mathieu
+                      last_name: Bourgois
+                      job_title: dev
+                      organization_role:
+                        id: e735e603-225a-47d1-bd39-72a1afae7c9f
+                        name: Organization admin
+                        names:
+                          translation_fallback: Organization admin
+                          translations:
+                          - language: es
+                            translation: Administrador de la organización
+                          - language: ja
+                            translation: 組織管理者
+                          - language: zh
+                            translation: 组织管理员
+                          - language: vi
+                            translation: Quản trị viên của tổ chức
+                          - language: fr
+                            translation: Administrateur de l'organisation
+                          - language: ca
+                            translation: Administrador de l'organització
+                          - language: nl
+                            translation: Beheer organisatie
+                          - language: th
+                            translation: ผู้ดูแลองค์กร
+                          - language: de
+                            translation: Administrator der Organisation
+                          - language: it
+                            translation: Amministratore organizzazione
+                          - language: pt
+                            translation: Admin da organização
+                          - language: en
+                            translation: Organization admin
+                        is_default: false
+                        is_default_invitation_role: false
+                        user_count: 3
+                        position: 0
+                        authorization_role_id: e735e603-225a-47d1-bd39-72a1afae7c9f
+                        is_lower_role: false
+                      is_pending: false
+                      is_processing: false
+                      created_at: '2023-02-08T11:04:12.152411Z'
+                      updated_at: '2023-02-08T11:04:21.424427Z'
+                    - id: 73001071-62a5-4be3-bcc6-aadba62c54ec
+                      membership_type: Member
+                      user_id: dc157afc-84607076-50ba-4e6a-8bf6-18a6676554a3
+                      legacy_id: 500004722
+                      email: person.redacted+d@example.com
+                      first_name: ugazf
+                      last_name: aozifh
+                      organization_role:
+                        id: 932c489a-06dc-427b-912c-ca2d9709ac8e
+                        name: Organization member
+                        names:
+                          translation_fallback: Organization member
+                          translations:
+                          - language: nl
+                            translation: Lid organisatie
+                          - language: ja
+                            translation: 組織メンバー
+                          - language: pt
+                            translation: Membro da organização
+                          - language: it
+                            translation: Membro organizzazione
+                          - language: fr
+                            translation: Membre de l'organisation
+                          - language: vi
+                            translation: Thành viên của tổ chức
+                          - language: ca
+                            translation: Membre de l'organització
+                          - language: de
+                            translation: Mitglied der Organisation
+                          - language: zh
+                            translation: 组织成员
+                          - language: th
+                            translation: สมาชิกองค์กร
+                          - language: en
+                            translation: Organization member
+                          - language: es
+                            translation: Miembro de la organización
+                        is_default: true
+                        is_default_invitation_role: false
+                        user_count: 14
+                        position: 0
+                        authorization_role_id: 932c489a-06dc-427b-912c-ca2d9709ac8e
+                        higher_role_id: fbaed956-2c60-42b5-8763-8f62d6dd74a7
+                        is_lower_role: false
+                      is_pending: false
+                      is_processing: false
+                      created_at: '2023-01-10T16:10:07.389358Z'
+                      updated_at: '2023-01-10T16:10:46.783037Z'
+                    - id: bbbefa4f-36a8-425f-b8b4-c7d73bb6ec9b
+                      membership_type: Member
+                      user_id: 19727e12-e5b6df02-625b-47f2-be7a-69622f45e73f
+                      legacy_id: 500004518
+                      email: person.redacted+sandbox@example.com
+                      organization_role:
+                        id: 932c489a-06dc-427b-912c-ca2d9709ac8e
+                        name: Organization member
+                        names:
+                          translation_fallback: Organization member
+                          translations:
+                          - language: nl
+                            translation: Lid organisatie
+                          - language: ja
+                            translation: 組織メンバー
+                          - language: pt
+                            translation: Membro da organização
+                          - language: it
+                            translation: Membro organizzazione
+                          - language: fr
+                            translation: Membre de l'organisation
+                          - language: vi
+                            translation: Thành viên của tổ chức
+                          - language: ca
+                            translation: Membre de l'organització
+                          - language: de
+                            translation: Mitglied der Organisation
+                          - language: zh
+                            translation: 组织成员
+                          - language: th
+                            translation: สมาชิกองค์กร
+                          - language: en
+                            translation: Organization member
+                          - language: es
+                            translation: Miembro de la organización
+                        is_default: true
+                        is_default_invitation_role: false
+                        user_count: 14
+                        position: 0
+                        authorization_role_id: 932c489a-06dc-427b-912c-ca2d9709ac8e
+                        higher_role_id: fbaed956-2c60-42b5-8763-8f62d6dd74a7
+                        is_lower_role: false
+                      is_pending: true
+                      is_processing: false
+                      created_at: '2022-08-25T07:03:15.415763Z'
+                      updated_at: '2022-08-25T07:03:15.415763Z'
+                    - id: df41b4ca-a485-4eb3-9af1-d224d435968d
+                      membership_type: Member
+                      user_id: 3a93b7d2-6cdbc225-1324-44ca-ba13-67e865d3620a
+                      legacy_id: 500003141
+                      email: person.redacted+test@example.com
+                      first_name: Mathieu
+                      last_name: Bourgois
+                      media_resource:
+                        id: 46579746-ec37-4465-a0ff-5993d1e7d7ab
+                        file_name: cat.png
+                        mime_type: image/png
+                        created_at: '2022-02-28T09:28:41.196255Z'
+                      organization_role:
+                        id: e735e603-225a-47d1-bd39-72a1afae7c9f
+                        name: Organization admin
+                        names:
+                          translation_fallback: Organization admin
+                          translations:
+                          - language: es
+                            translation: Administrador de la organización
+                          - language: ja
+                            translation: 組織管理者
+                          - language: zh
+                            translation: 组织管理员
+                          - language: vi
+                            translation: Quản trị viên của tổ chức
+                          - language: fr
+                            translation: Administrateur de l'organisation
+                          - language: ca
+                            translation: Administrador de l'organització
+                          - language: nl
+                            translation: Beheer organisatie
+                          - language: th
+                            translation: ผู้ดูแลองค์กร
+                          - language: de
+                            translation: Administrator der Organisation
+                          - language: it
+                            translation: Amministratore organizzazione
+                          - language: pt
+                            translation: Admin da organização
+                          - language: en
+                            translation: Organization admin
+                        is_default: false
+                        is_default_invitation_role: false
+                        user_count: 3
+                        position: 0
+                        authorization_role_id: e735e603-225a-47d1-bd39-72a1afae7c9f
+                        is_lower_role: false
+                      is_pending: false
+                      is_processing: false
+                      created_at: '2022-05-24T08:23:51.560536Z'
+                      updated_at: '2022-06-30T08:36:07.204122Z'
+                    - id: 27b0a0a5-7867-4c81-be03-6c98e8218134
+                      membership_type: Member
+                      user_id: 44b76c1c-0466376f-46cd-46bc-8685-261abb613a71
+                      legacy_id: 500004721
+                      email: person.redacted+test2@example.com
+                      organization_role:
+                        id: fbaed956-2c60-42b5-8763-8f62d6dd74a7
+                        name: Workspace Manager
+                        names:
+                          translation_fallback: Workspace Manager
+                          translations:
+                          - language: th
+                            translation: ผู้จัดการพื้นที่ทำงาน
+                          - language: de
+                            translation: Workspace Manager
+                          - language: nl
+                            translation: Werkruimtebeheer
+                          - language: en
+                            translation: Workspace Manager
+                          - language: vi
+                            translation: Quản lý không gian làm việc
+                          - language: es
+                            translation: Gestor de espacio de trabajo
+                          - language: fr
+                            translation: Manager d'espace de travail
+                          - language: it
+                            translation: Responsabile dello spazio di lavoro
+                          - language: zh
+                            translation: 工作空间管理者
+                          - language: ja
+                            translation: ワークスペース・マネージャー
+                          - language: pt
+                            translation: Gestor do espaço de trabalho
+                          - language: ca
+                            translation: Gestor de l'entorn de treball
+                        is_default: false
+                        is_default_invitation_role: false
+                        user_count: 1
+                        position: 0
+                        authorization_role_id: fbaed956-2c60-42b5-8763-8f62d6dd74a7
+                        higher_role_id: e735e603-225a-47d1-bd39-72a1afae7c9f
+                        is_lower_role: false
+                      is_pending: true
+                      is_processing: false
+                      created_at: '2023-01-10T16:07:02.708705Z'
+                      updated_at: '2023-01-10T16:07:26.826521Z'
+                    - id: 7a26919a-24f5-4ec3-bbcd-5ca496d81cd5
+                      membership_type: Member
+                      user_id: 5a9367a0-607e9b7d-de7b-4eef-9ece-9bc612d0f584
+                      legacy_id: 500004408
+                      email: person-b@example.com
+                      first_name: Francis
+                      last_name: Maccio
+                      media_resource:
+                        id: d6537681-e710-47fa-8ad4-9c395c14779f
+                        file_name: 20200731_174858.jpg
+                        mime_type: image/jpeg
+                        created_at: '2022-08-01T14:26:49.071228Z'
+                      organization_role:
+                        id: 932c489a-06dc-427b-912c-ca2d9709ac8e
+                        name: Organization member
+                        names:
+                          translation_fallback: Organization member
+                          translations:
+                          - language: nl
+                            translation: Lid organisatie
+                          - language: ja
+                            translation: 組織メンバー
+                          - language: pt
+                            translation: Membro da organização
+                          - language: it
+                            translation: Membro organizzazione
+                          - language: fr
+                            translation: Membre de l'organisation
+                          - language: vi
+                            translation: Thành viên của tổ chức
+                          - language: ca
+                            translation: Membre de l'organització
+                          - language: de
+                            translation: Mitglied der Organisation
+                          - language: zh
+                            translation: 组织成员
+                          - language: th
+                            translation: สมาชิกองค์กร
+                          - language: en
+                            translation: Organization member
+                          - language: es
+                            translation: Miembro de la organización
+                        is_default: true
+                        is_default_invitation_role: false
+                        user_count: 14
+                        position: 0
+                        authorization_role_id: 932c489a-06dc-427b-912c-ca2d9709ac8e
+                        higher_role_id: fbaed956-2c60-42b5-8763-8f62d6dd74a7
+                        is_lower_role: false
+                      is_pending: false
+                      is_processing: false
+                      created_at: '2022-11-04T10:48:08.440584Z'
+                      updated_at: '2022-11-04T10:48:08.440585Z'
+                    - id: 4a0a62fb-746c-4e79-8f7b-1155b63ddf84
+                      membership_type: Member
+                      user_id: a9f0b291-ec293feb-d04e-4b6c-a8ad-244b028178bd
+                      legacy_id: 500004855
+                      email: person-a@example.com
+                      first_name: Nicolas
+                      last_name: PIRON
+                      media_resource:
+                        id: 1ac91ad8-8508-4441-b807-cc4a9536e825
+                        file_name: image-20230222-175024.png
+                        mime_type: image/png
+                        created_at: '2023-05-16T13:53:56.543243Z'
+                      organization_role:
+                        id: 932c489a-06dc-427b-912c-ca2d9709ac8e
+                        name: Organization member
+                        names:
+                          translation_fallback: Organization member
+                          translations:
+                          - language: nl
+                            translation: Lid organisatie
+                          - language: ja
+                            translation: 組織メンバー
+                          - language: pt
+                            translation: Membro da organização
+                          - language: it
+                            translation: Membro organizzazione
+                          - language: fr
+                            translation: Membre de l'organisation
+                          - language: vi
+                            translation: Thành viên của tổ chức
+                          - language: ca
+                            translation: Membre de l'organització
+                          - language: de
+                            translation: Mitglied der Organisation
+                          - language: zh
+                            translation: 组织成员
+                          - language: th
+                            translation: สมาชิกองค์กร
+                          - language: en
+                            translation: Organization member
+                          - language: es
+                            translation: Miembro de la organización
+                        is_default: true
+                        is_default_invitation_role: false
+                        user_count: 14
+                        position: 0
+                        authorization_role_id: 932c489a-06dc-427b-912c-ca2d9709ac8e
+                        higher_role_id: fbaed956-2c60-42b5-8763-8f62d6dd74a7
+                        is_lower_role: false
+                      is_pending: false
+                      is_processing: false
+                      created_at: '2023-05-04T11:56:53.692901Z'
+                      updated_at: '2023-05-04T11:56:54.618782Z'
+                    - id: b54395a5-69a1-4c5c-bcfd-ba6fda349816
+                      membership_type: Member
+                      user_id: 90c081fc-e12b5c38-06f3-4776-9c48-69584d51d7b1
+                      legacy_id: 55938
+                      email: person.redacted@example.com
+                      first_name: Quentin
+                      last_name: MACE
+                      media_resource:
+                        id: 0fc8ab8b-c02e-47b6-8212-4234d3272b87
+                        file_name: 3648586.png
+                        mime_type: image/png
+                        created_at: '2023-01-30T16:02:32.436688Z'
+                      organization_role:
+                        id: 932c489a-06dc-427b-912c-ca2d9709ac8e
+                        name: Organization member
+                        names:
+                          translation_fallback: Organization member
+                          translations:
+                          - language: nl
+                            translation: Lid organisatie
+                          - language: ja
+                            translation: 組織メンバー
+                          - language: pt
+                            translation: Membro da organização
+                          - language: it
+                            translation: Membro organizzazione
+                          - language: fr
+                            translation: Membre de l'organisation
+                          - language: vi
+                            translation: Thành viên của tổ chức
+                          - language: ca
+                            translation: Membre de l'organització
+                          - language: de
+                            translation: Mitglied der Organisation
+                          - language: zh
+                            translation: 组织成员
+                          - language: th
+                            translation: สมาชิกองค์กร
+                          - language: en
+                            translation: Organization member
+                          - language: es
+                            translation: Miembro de la organización
+                        is_default: true
+                        is_default_invitation_role: false
+                        user_count: 14
+                        position: 0
+                        authorization_role_id: 932c489a-06dc-427b-912c-ca2d9709ac8e
+                        higher_role_id: fbaed956-2c60-42b5-8763-8f62d6dd74a7
+                        is_lower_role: false
+                      is_pending: false
+                      is_processing: false
+                      created_at: '2022-12-08T09:15:10.413814Z'
+                      updated_at: '2022-12-08T09:15:10.413857Z'
+                    - id: e0bd7484-df8e-41b1-ab92-cc4644800059
+                      membership_type: Member
+                      user_id: bad53f66-330e4741-66cc-4489-ab69-f05911fdfb06
+                      legacy_id: 55959
+                      email: person.redacted@example.com
+                      first_name: Raluca25
+                      last_name: Baluta25
+                      job_title: Managerrr
+                      media_resource:
+                        id: ab324a02-859d-48af-9e63-25a1f1af6971
+                        file_name: images (6).jfif
+                        mime_type: image/jpeg
+                        created_at: '2021-10-20T07:18:14.73765Z'
+                      organization_role:
+                        id: 932c489a-06dc-427b-912c-ca2d9709ac8e
+                        name: Organization member
+                        names:
+                          translation_fallback: Organization member
+                          translations:
+                          - language: nl
+                            translation: Lid organisatie
+                          - language: ja
+                            translation: 組織メンバー
+                          - language: pt
+                            translation: Membro da organização
+                          - language: it
+                            translation: Membro organizzazione
+                          - language: fr
+                            translation: Membre de l'organisation
+                          - language: vi
+                            translation: Thành viên của tổ chức
+                          - language: ca
+                            translation: Membre de l'organització
+                          - language: de
+                            translation: Mitglied der Organisation
+                          - language: zh
+                            translation: 组织成员
+                          - language: th
+                            translation: สมาชิกองค์กร
+                          - language: en
+                            translation: Organization member
+                          - language: es
+                            translation: Miembro de la organización
+                        is_default: true
+                        is_default_invitation_role: false
+                        user_count: 14
+                        position: 0
+                        authorization_role_id: 932c489a-06dc-427b-912c-ca2d9709ac8e
+                        higher_role_id: fbaed956-2c60-42b5-8763-8f62d6dd74a7
+                        is_lower_role: false
+                      is_pending: false
+                      is_processing: false
+                      created_at: '2022-12-14T11:45:25.620227Z'
+                      updated_at: '2022-12-14T11:45:25.620228Z'
+                    - id: 8a2bc9ac-084d-4346-a35c-62d461abfc8a
+                      membership_type: Member
+                      user_id: 23c0968f-4b9d3ab1-368d-47dc-bc6e-4afbe6c144cc
+                      legacy_id: 57261
+                      email: person.redacted@example.com
+                      first_name: Vincent
+                      last_name: CHHIM
+                      media_resource:
+                        id: bb1a0b12-a06c-453c-a1d0-af664b1e406d
+                        file_name: bluepng.png
+                        mime_type: image/png
+                        created_at: '2023-06-27T12:09:20.890192Z'
+                      organization_role:
+                        id: 932c489a-06dc-427b-912c-ca2d9709ac8e
+                        name: Organization member
+                        names:
+                          translation_fallback: Organization member
+                          translations:
+                          - language: nl
+                            translation: Lid organisatie
+                          - language: ja
+                            translation: 組織メンバー
+                          - language: pt
+                            translation: Membro da organização
+                          - language: it
+                            translation: Membro organizzazione
+                          - language: fr
+                            translation: Membre de l'organisation
+                          - language: vi
+                            translation: Thành viên của tổ chức
+                          - language: ca
+                            translation: Membre de l'organització
+                          - language: de
+                            translation: Mitglied der Organisation
+                          - language: zh
+                            translation: 组织成员
+                          - language: th
+                            translation: สมาชิกองค์กร
+                          - language: en
+                            translation: Organization member
+                          - language: es
+                            translation: Miembro de la organización
+                        is_default: true
+                        is_default_invitation_role: false
+                        user_count: 14
+                        position: 0
+                        authorization_role_id: 932c489a-06dc-427b-912c-ca2d9709ac8e
+                        higher_role_id: fbaed956-2c60-42b5-8763-8f62d6dd74a7
+                        is_lower_role: false
+                      is_pending: false
+                      is_processing: false
+                      created_at: '2022-12-12T13:15:33.093531Z'
+                      updated_at: '2022-12-12T13:15:33.093531Z'
+                    count: 18
+                    total_count: 18
+                    limit: 50
+                    offset: 0
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /organizations/{organization_id}/organization-roles:
+    get:
+      operationId: membersGetRoles
+      summary: Get roles
+      description: "You can get organization roles here that you will associate with new members.\n\n Organization admin : Manages the organization and sees all projects\n\n Workspace manager : Can manage the workspace and can create and manage their projects\n\n Organization member : Can create and manage their projects\n\n Organization guest : Can see their projects"
+      tags:
+      - Members
+      parameters:
+      - name: organization_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `organization_id` as published in the collection.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    organization_roles:
+                    - id: e735e603-225a-47d1-bd39-72a1afae7c9f
+                      name: Organization admin
+                      description: Manage organization
+                      names:
+                        translation_fallback: Organization admin
+                        translations:
+                        - language: es
+                          translation: Administrador de la organización
+                        - language: ja
+                          translation: 組織管理者
+                        - language: zh
+                          translation: 组织管理员
+                        - language: vi
+                          translation: Quản trị viên của tổ chức
+                        - language: fr
+                          translation: Administrateur de l'organisation
+                        - language: ca
+                          translation: Administrador de l'organització
+                        - language: nl
+                          translation: Beheer organisatie
+                        - language: th
+                          translation: ผู้ดูแลองค์กร
+                        - language: de
+                          translation: Administrator der Organisation
+                        - language: it
+                          translation: Amministratore organizzazione
+                        - language: pt
+                          translation: Admin da organização
+                        - language: en
+                          translation: Organization admin
+                      descriptions:
+                        translation_fallback: Manage organization
+                        translations:
+                        - language: it
+                          translation: Gestisci l'organizzazione
+                        - language: ca
+                          translation: Gestionar l'organització
+                        - language: zh
+                          translation: 管理组织
+                        - language: de
+                          translation: 'Organisation verwalten '
+                        - language: vi
+                          translation: Quản lý tổ chức
+                        - language: en
+                          translation: Manage organization
+                        - language: th
+                          translation: จัดการองค์กร
+                        - language: es
+                          translation: Gestiona la organización
+                        - language: pt
+                          translation: Gerir a organização
+                        - language: ja
+                          translation: 組織を管理する
+                        - language: nl
+                          translation: Organisatie beheren
+                        - language: fr
+                          translation: Gérer l'organisation
+                      is_default: false
+                      is_default_invitation_role: false
+                      user_count: 3
+                      position: 0
+                      authorization_role_id: e735e603-225a-47d1-bd39-72a1afae7c9f
+                      is_lower_role: false
+                    - id: fbaed956-2c60-42b5-8763-8f62d6dd74a7
+                      name: Workspace Manager
+                      description: Create & edit workspaces
+                      names:
+                        translation_fallback: Workspace Manager
+                        translations:
+                        - language: th
+                          translation: ผู้จัดการพื้นที่ทำงาน
+                        - language: de
+                          translation: Workspace Manager
+                        - language: nl
+                          translation: Werkruimtebeheer
+                        - language: en
+                          translation: Workspace Manager
+                        - language: vi
+                          translation: Quản lý không gian làm việc
+                        - language: es
+                          translation: Gestor de espacio de trabajo
+                        - language: fr
+                          translation: Manager d'espace de travail
+                        - language: it
+                          translation: Responsabile dello spazio di lavoro
+                        - language: zh
+                          translation: 工作空间管理者
+                        - language: ja
+                          translation: ワークスペース・マネージャー
+                        - language: pt
+                          translation: Gestor do espaço de trabalho
+                        - language: ca
+                          translation: Gestor de l'entorn de treball
+                      descriptions:
+                        translation_fallback: Create & edit workspaces
+                        translations:
+                        - language: de
+                          translation: Arbeitsbereiche anlegen und bearbeiten
+                        - language: fr
+                          translation: Créer et modifier des espaces de travail
+                        - language: zh
+                          translation: 创建并和编辑工作空间
+                        - language: vi
+                          translation: Tạo và chỉnh sửa không gian làm việc
+                        - language: it
+                          translation: Creare e modificare gli spazi di lavoro
+                        - language: en
+                          translation: Create & edit workspaces
+                        - language: th
+                          translation: สร้างและแก้ไขพื้นที่ทำงาน
+                        - language: ja
+                          translation: ワークスペースを作成・編集します
+                        - language: es
+                          translation: Crear y editar espacios de trabajo
+                        - language: nl
+                          translation: Werkruimtes aanmaken en bewerken
+                        - language: ca
+                          translation: Crea i edita espais de treball
+                        - language: pt
+                          translation: Criar e editar áreas de trabalho
+                      is_default: false
+                      is_default_invitation_role: false
+                      user_count: 1
+                      position: 1
+                      authorization_role_id: fbaed956-2c60-42b5-8763-8f62d6dd74a7
+                      higher_role_id: e735e603-225a-47d1-bd39-72a1afae7c9f
+                      is_lower_role: false
+                    - id: 932c489a-06dc-427b-912c-ca2d9709ac8e
+                      name: Organization member
+                      description: Create and manage my projects
+                      names:
+                        translation_fallback: Organization member
+                        translations:
+                        - language: nl
+                          translation: Lid organisatie
+                        - language: ja
+                          translation: 組織メンバー
+                        - language: pt
+                          translation: Membro da organização
+                        - language: it
+                          translation: Membro organizzazione
+                        - language: fr
+                          translation: Membre de l'organisation
+                        - language: vi
+                          translation: Thành viên của tổ chức
+                        - language: ca
+                          translation: Membre de l'organització
+                        - language: de
+                          translation: Mitglied der Organisation
+                        - language: zh
+                          translation: 组织成员
+                        - language: th
+                          translation: สมาชิกองค์กร
+                        - language: en
+                          translation: Organization member
+                        - language: es
+                          translation: Miembro de la organización
+                      descriptions:
+                        translation_fallback: Create and manage my projects
+                        translations:
+                        - language: de
+                          translation: Meine Projekte erstellen und verwalten
+                        - language: es
+                          translation: Crea y gestiona mis proyectos
+                        - language: pt
+                          translation: Criar e gerir os meus projetos
+                        - language: en
+                          translation: Create and manage my projects
+                        - language: nl
+                          translation: Mijn projecten creëren en beheren
+                        - language: th
+                          translation: สร้างและจัดการโครงการของฉัน
+                        - language: vi
+                          translation: Tạo và quản lý các dự án của tôi
+                        - language: ja
+                          translation: プロジェクトを作成・更新できます
+                        - language: zh
+                          translation: 创建和管理我的项目
+                        - language: it
+                          translation: Crea e gestisci i miei progetti
+                        - language: ca
+                          translation: Crear i gestionar els meus projectes
+                        - language: fr
+                          translation: Créer et gérer mes projets
+                      is_default: true
+                      is_default_invitation_role: false
+                      user_count: 14
+                      position: 2
+                      authorization_role_id: 932c489a-06dc-427b-912c-ca2d9709ac8e
+                      higher_role_id: fbaed956-2c60-42b5-8763-8f62d6dd74a7
+                      is_lower_role: false
+                    - id: b2fc2d17-c18f-4ee6-9e9b-1d4b4c872a88
+                      name: Organization guest
+                      description: See my projects
+                      names:
+                        translation_fallback: Organization guest
+                        translations:
+                        - language: de
+                          translation: Gast der Organisation
+                        - language: ca
+                          translation: Convidat de l'organització
+                        - language: en
+                          translation: Organization guest
+                        - language: es
+                          translation: Invitado de la organización
+                        - language: th
+                          translation: แขกขององค์กร
+                        - language: it
+                          translation: Ospite organizzazione
+                        - language: nl
+                          translation: Gast organisatie
+                        - language: pt
+                          translation: Convidado da organização
+                        - language: vi
+                          translation: Khách của tổ chức
+                        - language: fr
+                          translation: Invité de l'organisation
+                        - language: ja
+                          translation: 組織ゲスト
+                        - language: zh
+                          translation: 组织访客
+                      descriptions:
+                        translation_fallback: See my projects
+                        translations:
+                        - language: it
+                          translation: Vedi i miei progetti
+                        - language: fr
+                          translation: Voir mes projets
+                        - language: es
+                          translation: Ve mis proyectos
+                        - language: en
+                          translation: See my projects
+                        - language: de
+                          translation: Meine Projekte anzeigen
+                        - language: ca
+                          translation: Veure els meus projectes
+                        - language: nl
+                          translation: Mijn projecten bekijken
+                        - language: zh
+                          translation: 查看我的项目
+                        - language: pt
+                          translation: Ver os meus projetos
+                        - language: th
+                          translation: ดูโครงการของฉัน
+                        - language: vi
+                          translation: Xem các dự án của tôi
+                        - language: ja
+                          translation: 登録されたプロジェクトの閲覧のみ
+                      is_default: false
+                      is_default_invitation_role: false
+                      user_count: 0
+                      position: 3
+                      authorization_role_id: b2fc2d17-c18f-4ee6-9e9b-1d4b4c872a88
+                      higher_role_id: 932c489a-06dc-427b-912c-ca2d9709ac8e
+                      is_lower_role: true
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /organizations/{organization_id}/remove-members:
+    post:
+      operationId: membersRemoveMembers
+      summary: Remove members
+      description: "You can remove users from an organization.\n\n Endpoint mandatory infos \n Details \n\n organisation_id \n the id of the organizationto be modified \n\n body mandatory infos \n Details \n\n user_ids \n List of ids to be removed \n This is not the User_id but the Id field returned by Get members"
+      tags:
+      - Members
+      parameters:
+      - name: organization_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `organization_id` as published in the collection.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              user_ids:
+              - the_user_id
+              - another_user_id
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+components:
+  schemas:
+    ApiError:
+      type: object
+      description: Finalcad One error envelope. `api_code` is either a static code (mostly 4xx, e.g. INVALID_INSTANCE_STATE) or a constructed code of the form {ProcessCode}_ERR{n} / {ProcessCode}_WRN{n} (mostly 5xx).
+      properties:
+        statut:
+          type: integer
+          description: HTTP status code, repeated in the body (spelled `statut`).
+        api_code:
+          type: string
+          description: Internal Finalcad API error code.
+        message:
+          type: string
+          description: Short explanation of the abnormality encountered.
+        data:
+          type: object
+          description: Complementary data to help understand the error.
+          additionalProperties: true
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: Organization API key issued by Finalcad to organizations on an Enterprise licence. Sent on every call.
+    tokenAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: '`Authorization: token <your_api_key>`, or `Authorization: bearer <user_token>` for the legacy user-token flow (POST /auth).'

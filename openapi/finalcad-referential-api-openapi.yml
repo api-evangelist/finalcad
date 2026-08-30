@@ -1,0 +1,549 @@
+openapi: 3.2.0
+info:
+  title: Finalcad One Organization Management Referential API
+  version: '2.41'
+  summary: 'Organization-level administration of a Finalcad One Enterprise tenant: workspaces, members and roles, observation status / trade / common-observation / priority / form-template libraries, form and observation module types, data referentials, and Power BI dataset configuration.'
+  description: 'Organization-level administration of a Finalcad One Enterprise tenant: workspaces, members and roles, observation status / trade / common-observation / priority / form-template libraries, form and observation module types, data referentials, and Power BI dataset configuration.
+
+
+    DERIVED, NOT PUBLISHED BY THE PROVIDER. Finalcad publishes no OpenAPI. This document was mechanically derived by API Evangelist from the first-party public Postman collection "Finalcad One API" served by Finalcad at https://developer.finalcad.com/ (collection JSON: https://developer.finalcad.com/api/collections/10995648/Tz5v1Es2), saved in this repo at collections/finalcad.postman_collection.json. Every path, method, header, query parameter, example request body and example response below is carried over from that collection; nothing was invented. Request/response bodies are typed as generic objects because the collection carries examples, not schemas. Four Finalcad employees'' personal e-mail addresses that appeared in the collection''s example payloads were replaced with placeholders; nothing else was changed.'
+  contact:
+    name: Finalcad One API — developer portal
+    url: https://developer.finalcad.com/
+  x-generated-by: API Evangelist enrichment pipeline (derived from the first-party Postman collection)
+  x-source: collections/finalcad.postman_collection.json
+  x-source-url: https://developer.finalcad.com/
+servers:
+- url: https://developer.finalcad.cloud/api
+  description: Production — the baseUrl variable published in the Finalcad One API Postman collection.
+- url: https://developer.sandbox.finalcad.cloud/api
+  description: Sandbox — published by Finalcad in the 'Retrieve data in Power BI' tutorial of the same collection.
+security:
+- apiKey: []
+  tokenAuth: []
+tags:
+- name: Referential
+paths:
+  /organizations/{organization_id}/datareferentials:
+    get:
+      operationId: referentialGetDataReferentials
+      summary: Get data referentials
+      description: "Get the list of all data referentials for your organization.\n\n Details \n\n organization_id \n id of your organization \n\n Query params optionals \n\n see Commmon behaviors / differential"
+      tags:
+      - Referential
+      parameters:
+      - name: organization_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `organization_id` as published in the collection.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    data_referentials:
+                    - id: 56f2caea-9f65-402f-8b80-0dcac4815a3e
+                      name: Employés
+                      organization_id: 2421734c-f191-4237-acd8-becf216eaae4
+                      media_resource:
+                        id: 9ddf1fcf-7067-4ad6-a8fb-7a1883af71b1
+                        file_name: MDD-Employes.csv
+                        mime_type: text/csv
+                        created_at: '0001-01-01T00:00:00Z'
+                      status: Success
+                      structure:
+                      - ID
+                      - UPN
+                      - Email
+                      - Matricule
+                      - Nom
+                      - Prenom
+                      - Fonction
+                      - Service
+                      - Telephone
+                      - GUID Entite
+                      - Nom Entite
+                      - Type de contrat
+                      - Libellé emploi
+                      - Aptitude
+                      - Dernière date de visite médicale
+                      - Interne
+                      - Source
+                      - Modifié le
+                      - EtatEnr
+                      - Emploi Foederis
+                      - Restriction
+                      - Nom du contact/Num Téléphone
+                      - Habilitation(s)
+                      created_at: '2024-01-19T13:08:07.992Z'
+                      created_by: 3a93b7d2-6cdbc225-1324-44ca-ba13-67e865d3620a
+                      updated_at: '2024-01-19T13:08:22.831Z'
+                      updated_by: 3a93b7d2-6cdbc225-1324-44ca-ba13-67e865d3620a
+                    - id: 14753cc4-3059-4f4e-83d6-729e43081b4d
+                      name: Test
+                      organization_id: 2421734c-f191-4237-acd8-becf216eaae4
+                      media_resource:
+                        id: a31d2153-7c65-4d4d-a230-9c3cc5351750
+                        file_name: Test.csv
+                        mime_type: application/vnd.ms-excel
+                        created_at: '0001-01-01T00:00:00Z'
+                      status: Success
+                      structure:
+                      - ID
+                      - UPN
+                      - Email
+                      - Matricule
+                      - Nom
+                      - Prenom
+                      - Fonction
+                      - Service
+                      - Telephone
+                      - GUID Entite
+                      - Nom Entite
+                      - Type de contrat
+                      - Libellé emploi
+                      - Aptitude
+                      - Dernière date de visite médicale
+                      - Interne
+                      - Source
+                      - Modifié le
+                      - EtatEnr
+                      - Emploi Foederis
+                      - Restriction
+                      - Nom du contact/Num Téléphone
+                      created_at: '2024-01-10T10:15:20.573Z'
+                      created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                      updated_at: '2024-03-05T10:07:55.721Z'
+                      updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                      deleted_at: '2024-03-05T10:07:55.721Z'
+                      deleted_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    continuous_token: dHV0dQ==
+                    count: 2
+                    limit: 50
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+    post:
+      operationId: referentialCreateDataReferential
+      summary: Create data referential
+      description: "Create a new referential.\n\n Details \n\n organization_id \n id of your organization \n\n body mandatory params \n Details \n\n media_id \n Id the a previously uploaded media file \n\n name \n name of the referential"
+      tags:
+      - Referential
+      parameters:
+      - name: organization_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `organization_id` as published in the collection.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              media_id: <uuid>
+              name: <string>
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    id: cba7b13c-7e01-4d0b-9396-f758d982ca31
+                    name: Test Employés
+                    organization_id: 2421734c-f191-4237-acd8-becf216eaae4
+                    media_resource:
+                      id: b7427db4-5874-4c47-8a36-771683dd0cb3
+                      file_name: MDD-Employes -v2023.v2.ms-excel
+                      mime_type: application/octet-stream
+                      created_at: '0001-01-01T00:00:00Z'
+                    status: InProgress
+                    created_at: '2024-03-05T12:55:45.1947895Z'
+                    created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    updated_at: '2024-03-05T12:55:45.364755Z'
+                    updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /organizations/{organization_id}/datareferentials/{referentialId}:
+    get:
+      operationId: referentialGetDataReferential
+      summary: Get data referential
+      description: "Get the list of all data referentials for your organization.\n\n Details \n\n organization_id \n id of your organization \n\n referential_id \n id of the referential"
+      tags:
+      - Referential
+      parameters:
+      - name: organization_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `organization_id` as published in the collection.
+      - name: referentialId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `referentialId` as published in the collection.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    id: 56f2caea-9f65-402f-8b80-0dcac4815a3e
+                    name: Employés
+                    organization_id: 2421734c-f191-4237-acd8-becf216eaae4
+                    media_resource:
+                      id: 9ddf1fcf-7067-4ad6-a8fb-7a1883af71b1
+                      file_name: MDD-Employes.csv
+                      mime_type: text/csv
+                      created_at: '0001-01-01T00:00:00Z'
+                    status: Success
+                    structure:
+                    - ID
+                    - UPN
+                    - Email
+                    - Matricule
+                    - Nom
+                    - Prenom
+                    - Fonction
+                    - Service
+                    - Telephone
+                    - GUID Entite
+                    - Nom Entite
+                    - Type de contrat
+                    - Libellé emploi
+                    - Aptitude
+                    - Dernière date de visite médicale
+                    - Interne
+                    - Source
+                    - Modifié le
+                    - EtatEnr
+                    - Emploi Foederis
+                    - Restriction
+                    - Nom du contact/Num Téléphone
+                    - Habilitation(s)
+                    created_at: '2024-01-19T13:08:07.992Z'
+                    created_by: 3a93b7d2-6cdbc225-1324-44ca-ba13-67e865d3620a
+                    updated_at: '2024-01-19T13:08:22.831Z'
+                    updated_by: 3a93b7d2-6cdbc225-1324-44ca-ba13-67e865d3620a
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+    delete:
+      operationId: referentialDeleteDataReferential
+      summary: Delete data referential
+      description: "Delete a referential.\n\n Endpoint mandatory parameters \n Details \n\n organization_id \n id of your organization \n\n referential_id \n id of the referential"
+      tags:
+      - Referential
+      parameters:
+      - name: organization_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `organization_id` as published in the collection.
+      - name: referentialId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `referentialId` as published in the collection.
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /organizations/{organization_id}/datareferentials/{referentialId}/set-name:
+    put:
+      operationId: referentialRenameDataReferential
+      summary: Rename data referential
+      description: "Rename a referential.\n\n Details \n\n organization_id \n id of your organization \n\n referential_id \n if of the referential \n\n body mandatory params \n Details \n\n name \n name of the referential"
+      tags:
+      - Referential
+      parameters:
+      - name: organization_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `organization_id` as published in the collection.
+      - name: referentialId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `referentialId` as published in the collection.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              name: the new name
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    id: 3b014303-d9ff-4713-bf09-95e4a0257e7f
+                    name: the new name
+                    organization_id: 2421734c-f191-4237-acd8-becf216eaae4
+                    media_resource:
+                      id: b0a6e99e-8eeb-4010-b095-b60e34d63f15
+                      file_name: MDD-Employes -v2023.v2.ms-excel
+                      mime_type: application/octet-stream
+                      created_at: '0001-01-01T00:00:00Z'
+                    status: Success
+                    structure:
+                    - ID
+                    - UPN
+                    - Email
+                    - Matricule
+                    - Nom
+                    - Prenom
+                    - Fonction
+                    - Service
+                    - Telephone
+                    - GUID Entite
+                    - Nom Entite
+                    - Type de contrat
+                    - Libellé emploi
+                    - Aptitude
+                    - Dernière date de visite médicale
+                    - Interne
+                    - Source
+                    - Modifié le
+                    - EtatEnr
+                    - Emploi Foederis
+                    - Restriction
+                    - Nom du contact/Num Téléphone
+                    created_at: '2024-01-09T10:42:18.292Z'
+                    created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    updated_at: '2024-03-05T12:57:08.449295Z'
+                    updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /organizations/{organization_id}/datareferentials/{referentialId}/set-referential:
+    put:
+      operationId: referentialUpdateDataReferential
+      summary: Update data referential
+      description: "Replace a new referential's content.\n\n It is your responsibility to verify that the file structure is the same as the previous one. \n\n Endpoint mandatory parameters \n Details \n\n organization_id \n id of your organization \n\n referential_id \n id of the referential \n\n body mandatory params \n Details \n\n media_id \n Id the a previously uploaded media file"
+      tags:
+      - Referential
+      parameters:
+      - name: organization_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `organization_id` as published in the collection.
+      - name: referentialId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `referentialId` as published in the collection.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              media_id: <uuid>
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    id: 3b014303-d9ff-4713-bf09-95e4a0257e7f
+                    name: test
+                    organization_id: 2421734c-f191-4237-acd8-becf216eaae4
+                    media_resource:
+                      id: b0a6e99e-8eeb-4010-b095-b60e34d63f15
+                      file_name: MDD-Employes -v2023.v2.ms-excel
+                      mime_type: application/octet-stream
+                      created_at: '0001-01-01T00:00:00Z'
+                    status: Updating
+                    structure:
+                    - ID
+                    - UPN
+                    - Email
+                    - Matricule
+                    - Nom
+                    - Prenom
+                    - Fonction
+                    - Service
+                    - Telephone
+                    - GUID Entite
+                    - Nom Entite
+                    - Type de contrat
+                    - Libellé emploi
+                    - Aptitude
+                    - Dernière date de visite médicale
+                    - Interne
+                    - Source
+                    - Modifié le
+                    - EtatEnr
+                    - Emploi Foederis
+                    - Restriction
+                    - Nom du contact/Num Téléphone
+                    created_at: '2024-01-09T10:42:18.292Z'
+                    created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    updated_at: '2024-03-05T12:56:12.4538467Z'
+                    updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+components:
+  schemas:
+    ApiError:
+      type: object
+      description: Finalcad One error envelope. `api_code` is either a static code (mostly 4xx, e.g. INVALID_INSTANCE_STATE) or a constructed code of the form {ProcessCode}_ERR{n} / {ProcessCode}_WRN{n} (mostly 5xx).
+      properties:
+        statut:
+          type: integer
+          description: HTTP status code, repeated in the body (spelled `statut`).
+        api_code:
+          type: string
+          description: Internal Finalcad API error code.
+        message:
+          type: string
+          description: Short explanation of the abnormality encountered.
+        data:
+          type: object
+          description: Complementary data to help understand the error.
+          additionalProperties: true
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: Organization API key issued by Finalcad to organizations on an Enterprise licence. Sent on every call.
+    tokenAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: '`Authorization: token <your_api_key>`, or `Authorization: bearer <user_token>` for the legacy user-token flow (POST /auth).'

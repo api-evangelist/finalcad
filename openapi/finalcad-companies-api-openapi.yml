@@ -1,0 +1,455 @@
+openapi: 3.2.0
+info:
+  title: Finalcad One Project Companies API
+  version: '2.41'
+  summary: 'Project-level operations for Finalcad One construction projects: project details, project libraries, members, locations (folders / plans / IFC), discussion groups, companies, modules (observations / forms / meetings), observations, forms and form answers, documents, phases, meetings and XLSX/PDF exports.'
+  description: 'Project-level operations for Finalcad One construction projects: project details, project libraries, members, locations (folders / plans / IFC), discussion groups, companies, modules (observations / forms / meetings), observations, forms and form answers, documents, phases, meetings and XLSX/PDF exports.
+
+
+    DERIVED, NOT PUBLISHED BY THE PROVIDER. Finalcad publishes no OpenAPI. This document was mechanically derived by API Evangelist from the first-party public Postman collection "Finalcad One API" served by Finalcad at https://developer.finalcad.com/ (collection JSON: https://developer.finalcad.com/api/collections/10995648/Tz5v1Es2), saved in this repo at collections/finalcad.postman_collection.json. Every path, method, header, query parameter, example request body and example response below is carried over from that collection; nothing was invented. Request/response bodies are typed as generic objects because the collection carries examples, not schemas. Four Finalcad employees'' personal e-mail addresses that appeared in the collection''s example payloads were replaced with placeholders; nothing else was changed.'
+  contact:
+    name: Finalcad One API — developer portal
+    url: https://developer.finalcad.com/
+  x-generated-by: API Evangelist enrichment pipeline (derived from the first-party Postman collection)
+  x-source: collections/finalcad.postman_collection.json
+  x-source-url: https://developer.finalcad.com/
+servers:
+- url: https://developer.finalcad.cloud/api
+  description: Production — the baseUrl variable published in the Finalcad One API Postman collection.
+- url: https://developer.sandbox.finalcad.cloud/api
+  description: Sandbox — published by Finalcad in the 'Retrieve data in Power BI' tutorial of the same collection.
+security:
+- apiKey: []
+  tokenAuth: []
+tags:
+- name: Companies
+paths:
+  /projects/{project_id}/companies:
+    get:
+      operationId: companiesGetProjectCompaniesList
+      summary: Get  project companies list
+      description: "Before updating your company list, you might want to have an overview of the ones deployed in your project. This helps you manage your project based on the current context.\n\n Details \n\n project_Id \n the id of the project to be checked \n\n Query params optionals \n\n see Commmon behaviors / differential"
+      tags:
+      - Companies
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    companies:
+                    - id: 3d40ff78-e900-423c-a842-10cc2a4d5f18
+                      name: entrep 2
+                      enabled: true
+                      created_at: '2024-05-22T09:48:31.393607Z'
+                      created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                      updated_at: '2024-05-22T09:48:31.393607Z'
+                      updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    - id: 592f260a-0197-459e-a724-3bbf7b7ca051
+                      name: entrep 1
+                      enabled: true
+                      created_at: '2024-05-22T09:48:24.403954Z'
+                      created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                      updated_at: '2024-05-22T09:48:24.403954Z'
+                      updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    need_to_relaunch: true
+                    continuous_token: CT:Unknown-0-2
+                    count: 2
+                    total_count: 5
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+    put:
+      operationId: companiesUpdateProjectCompanyName
+      summary: Update project company name
+      description: "Update your list of companies. Only the selected companies will change.\n\n Endpoint mandatory infos \n Details \n\n project_Id \n the id of the project to be modified \n\n body mandatory infos \n Details \n\n id \n id of the company to be modified \n\n name \n new name of the company \n\n body optionalinfos \n Details \n\n reference \n company reference in your referential system"
+      tags:
+      - Companies
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              companies:
+              - id: <uuid>
+                name: <string>
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    companies:
+                    - id: 2cf2d0f2-3084-4b43-b78d-8992bd922f79
+                      name: Company 1 - New Name
+                    - id: 72e65911-4baf-4109-b1a8-aebae2f97c00
+                      name: Company 2 - New Name
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+    delete:
+      operationId: companiesDeleteProjectCompanies
+      summary: Delete project companies
+      description: "You can provide the list of company IDs you want to remove from your project. The existing assignments will be tagged as deleted entities.\n\n Details \n\n project_Id \n the id of the project to be modified \n\n body mandatory infos \n Details \n\n company_ids \n list of companies ids to be deleted"
+      tags:
+      - Companies
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              company_ids:
+              - <uuid>
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+    post:
+      operationId: companiesCreateProjectCompanies
+      summary: Create project companies
+      description: "Creating a new company for a project only means giving it a name. Additionally, you can do it as a list of companies.\n\n Details \n\n project_Id \n the id of the project to be modified \n\n body mandatory infos \n Details \n\n companies \n list of names and references of the new companies \n \nthe reference is the company reference in your referential system and is optional"
+      tags:
+      - Companies
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              companies:
+              - name: <string>
+              - name: <string>
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    companies:
+                    - id: 25c48f04-16fe-48eb-8870-be8d2c7b8cd5
+                      name: Company A
+                    - id: 007ab530-0b7d-4168-bac3-1a13d1c2dabe
+                      name: Company B
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /projects/{project_id}/companies/{company_id}:
+    get:
+      operationId: companiesGetCompanyInfo
+      summary: Get company info
+      description: "Given the project company ID, you can check its name.\n\n Details \n\n project_Id \n the id of the project to be modified \n\n company_id \n id of the company to be checked"
+      tags:
+      - Companies
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      - name: company_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `company_id` as published in the collection.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    id: af4f4f2a-2688-4caa-bc8d-d3d07b4e682e
+                    name: company1
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /projects/{project_id}/companies/{company_id}/add-members:
+    post:
+      operationId: companiesAddMembers
+      summary: Add members
+      description: "Given the project company ID, you can add members (members should exist in the project).\n\n Details \n\n project_Id \n the id of the project to be modified \n\n company_id \n id of the company to be checked \n\n Body mandatory infos \n Details \n\n list of users ids"
+      tags:
+      - Companies
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      - name: company_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `company_id` as published in the collection.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              user_ids:
+              - 23c0968f-4b9d3ab1-368d-47dc-bc6e-4afbe6c144cc
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    id: 72e65911-4baf-4109-b1a8-aebae2f97c00
+                    name: Company 2
+                    enabled: true
+                    user_ids:
+                    - 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    - 23c0968f-4b9d3ab1-368d-47dc-bc6e-4afbe6c144cc
+                    created_at: '2024-01-25T14:01:53.394256Z'
+                    created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    updated_at: '2024-01-26T13:45:27.3128544Z'
+                    updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /projects/{project_id}/companies/{company_id}/remove-members:
+    post:
+      operationId: companiesRemoveMembers
+      summary: Remove members
+      description: "Given the project company ID, you can remove members.\n\n Details \n\n project_Id \n the id of the project to be modified \n\n company_id \n id of the company to be checked \n\n Body mandatory infos \n Details \n\n list of users ids"
+      tags:
+      - Companies
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      - name: company_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `company_id` as published in the collection.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              user_ids:
+              - 23c0968f-4b9d3ab1-368d-47dc-bc6e-4afbe6c144cc
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    id: 72e65911-4baf-4109-b1a8-aebae2f97c00
+                    name: Company 2
+                    enabled: true
+                    user_ids:
+                    - 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    created_at: '2024-01-25T14:01:53.394256Z'
+                    created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    updated_at: '2024-01-26T13:45:11.4211361Z'
+                    updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+components:
+  schemas:
+    ApiError:
+      type: object
+      description: Finalcad One error envelope. `api_code` is either a static code (mostly 4xx, e.g. INVALID_INSTANCE_STATE) or a constructed code of the form {ProcessCode}_ERR{n} / {ProcessCode}_WRN{n} (mostly 5xx).
+      properties:
+        statut:
+          type: integer
+          description: HTTP status code, repeated in the body (spelled `statut`).
+        api_code:
+          type: string
+          description: Internal Finalcad API error code.
+        message:
+          type: string
+          description: Short explanation of the abnormality encountered.
+        data:
+          type: object
+          description: Complementary data to help understand the error.
+          additionalProperties: true
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: Organization API key issued by Finalcad to organizations on an Enterprise licence. Sent on every call.
+    tokenAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: '`Authorization: token <your_api_key>`, or `Authorization: bearer <user_token>` for the legacy user-token flow (POST /auth).'

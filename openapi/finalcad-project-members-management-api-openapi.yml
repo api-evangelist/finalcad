@@ -1,0 +1,417 @@
+openapi: 3.2.0
+info:
+  title: Finalcad One Project Project members management API
+  version: '2.41'
+  summary: 'Project-level operations for Finalcad One construction projects: project details, project libraries, members, locations (folders / plans / IFC), discussion groups, companies, modules (observations / forms / meetings), observations, forms and form answers, documents, phases, meetings and XLSX/PDF exports.'
+  description: 'Project-level operations for Finalcad One construction projects: project details, project libraries, members, locations (folders / plans / IFC), discussion groups, companies, modules (observations / forms / meetings), observations, forms and form answers, documents, phases, meetings and XLSX/PDF exports.
+
+
+    DERIVED, NOT PUBLISHED BY THE PROVIDER. Finalcad publishes no OpenAPI. This document was mechanically derived by API Evangelist from the first-party public Postman collection "Finalcad One API" served by Finalcad at https://developer.finalcad.com/ (collection JSON: https://developer.finalcad.com/api/collections/10995648/Tz5v1Es2), saved in this repo at collections/finalcad.postman_collection.json. Every path, method, header, query parameter, example request body and example response below is carried over from that collection; nothing was invented. Request/response bodies are typed as generic objects because the collection carries examples, not schemas. Four Finalcad employees'' personal e-mail addresses that appeared in the collection''s example payloads were replaced with placeholders; nothing else was changed.'
+  contact:
+    name: Finalcad One API — developer portal
+    url: https://developer.finalcad.com/
+  x-generated-by: API Evangelist enrichment pipeline (derived from the first-party Postman collection)
+  x-source: collections/finalcad.postman_collection.json
+  x-source-url: https://developer.finalcad.com/
+servers:
+- url: https://developer.finalcad.cloud/api
+  description: Production — the baseUrl variable published in the Finalcad One API Postman collection.
+- url: https://developer.sandbox.finalcad.cloud/api
+  description: Sandbox — published by Finalcad in the 'Retrieve data in Power BI' tutorial of the same collection.
+security:
+- apiKey: []
+  tokenAuth: []
+tags:
+- name: Project members management
+paths:
+  /projects/{project_id}/change-members-role:
+    post:
+      operationId: projectMembersManagementChangeRole
+      summary: Change role
+      description: "You can change the role of project users.\n\n Endpoint mandatory infos \n Details \n\n projectId \n the id of the project to be modified \n\n body mandatory infos \n Details \n\n role_id \n id if the role to be affected \n\n user_ids \n list of user ids be be momdified"
+      tags:
+      - Project members management
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              role_id: 041391c6-cb0a-4157-bb5e-fc3469ea9c69
+              user_ids:
+              - a2159af5-4144345e-8c2e-4eb5-89b4-5b43a955d10c
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /projects/{project_id}/members:
+    get:
+      operationId: projectMembersManagementGetMembers
+      summary: Get members
+      description: "Before adding members to your project, you might want to have an overview of the current project users and their roles.\n\n Endpoint mandatory infos \n Details \n\n projectId \n the id of the project to be modified \n\n Query params optionals \n\n see Commmon behaviors / differential"
+      tags:
+      - Project members management
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    project_members:
+                    - user_id: 8f0eebde-0fa7f000-f573-4054-b1a6-b92b002a513e
+                      first_name: Mathieu
+                      last_name: Bourgois
+                      email: person-c@example.com
+                      project_role_id: a5403a10-6cf2-4a1f-84d1-c772f63594c7
+                      enabled: true
+                      created_at: '2024-05-22T11:54:15.928262Z'
+                      created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                      updated_at: '2024-05-22T11:54:15.928262Z'
+                      updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    - user_id: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                      first_name: Luc
+                      last_name: Vallot
+                      email: person.redacted+sandbox@example.com
+                      project_role_id: 041391c6-cb0a-4157-bb5e-fc3469ea9c69
+                      picture:
+                        id: 737a4362-0371-4742-9b58-ffe4d4d2e768
+                        file_name: logo.png
+                        mime_type: image/png
+                        created_at: '2023-07-26T13:24:40.672379Z'
+                      enabled: true
+                      created_at: '2024-05-22T09:26:29.576287Z'
+                      created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                      updated_at: '2024-05-22T09:26:29.576287Z'
+                      updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    need_to_relaunch: true
+                    continuous_token: CT:Unknown-0-2
+                    count: 2
+                    total_count: 6
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+    post:
+      operationId: projectMembersManagementAddMembersToAProject
+      summary: Add members to a project
+      description: "To ease this step, you can directly add a list of members. Your invitations can fall into two cases:\n\n The email is already linked to a Finalcad One account. The member will be directly added to the project and receive a notification\n\n The email is not linked to a Finalcad One account. The member will be invited to create an account by email. Meanwhile, the invitations will be visible as pending in the project member list\n\n To invite a member to your project, an email needs to be associated with a project role. See Get project roles .\n\n Endpoint mandatory infos \n Details \n\n projectId \n the id of the project to be modified \n\n Endpoint optional query infos \n Details \n\n doNotSendEmail \n if true, no email are send to the final user \n\n body mandatory infos \n Details \n\n email \n the email of the newly member \n\n project_role_id \n the id of the role od the user"
+      tags:
+      - Project members management
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              invitations:
+              - email: <string>
+                project_role_id: <uuid>
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    project_roles:
+                    - user_ids:
+                      - 45783245-d958fc8e-f176-4197-8bf6-075517ac8778
+                      id: 233984d5-4c7d-49c2-9022-ff72a4ec06a2
+                      names:
+                      - language: en
+                        translation: Project editor
+                    - user_ids:
+                      - 35409434-f3329bd6-53fa-4152-bc2e-cde8dfaff364
+                      id: 2343dc76-8b0e-43a6-89e1-f6902a623507
+                      names:
+                      - language: en
+                        translation: Limited group editor
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /projects/{project_id}/remove-members:
+    post:
+      operationId: projectMembersManagementRemoveMembersInAProject
+      summary: Remove members in a project
+      description: "You can remove users from a project.\n\n Endpoint mandatory infos \n Details \n\n projectId \n the id of the project to be modified \n\n body mandatory infos \n Details \n\n List of user ids to be removed"
+      tags:
+      - Project members management
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              user_ids:
+              - the_user_id
+              - another_user_id
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    project_roles:
+                    - user_ids:
+                      - 19727e12-e5b6df02-625b-47f2-be7a-69622f45e73f
+                      - 3a93b7d2-6cdbc225-1324-44ca-ba13-67e865d3620a
+                      id: a5403a10-6cf2-4a1f-84d1-c772f63594c7
+                      names:
+                      - language: th
+                        translation: ผู้แก้ไข
+                      - language: pt
+                        translation: Editor
+                      - language: ca
+                        translation: Editor
+                      - language: fr
+                        translation: Éditeur
+                      - language: nl
+                        translation: Editor
+                      - language: it
+                        translation: Editor
+                      - language: vi
+                        translation: Biên tập viên
+                      - language: de
+                        translation: Editor
+                      - language: es
+                        translation: Editor
+                      - language: en
+                        translation: Editor
+                      - language: zh
+                        translation: 编辑
+                      - language: ja
+                        translation: 編集者
+                      descriptions:
+                      - language: nl
+                        translation: Inhoud aanmaken & bewerken
+                      - language: vi
+                        translation: Tạo và chỉnh sửa nội dung
+                      - language: th
+                        translation: สร้างและแก้ไขเนื้อหา
+                      - language: es
+                        translation: Crear y editar contenido
+                      - language: pt
+                        translation: Criar e editar conteúdos
+                      - language: ja
+                        translation: コンテンツの作成と編集
+                      - language: it
+                        translation: Crea e modifica contenuti
+                      - language: de
+                        translation: Erstellen und Bearbeiten von Inhalten
+                      - language: fr
+                        translation: Créer et modifier du contenu
+                      - language: zh
+                        translation: 创建和编辑内容
+                      - language: ca
+                        translation: Crea i edita el contingut
+                      - language: en
+                        translation: Create & Edit content
+                      created_at: '2021-08-02T14:07:44.009581Z'
+                      created_by: 022df861-cb019c2d-b420-4784-ab86-dc01fdb5812f
+                      updated_at: '2022-05-09T16:55:23.586739Z'
+                      updated_by: 022df861-cb019c2d-b420-4784-ab86-dc01fdb5812f
+                    count: 1
+                    total_count: 1
+                    limit: 0
+                    offset: 0
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /projects/{project_id}/roles:
+    get:
+      operationId: projectMembersManagementGetProjectRoles
+      summary: Get project roles
+      description: "You can here get project roles format that you will associate with new members.\n\n To ensure confidence and project management we come with different of project roles.\n\n See here to learn more.\n\n Endpoint mandatory infos \n Details \n\n project_id \n the id of the project to be modified \n\n Query params optionals \n\n see Commmon behaviors / differential"
+      tags:
+      - Project members management
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    project_roles:
+                    - id: 233984d5-4c7d-49c2-9022-ff72a4ec06a2
+                      names:
+                      - language: en
+                        translation: Project editor
+                    - id: 2343dc76-8b0e-43a6-89e1-f6902a623507
+                      names:
+                      - language: en
+                        translation: Limited group editor
+                    - id: 3693aea1-2625-4eb2-94a2-3cba0ea4c7bf
+                      names:
+                      - language: en
+                        translation: Group editor
+                    - user_ids:
+                      - ec3ee0a7-a38dcc7f-42e6-4fef-9a90-4858d025fd0e
+                      id: e83b6ed9-d9a9-4108-8fc1-3a9bce4aa329
+                      names:
+                      - language: en
+                        translation: Project admin
+                    count: 4
+                    total_count: 4
+                    limit: 10
+                    offset: 0
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+components:
+  schemas:
+    ApiError:
+      type: object
+      description: Finalcad One error envelope. `api_code` is either a static code (mostly 4xx, e.g. INVALID_INSTANCE_STATE) or a constructed code of the form {ProcessCode}_ERR{n} / {ProcessCode}_WRN{n} (mostly 5xx).
+      properties:
+        statut:
+          type: integer
+          description: HTTP status code, repeated in the body (spelled `statut`).
+        api_code:
+          type: string
+          description: Internal Finalcad API error code.
+        message:
+          type: string
+          description: Short explanation of the abnormality encountered.
+        data:
+          type: object
+          description: Complementary data to help understand the error.
+          additionalProperties: true
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: Organization API key issued by Finalcad to organizations on an Enterprise licence. Sent on every call.
+    tokenAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: '`Authorization: token <your_api_key>`, or `Authorization: bearer <user_token>` for the legacy user-token flow (POST /auth).'

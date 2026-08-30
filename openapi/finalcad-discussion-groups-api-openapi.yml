@@ -1,0 +1,552 @@
+openapi: 3.2.0
+info:
+  title: Finalcad One Project Discussion groups API
+  version: '2.41'
+  summary: 'Project-level operations for Finalcad One construction projects: project details, project libraries, members, locations (folders / plans / IFC), discussion groups, companies, modules (observations / forms / meetings), observations, forms and form answers, documents, phases, meetings and XLSX/PDF exports.'
+  description: 'Project-level operations for Finalcad One construction projects: project details, project libraries, members, locations (folders / plans / IFC), discussion groups, companies, modules (observations / forms / meetings), observations, forms and form answers, documents, phases, meetings and XLSX/PDF exports.
+
+
+    DERIVED, NOT PUBLISHED BY THE PROVIDER. Finalcad publishes no OpenAPI. This document was mechanically derived by API Evangelist from the first-party public Postman collection "Finalcad One API" served by Finalcad at https://developer.finalcad.com/ (collection JSON: https://developer.finalcad.com/api/collections/10995648/Tz5v1Es2), saved in this repo at collections/finalcad.postman_collection.json. Every path, method, header, query parameter, example request body and example response below is carried over from that collection; nothing was invented. Request/response bodies are typed as generic objects because the collection carries examples, not schemas. Four Finalcad employees'' personal e-mail addresses that appeared in the collection''s example payloads were replaced with placeholders; nothing else was changed.'
+  contact:
+    name: Finalcad One API — developer portal
+    url: https://developer.finalcad.com/
+  x-generated-by: API Evangelist enrichment pipeline (derived from the first-party Postman collection)
+  x-source: collections/finalcad.postman_collection.json
+  x-source-url: https://developer.finalcad.com/
+servers:
+- url: https://developer.finalcad.cloud/api
+  description: Production — the baseUrl variable published in the Finalcad One API Postman collection.
+- url: https://developer.sandbox.finalcad.cloud/api
+  description: Sandbox — published by Finalcad in the 'Retrieve data in Power BI' tutorial of the same collection.
+security:
+- apiKey: []
+  tokenAuth: []
+tags:
+- name: Discussion groups
+paths:
+  /projects/{project_id}/groups:
+    post:
+      operationId: discussionGroupsCreateDiscussionGroups
+      summary: Create discussion groups
+      description: "To create a group, you need to name it and select project members. You can give access to the group members to specific plans added to the project.\n\n In the current version, we are only sharing plans in groups and not folders. Shared folders won't be visible in apps.\n\n Endpoint mandatory infos \n Details \n\n project_Id \n the id of the project to be modified \n\n body mandatory infos \n Details \n\n name \n name of the group \n\n user_ids \n list of users ids to be added to the group \n\n plan_ids \n list of the plans ids to be shared in the group"
+      tags:
+      - Discussion groups
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              groups:
+              - name: <string>
+                user_ids:
+                - <string>
+                plan_ids:
+                - <uuid>
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    groups:
+                    - id: 4722102a-89ce-49d9-982c-662a071a75b4
+                      name: My group
+                      group_members:
+                      - id: 8d42b732-e166-4688-9361-a96f147c783d
+                        user_id: 4168852f-721d4983-6b44-4525-abae-ac166afc1707
+                      - id: 90c22f0c-b536-4f34-9f17-e19f37906421
+                        user_id: 36d2cc81-cea5ea12-ba79-410b-a7d7-945cf2c2cc66
+                      group_plans:
+                      - id: 1084a4ca-ef2f-4d71-ac0e-df0194c3422b
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+    get:
+      operationId: discussionGroupsGetDiscussionGroups
+      summary: Get discussion groups
+      description: "You can get the list of all discussion groups in a project.\n\n Details \n\n project_Id \n the id of the project to be modified \n\n body mandatory infos \n Details \n\n search_term \n filter term on group name"
+      tags:
+      - Discussion groups
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    groups:
+                    - id: 598e5dbf-a6ab-4b5e-90d0-9814f4d52bc8
+                      name: Grp 1 C
+                    - id: 5a7ba4be-088d-488f-8de2-9d39b83ed5c3
+                      name: Team
+                    count: 2
+                    total_count: 2
+                    limit: 50
+                    offset: 0
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /projects/{project_id}/groups/item:
+    get:
+      operationId: discussionGroupsGetDiscussionGroupsForAnItem
+      summary: Get discussion groups for an item
+      description: "You can find out in which discussion groups an item is shared.\n\n Details \n\n project_id \n The ID of the project where the the observation will be commented \n\n Query mandatory infos \n Details \n\n item_id \n id of the item \n\n item_type \n type of the item \ncan be Observation, Form, Plan, Folder, or Document"
+      tags:
+      - Discussion groups
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    shared_item_groups:
+                    - group_id: 18079031-0673-4e4c-8585-d73044d7ef16
+                      name: G2
+                      members_count: 1
+                    count: 1
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /projects/{project_id}/groups/{group_id}:
+    get:
+      operationId: discussionGroupsGetDiscussionGroup
+      summary: Get discussion group
+      description: "You can get the details of a discussion group.\n\n Endpoint mandatory infos \n Details \n\n project_Id \n the id of the project to be modified \n\n group_id \n the id of the grou^p"
+      tags:
+      - Discussion groups
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      - name: group_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `group_id` as published in the collection.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    id: 5a7ba4be-088d-488f-8de2-9d39b83ed5c3
+                    name: Team
+                    description: Default group
+                    is_default: true
+                    members_ids:
+                    - 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    - 8f0eebde-0fa7f000-f573-4054-b1a6-b92b002a513e
+                    created_at: '2024-04-08T12:51:30.995153Z'
+                    created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    updated_at: '2024-04-09T08:09:37.095928Z'
+                    updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+    put:
+      operationId: discussionGroupsUpdateDiscussionGroup
+      summary: Update discussion group
+      description: "To create a discussion group, you need to name it and select project members.\n\n You can give access to the discussion group members to specific plans added to the project. In the current version, we are only sharing plans in groups and not folders.\n\n Shared folders won't be visible in apps.\n\n Endpoint mandatory infos \n Details \n\n project_Id \n the id of the project to be modified \n\n group_id \n Id of the modified group \n\n body mandatory infos \n Details \n\n name \n new name of the group"
+      tags:
+      - Discussion groups
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      - name: group_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `group_id` as published in the collection.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              name: Grp 1 C
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    id: 598e5dbf-a6ab-4b5e-90d0-9814f4d52bc8
+                    name: Grp 1 C
+                    is_default: false
+                    members_ids:
+                    - 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    - 8f0eebde-0fa7f000-f573-4054-b1a6-b92b002a513e
+                    created_at: '2024-04-08T13:17:42.46137Z'
+                    created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    updated_at: '2024-04-10T14:00:57.3847089Z'
+                    updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /projects/{project_id}/groups/{group_id}/add_members:
+    post:
+      operationId: discussionGroupsAddMembersToDiscussionGroup
+      summary: Add members to discussion group
+      description: "You can add members to a discussion group.\n\n Details \n\n project_Id \n the id of the project to be modified \n\n group_id \n Id the the modified group \n\n body mandatory infos \n Details \n\n user_ids \n list of users ids to be added to the group"
+      tags:
+      - Discussion groups
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      - name: group_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `group_id` as published in the collection.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              user_ids:
+              - 13e8af9d-3d5175fe-90ce-444e-8cc2-0da4e19e3cce
+              - a2159af5-4144345e-8c2e-4eb5-89b4-5b43a955d10c
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    group_members:
+                    - id: 43e0f0c8-afa4-403c-9a4a-f8060ae019c4
+                      user_id: 13e8af9d-3d5175fe-90ce-444e-8cc2-0da4e19e3cce
+                    - id: 95ca5318-7dc7-48f4-9f14-32599f472e06
+                      user_id: a2159af5-4144345e-8c2e-4eb5-89b4-5b43a955d10c
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /projects/{project_id}/groups/{group_id}/messages:
+    post:
+      operationId: discussionGroupsAddDiscussionGroupMessage
+      summary: Add discussion group message
+      description: "You can add messages or link files or items to a discussion group.\n\n Details \n\n project_id \n The ID of the project where the the observation will be commented \n\n group_id \n The ID of the group \n\n Body optional infos \n Details \n\n for sending a comment \n\n text \n your text \n\n to attach a file or an image \n\n media_resource_id \n the id of a previously uploaded file via the upload media endpoint \n\n media_resource_name \n the display name of the file \n\n to link an observation \n\n reference_type \n \"Observation\" \n\n reference_id \n the id of the linked observation \n\n to link a form instance \n\n reference_type \n \"Form\" \n\n reference_id \n the id of the linked form instance \n\n to link a document \n\n reference_type \n \"Document\" \n\n reference_id \n the id of the document"
+      tags:
+      - Discussion groups
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      - name: group_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `group_id` as published in the collection.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+    get:
+      operationId: discussionGroupsGetDiscussionGroupMessages
+      summary: Get discussion group messages
+      description: "Based on a discussion group ID, you can access its activity history.\n\n Details \n\n project_id \n The ID of the project where the the observation will be created \n\n group_id \n The ID of the group \n\n Query optional infos \n Details \n\n message_id \n id of a message to begin the reading"
+      tags:
+      - Discussion groups
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      - name: group_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `group_id` as published in the collection.
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /projects/{project_id}/groups/{group_id}/remove_members:
+    post:
+      operationId: discussionGroupsRemoveMembersToDiscussionGroup
+      summary: Remove members to discussion group
+      description: "You can remove members from a discussion group.\n\n Details \n\n project_Id \n the id of the project to be modified \n\n group_id \n Id the the modified group \n\n body mandatory infos \n Details \n\n user_ids \n list of users ids to be removed in the group"
+      tags:
+      - Discussion groups
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      - name: group_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `group_id` as published in the collection.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              user_ids:
+              - a2159af5-4144345e-8c2e-4eb5-89b4-5b43a955d10c
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    group_members:
+                    - id: 95ca5318-7dc7-48f4-9f14-32599f472e06
+                      user_id: a2159af5-4144345e-8c2e-4eb5-89b4-5b43a955d10c
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+components:
+  schemas:
+    ApiError:
+      type: object
+      description: Finalcad One error envelope. `api_code` is either a static code (mostly 4xx, e.g. INVALID_INSTANCE_STATE) or a constructed code of the form {ProcessCode}_ERR{n} / {ProcessCode}_WRN{n} (mostly 5xx).
+      properties:
+        statut:
+          type: integer
+          description: HTTP status code, repeated in the body (spelled `statut`).
+        api_code:
+          type: string
+          description: Internal Finalcad API error code.
+        message:
+          type: string
+          description: Short explanation of the abnormality encountered.
+        data:
+          type: object
+          description: Complementary data to help understand the error.
+          additionalProperties: true
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: Organization API key issued by Finalcad to organizations on an Enterprise licence. Sent on every call.
+    tokenAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: '`Authorization: token <your_api_key>`, or `Authorization: bearer <user_token>` for the legacy user-token flow (POST /auth).'

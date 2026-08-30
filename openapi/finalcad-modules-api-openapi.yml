@@ -1,0 +1,2284 @@
+openapi: 3.2.0
+info:
+  title: Finalcad Modules API
+  version: '2.41'
+  contact:
+    name: Finalcad One API — developer portal
+    url: https://developer.finalcad.com/
+  x-generated-by: API Evangelist enrichment pipeline (derived from the first-party Postman collection)
+  x-source: collections/finalcad.postman_collection.json
+  x-source-url: https://developer.finalcad.com/
+  description: 'Operations tagged Modules across 2 of this provider''s published API definitions: finalcad-libraries-openapi.yml, finalcad-projects-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://developer.finalcad.cloud/api
+  description: Production — the baseUrl variable published in the Finalcad One API Postman collection.
+- url: https://developer.sandbox.finalcad.cloud/api
+  description: Sandbox — published by Finalcad in the 'Retrieve data in Power BI' tutorial of the same collection.
+security:
+- apiKey: []
+  tokenAuth: []
+tags:
+- name: Modules
+paths:
+  /modules/colors:
+    get:
+      operationId: modulesGetModuleColors
+      summary: Get module colors
+      description: Get all the colors usable for module creation.
+      tags:
+      - Modules
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Get_modules_colors:
+                  value:
+                    icons:
+                    - code: '#E94F3D'
+                    - code: '#ED75A0'
+                    - code: '#7783FF'
+                    - code: '#3B7CDE'
+                    - code: '#92D8FF'
+                    - code: '#01D194'
+                    - code: '#C0DF43'
+                    - code: '#F7CE46'
+                    - code: '#FFC267'
+                    - code: '#FF8029'
+                    count: 0
+                    total_count: 0
+                    limit: 0
+                    offset: 0
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+    servers:
+    - url: https://developer.finalcad.cloud/api
+      description: Production — the baseUrl variable published in the Finalcad One API Postman collection.
+    - url: https://developer.sandbox.finalcad.cloud/api
+      description: Sandbox — published by Finalcad in the 'Retrieve data in Power BI' tutorial of the same collection.
+  /modules/icons:
+    get:
+      operationId: modulesGetModuleIcons
+      summary: Get module icons
+      description: Get all the icon names usable for module creation.
+      tags:
+      - Modules
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Get_modules_icons:
+                  value:
+                    icons:
+                    - name: typePin
+                    - name: alert
+                    - name: clipboard
+                    - name: bookOpen
+                    - name: draw
+                    - name: checkCircle
+                    - name: filesAndFolders
+                    - name: people
+                    - name: alertTriangle
+                    - name: measure
+                    - name: plan
+                    - name: camera
+                    - name: clock
+                    - name: calendar
+                    - name: flag
+                    - name: eye
+                    - name: help
+                    - name: info
+                    - name: key
+                    - name: signature
+                    - name: rail
+                    - name: road
+                    - name: zap
+                    - name: euro
+                    - name: search
+                    - name: truck
+                    - name: cardboard
+                    - name: focus
+                    - name: parcel
+                    - name: star
+                    - name: helmet
+                    - name: clean
+                    - name: environment
+                    - name: brush
+                    - name: hammer
+                    - name: bricks
+                    count: 0
+                    total_count: 0
+                    limit: 0
+                    offset: 0
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+    servers:
+    - url: https://developer.finalcad.cloud/api
+      description: Production — the baseUrl variable published in the Finalcad One API Postman collection.
+    - url: https://developer.sandbox.finalcad.cloud/api
+      description: Sandbox — published by Finalcad in the 'Retrieve data in Power BI' tutorial of the same collection.
+  /modules/suggestions:
+    get:
+      operationId: modulesGetModuleSuggestions
+      summary: Get module suggestions
+      description: Get all the predefined modules for custom module creation.
+      tags:
+      - Modules
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Get_modules_suggestions:
+                  value:
+                    suggestions:
+                    - id: 44d459d4-fa20-4484-b4bf-fd520c459566
+                      name: Observations
+                      icon: alert
+                      color: '#E94F3D'
+                      type: Observations
+                      names:
+                      - language: en
+                        translation: Observations
+                      - language: fr
+                        translation: Observations
+                      - language: es
+                        translation: Observaciones
+                    - id: 117f1c84-e69d-4429-baf9-74e052f5e0bc
+                      name: Forms
+                      icon: clipboard
+                      color: '#F7CE46'
+                      type: Forms
+                      names:
+                      - language: en
+                        translation: Forms
+                      - language: fr
+                        translation: Formulaires
+                      - language: es
+                        translation: Formularios
+                    - id: 7fe77495-2ae5-4345-b647-f455be6a19d4
+                      name: Tasks
+                      icon: checklist
+                      color: '#3B7CDE'
+                      type: Observations
+                      names:
+                      - language: en
+                        translation: Tasks
+                      - language: fr
+                        translation: Tâches
+                      - language: es
+                        translation: Tareas
+                    - id: 125ae973-3e43-4862-9af4-3cb13dcac81c
+                      name: Quality
+                      icon: star
+                      color: '#01D194'
+                      type: Observations
+                      names:
+                      - language: en
+                        translation: Quality
+                      - language: fr
+                        translation: Qualité
+                      - language: es
+                        translation: Calidad
+                    - id: 3fd4f4af-089b-4e06-a924-32ee4f600f02
+                      name: Security
+                      icon: helmet
+                      color: '#FF8029'
+                      type: Observations
+                      names:
+                      - language: en
+                        translation: Security
+                      - language: fr
+                        translation: Securité
+                      - language: es
+                        translation: Seguridad
+                    - id: eab12a4a-7b44-46c1-abbb-9a6624369335
+                      name: Hygiene
+                      icon: clean
+                      color: '#92D8FF'
+                      type: Observations
+                      names:
+                      - language: en
+                        translation: Hygiene
+                      - language: fr
+                        translation: Hygiène
+                      - language: es
+                        translation: Higiene
+                    - id: 1d0ae170-f499-4649-b17d-d44008220600
+                      name: Environment
+                      icon: environment
+                      color: '#7FCE1A'
+                      type: Observations
+                      names:
+                      - language: en
+                        translation: Environment
+                      - language: fr
+                        translation: Environnemment
+                      - language: es
+                        translation: Medio Ambiente
+                    - id: 478eb22c-30ee-4691-b27e-f2539f644794
+                      name: Quote
+                      icon: euro
+                      color: '#7783FF'
+                      type: Observations
+                      names:
+                      - language: en
+                        translation: Quote
+                      - language: fr
+                        translation: Chiffrage
+                      - language: es
+                        translation: Presupuesto
+                    - id: be73ba88-1584-4d87-98a2-fee38da1b467
+                      name: Additional works
+                      icon: brush
+                      color: '#FFC267'
+                      type: Observations
+                      names:
+                      - language: en
+                        translation: Additional works
+                      - language: fr
+                        translation: Travaux supplémentaires
+                      - language: es
+                        translation: Trabajos adicionales
+                    - id: 391ede05-46a9-4676-99d7-cfe0d07f8a75
+                      name: Construction diary
+                      icon: diary
+                      color: '#4CABF2'
+                      type: Observations
+                      names:
+                      - language: en
+                        translation: Construction diary
+                      - language: fr
+                        translation: Journal de chantier
+                      - language: es
+                        translation: Diario de obra
+                    - id: e53cc00d-4980-409e-9a52-40706fd77b5f
+                      name: Equipment
+                      icon: hammer
+                      color: '#01D194'
+                      type: Observations
+                      names:
+                      - language: en
+                        translation: Equipment
+                      - language: fr
+                        translation: Équipement
+                      - language: es
+                        translation: Equipamiento
+                    - id: 70df7ea5-7ef6-4b71-9b52-848ec968a680
+                      name: Materials
+                      icon: bricks
+                      color: '#FF8029'
+                      type: Observations
+                      names:
+                      - language: en
+                        translation: Materials
+                      - language: fr
+                        translation: Matériaux
+                      - language: es
+                        translation: Materiales
+                    - id: bbb01e29-efb0-4a11-9ab7-63849c58fd48
+                      name: Staff
+                      icon: people
+                      color: '#ED75A0'
+                      type: Observations
+                      names:
+                      - language: en
+                        translation: Staff
+                      - language: fr
+                        translation: 'Personnel '
+                      - language: es
+                        translation: Colaboradores
+                    count: 0
+                    total_count: 0
+                    limit: 0
+                    offset: 0
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+    servers:
+    - url: https://developer.finalcad.cloud/api
+      description: Production — the baseUrl variable published in the Finalcad One API Postman collection.
+    - url: https://developer.sandbox.finalcad.cloud/api
+      description: Sandbox — published by Finalcad in the 'Retrieve data in Power BI' tutorial of the same collection.
+  /projects/{project_id}/categories:
+    get:
+      operationId: modulesFormsGetFormCategories
+      summary: Get form categories
+      description: "For a given project, get the list of all existing categories\nYou can filter by mmodule and parent category\n\n Endpoint mandatory info \n Details \n\n project_id \n The ID of the project \n\n Endpoint Query params \n Details \n\n module_id \n id of the filtered module id \n\n category_id \n id of the filtered category id \n\n with_disabled \n if true return the disabled categories"
+      tags:
+      - Modules
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    categories:
+                    - id: f81b8786-935c-4413-af30-faf159c13f2b
+                      module_id: 15606d9b-c9f5-4726-bc0a-8590a3dc9dc6
+                      container_id: 2421734c-f191-4237-acd8-becf216eaae4
+                      name: cat 2
+                      created_at: '2024-02-15T15:01:20.135137Z'
+                      updated_at: '2024-02-15T15:01:20.135137Z'
+                      enabled: true
+                    - id: 073623e5-9454-426a-a319-f59997f6f18b
+                      module_id: 4d9fbb6f-5060-45ae-9b27-cc806c4b1487
+                      container_id: 2421734c-f191-4237-acd8-becf216eaae4
+                      name: Categorie ddd Upd
+                      created_at: '2024-03-07T14:04:05.198146Z'
+                      updated_at: '2024-03-07T14:09:14.38104Z'
+                      deleted_at: '2024-03-07T14:09:49.97779Z'
+                      enabled: false
+                    - id: 0d8ae3bc-164a-4c36-aa6f-9c8866d59670
+                      module_id: 117f1c84-e69d-4429-baf9-74e052f5e0bc
+                      container_id: 2421734c-f191-4237-acd8-becf216eaae4
+                      name: cat 5
+                      created_at: '2024-03-20T13:20:32.541312Z'
+                      updated_at: '2024-03-20T13:20:32.541312Z'
+                      deleted_at: '2024-03-20T13:22:46.318596Z'
+                      enabled: false
+                    - id: 99bb4d5a-51e3-4a65-b5c0-dec520a7a6b9
+                      module_id: f5d33e97-6f40-478f-87bf-1fa04a0843ff
+                      container_id: 2421734c-f191-4237-acd8-becf216eaae4
+                      name: Aze 2.1
+                      created_at: '2024-03-19T08:54:24.676016Z'
+                      updated_at: '2024-03-19T08:54:24.676016Z'
+                      enabled: true
+                    - id: 9b1d0730-c65d-4359-804a-e4d5c416bdba
+                      module_id: 15606d9b-c9f5-4726-bc0a-8590a3dc9dc6
+                      container_id: 2421734c-f191-4237-acd8-becf216eaae4
+                      name: cat 2
+                      created_at: '2024-02-15T14:57:50.426575Z'
+                      updated_at: '2024-02-15T14:57:50.426575Z'
+                      deleted_at: '2024-02-15T15:01:02.257525Z'
+                      enabled: false
+                    - id: e2f6bc4e-f218-4f7b-98cc-966c81543102
+                      module_id: 15606d9b-c9f5-4726-bc0a-8590a3dc9dc6
+                      container_id: 2421734c-f191-4237-acd8-becf216eaae4
+                      name: cat 2
+                      created_at: '2024-02-15T14:57:23.657101Z'
+                      updated_at: '2024-02-15T14:57:23.657101Z'
+                      deleted_at: '2024-02-15T15:00:58.557746Z'
+                      enabled: false
+                    - id: e608affc-a83b-4078-afef-9ae6fcdb3f26
+                      module_id: 15606d9b-c9f5-4726-bc0a-8590a3dc9dc6
+                      container_id: 2421734c-f191-4237-acd8-becf216eaae4
+                      name: cat 2
+                      created_at: '2024-02-15T14:59:26.970143Z'
+                      updated_at: '2024-02-15T14:59:26.970143Z'
+                      deleted_at: '2024-02-15T15:01:05.681467Z'
+                      enabled: false
+                    - id: efb034ba-24ca-42f2-a7c3-36f666612d99
+                      module_id: 4d9fbb6f-5060-45ae-9b27-cc806c4b1487
+                      container_id: 2421734c-f191-4237-acd8-becf216eaae4
+                      name: Categorie ccc
+                      created_at: '2024-03-07T13:57:32.799642Z'
+                      updated_at: '2024-03-07T13:57:32.799642Z'
+                      enabled: true
+                    - id: 04bf1a6d-ce26-484f-93f5-d489eb71452b
+                      module_id: 8cf9151c-0a0b-4675-befe-64d868b466ec
+                      container_id: 2421734c-f191-4237-acd8-becf216eaae4
+                      name: cat 3----2
+                      created_at: '2024-04-11T14:06:09.94564Z'
+                      updated_at: '2024-04-11T14:06:09.94564Z'
+                      enabled: true
+                    - id: 1cbe1164-ebcd-468a-b05d-69a8f4874e4c
+                      module_id: 4d9fbb6f-5060-45ae-9b27-cc806c4b1487
+                      container_id: 2421734c-f191-4237-acd8-becf216eaae4
+                      name: Categorie bbb
+                      created_at: '2024-03-06T13:52:16.094446Z'
+                      updated_at: '2024-03-06T13:52:16.094446Z'
+                      enabled: true
+                    - id: 37eca3a3-aeaa-4730-9c69-afeb0e49a933
+                      module_id: 15606d9b-c9f5-4726-bc0a-8590a3dc9dc6
+                      container_id: 2421734c-f191-4237-acd8-becf216eaae4
+                      name: Aze
+                      created_at: '2024-03-19T08:53:17.710324Z'
+                      updated_at: '2024-03-19T08:53:17.710324Z'
+                      enabled: true
+                    - id: 505d5a67-4acc-4a22-98ed-3f715fb0c8ef
+                      module_id: 4d9fbb6f-5060-45ae-9b27-cc806c4b1487
+                      container_id: 2421734c-f191-4237-acd8-becf216eaae4
+                      name: Categorie aaa
+                      created_at: '2024-03-06T13:40:37.291318Z'
+                      updated_at: '2024-03-06T13:40:37.291318Z'
+                      enabled: true
+                    - id: 558a982d-6d3a-4290-9147-07151a2ffe0f
+                      module_id: 15606d9b-c9f5-4726-bc0a-8590a3dc9dc6
+                      container_id: 2421734c-f191-4237-acd8-becf216eaae4
+                      name: cat 3
+                      created_at: '2024-02-15T15:03:13.215222Z'
+                      updated_at: '2024-02-15T15:03:13.215222Z'
+                      deleted_at: '2024-02-15T16:07:08.654746Z'
+                      enabled: false
+                    - id: 56894d4e-b9fc-471a-8e0b-d12f9f6c6d91
+                      module_id: 15606d9b-c9f5-4726-bc0a-8590a3dc9dc6
+                      container_id: 2421734c-f191-4237-acd8-becf216eaae4
+                      name: cat 2
+                      created_at: '2024-02-15T14:53:16.51161Z'
+                      updated_at: '2024-02-15T14:53:16.51161Z'
+                      deleted_at: '2024-02-15T15:00:51.073472Z'
+                      enabled: false
+                    - id: 593647a7-8647-49ba-9552-739125b12486
+                      module_id: 117f1c84-e69d-4429-baf9-74e052f5e0bc
+                      container_id: 2421734c-f191-4237-acd8-becf216eaae4
+                      name: Categ Form 2
+                      created_at: '2024-02-13T08:26:23.104113Z'
+                      updated_at: '2024-02-13T08:26:23.104113Z'
+                      enabled: true
+                    - id: 594f4f7c-6f7a-410b-bb5e-5aa6ef488a9c
+                      module_id: 117f1c84-e69d-4429-baf9-74e052f5e0bc
+                      container_id: 2421734c-f191-4237-acd8-becf216eaae4
+                      name: Categ Form 1
+                      created_at: '2024-02-13T08:26:23.104109Z'
+                      updated_at: '2024-02-13T08:26:23.104109Z'
+                      enabled: true
+                    - id: 7d385066-8686-4357-940d-90524f03be97
+                      module_id: 8cf9151c-0a0b-4675-befe-64d868b466ec
+                      container_id: 2421734c-f191-4237-acd8-becf216eaae4
+                      name: cat 3----1
+                      created_at: '2024-04-11T14:05:13.058237Z'
+                      updated_at: '2024-04-11T14:05:13.058237Z'
+                      enabled: true
+                    - id: 7d911da8-82c1-44b1-8224-9382efd1d0a2
+                      module_id: 15606d9b-c9f5-4726-bc0a-8590a3dc9dc6
+                      container_id: 2421734c-f191-4237-acd8-becf216eaae4
+                      name: cat 2
+                      created_at: '2024-02-15T14:54:10.90263Z'
+                      updated_at: '2024-02-15T14:54:10.90263Z'
+                      deleted_at: '2024-02-15T15:00:55.516965Z'
+                      enabled: false
+                    - id: 89bea999-7e06-42b0-900b-8d3a2fd0b362
+                      module_id: a41a8c18-b754-4b65-be6c-22c63987c995
+                      container_id: 2421734c-f191-4237-acd8-becf216eaae4
+                      name: test cad pour data
+                      created_at: '2024-03-08T08:42:03.963357Z'
+                      updated_at: '2024-03-08T08:42:03.963357Z'
+                      enabled: true
+                    - id: 906dbfc8-a212-44f4-9ac6-6988ff403b04
+                      module_id: 15606d9b-c9f5-4726-bc0a-8590a3dc9dc6
+                      container_id: 2421734c-f191-4237-acd8-becf216eaae4
+                      name: cat 1
+                      created_at: '2024-02-15T14:46:42.755881Z'
+                      updated_at: '2024-02-15T14:46:42.755881Z'
+                      deleted_at: '2024-02-15T16:13:19.796615Z'
+                      enabled: false
+                    - id: 1c1318ff-07c2-4489-94d5-d32b4a1b4eff
+                      module_id: 117f1c84-e69d-4429-baf9-74e052f5e0bc
+                      container_id: 2421734c-f191-4237-acd8-becf216eaae4
+                      name: Categ Form 1.1
+                      parent_id: 594f4f7c-6f7a-410b-bb5e-5aa6ef488a9c
+                      created_at: '2024-02-13T08:26:42.34105Z'
+                      updated_at: '2024-02-13T08:26:42.34105Z'
+                      enabled: true
+                    - id: e7b13254-7bcf-4558-a221-3e15be270c3f
+                      module_id: 117f1c84-e69d-4429-baf9-74e052f5e0bc
+                      container_id: 2421734c-f191-4237-acd8-becf216eaae4
+                      name: Categ form 2.1
+                      parent_id: 593647a7-8647-49ba-9552-739125b12486
+                      created_at: '2024-02-13T10:28:43.804613Z'
+                      updated_at: '2024-02-13T10:28:43.804613Z'
+                      enabled: true
+                    - id: 2a9558c9-de86-4d6d-8b82-93f9896870d9
+                      module_id: 8cf9151c-0a0b-4675-befe-64d868b466ec
+                      container_id: 2421734c-f191-4237-acd8-becf216eaae4
+                      name: cat 3--====----3
+                      parent_id: 04bf1a6d-ce26-484f-93f5-d489eb71452b
+                      created_at: '2024-04-11T14:06:21.979847Z'
+                      updated_at: '2024-04-11T14:07:29.863009Z'
+                      deleted_at: '2024-04-11T14:07:39.931755Z'
+                      enabled: false
+                    - id: 9c150a71-be7c-4f0b-8669-507dcfbfa674
+                      module_id: 15606d9b-c9f5-4726-bc0a-8590a3dc9dc6
+                      container_id: 2421734c-f191-4237-acd8-becf216eaae4
+                      name: Aze 2.1
+                      parent_id: 37eca3a3-aeaa-4730-9c69-afeb0e49a933
+                      created_at: '2024-03-19T08:53:37.741416Z'
+                      updated_at: '2024-03-19T08:53:37.741416Z'
+                      enabled: true
+                    - id: a8bc3515-7e92-4050-be84-64812e982f01
+                      module_id: f5d33e97-6f40-478f-87bf-1fa04a0843ff
+                      container_id: 2421734c-f191-4237-acd8-becf216eaae4
+                      name: Aze 2.1
+                      parent_id: 99bb4d5a-51e3-4a65-b5c0-dec520a7a6b9
+                      created_at: '2024-03-19T08:54:34.200015Z'
+                      updated_at: '2024-03-19T08:54:34.200015Z'
+                      enabled: true
+                    - id: aeeb9af2-3a47-4c0e-9587-dc8dfd5425e6
+                      module_id: 15606d9b-c9f5-4726-bc0a-8590a3dc9dc6
+                      container_id: 2421734c-f191-4237-acd8-becf216eaae4
+                      name: cat 3-1
+                      parent_id: 558a982d-6d3a-4290-9147-07151a2ffe0f
+                      created_at: '2024-02-15T15:03:34.764932Z'
+                      updated_at: '2024-02-15T15:32:15.510674Z'
+                      deleted_at: '2024-02-15T16:04:47.282131Z'
+                      enabled: false
+                    count: 26
+                Success_with_filter:
+                  value:
+                    categories:
+                    - id: 1c1318ff-07c2-4489-94d5-d32b4a1b4eff
+                      module_id: 117f1c84-e69d-4429-baf9-74e052f5e0bc
+                      container_id: 2421734c-f191-4237-acd8-becf216eaae4
+                      name: Categ Form 1.1
+                      parent_id: 594f4f7c-6f7a-410b-bb5e-5aa6ef488a9c
+                      created_at: '2024-02-13T08:26:42.34105Z'
+                      updated_at: '2024-02-13T08:26:42.34105Z'
+                      enabled: true
+                    count: 1
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+    servers:
+    - url: https://developer.finalcad.cloud/api
+      description: Production — the baseUrl variable published in the Finalcad One API Postman collection.
+    - url: https://developer.sandbox.finalcad.cloud/api
+      description: Sandbox — published by Finalcad in the 'Retrieve data in Power BI' tutorial of the same collection.
+  /projects/{project_id}/commonobservations:
+    post:
+      operationId: modulesObservationsCreateCommonObservation
+      summary: Create common observation
+      description: "Create a model for a given category within a module.\n\n Details \n\n project_Id \n the id of the project to be modified \n\n body mandatory infos \n Details \n\n trade_id \n id of the trade who contain this common observations \n\n names \n list of langages and translations"
+      tags:
+      - Modules
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              trade_id: '{{trade_id}}'
+              names:
+              - language: en
+                translation: <string>
+              - language: fr
+                translation: <string>
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Create_common_observation:
+                  value:
+                    id: a2c57b4e-ce31-466e-a52b-d946cb952de1
+                    enabled: true
+                    names:
+                    - language: en
+                      translation: essaiobs
+                    - language: fr
+                      translation: essaiobs
+                    trade_id: 274e9196-fd0f-4d26-a54c-ec71565c556d
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+    servers:
+    - url: https://developer.finalcad.cloud/api
+      description: Production — the baseUrl variable published in the Finalcad One API Postman collection.
+    - url: https://developer.sandbox.finalcad.cloud/api
+      description: Sandbox — published by Finalcad in the 'Retrieve data in Power BI' tutorial of the same collection.
+  /projects/{project_id}/commonobservations/{commonObs_id}:
+    get:
+      operationId: modulesObservationsGetProjectCommonObservation
+      summary: Get project common observation
+      description: "Get the details of a common observation (model).\n\n Details \n\n project_id \n the id of the project to be modified \n\n commonObs_id \n id of the common observation to be verified"
+      tags:
+      - Modules
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      - name: commonObs_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `commonObs_id` as published in the collection.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    id: c25be206-944d-4162-a3bf-ea0768cd5ac5
+                    trade_id: 907b66bb-cf34-4813-9ac8-3eb7d18a9714
+                    names:
+                    - language: fr
+                      translation: 2ieme couche à réaliser
+                    enabled: true
+                    created_at: '2023-10-10T09:50:43.458085Z'
+                    created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    updated_at: '2023-10-10T09:50:43.458085Z'
+                    updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+    servers:
+    - url: https://developer.finalcad.cloud/api
+      description: Production — the baseUrl variable published in the Finalcad One API Postman collection.
+    - url: https://developer.sandbox.finalcad.cloud/api
+      description: Sandbox — published by Finalcad in the 'Retrieve data in Power BI' tutorial of the same collection.
+  /projects/{project_id}/forms-modules:
+    get:
+      operationId: modulesFormsGetFormModules
+      summary: Get form modules
+      description: "For a given project, get the list of all existing form modules.\n\n Details \n\n project_id \n The ID of the project where the form has been created \n\n Query params optionals \n\n see Commmon behaviors / differential"
+      tags:
+      - Modules
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    modules:
+                    - id: 117f1c84-e69d-4429-baf9-74e052f5e0bc
+                      name: Forms
+                      order: 0
+                      icon: clipboard
+                      color: '#F7CE46'
+                      type: Forms
+                      names:
+                      - language: en
+                        translation: Forms
+                      - language: ar
+                        translation: إستمارات
+                      - language: ca
+                        translation: Formularis
+                      - language: cs
+                        translation: formuláře
+                      - language: da
+                        translation: Forms
+                      - language: de-DE
+                        translation: Formulare
+                      - language: el
+                        translation: Φόρμες
+                      - language: es
+                        translation: Formularios
+                      - language: fi
+                        translation: Lomakkeet
+                      - language: fr
+                        translation: Formulaires
+                      - language: he
+                        translation: טפסים
+                      - language: hu
+                        translation: Űrlapok
+                      - language: id
+                        translation: Formulir
+                      - language: it
+                        translation: Moduli
+                      - language: ja
+                        translation: 工事帳票
+                      - language: ko-KR
+                        translation: 양식
+                      - language: nb
+                      - language: nl-NL
+                        translation: Formulieren
+                      - language: pl
+                        translation: Formularze
+                      - language: pt
+                        translation: Formulários
+                      - language: ro
+                        translation: Formulare
+                      - language: ru
+                        translation: Формы
+                      - language: sl-SI
+                        translation: Obrazci
+                      - language: sv
+                        translation: Formulär
+                      - language: th
+                        translation: แบบฟอร์ม
+                      - language: tr
+                        translation: Formlar
+                      - language: vi
+                        translation: Biểu mẫu
+                      - language: zf
+                      - language: zh-Hans
+                        translation: 表单
+                      created_at: '2023-06-30T15:16:42.168073Z'
+                      updated_at: '2023-07-14T11:40:48.382866Z'
+                      enabled: true
+                    - id: 0c254670-49ea-44ed-9009-1f3b0362ec88
+                      name: New Forms test
+                      order: 0
+                      icon: typePin
+                      color: '#E94F3D'
+                      type: Forms
+                      created_at: '2023-09-19T09:10:48.065264Z'
+                      updated_at: '2023-09-19T09:10:48.065264Z'
+                      enabled: false
+                    need_to_relaunch: true
+                    continuous_token: 0|2
+                    count: 2
+                    total_count: 21
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+    servers:
+    - url: https://developer.finalcad.cloud/api
+      description: Production — the baseUrl variable published in the Finalcad One API Postman collection.
+    - url: https://developer.sandbox.finalcad.cloud/api
+      description: Sandbox — published by Finalcad in the 'Retrieve data in Power BI' tutorial of the same collection.
+  /projects/{project_id}/forms-modules/{moduleId}:
+    put:
+      operationId: modulesFormsUpdateFormModule
+      summary: Update form module
+      description: "You can modify a specific module in a given project.\n\n Endpoint mandatory infos \n Details \n\n project_Id \n the id of the project to be modified \n\n module_id \n the id of the module to be modified \n\n body optional infos \n \n Details \n\n name \n \n new name of the module \n\n icon \n \n name of the icon \n\n color \n \n rbg value of the color \n\n enabled \n \n enable or disable the module"
+      tags:
+      - Modules
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      - name: moduleId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `moduleId` as published in the collection.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              enabled: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    id: a41a8c18-b754-4b65-be6c-22c63987c995
+                    name: New Forms
+                    order: 0
+                    icon: typePin
+                    color: '#E94F3D'
+                    type: Forms
+                    created_at: '2023-09-20T13:43:34.245622Z'
+                    updated_at: '2023-09-26T12:43:52.419361Z'
+                    enabled: true
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+    get:
+      operationId: modulesFormsGetFormModule
+      summary: Get form module
+      description: "You can get information about one module.\n\n Details \n\n project_Id \n the id of the project to be checked \n\n module_id \n the id of the module to be checked"
+      tags:
+      - Modules
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      - name: moduleId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `moduleId` as published in the collection.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    id: a41a8c18-b754-4b65-be6c-22c63987c995
+                    name: New Forms
+                    order: 0
+                    icon: typePin
+                    color: '#E94F3D'
+                    type: Forms
+                    created_at: '2023-09-20T13:43:34.245622Z'
+                    updated_at: '2023-09-20T13:43:34.245622Z'
+                    enabled: false
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+    servers:
+    - url: https://developer.finalcad.cloud/api
+      description: Production — the baseUrl variable published in the Finalcad One API Postman collection.
+    - url: https://developer.sandbox.finalcad.cloud/api
+      description: Sandbox — published by Finalcad in the 'Retrieve data in Power BI' tutorial of the same collection.
+  /projects/{project_id}/forms-modules/{moduleId}/link-form:
+    post:
+      operationId: modulesFormsAddFormTemplateLink
+      summary: Add form template link
+      description: "Activate a form template in a module.\n\n Details \n\n project_Id \n the id of the project to be modified \n\n module_id \n the id of the module to be modified \n\n body mandatory infos \n Details \n\n form_id \n id of the form template"
+      tags:
+      - Modules
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      - name: moduleId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `moduleId` as published in the collection.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              form_id: <uuid>
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    id: 117f1c84-e69d-4429-baf9-74e052f5e0bc
+                    name: Forms
+                    order: 0
+                    icon: clipboard
+                    color: '#F7CE46'
+                    type: Forms
+                    created_at: '2023-09-26T07:10:57.833287Z'
+                    updated_at: '2023-09-26T07:11:21.156687Z'
+                    enabled: true
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+    servers:
+    - url: https://developer.finalcad.cloud/api
+      description: Production — the baseUrl variable published in the Finalcad One API Postman collection.
+    - url: https://developer.sandbox.finalcad.cloud/api
+      description: Sandbox — published by Finalcad in the 'Retrieve data in Power BI' tutorial of the same collection.
+  /projects/{project_id}/forms-modules/{moduleId}/unlink-form:
+    post:
+      operationId: modulesFormsRemoveFormTemplateLink
+      summary: Remove form template link
+      description: "Deactivate a form template in a module.\n\n Details \n\n project_Id \n the id of the project to be modified \n\n module_id \n the id of the module to be modified \n\n body mandatory infos \n Details \n\n form_id \n id the the template"
+      tags:
+      - Modules
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      - name: moduleId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `moduleId` as published in the collection.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              form_id: <uuid>
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    id: 117f1c84-e69d-4429-baf9-74e052f5e0bc
+                    name: Forms
+                    order: 0
+                    icon: clipboard
+                    color: '#F7CE46'
+                    type: Forms
+                    created_at: '2023-09-26T07:10:57.833287Z'
+                    updated_at: '2023-09-26T07:11:21.156687Z'
+                    enabled: true
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+    servers:
+    - url: https://developer.finalcad.cloud/api
+      description: Production — the baseUrl variable published in the Finalcad One API Postman collection.
+    - url: https://developer.sandbox.finalcad.cloud/api
+      description: Sandbox — published by Finalcad in the 'Retrieve data in Power BI' tutorial of the same collection.
+  /projects/{project_id}/modules:
+    post:
+      operationId: modulesObservationsCreateObservationModule
+      summary: Create observation module
+      description: "You can create a custom observation module in a specific project.\n\n Endpoint mandatory infos \n Details \n\n project_Id \n the id of the project to be modified \n\n body mandatory infos \n details \n\n name \n name of the new module \n\n icon \n name of the icon \n(look at finalcad libraries) \n\n color \n rbg value of the color \n(look at finalcad libraries) \n\n body optional infos \n \n Details \n\n settings \n\n is_observation_library_mandatory \n activate or not the trade choice \n(default is false) \n\n is_description_mandatory \n activate or not the description input \n(default is true) \n\n is_photo_mandatory \n activate or not the photo selection (mobile only) (default is true) \n\n is_company_mandatory \n activate or not the company choice (mobile only)(default is true) \n\n is_group_mandatory \n activate or not the group link choice (default is false) \n\n is_observation_library_enabled \n OBSOLETE activate or not the trade choice \n(default is false) \n\n is_description_enabled \n OBSOLETE activate or not the description input \n(default is true) \n\n is_photo_enabled \n OBSOLETE activate or not the photo selection (mobile only) (default is true) \n\n is_company_enabled \n OBSOLETE activate or not the company choice (mobile only)(default is true)"
+      tags:
+      - Modules
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              name: Test module obs
+              icon: <string>
+              color: <string>
+              settings:
+                is_observation_library_mandatory: false
+                is_description_mandatory: true
+                is_photo_mandatory: true
+                is_company_mandatory: true
+                is_group_mandatory: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success_observation:
+                  value:
+                    id: ef04d901-34aa-4aeb-b9d1-6bcf850553e4
+                    project_id: 9c898871-b8d2ebe5-10ab-4b42-96b7-056f114b7fd3
+                    name: Paradigm
+                    order: 3072
+                    icon: alert
+                    color: '#E94F3D'
+                    type: Observations
+                    names:
+                    - language: en
+                      translation: Paradigm
+                    created_at: '2023-09-25T13:46:56.9518476Z'
+                    updated_at: '2023-09-25T13:46:56.9518476Z'
+                    enabled: true
+                    settings:
+                      is_observation_library_mandatory: false
+                      is_description_mandatory: true
+                      is_photo_mandatory: true
+                      is_company_mandatory: true
+                      is_group_mandatory: true
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+    get:
+      operationId: modulesObservationsGetObservationModules
+      summary: Get observation modules
+      description: "For a given project, get the list of all existing observations modules.\n\n Endpoint mandatory info \n Details \n\n project_id \n The ID of the project where the form has been created \n\n Query params optionals \n\n see Commmon behaviors / differential"
+      tags:
+      - Modules
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Get_Modules_Observations:
+                  value:
+                    modules:
+                    - id: fcef77d8-21a9-4594-9bf7-6b06679fe1bb
+                      project_id: 45d2b228-25681789-2dbe-42d7-8310-491ab3ab360f
+                      name: Observations
+                      order: 1024
+                      icon: alert
+                      color: '#E94F3D'
+                      type: Observations
+                      names:
+                      - language: en
+                        translation: Observations
+                      - language: fr
+                        translation: Observations
+                      - language: es
+                        translation: Observaciones
+                      created_at: '2024-05-22T09:26:29.808Z'
+                      updated_at: '2024-05-22T09:26:29.808Z'
+                      enabled: true
+                      settings:
+                        is_observation_library_mandatory: false
+                        is_description_mandatory: true
+                        is_photo_mandatory: true
+                        is_company_mandatory: true
+                        is_group_mandatory: false
+                    need_to_relaunch: true
+                    continuous_token: 0|NDN8MHxNb2R1bGUjZDg1YTVmYTctMjAzNC00N2NhLTk4N2EtYWViNmZkMmJjNGNhNHwyfEdTSTE1M3wzfFByb2plY3QjNDVkMmIyMjgtMjU2ODE3ODktMmRiZS00MmQ3LTgzMTAtNDkxYWIzYWIzNjBmMjR8NHwyMDI0LTA1LTIyVDA5OjI2OjI5LjgwOFo=
+                    count: 1
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+    servers:
+    - url: https://developer.finalcad.cloud/api
+      description: Production — the baseUrl variable published in the Finalcad One API Postman collection.
+    - url: https://developer.sandbox.finalcad.cloud/api
+      description: Sandbox — published by Finalcad in the 'Retrieve data in Power BI' tutorial of the same collection.
+  /projects/{project_id}/modules/forms-suggestion:
+    post:
+      operationId: modulesFormsCreateFormModuleBySuggestion
+      summary: Create form module by suggestion
+      description: "You can create a module using a standard form description (named a suggestion).\n\n The suggestions can be found in the \"Get modules suggestions\" at the organization or workspace level, depending on your use case.\n\n Endpoint mandatory infos \n Details \n\n project_Id \n the id of the project to be modified \n\n body mandatory infos \n Details \n\n from_module_id \n ID the the suggestion to be used as template"
+      tags:
+      - Modules
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              from_module_id: <uuid>
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    id: 99e78c6b-2095-4500-9e42-ae97ea0ab63f
+                    name: ddddd
+                    order: 0
+                    icon: typePin
+                    color: '#E94F3D'
+                    type: Forms
+                    created_at: '2023-09-20T13:43:34.229153Z'
+                    updated_at: '2023-09-20T13:44:55.190924Z'
+                    enabled: false
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+    servers:
+    - url: https://developer.finalcad.cloud/api
+      description: Production — the baseUrl variable published in the Finalcad One API Postman collection.
+    - url: https://developer.sandbox.finalcad.cloud/api
+      description: Sandbox — published by Finalcad in the 'Retrieve data in Power BI' tutorial of the same collection.
+  /projects/{project_id}/modules/meetings:
+    post:
+      operationId: modulesMeetingsEnableMeetingModule
+      summary: Enable meeting module
+      description: "You can enable or disable the meeting module for a specific project.\n\n If the meeting module is already enabled, it will be returned without any modifications.\n\n Endpoint mandatory infos \n Details \n\n project_Id \n the id of the project to be modified \n\n body mandatory infos \n details \n\n enabled \n enable or disable the module"
+      tags:
+      - Modules
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              enabled: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    id: 07310b5f-4eea-4383-a5fa-ea9911b0951e
+                    project_id: 4bae44b3-935aabbb-127e-44e3-ba5d-1cfea984bf68
+                    name: Meetings
+                    order: 1024
+                    icon: meetings
+                    color: '#4CABF2'
+                    type: Meetings
+                    names:
+                    - language: en
+                      translation: Meetings
+                    - language: fr
+                      translation: Réunions
+                    - language: es
+                      translation: Reuniónes
+                    created_at: '2023-10-23T13:28:51.493Z'
+                    updated_at: '2023-10-23T13:29:02.9671594Z'
+                    enabled: true
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+    servers:
+    - url: https://developer.finalcad.cloud/api
+      description: Production — the baseUrl variable published in the Finalcad One API Postman collection.
+    - url: https://developer.sandbox.finalcad.cloud/api
+      description: Sandbox — published by Finalcad in the 'Retrieve data in Power BI' tutorial of the same collection.
+  /projects/{project_id}/modules/meetings/{module_id}:
+    get:
+      operationId: modulesMeetingsGetMeetingModule
+      summary: Get meeting module
+      description: "You can obtain information about a specific meeting module.\n\n The meeting module ID can be retrieved from the \"Enable module meeting\" endpoint.\n\n Endpoint mandatory infos \n Details \n\n project_Id \n the id of the project to be checked \n\n module_id \n the id of the module to be checked"
+      tags:
+      - Modules
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      - name: module_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `module_id` as published in the collection.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    id: 07310b5f-4eea-4383-a5fa-ea9911b0951e
+                    project_id: 4bae44b3-935aabbb-127e-44e3-ba5d-1cfea984bf68
+                    name: Meetings
+                    order: 1024
+                    icon: meetings
+                    color: '#4CABF2'
+                    type: Meetings
+                    names:
+                    - language: en
+                      translation: Meetings
+                    - language: fr
+                      translation: Réunions
+                    - language: es
+                      translation: Reuniónes
+                    created_at: '2023-10-23T13:28:51.493Z'
+                    updated_at: '2023-10-23T13:29:02.967Z'
+                    enabled: true
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+    put:
+      operationId: modulesMeetingsUpdateMeetingModule
+      summary: Update meeting module
+      description: "You can modify a specific meeting module within a particular project. The meeting module ID can be retrieved from the \"Enable module meeting\" endpoint.\n\n Endpoint mandatory infos \n Details \n\n project_Id \n the id of the project to be modified \n\n module_id \n the id of the module to be modified \n\n body optional infos \n Details \n\n name \n new name of the module \n\n icon \n name of the icon \n\n color \n rbg value of the color \n\n order \n position order \n\n enabled \n enable or disable the module"
+      tags:
+      - Modules
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      - name: module_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `module_id` as published in the collection.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              name: <string>
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    id: 07310b5f-4eea-4383-a5fa-ea9911b0951e
+                    project_id: 4bae44b3-935aabbb-127e-44e3-ba5d-1cfea984bf68
+                    name: forecast
+                    order: 1024
+                    icon: meetings
+                    color: '#4CABF2'
+                    type: Meetings
+                    names:
+                    - language: en
+                      translation: forecast
+                    - language: fr
+                      translation: Réunions
+                    - language: es
+                      translation: Reuniónes
+                    created_at: '2023-10-23T13:28:51.493Z'
+                    updated_at: '2023-10-23T14:30:01.2524987Z'
+                    enabled: true
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+    servers:
+    - url: https://developer.finalcad.cloud/api
+      description: Production — the baseUrl variable published in the Finalcad One API Postman collection.
+    - url: https://developer.sandbox.finalcad.cloud/api
+      description: Sandbox — published by Finalcad in the 'Retrieve data in Power BI' tutorial of the same collection.
+  /projects/{project_id}/modules/suggestion:
+    post:
+      operationId: modulesObservationsCreateObservationModuleBasedOnSuggestions
+      summary: Create observation module based on suggestions
+      description: "You can create an observation module using a standard description (referred to as a suggestion).\n\n These suggestions can be obtained from the module suggestions available at the organization or workspace level, depending on your use case.\n\n Endpoint mandatory infos \n Details \n\n project_Id \n the id of the project to be modified \n\n body mandatory infos \n Details \n\n from_module_id \n ID the the suggestion to be used as template"
+      tags:
+      - Modules
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              from_module_id: <uuid>
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+    servers:
+    - url: https://developer.finalcad.cloud/api
+      description: Production — the baseUrl variable published in the Finalcad One API Postman collection.
+    - url: https://developer.sandbox.finalcad.cloud/api
+      description: Sandbox — published by Finalcad in the 'Retrieve data in Power BI' tutorial of the same collection.
+  /projects/{project_id}/modules/{moduleId}:
+    put:
+      operationId: modulesObservationsModifyObservationModule
+      summary: Modify observation module
+      description: "You can modify a specific module in a specific project.\n\n Details \n\n project_Id \n the id of the project to be modified \n\n module_id \n the id of the module to be modified \n\n body optional infos \n Details \n\n name \n new name of the module \n\n icon \n name of the icon \n\n color \n rbg value of the color \n\n order \n position order \n\n enabled \n enable or disable the module \n\n settings \n please look at create module observation documentation"
+      tags:
+      - Modules
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      - name: moduleId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `moduleId` as published in the collection.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              enabled: true
+              settings:
+                is_photo_mandatory: false
+                is_group_mandatory: false
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+    get:
+      operationId: modulesObservationsGetObservationModule
+      summary: Get observation module
+      description: "You can get information about one module.\n\n Details \n\n project_Id \n the id of the project to be checked \n\n module_id \n the id of the module to be checked"
+      tags:
+      - Modules
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      - name: moduleId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `moduleId` as published in the collection.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Get_Module_Observation:
+                  value:
+                    id: 18e9ea1a-e576-471f-ad8d-702ef394849c
+                    project_id: ab3852d3-5fffdcbf-6c71-46d9-ab80-1910ba4336ec
+                    name: Quality
+                    order: 4096
+                    icon: star
+                    color: '#01D194'
+                    type: Observations
+                    names:
+                    - language: en
+                      translation: Quality
+                    - language: fr
+                      translation: Qualité
+                    - language: es
+                      translation: Calidad
+                    created_at: '2023-09-26T07:11:06.707Z'
+                    updated_at: '2023-09-26T07:11:06.707Z'
+                    enabled: true
+                    settings:
+                      is_observation_library_mandatory: false
+                      is_description_mandatory: true
+                      is_photo_mandatory: true
+                      is_company_mandatory: true
+                      is_group_mandatory: true
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+    servers:
+    - url: https://developer.finalcad.cloud/api
+      description: Production — the baseUrl variable published in the Finalcad One API Postman collection.
+    - url: https://developer.sandbox.finalcad.cloud/api
+      description: Sandbox — published by Finalcad in the 'Retrieve data in Power BI' tutorial of the same collection.
+  /projects/{project_id}/trades:
+    post:
+      operationId: modulesObservationsCreateTrade
+      summary: Create trade
+      description: "Create a category for a given module.\n\n Details \n\n project_Id \n the id of the project to be modified \n\n body mandatory infos \n Details \n\n module_id \n ID of the module who use this trades \n\n names \n list of language and names translation"
+      tags:
+      - Modules
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              module_id: <uuid>
+              names:
+              - language: en
+                translation: <string>
+              - language: fr
+                translation: <string>
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Create_Trade:
+                  value:
+                    id: 274e9196-fd0f-4d26-a54c-ec71565c556d
+                    enabled: true
+                    names:
+                    - language: en
+                      translation: job
+                    - language: fr
+                      translation: boulot
+                    module_id: 4fa1469c-0849-4f69-beb8-e3590aa4fd05
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+    servers:
+    - url: https://developer.finalcad.cloud/api
+      description: Production — the baseUrl variable published in the Finalcad One API Postman collection.
+    - url: https://developer.sandbox.finalcad.cloud/api
+      description: Sandbox — published by Finalcad in the 'Retrieve data in Power BI' tutorial of the same collection.
+  /projects/{project_id}/trades/module:
+    get:
+      operationId: modulesObservationsGetProjectTradesByModule
+      summary: Get project trades by module
+      description: "Given the project and a module you can get the list of the trades for this module\n\n Endpoint mandatory infos \n Details \n\n projectId \n the id of the project to be modified \n\n Query mandatory parameters \n\n module_id \n id of the module"
+      tags:
+      - Modules
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    trades:
+                    - id: 40f66c0e-b63e-4b45-82b3-1ff9d2df2ed9
+                      enabled: true
+                      name: azerty
+                      names:
+                      - language: fr
+                        translation: azerty
+                      module_id: 6c77e442-ee7f-4648-9873-fe502c93583e
+                      created_at: '2025-01-30T13:33:25.702254Z'
+                      created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                      updated_at: '2025-01-30T13:33:25.702254Z'
+                      updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    - id: 9f2ac638-d513-4d5d-9602-812735e42b6e
+                      enabled: true
+                      name: Carrelage
+                      names:
+                      - language: en
+                        translation: Carrelage
+                      module_id: 6c77e442-ee7f-4648-9873-fe502c93583e
+                      created_at: '2025-01-30T13:33:25.703578Z'
+                      created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                      updated_at: '2025-01-30T13:33:25.703578Z'
+                      updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    - id: 072a0a35-3857-4536-84c1-a54b6439f03c
+                      enabled: true
+                      name: CVC/Plomberie
+                      names:
+                      - language: en
+                        translation: CVC/Plomberie
+                      module_id: 6c77e442-ee7f-4648-9873-fe502c93583e
+                      created_at: '2025-01-30T13:33:25.70422Z'
+                      created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                      updated_at: '2025-01-30T13:33:25.70422Z'
+                      updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    - id: 7bf9aa40-7c1e-4585-8b30-05aacb2712d0
+                      enabled: true
+                      name: electrician
+                      names:
+                      - language: fr
+                        translation: electricien
+                      - language: en
+                        translation: electrician
+                      module_id: 6c77e442-ee7f-4648-9873-fe502c93583e
+                      created_at: '2025-01-30T13:33:25.704809Z'
+                      created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                      updated_at: '2025-01-30T13:33:25.704809Z'
+                      updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    - id: b554b587-87dd-4d04-96f7-31139ee48d31
+                      enabled: true
+                      name: ess create 2
+                      names:
+                      - language: fr
+                        translation: ess create 2
+                      module_id: 6c77e442-ee7f-4648-9873-fe502c93583e
+                      created_at: '2025-01-30T13:33:25.705722Z'
+                      created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                      updated_at: '2025-01-30T13:33:25.705722Z'
+                      updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    - id: 58e41c75-7bd3-4af2-a296-9a975819ecf0
+                      enabled: true
+                      name: ess create 3
+                      names:
+                      - language: fr
+                        translation: ess create 3
+                      module_id: 6c77e442-ee7f-4648-9873-fe502c93583e
+                      created_at: '2025-01-30T13:33:25.706252Z'
+                      created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                      updated_at: '2025-01-30T13:33:25.706252Z'
+                      updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    - id: 33de83fb-370a-4bd6-87a2-816f693db94d
+                      enabled: true
+                      name: et un autre nom
+                      names:
+                      - language: en
+                        translation: et un autre nom
+                      module_id: 6c77e442-ee7f-4648-9873-fe502c93583e
+                      created_at: '2025-01-30T13:33:25.707129Z'
+                      created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                      updated_at: '2025-01-30T13:33:25.707129Z'
+                      updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    - id: 97750629-c26f-465b-b8f3-1ec0145d2ef3
+                      enabled: true
+                      name: Gros oeuvre
+                      names:
+                      - language: en
+                        translation: Gros oeuvre
+                      module_id: 6c77e442-ee7f-4648-9873-fe502c93583e
+                      created_at: '2025-01-30T13:33:25.707696Z'
+                      created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                      updated_at: '2025-01-30T13:33:25.707696Z'
+                      updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    - id: ffa2f451-e10e-4f4b-ba0a-ee5e426424d8
+                      enabled: true
+                      name: Menuiseries extérieures
+                      names:
+                      - language: en
+                        translation: Menuiseries extérieures
+                      module_id: 6c77e442-ee7f-4648-9873-fe502c93583e
+                      created_at: '2025-01-30T13:33:25.70814Z'
+                      created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                      updated_at: '2025-01-30T13:33:25.70814Z'
+                      updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    - id: 172de6fc-efde-4d95-8a8a-422da2813efc
+                      enabled: true
+                      name: Menuiseries intérieures
+                      names:
+                      - language: en
+                        translation: Menuiseries intérieures
+                      module_id: 6c77e442-ee7f-4648-9873-fe502c93583e
+                      created_at: '2025-01-30T13:33:25.719089Z'
+                      created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                      updated_at: '2025-01-30T13:33:25.719089Z'
+                      updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    - id: 5283a74e-c1d6-4819-94a8-95719662ec73
+                      enabled: true
+                      name: Peinture
+                      names:
+                      - language: en
+                        translation: Peinture
+                      module_id: 6c77e442-ee7f-4648-9873-fe502c93583e
+                      created_at: '2025-01-30T13:33:25.719552Z'
+                      created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                      updated_at: '2025-01-30T13:33:25.719552Z'
+                      updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    - id: 70c6e155-3b61-4975-9820-284e0ccb3bd4
+                      enabled: true
+                      name: plumber
+                      names:
+                      - language: fr
+                        translation: plombier
+                      - language: en
+                        translation: plumber
+                      module_id: 6c77e442-ee7f-4648-9873-fe502c93583e
+                      created_at: '2025-01-30T13:33:25.720002Z'
+                      created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                      updated_at: '2025-01-30T13:33:25.720002Z'
+                      updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    - id: 7a8ea5b4-b656-49bc-bcbc-0c05b6a814a7
+                      enabled: true
+                      name: test 2025-01-27
+                      names:
+                      - language: en
+                        translation: test 2025-01-27
+                      module_id: 6c77e442-ee7f-4648-9873-fe502c93583e
+                      created_at: '2025-01-30T13:33:25.720526Z'
+                      created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                      updated_at: '2025-01-30T13:33:25.720526Z'
+                      updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    - id: 2039abb7-0630-402b-809e-65373b4ff5ac
+                      enabled: true
+                      name: Test lang en
+                      names:
+                      - language: fr
+                        translation: Test Lang
+                      - language: en
+                        translation: Test lang en
+                      module_id: 6c77e442-ee7f-4648-9873-fe502c93583e
+                      created_at: '2025-01-30T13:33:25.720987Z'
+                      created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                      updated_at: '2025-01-30T13:33:25.720987Z'
+                      updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    - id: 11fab9e4-88f1-45b2-b57a-fbe0092bdedf
+                      enabled: true
+                      name: Test Luc Orga 1
+                      names:
+                      - language: fr
+                        translation: Test Luc Orga 1
+                      module_id: 6c77e442-ee7f-4648-9873-fe502c93583e
+                      created_at: '2025-01-30T13:33:25.721562Z'
+                      created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                      updated_at: '2025-01-30T13:33:25.721562Z'
+                      updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    - id: 1722239b-6f44-4397-afcf-97ac7c68babf
+                      enabled: true
+                      name: Test Luc Orga 2 bis
+                      names:
+                      - language: fr
+                        translation: Test Luc Orga 2 bis
+                      module_id: 6c77e442-ee7f-4648-9873-fe502c93583e
+                      created_at: '2025-01-30T13:33:25.72193Z'
+                      created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                      updated_at: '2025-01-30T13:33:25.72193Z'
+                      updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    - id: 3be9458a-d17e-42c5-8f6c-d0382cba5801
+                      enabled: true
+                      name: Test Luc Orga 50
+                      names:
+                      - language: fr
+                        translation: Test Luc Orga 50
+                      module_id: 6c77e442-ee7f-4648-9873-fe502c93583e
+                      created_at: '2025-01-30T13:33:25.722275Z'
+                      created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                      updated_at: '2025-01-30T13:33:25.722275Z'
+                      updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    - id: 1f9c241f-31a8-4447-aed9-40b21aae62b5
+                      enabled: true
+                      name: Un super nom trop nul
+                      names:
+                      - language: en
+                        translation: Un super nom trop nul
+                      module_id: 6c77e442-ee7f-4648-9873-fe502c93583e
+                      created_at: '2025-01-30T13:33:25.722623Z'
+                      created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                      updated_at: '2025-01-30T13:33:25.722623Z'
+                      updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    - id: f45ad375-8412-49b3-b6ab-0031b2d7776d
+                      enabled: true
+                      name: wireless
+                      names:
+                      - language: en
+                        translation: wireless
+                      - language: fr
+                        translation: sans fil
+                      module_id: 6c77e442-ee7f-4648-9873-fe502c93583e
+                      created_at: '2025-01-30T13:33:25.723052Z'
+                      created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                      updated_at: '2025-01-30T13:33:25.723052Z'
+                      updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+    servers:
+    - url: https://developer.finalcad.cloud/api
+      description: Production — the baseUrl variable published in the Finalcad One API Postman collection.
+    - url: https://developer.sandbox.finalcad.cloud/api
+      description: Sandbox — published by Finalcad in the 'Retrieve data in Power BI' tutorial of the same collection.
+  /projects/{project_id}/trades/{trade_id}:
+    get:
+      operationId: modulesObservationsGetProjectTrade
+      summary: Get project trade
+      description: "Given the project, you can get the details of a trade.\n\n Details \n\n projectId \n the id of the project to be modified \n\n tradeId \n Id of the trade to be verified"
+      tags:
+      - Modules
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      - name: trade_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `trade_id` as published in the collection.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    id: 907b66bb-cf34-4813-9ac8-3eb7d18a9714
+                    enabled: true
+                    names:
+                    - language: en
+                      translation: Peinture
+                    module_id: 31193b47-8561-412f-a999-d91742f9d401
+                    created_at: '2023-10-10T09:50:43.023461Z'
+                    created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    updated_at: '2023-10-10T09:50:43.023461Z'
+                    updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+    servers:
+    - url: https://developer.finalcad.cloud/api
+      description: Production — the baseUrl variable published in the Finalcad One API Postman collection.
+    - url: https://developer.sandbox.finalcad.cloud/api
+      description: Sandbox — published by Finalcad in the 'Retrieve data in Power BI' tutorial of the same collection.
+  /projects/{project_id}/trades/{trade_id}/commonobservations:
+    get:
+      operationId: modulesObservationsGetProjectCommonObservationsByTrade
+      summary: Get project common observations by trade
+      description: "For a given project you can list the model (= common observation) available for a trade\n\n Endpoint mandatory infos \n Details \n\n project_id \n the id of the project to be modified \n\n trade_id \n the id the the trade"
+      tags:
+      - Modules
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      - name: trade_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `trade_id` as published in the collection.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Get_project_common_observations_by_trade:
+                  value:
+                    common_observations:
+                    - id: 18b3b5ee-540e-4e46-ae73-62cfba6ca46d
+                      trade_id: 9f2ac638-d513-4d5d-9602-812735e42b6e
+                      name: Coupe à réaliser
+                      names:
+                      - language: fr
+                        translation: Coupe à réaliser
+                      enabled: true
+                      created_at: '2025-01-30T13:33:25.970997Z'
+                      created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                      updated_at: '2025-01-30T13:33:25.970997Z'
+                      updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    - id: 7353852a-9d48-41c2-b3bb-e6beca56a8b4
+                      trade_id: 9f2ac638-d513-4d5d-9602-812735e42b6e
+                      name: Dégradation à traiter
+                      names:
+                      - language: fr
+                        translation: Dégradation à traiter
+                      enabled: true
+                      created_at: '2025-01-30T13:33:25.9724Z'
+                      created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                      updated_at: '2025-01-30T13:33:25.9724Z'
+                      updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    - id: dc19516e-d4c8-4d82-a1cb-cc1e899ac832
+                      trade_id: 9f2ac638-d513-4d5d-9602-812735e42b6e
+                      name: Joint à poser
+                      names:
+                      - language: fr
+                        translation: Joint à poser
+                      enabled: true
+                      created_at: '2025-01-30T13:33:25.977333Z'
+                      created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                      updated_at: '2025-01-30T13:33:25.977333Z'
+                      updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    - id: 47dac686-4942-4720-9021-d61a7294c1c4
+                      trade_id: 9f2ac638-d513-4d5d-9602-812735e42b6e
+                      name: Joint à reprendre
+                      names:
+                      - language: fr
+                        translation: Joint à reprendre
+                      enabled: true
+                      created_at: '2025-01-30T13:33:25.977736Z'
+                      created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                      updated_at: '2025-01-30T13:33:25.977736Z'
+                      updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    - id: ef387aba-6a13-4d7e-bcdc-caf2278207b9
+                      trade_id: 9f2ac638-d513-4d5d-9602-812735e42b6e
+                      name: Sol à nettoyer
+                      names:
+                      - language: fr
+                        translation: Sol à nettoyer
+                      enabled: true
+                      created_at: '2025-01-30T13:33:26.052226Z'
+                      created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                      updated_at: '2025-01-30T13:33:26.052226Z'
+                      updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+    servers:
+    - url: https://developer.finalcad.cloud/api
+      description: Production — the baseUrl variable published in the Finalcad One API Postman collection.
+    - url: https://developer.sandbox.finalcad.cloud/api
+      description: Sandbox — published by Finalcad in the 'Retrieve data in Power BI' tutorial of the same collection.
+components:
+  schemas:
+    ApiError:
+      type: object
+      description: Finalcad One error envelope. `api_code` is either a static code (mostly 4xx, e.g. INVALID_INSTANCE_STATE) or a constructed code of the form {ProcessCode}_ERR{n} / {ProcessCode}_WRN{n} (mostly 5xx).
+      properties:
+        statut:
+          type: integer
+          description: HTTP status code, repeated in the body (spelled `statut`).
+        api_code:
+          type: string
+          description: Internal Finalcad API error code.
+        message:
+          type: string
+          description: Short explanation of the abnormality encountered.
+        data:
+          type: object
+          description: Complementary data to help understand the error.
+          additionalProperties: true
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: Organization API key issued by Finalcad to organizations on an Enterprise licence. Sent on every call.
+    tokenAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: '`Authorization: token <your_api_key>`, or `Authorization: bearer <user_token>` for the legacy user-token flow (POST /auth).'
+x-refined-from:
+- finalcad-libraries-openapi.yml
+- finalcad-projects-openapi.yml

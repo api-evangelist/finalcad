@@ -1,0 +1,311 @@
+openapi: 3.2.0
+info:
+  title: Finalcad One Project Phases API
+  version: '2.41'
+  summary: 'Project-level operations for Finalcad One construction projects: project details, project libraries, members, locations (folders / plans / IFC), discussion groups, companies, modules (observations / forms / meetings), observations, forms and form answers, documents, phases, meetings and XLSX/PDF exports.'
+  description: 'Project-level operations for Finalcad One construction projects: project details, project libraries, members, locations (folders / plans / IFC), discussion groups, companies, modules (observations / forms / meetings), observations, forms and form answers, documents, phases, meetings and XLSX/PDF exports.
+
+
+    DERIVED, NOT PUBLISHED BY THE PROVIDER. Finalcad publishes no OpenAPI. This document was mechanically derived by API Evangelist from the first-party public Postman collection "Finalcad One API" served by Finalcad at https://developer.finalcad.com/ (collection JSON: https://developer.finalcad.com/api/collections/10995648/Tz5v1Es2), saved in this repo at collections/finalcad.postman_collection.json. Every path, method, header, query parameter, example request body and example response below is carried over from that collection; nothing was invented. Request/response bodies are typed as generic objects because the collection carries examples, not schemas. Four Finalcad employees'' personal e-mail addresses that appeared in the collection''s example payloads were replaced with placeholders; nothing else was changed.'
+  contact:
+    name: Finalcad One API — developer portal
+    url: https://developer.finalcad.com/
+  x-generated-by: API Evangelist enrichment pipeline (derived from the first-party Postman collection)
+  x-source: collections/finalcad.postman_collection.json
+  x-source-url: https://developer.finalcad.com/
+servers:
+- url: https://developer.finalcad.cloud/api
+  description: Production — the baseUrl variable published in the Finalcad One API Postman collection.
+- url: https://developer.sandbox.finalcad.cloud/api
+  description: Sandbox — published by Finalcad in the 'Retrieve data in Power BI' tutorial of the same collection.
+security:
+- apiKey: []
+  tokenAuth: []
+tags:
+- name: Phases
+paths:
+  /projects/{projectId}/phases:
+    get:
+      operationId: phasesGetPhases
+      summary: Get phases
+      description: "Before updating your phase list, you might want to have an overview of the phases already deployed in your project. This helps you manage your project based on the current context.\n\n Details \n\n project_Id \n the id of the project to be checked \n\n Query params optionals \n\n see Commmon behaviors / differential"
+      tags:
+      - Phases
+      parameters:
+      - name: projectId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `projectId` as published in the collection.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    phases:
+                    - id: 3ab68dd8-f288-4ec9-9c81-d6dd59d12b88
+                      order: 512
+                      name: Trux
+                      names:
+                      - language: fr
+                        translation: Trux
+                      enabled: false
+                      created_at: '2024-05-23T14:07:36.651606Z'
+                      updated_at: '2024-05-23T14:08:03.42011Z'
+                      deleted_at: '2024-05-23T14:08:03.42011Z'
+                    - id: 0e8c2f2c-9d3c-4871-974b-d445f05e9090
+                      order: 1024
+                      name: Design
+                      names:
+                      - language: en
+                        translation: Design
+                      - language: ca
+                        translation: Disseny
+                      - language: zh
+                        translation: 设计
+                      - language: fr
+                        translation: Conception
+                      - language: de
+                        translation: Entwurf
+                      - language: it
+                        translation: Design
+                      - language: ja
+                        translation: 設計
+                      - language: nl
+                        translation: Design
+                      - language: pt
+                        translation: Design
+                      - language: es
+                        translation: Diseñar
+                      - language: th
+                        translation: การออกแบบ
+                      - language: vi
+                        translation: Thiết kế
+                      enabled: true
+                      created_at: '2024-05-22T09:26:30.290109Z'
+                      updated_at: '2024-05-22T09:26:30.290109Z'
+                    need_to_relaunch: true
+                    continuous_token: 0|2
+                    count: 2
+                    total_count: 10
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /projects/{project_id}/phases:
+    post:
+      operationId: phasesCreatePhase
+      summary: Create phase
+      description: "You can create a list of phases for your project.\n\n Creating a new phase for a project only involves giving it a name.\n\n Phases are ordered, which determines where each specific phase is displayed in the list of phases.\n\n Endpoint mandatory infos \n Details \n\n project_Id \n the id of the project to be modified \n\n body mandatory infos \n Details \n\n name \n name of the phase \n\n order \n ordre of the new phase in the list of phase"
+      tags:
+      - Phases
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              name: <string>
+              order: 22
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    id: d7e0f2df-b305-46fc-a011-d38e3498dd0e
+                    order: 20
+                    names:
+                    - language: en
+                      translation: '666666666'
+                    created_at: '2022-10-18T08:51:54.8029455Z'
+                    updated_at: '2022-10-18T08:51:54.8029455Z'
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /projects/{project_id}/phases/{phase_id}:
+    put:
+      operationId: phasesUpdatePhase
+      summary: Update phase
+      description: "Update a phase.\n\n Details \n\n project_Id \n the id of the project to be modified \n\n phase_id \n id of the phase to be modified \n\n body optional infos \n Details \n\n name \n new name of the phase \n\n order \n new order of the phase in the list"
+      tags:
+      - Phases
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      - name: phase_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `phase_id` as published in the collection.
+      - name: Accept-Language
+        in: header
+        required: false
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              name: <string>
+              order: 0.2
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    id: eb1acb59-f8f2-4caa-b33a-c1cc2780e6de
+                    order: 0.2
+                    names:
+                    - language: en
+                      translation: the new name
+                    created_at: '2022-10-18T08:10:04.43209Z'
+                    updated_at: '2022-10-18T13:10:08.3315228Z'
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+    delete:
+      operationId: phasesDeletePhase
+      summary: Delete phase
+      description: "Delete a phase from the list.\n\n Phases already assigned to existing items will be tagged as deleted entities.\n\n Endpoint mandatory infos \n Details \n\n project_Id \n the id of the project to be modified \n\n phase_id \n id of the phase to be deleted"
+      tags:
+      - Phases
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      - name: phase_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `phase_id` as published in the collection.
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+components:
+  schemas:
+    ApiError:
+      type: object
+      description: Finalcad One error envelope. `api_code` is either a static code (mostly 4xx, e.g. INVALID_INSTANCE_STATE) or a constructed code of the form {ProcessCode}_ERR{n} / {ProcessCode}_WRN{n} (mostly 5xx).
+      properties:
+        statut:
+          type: integer
+          description: HTTP status code, repeated in the body (spelled `statut`).
+        api_code:
+          type: string
+          description: Internal Finalcad API error code.
+        message:
+          type: string
+          description: Short explanation of the abnormality encountered.
+        data:
+          type: object
+          description: Complementary data to help understand the error.
+          additionalProperties: true
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: Organization API key issued by Finalcad to organizations on an Enterprise licence. Sent on every call.
+    tokenAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: '`Authorization: token <your_api_key>`, or `Authorization: bearer <user_token>` for the legacy user-token flow (POST /auth).'

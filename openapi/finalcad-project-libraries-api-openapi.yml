@@ -1,0 +1,836 @@
+openapi: 3.2.0
+info:
+  title: Finalcad One Project Project libraries API
+  version: '2.41'
+  summary: 'Project-level operations for Finalcad One construction projects: project details, project libraries, members, locations (folders / plans / IFC), discussion groups, companies, modules (observations / forms / meetings), observations, forms and form answers, documents, phases, meetings and XLSX/PDF exports.'
+  description: 'Project-level operations for Finalcad One construction projects: project details, project libraries, members, locations (folders / plans / IFC), discussion groups, companies, modules (observations / forms / meetings), observations, forms and form answers, documents, phases, meetings and XLSX/PDF exports.
+
+
+    DERIVED, NOT PUBLISHED BY THE PROVIDER. Finalcad publishes no OpenAPI. This document was mechanically derived by API Evangelist from the first-party public Postman collection "Finalcad One API" served by Finalcad at https://developer.finalcad.com/ (collection JSON: https://developer.finalcad.com/api/collections/10995648/Tz5v1Es2), saved in this repo at collections/finalcad.postman_collection.json. Every path, method, header, query parameter, example request body and example response below is carried over from that collection; nothing was invented. Request/response bodies are typed as generic objects because the collection carries examples, not schemas. Four Finalcad employees'' personal e-mail addresses that appeared in the collection''s example payloads were replaced with placeholders; nothing else was changed.'
+  contact:
+    name: Finalcad One API — developer portal
+    url: https://developer.finalcad.com/
+  x-generated-by: API Evangelist enrichment pipeline (derived from the first-party Postman collection)
+  x-source: collections/finalcad.postman_collection.json
+  x-source-url: https://developer.finalcad.com/
+servers:
+- url: https://developer.finalcad.cloud/api
+  description: Production — the baseUrl variable published in the Finalcad One API Postman collection.
+- url: https://developer.sandbox.finalcad.cloud/api
+  description: Sandbox — published by Finalcad in the 'Retrieve data in Power BI' tutorial of the same collection.
+security:
+- apiKey: []
+  tokenAuth: []
+tags:
+- name: Project libraries
+paths:
+  /projects/{project_id}/commonobservations:
+    get:
+      operationId: projectLibrariesGetProjectCommonObservations
+      summary: Get project common observations
+      description: "For a given project, you can list the models (= common observations) available by module ID.\n\n Details \n\n project_id \n the id of the project to be modified \n\n Query params optionals \n\n see Commmon behaviors / differential"
+      tags:
+      - Project libraries
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    common_observations:
+                    - id: 2958187d-93ab-49e6-85d1-f1798b655a74
+                      trade_id: b317de66-d677-47f8-8462-ab9887ce72a4
+                      names:
+                      - language: fr
+                        translation: 2ieme couche à réaliser
+                      enabled: true
+                      created_at: '2024-05-22T09:26:38.624859Z'
+                      created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                      updated_at: '2024-05-22T09:26:38.624859Z'
+                      updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    - id: 8872b022-ded6-4842-a45b-508739f4a8fb
+                      trade_id: d22c0e43-fb91-4222-8468-38a071523fa8
+                      names:
+                      - language: en
+                        translation: Acier à reprendre
+                      enabled: true
+                      created_at: '2024-05-22T09:26:38.789267Z'
+                      created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                      updated_at: '2024-05-22T09:26:38.789267Z'
+                      updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    need_to_relaunch: true
+                    continuous_token: 0|2
+                    count: 2
+                    total_count: 41
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /projects/{project_id}/forms-priorities:
+    get:
+      operationId: projectLibrariesGetProjectFormPriorities
+      summary: Get project form priorities
+      description: "For a given project, you can list all the available form priorities.\n\n Details \n\n projectId \n the id of the project to be modified \n\n Query params optionals \n\n see Commmon behaviors / differential"
+      tags:
+      - Project libraries
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    priorities:
+                    - id: a93401c6-abc2-4ced-bb82-b558c1692581
+                      position: 0
+                      color: '#49CB0C'
+                      icon: ChevronDown
+                      is_default: true
+                      names:
+                      - language: de
+                        translation: Low
+                      - language: zh
+                        translation: Low
+                      - language: it
+                        translation: Low
+                      - language: ko
+                        translation: Low
+                      - language: vi
+                        translation: Low
+                      - language: en
+                        translation: Low
+                      - language: es
+                        translation: Low
+                      - language: fr
+                        translation: Faible
+                      - language: nl
+                        translation: Low
+                      - language: th
+                        translation: Low
+                      - language: ja
+                        translation: Low
+                      - language: ca
+                        translation: Low
+                      - language: pt
+                        translation: Low
+                      enabled: true
+                      created_at: '2024-05-22T09:26:34.390093Z'
+                      created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                      updated_at: '2024-05-22T09:26:34.390093Z'
+                      updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    - id: 15b66b49-7608-49c0-af75-d9112ab63f92
+                      position: 1
+                      color: '#FF8029'
+                      icon: ChevronUp
+                      is_default: false
+                      names:
+                      - language: th
+                        translation: Medium
+                      - language: vi
+                        translation: Medium
+                      - language: es
+                        translation: Medium
+                      - language: de
+                        translation: Medium
+                      - language: zh
+                        translation: Medium
+                      - language: ca
+                        translation: Medium
+                      - language: pt
+                        translation: Medium
+                      - language: nl
+                        translation: Medium
+                      - language: en
+                        translation: Medium
+                      - language: it
+                        translation: Medium
+                      - language: ko
+                        translation: Medium
+                      - language: fr
+                        translation: Moyenne
+                      - language: ja
+                        translation: Medium
+                      enabled: true
+                      created_at: '2024-05-22T09:26:34.535334Z'
+                      created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                      updated_at: '2024-05-22T09:26:34.535334Z'
+                      updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    need_to_relaunch: true
+                    continuous_token: 0|2
+                    count: 2
+                    total_count: 4
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /projects/{project_id}/formsforms:
+    get:
+      operationId: projectLibrariesGetProjectFormTemplates
+      summary: Get project form templates
+      description: "For a given project you can list all the available form templates for a module and a category\n\n Endpoint mandatory infos \n Details \n\n projectId \n the id of the project to be modified \n\n Query mandatory params \n\n module_id \n id of the module checked \n\n Query optionals params \n\n category_id \n id of the category of the module checked"
+      tags:
+      - Project libraries
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    forms:
+                    - id: dd51ccda-0f53-444d-b9f5-45252c37ca37
+                      name: Form template 1
+                      enabled: true
+                      version: 3
+                      module_id: 117f1c84-e69d-4429-baf9-74e052f5e0bc
+                      category_id: 594f4f7c-6f7a-410b-bb5e-5aa6ef488a9c
+                      created_at: '2023-12-05T12:44:53.12674Z'
+                      updated_at: '2023-12-05T12:44:53.12674Z'
+                    - id: 0f5d26f7-523e-4453-b61c-0fd8d59f008a
+                      name: Form template 2
+                      enabled: true
+                      version: 2
+                      module_id: 117f1c84-e69d-4429-baf9-74e052f5e0bc
+                      category_id: 594f4f7c-6f7a-410b-bb5e-5aa6ef488a9c
+                      created_at: '2023-12-05T08:31:10.713542Z'
+                      updated_at: '2023-12-05T08:31:10.713542Z'
+                    - id: cf9d18bd-d473-400a-909a-e48ea0eb1404
+                      name: Form template 3
+                      enabled: true
+                      version: 1
+                      module_id: 117f1c84-e69d-4429-baf9-74e052f5e0bc
+                      created_at: '2024-04-03T14:41:29.800809Z'
+                      updated_at: '2024-04-03T14:41:29.800809Z'
+                    - id: 40accad9-12c5-46da-aa2c-ad6c59972d81
+                      name: Form template 4
+                      enabled: true
+                      version: 1
+                      module_id: 117f1c84-e69d-4429-baf9-74e052f5e0bc
+                      created_at: '2023-12-12T12:53:00.393272Z'
+                      updated_at: '2023-12-12T12:53:00.393272Z'
+                    - id: 869701f4-9ebb-4640-bffe-a676361350f7
+                      name: Form template 5
+                      enabled: true
+                      version: 1
+                      module_id: 117f1c84-e69d-4429-baf9-74e052f5e0bc
+                      created_at: '2023-12-05T13:16:24.599323Z'
+                      updated_at: '2023-12-05T13:16:24.599323Z'
+                    count: 5
+                Success_by_category:
+                  value:
+                    forms:
+                    - id: dd51ccda-0f53-444d-b9f5-45252c37ca37
+                      name: Form template 1
+                      enabled: true
+                      version: 3
+                      module_id: 117f1c84-e69d-4429-baf9-74e052f5e0bc
+                      category_id: 594f4f7c-6f7a-410b-bb5e-5aa6ef488a9c
+                      created_at: '2023-12-05T12:44:53.12674Z'
+                      updated_at: '2023-12-05T12:44:53.12674Z'
+                    - id: 537d7408-9330-4eb9-b90e-6092836a35e9
+                      name: Form template 2
+                      enabled: true
+                      version: 3
+                      module_id: 117f1c84-e69d-4429-baf9-74e052f5e0bc
+                      category_id: 594f4f7c-6f7a-410b-bb5e-5aa6ef488a9c
+                      created_at: '2025-02-11T09:55:38.400067Z'
+                      updated_at: '2025-02-11T09:55:38.400067Z'
+                    - id: 1aa8afc4-3106-446b-a471-55fc413d9867
+                      name: Form template 3
+                      enabled: true
+                      version: 1
+                      module_id: 117f1c84-e69d-4429-baf9-74e052f5e0bc
+                      category_id: 594f4f7c-6f7a-410b-bb5e-5aa6ef488a9c
+                      created_at: '2023-12-12T09:31:32.112705Z'
+                      updated_at: '2023-12-12T09:31:32.112705Z'
+                    count: 3
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /projects/{project_id}/observations-priorities:
+    get:
+      operationId: projectLibrariesGetProjectObservationPriorities
+      summary: Get project observation  priorities
+      description: "For a given project, you can list all the available observation priorities.\n\n Details \n\n projectId \n the id of the project to be modified \n\n Query params optionals \n\n see Commmon behaviors / differential link"
+      tags:
+      - Project libraries
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    priorities:
+                    - id: 62df924d-a39f-4817-8f96-89a6a5aa7e0e
+                      position: 0
+                      color: '#49cb0c'
+                      icon: ChevronDown
+                      is_default: true
+                      names:
+                      - language: en
+                        translation: LowLow
+                      enabled: true
+                      created_at: '2024-05-22T09:26:34.112731Z'
+                      created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                      updated_at: '2024-05-22T09:26:34.112731Z'
+                      updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    - id: 03d4b645-21f3-4228-badc-d5411d77270a
+                      position: 2
+                      color: '#e94f3d'
+                      icon: AlertTriangle
+                      is_default: false
+                      names:
+                      - language: en
+                        translation: High
+                      enabled: true
+                      created_at: '2024-05-22T09:26:34.378054Z'
+                      created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                      updated_at: '2024-05-22T09:26:34.378054Z'
+                      updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    need_to_relaunch: true
+                    continuous_token: 0|2
+                    count: 2
+                    total_count: 3
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /projects/{project_id}/status:
+    get:
+      operationId: projectLibrariesGetProjectObservationStatus
+      summary: Get project observation status
+      description: "For a given project, you can list all the available observation statuses.\n\n Details \n\n projectId \n the id of the project to be modified \n\n Query params optionals \n\n see Commmon behaviors / differential"
+      tags:
+      - Project libraries
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    statuses:
+                    - id: f3fd7fd9-2fe1-4451-ba9a-66c73f5d5979
+                      position: 3
+                      color: '#E94F3D'
+                      is_default: false
+                      enabled: false
+                      names:
+                      - language: en
+                        translation: testLucPut
+                      - language: fr
+                        translation: testLucPut
+                      created_at: '2024-05-22T09:26:36.488199Z'
+                      created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                      updated_at: '2024-05-23T13:32:20.522241Z'
+                      updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    - id: a7462d5b-a0ab-4fb0-a984-54ba62a9f02e
+                      position: 0
+                      color: '#898989'
+                      is_default: true
+                      enabled: true
+                      names:
+                      - language: ja
+                        translation: New
+                      - language: ko
+                        translation: New
+                      - language: vi
+                        translation: New
+                      - language: fr
+                        translation: New
+                      - language: nl
+                        translation: New
+                      - language: ca
+                        translation: New
+                      - language: zh
+                        translation: New
+                      - language: es
+                        translation: New
+                      - language: it
+                        translation: New
+                      - language: th
+                        translation: New
+                      - language: en
+                        translation: New
+                      - language: de
+                        translation: New
+                      - language: pt
+                        translation: New
+                      - language: da
+                        translation: New
+                      - language: cs
+                        translation: New
+                      - language: sv
+                        translation: New
+                      - language: zf
+                        translation: New
+                      - language: pl
+                        translation: New
+                      - language: sl
+                        translation: New
+                      - language: fi
+                        translation: New
+                      - language: hu
+                        translation: New
+                      - language: ru
+                        translation: New
+                      - language: 'no'
+                        translation: New
+                      - language: he
+                        translation: New
+                      created_at: '2024-05-22T09:26:36.684002Z'
+                      created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                      updated_at: '2024-05-23T13:32:20.572173Z'
+                      updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    need_to_relaunch: true
+                    continuous_token: 0|2
+                    count: 2
+                    total_count: 5
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /projects/{project_id}/statuses/{status_id}/next-statuses:
+    get:
+      operationId: projectLibrariesGetProjectObservationNextStatus
+      summary: Get project observation next status
+      description: "For a given project, you can get the next statuses following your workflow choices for a given status.\n\n Details \n\n projectId \n the id of the project to be modified \n\n status_id \n the id of the status \n\n Query params optionals \n\n see Commmon behaviors / differential"
+      tags:
+      - Project libraries
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      - name: status_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `status_id` as published in the collection.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    statuses:
+                    - id: 65ccd56b-93c0-476a-a5cf-f4610361cfca
+                      position: 1
+                      color: '#4CABF2'
+                      is_default: false
+                      enabled: true
+                      names:
+                      - language: ja
+                        translation: To do
+                      - language: fr
+                        translation: To do
+                      - language: th
+                        translation: To do
+                      - language: ca
+                        translation: To do
+                      - language: it
+                        translation: To do
+                      - language: pt
+                        translation: To do
+                      - language: nl
+                        translation: To do
+                      - language: es
+                        translation: To do
+                      - language: vi
+                        translation: To do
+                      - language: zh
+                        translation: To do
+                      - language: de
+                        translation: To do
+                      - language: ko
+                        translation: To do
+                      - language: en
+                        translation: To do
+                      - language: he
+                        translation: To do
+                      - language: cs
+                        translation: To do
+                      - language: pl
+                        translation: To do
+                      - language: ru
+                        translation: To do
+                      - language: da
+                        translation: To do
+                      - language: hu
+                        translation: To do
+                      - language: sl
+                        translation: To do
+                      - language: fi
+                        translation: To do
+                      - language: zf
+                        translation: To do
+                      - language: sv
+                        translation: To do
+                      - language: 'no'
+                        translation: To do
+                      created_at: '2024-05-22T09:26:36.686019Z'
+                      created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                      updated_at: '2024-05-23T13:32:20.572349Z'
+                      updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    - id: 74eac5cd-9986-4367-b137-a48778f7d1de
+                      position: 3
+                      color: '#E94F3D'
+                      is_default: false
+                      enabled: true
+                      names:
+                      - language: de
+                        translation: TestLucDiv
+                      - language: vi
+                        translation: TestLucDiv
+                      - language: sv
+                        translation: TestLucDiv
+                      - language: sl
+                        translation: TestLucDiv
+                      - language: ru
+                        translation: TestLucDiv
+                      - language: ko
+                        translation: TestLucDiv
+                      - language: cs
+                        translation: TestLucDiv
+                      - language: ca
+                        translation: TestLucDiv
+                      - language: ja
+                        translation: TestLucDiv
+                      - language: pt
+                        translation: TestLucDiv
+                      - language: nl
+                        translation: TestLucDiv
+                      - language: da
+                        translation: TestLucDiv
+                      - language: he
+                        translation: TestLucDiv
+                      - language: th
+                        translation: TestLucDiv
+                      - language: pl
+                        translation: TestLucDiv
+                      - language: es
+                        translation: TestLucDiv
+                      - language: fi
+                        translation: TestLucDiv
+                      - language: fr
+                        translation: TestLucDiv
+                      - language: en
+                        translation: TestLucDiv
+                      - language: 'no'
+                        translation: TestLucDiv
+                      - language: hu
+                        translation: TestLucDiv
+                      - language: it
+                        translation: TestLucDiv
+                      - language: zh
+                        translation: TestLucDiv
+                      - language: zf
+                        translation: TestLucDiv
+                      created_at: '2024-05-23T13:32:20.574164Z'
+                      created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                      updated_at: '2024-05-23T13:32:20.574164Z'
+                      updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    - id: bbdea31d-a3de-4437-83fa-0b31cda925dc
+                      position: 2
+                      color: '#FF8029'
+                      is_default: false
+                      enabled: true
+                      names:
+                      - language: ca
+                        translation: In Progress
+                      - language: th
+                        translation: In Progress
+                      - language: en
+                        translation: In Progress
+                      - language: pt
+                        translation: In Progress
+                      - language: ja
+                        translation: In Progress
+                      - language: nl
+                        translation: In Progress
+                      - language: ko
+                        translation: In Progress
+                      - language: es
+                        translation: In Progress
+                      - language: zh
+                        translation: In Progress
+                      - language: vi
+                        translation: In Progress
+                      - language: it
+                        translation: In Progress
+                      - language: de
+                        translation: In Progress
+                      - language: fr
+                        translation: In Progress
+                      - language: cs
+                        translation: In Progress
+                      - language: fi
+                        translation: In Progress
+                      - language: sl
+                        translation: In Progress
+                      - language: he
+                        translation: In Progress
+                      - language: da
+                        translation: In Progress
+                      - language: 'no'
+                        translation: In Progress
+                      - language: sv
+                        translation: In Progress
+                      - language: hu
+                        translation: In Progress
+                      - language: ru
+                        translation: In Progress
+                      - language: zf
+                        translation: In Progress
+                      - language: pl
+                        translation: In Progress
+                      created_at: '2024-05-22T09:26:36.681583Z'
+                      created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                      updated_at: '2024-05-23T13:32:20.572412Z'
+                      updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    count: 3
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /projects/{project_id}/trades:
+    get:
+      operationId: projectLibrariesGetProjectTrades
+      summary: Get project trades
+      description: "Given the project, you can get the list of trades.\n\n Endpoint mandatory infos \n Details \n\n projectId \n the id of the project to be modified \n\n Query params optionals \n\n see Commmon behaviors / differential"
+      tags:
+      - Project libraries
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    trades:
+                    - id: eb8ed4ee-d788-46a4-b537-ee05d2a292ff
+                      enabled: true
+                      names:
+                      - language: en
+                        translation: Carrelage
+                      module_id: fcef77d8-21a9-4594-9bf7-6b06679fe1bb
+                      created_at: '2024-05-22T09:26:38.185112Z'
+                      created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                      updated_at: '2024-05-22T09:26:38.185112Z'
+                      updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    - id: ee676e7e-c9ba-4751-9565-330fe38c08a2
+                      enabled: true
+                      names:
+                      - language: en
+                        translation: CVC/Plomberie
+                      module_id: fcef77d8-21a9-4594-9bf7-6b06679fe1bb
+                      created_at: '2024-05-22T09:26:38.185499Z'
+                      created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                      updated_at: '2024-05-22T09:26:38.185499Z'
+                      updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    need_to_relaunch: true
+                    continuous_token: 0|2
+                    count: 2
+                    total_count: 27
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+components:
+  schemas:
+    ApiError:
+      type: object
+      description: Finalcad One error envelope. `api_code` is either a static code (mostly 4xx, e.g. INVALID_INSTANCE_STATE) or a constructed code of the form {ProcessCode}_ERR{n} / {ProcessCode}_WRN{n} (mostly 5xx).
+      properties:
+        statut:
+          type: integer
+          description: HTTP status code, repeated in the body (spelled `statut`).
+        api_code:
+          type: string
+          description: Internal Finalcad API error code.
+        message:
+          type: string
+          description: Short explanation of the abnormality encountered.
+        data:
+          type: object
+          description: Complementary data to help understand the error.
+          additionalProperties: true
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: Organization API key issued by Finalcad to organizations on an Enterprise licence. Sent on every call.
+    tokenAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: '`Authorization: token <your_api_key>`, or `Authorization: bearer <user_token>` for the legacy user-token flow (POST /auth).'

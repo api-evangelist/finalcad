@@ -1,0 +1,571 @@
+openapi: 3.2.0
+info:
+  title: Finalcad One Project Project  details API
+  version: '2.41'
+  summary: 'Project-level operations for Finalcad One construction projects: project details, project libraries, members, locations (folders / plans / IFC), discussion groups, companies, modules (observations / forms / meetings), observations, forms and form answers, documents, phases, meetings and XLSX/PDF exports.'
+  description: 'Project-level operations for Finalcad One construction projects: project details, project libraries, members, locations (folders / plans / IFC), discussion groups, companies, modules (observations / forms / meetings), observations, forms and form answers, documents, phases, meetings and XLSX/PDF exports.
+
+
+    DERIVED, NOT PUBLISHED BY THE PROVIDER. Finalcad publishes no OpenAPI. This document was mechanically derived by API Evangelist from the first-party public Postman collection "Finalcad One API" served by Finalcad at https://developer.finalcad.com/ (collection JSON: https://developer.finalcad.com/api/collections/10995648/Tz5v1Es2), saved in this repo at collections/finalcad.postman_collection.json. Every path, method, header, query parameter, example request body and example response below is carried over from that collection; nothing was invented. Request/response bodies are typed as generic objects because the collection carries examples, not schemas. Four Finalcad employees'' personal e-mail addresses that appeared in the collection''s example payloads were replaced with placeholders; nothing else was changed.'
+  contact:
+    name: Finalcad One API — developer portal
+    url: https://developer.finalcad.com/
+  x-generated-by: API Evangelist enrichment pipeline (derived from the first-party Postman collection)
+  x-source: collections/finalcad.postman_collection.json
+  x-source-url: https://developer.finalcad.com/
+servers:
+- url: https://developer.finalcad.cloud/api
+  description: Production — the baseUrl variable published in the Finalcad One API Postman collection.
+- url: https://developer.sandbox.finalcad.cloud/api
+  description: Sandbox — published by Finalcad in the 'Retrieve data in Power BI' tutorial of the same collection.
+security:
+- apiKey: []
+  tokenAuth: []
+tags:
+- name: Project  details
+paths:
+  /organizations/{organization_id}/projects:
+    post:
+      operationId: projectDetailsCreateANewProject
+      summary: Create a new project
+      description: "Creating a project from scratch can be as easy as 1, 2, 3.\n\n You need to specify your project name. To ensure that your project is correctly localized, language and time zone are mandatory.\n\n But you can go further:\n\n bodymandatory informations \n Details \n\n name \n Your best wording to describe your project. It will be displayed everywhere \n\n body optional information \n Details \n\n description \n Text field that should contain less than 255 characters \n\n workspace_id \n The workspace in which you want to create the project \n\n case_number \n Project reference aligned with your internal classification \n\n address \n Where your project is located \n\n end_date \n Your targeted project end date \n\n language \n If not set it will be French. \n\n time_zone \n See Get list of time zones \n\n module_ids \n An array of modules ids to be added \nsee Get modules suggestions at organization or workspace level depending of your usage \n\n Langage help: \nCatalan = \"ca\"\nChinese = \"zh-Hans\"\nEnglish = \"en\"\nFrench = \"fr\"\nGerman = \"de-DE\"\nItalian = \"it\"\nJapanese = \"ja\"\nNetherland = \"nl-NL\"\nPortuguese = \"pt\"\nSpanish = \"es\"\nThai = \"th\"\nVietnamese = \"vi\""
+      tags:
+      - Project  details
+      parameters:
+      - name: organization_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `organization_id` as published in the collection.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              name: <string>
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    time_zone: Europe/Paris
+                    language: fr
+                    project_id: 267ae234-3f8f398a-76d4-4c0b-bd30-d76a3abcaf0e
+                    organization_id: 2421734c-f191-4237-acd8-becf216eaae4
+                    name: My project
+                    end_date: '0001-01-01T00:00:00Z'
+                    member_count: 0
+                    is_archived: false
+                    created_at: '2022-11-30T08:49:32.697933Z'
+                    created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    updated_at: '2022-11-30T08:49:32.697933Z'
+                    updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+    get:
+      operationId: projectDetailsGetProjectsListFiltered
+      summary: Get projects list filtered
+      description: Before creating or updating a project, you might want to have a clear view of your organization's projects and have their IDs.
+      tags:
+      - Project  details
+      parameters:
+      - name: organization_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `organization_id` as published in the collection.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    projects:
+                    - project_id: 4ab2db74-0b8a78ac-184f-4114-9175-0ef6e41d6544
+                      organization_id: 2421734c-f191-4237-acd8-becf216eaae4
+                      name: My project 1
+                      workspace_id: 8eebf534-35d6-4b2e-be4d-06d5428d896e
+                      member_count: 2
+                      is_archived: false
+                      current_user_in_project: true
+                      is_active: true
+                      status: InProgress
+                      created_at: '2025-01-30T13:33:20.209284Z'
+                      created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                      updated_at: '2025-05-16T12:40:19.617275Z'
+                      updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    - project_id: 3dd5a3cf-432d6d05-7448-437b-b29f-f51b1f0f0eb1
+                      organization_id: 2421734c-f191-4237-acd8-becf216eaae4
+                      name: My project 2
+                      workspace_id: 8eebf534-35d6-4b2e-be4d-06d5428d896e
+                      member_count: 1
+                      is_archived: false
+                      current_user_in_project: true
+                      is_active: true
+                      status: InProgress
+                      created_at: '2025-04-09T08:19:03.243153Z'
+                      created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                      updated_at: '2025-04-09T08:19:03.243153Z'
+                      updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    count: 2
+                    total_count: 2
+                    limit: 50
+                    offset: 0
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /projects/{projectId}:
+    put:
+      operationId: projectDetailsUpdateProject
+      summary: Update project
+      description: "Update your project details.\n\n Endpoint mandatory infos \n Details \n\n projectId \n the id of the project to be modified \n\n Body optional informations \n Details \n\n name \n Your best wording to describe your project. It will be displayed everywhere \n\n description \n Text field that should contain less than 255 characters \n\n case_number \n Project reference aligned with your internal classification \n\n address \n Where your project is located \n\n end_date \n Your targeted project end date \n\n language \n If not set it will be French. \n\n time_zone \n See Get list of time zones \n\n media_id \n id of the media to use as project photo \n\n status \n status of the project \nshould be \"Done\" or \"InProgress\""
+      tags:
+      - Project  details
+      parameters:
+      - name: projectId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `projectId` as published in the collection.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              name: <string>
+              media_id: <uuid>
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Sucess:
+                  value:
+                    address: addresse à Lyon
+                    time_zone: Europe/Paris
+                    language: fr
+                    project_id: 267ae234-3f8f398a-76d4-4c0b-bd30-d76a3abcaf0e
+                    organization_id: 2421734c-f191-4237-acd8-becf216eaae4
+                    name: new project luc 4
+                    description: description du projet
+                    end_date: '0001-01-01T00:00:00Z'
+                    member_count: 0
+                    is_archived: false
+                    media_resource:
+                      id: 2d42ccdf-a5ad-49fb-9c34-c78d4335ddf1
+                      file_name: lang2.png
+                      mime_type: image/png
+                    created_at: '2022-11-30T08:49:32.697933Z'
+                    created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    updated_at: '2022-11-30T12:50:35.684911Z'
+                    updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                Update_status:
+                  value:
+                    time_zone: Done
+                    language: fr
+                    project_id: 79855f61-e3b0db37-a094-46d8-ad79-e22c9d55a5b6
+                    organization_id: 2421734c-f191-4237-acd8-becf216eaae4
+                    name: new project luc 6
+                    end_date: '0001-01-01T00:00:00Z'
+                    member_count: 0
+                    is_archived: false
+                    current_user_in_project: false
+                    is_active: true
+                    status: Done
+                    created_at: '2022-12-14T10:43:46.603688Z'
+                    created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    updated_at: '2023-04-18T09:08:19.255826Z'
+                    updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /projects/{project_id}:
+    get:
+      operationId: projectDetailsCheckProjectSettings
+      summary: Check project settings
+      description: "Users with the correct level of rights can edit project parameters.\n\n You may want to check if and which updates have been made."
+      tags:
+      - Project  details
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    time_zone: Europe/Paris
+                    language: fr
+                    project_id: f5b14d0b-7b8e4145-bed5-429a-b863-ab6dd1e23056
+                    organization_id: 2421734c-f191-4237-acd8-becf216eaae4
+                    name: Test Luc LibrariesState
+                    end_date: '0001-01-01T00:00:00Z'
+                    member_count: 0
+                    is_archived: false
+                    current_user_in_project: false
+                    is_active: true
+                    created_at: '2023-01-25T13:08:44.790214Z'
+                    created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    updated_at: '2023-01-25T13:08:44.790214Z'
+                    updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+    delete:
+      operationId: projectDetailsDeleteAProject
+      summary: Delete a project
+      description: "You can delete a project.\n\n Endpoint mandatory info \n Details \n\n project_id \n The ID of the project you want to delete"
+      tags:
+      - Project  details
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /projects/{project_id}/logos:
+    post:
+      operationId: projectDetailsAddProjectLogo
+      summary: Add project logo
+      description: "You can add a logo to a project.\n\n Endpoint mandatory info \n Details \n\n project_id \n The ID of the project where the form will be created \n\n body mandatory infos \n Details \n\n media_id \n id of the previuosly uploaded image \n\n media_name \n display name of the logo"
+      tags:
+      - Project  details
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              media_id: <uuid>
+              media_name: my logo
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Add:
+                  value:
+                    url: https://api.eu.sandbox.finalcad.cloud/medias/c1eeb43a-1dd7-4d82-8c07-2fe188bd6c43
+                    id: c1eeb43a-1dd7-4d82-8c07-2fe188bd6c43
+                    file_name: LogoTest.png
+                    display_name: my logo
+                    mime_type: image/png
+                    created_at: '2024-04-23T13:17:06.8316631Z'
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+    delete:
+      operationId: projectDetailsRemoveProjectLogos
+      summary: Remove project logos
+      description: "You can remove a logo from a project.\n\n Details \n\n project_id \n The ID of the project where the form will be created \n\n body mandatory info \n Details \n\n logo_ids \n list of the logo ids to be removed"
+      tags:
+      - Project  details
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              logo_ids:
+              - '{{logo_id}}'
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+    get:
+      operationId: projectDetailsGetProjectLogos
+      summary: Get project logos
+      description: "You can get the list of project logos.\n\n Endpoint mandatory info \n Details \n\n project_id \n The ID of the project where the form will be created"
+      tags:
+      - Project  details
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Get:
+                  value:
+                    logos:
+                    - url: https://api.eu.sandbox.finalcad.cloud/medias/164030f0-6b4d-464c-a1c7-ccc7d3330d5a
+                      id: 164030f0-6b4d-464c-a1c7-ccc7d3330d5a
+                      file_name: LogoSpider.png
+                      display_name: LogoSpider.png
+                      mime_type: image/png
+                      created_at: '2024-03-26T15:01:44.216581Z'
+                    - url: https://api.eu.sandbox.finalcad.cloud/medias/2c20ad00-8654-4a22-81fc-38a5422a0588
+                      id: 2c20ad00-8654-4a22-81fc-38a5422a0588
+                      file_name: LogoClient.png
+                      display_name: LogoClient.png
+                      mime_type: image/png
+                      created_at: '2024-03-26T15:01:48.927053Z'
+                    - url: https://api.eu.sandbox.finalcad.cloud/medias/37230665-0042-4e18-a3a8-3c32e3d90131
+                      id: 37230665-0042-4e18-a3a8-3c32e3d90131
+                      file_name: LogoTest.png
+                      display_name: my logo
+                      mime_type: image/png
+                      created_at: '2024-04-23T13:08:54.265648Z'
+                    - url: https://api.eu.sandbox.finalcad.cloud/medias/d03df0f0-e7a2-42a2-bbf5-06a1083f022b
+                      id: d03df0f0-e7a2-42a2-bbf5-06a1083f022b
+                      file_name: LogoTest.png
+                      display_name: my logo
+                      mime_type: image/png
+                      created_at: '2024-04-23T13:10:06.69979Z'
+                    count: 4
+                    total_count: 4
+                    limit: 500
+                    offset: 0
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /projects/{project_id}/restore:
+    post:
+      operationId: projectDetailsRestoreAProject
+      summary: Restore a project
+      description: "You can restore a project.\n\n The project_id must be stored on your side before deletion, as it is not possible to retrieve the list of deleted projects from an organization.\n\n Endpoint mandatory info \n Details \n\n project_id \n The ID of the project you want to delete"
+      tags:
+      - Project  details
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+components:
+  schemas:
+    ApiError:
+      type: object
+      description: Finalcad One error envelope. `api_code` is either a static code (mostly 4xx, e.g. INVALID_INSTANCE_STATE) or a constructed code of the form {ProcessCode}_ERR{n} / {ProcessCode}_WRN{n} (mostly 5xx).
+      properties:
+        statut:
+          type: integer
+          description: HTTP status code, repeated in the body (spelled `statut`).
+        api_code:
+          type: string
+          description: Internal Finalcad API error code.
+        message:
+          type: string
+          description: Short explanation of the abnormality encountered.
+        data:
+          type: object
+          description: Complementary data to help understand the error.
+          additionalProperties: true
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: Organization API key issued by Finalcad to organizations on an Enterprise licence. Sent on every call.
+    tokenAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: '`Authorization: token <your_api_key>`, or `Authorization: bearer <user_token>` for the legacy user-token flow (POST /auth).'

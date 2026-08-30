@@ -1,0 +1,776 @@
+openapi: 3.2.0
+info:
+  title: Finalcad One Project Observations API
+  version: '2.41'
+  summary: 'Project-level operations for Finalcad One construction projects: project details, project libraries, members, locations (folders / plans / IFC), discussion groups, companies, modules (observations / forms / meetings), observations, forms and form answers, documents, phases, meetings and XLSX/PDF exports.'
+  description: 'Project-level operations for Finalcad One construction projects: project details, project libraries, members, locations (folders / plans / IFC), discussion groups, companies, modules (observations / forms / meetings), observations, forms and form answers, documents, phases, meetings and XLSX/PDF exports.
+
+
+    DERIVED, NOT PUBLISHED BY THE PROVIDER. Finalcad publishes no OpenAPI. This document was mechanically derived by API Evangelist from the first-party public Postman collection "Finalcad One API" served by Finalcad at https://developer.finalcad.com/ (collection JSON: https://developer.finalcad.com/api/collections/10995648/Tz5v1Es2), saved in this repo at collections/finalcad.postman_collection.json. Every path, method, header, query parameter, example request body and example response below is carried over from that collection; nothing was invented. Request/response bodies are typed as generic objects because the collection carries examples, not schemas. Four Finalcad employees'' personal e-mail addresses that appeared in the collection''s example payloads were replaced with placeholders; nothing else was changed.'
+  contact:
+    name: Finalcad One API — developer portal
+    url: https://developer.finalcad.com/
+  x-generated-by: API Evangelist enrichment pipeline (derived from the first-party Postman collection)
+  x-source: collections/finalcad.postman_collection.json
+  x-source-url: https://developer.finalcad.com/
+servers:
+- url: https://developer.finalcad.cloud/api
+  description: Production — the baseUrl variable published in the Finalcad One API Postman collection.
+- url: https://developer.sandbox.finalcad.cloud/api
+  description: Sandbox — published by Finalcad in the 'Retrieve data in Power BI' tutorial of the same collection.
+security:
+- apiKey: []
+  tokenAuth: []
+tags:
+- name: Observations
+paths:
+  /projects/{projectId}/observations/{observationId}:
+    put:
+      operationId: observationsUpdateObservation
+      summary: Update observation
+      description: "You can now also modify observations in a project using just a few parameters.\n\n Details \n\n projectId \n The ID of the project where the the observation will be created \n\n observationId \n The ID the the observation \n\n Body mandatory infos \n \n Details \n\n description \n Your best wording to describe the observation \n\n Body optional infos \n \n Details \n\n trade_id \n The ID of the category used in the observation \n\n common_observation_id \n The ID of the model used in the new observation \n\n priority_id \n The ID of the priority of the new observation \n\n status_id \n The ID of the status of the new observation. \n\n assignee_id \n The ID of the user that will have the new observation assigned \n\n phase_id \n The ID of the phase that is set for the new observation. \n\n company_id \n The ID of the company that will be assigned to the new observation \n\n plan_id \n The ID of the plan used for the observation \n\n position_x \n X coordinate of the item regarding the affected 2D plan \n\n position_y \n Y coordinate of the item regarding the affected 2D plan \n\n due_date \n The due date of the observation, set as a date format \n\n module_id \n The ID of the module \n\n Please note that\n\n If an optional body field is not informed, the current value in the observation is preserved\n\n the trade_id sould be consistent with the module\n\n The combinations for description , trade_id and common_observation_id sould be consistent with the creation parameters"
+      tags:
+      - Observations
+      parameters:
+      - name: projectId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `projectId` as published in the collection.
+      - name: observationId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `observationId` as published in the collection.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              common_observation_id: '{{common_observation_id}}'
+              trade_id: '{{trade_id}}'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success_rename:
+                  value:
+                    id: 86ce1c54-94b8-485a-9d36-f072134cb9fc
+                    project_id: 2636691c-683681a0-1e49-499a-add7-0acb1ece9647
+                    description: Reprise
+                    status_id: fce5dcbe-4f82-418c-82ac-78ac1c8d1576
+                    priority_id: af91ddff-bf7e-4b14-81e1-0b5cf999cc7d
+                    client_created_at: '2023-06-29T08:10:15.009811Z'
+                    module_id: d5a2fcee-6a52-45eb-841d-fd6396bf6eef
+                    created_at: '2023-06-29T08:10:16.987837Z'
+                    created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    updated_at: '2023-06-29T08:14:03.502218Z'
+                    updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                Success_rename_and_assign:
+                  value:
+                    id: 86ce1c54-94b8-485a-9d36-f072134cb9fc
+                    project_id: 2636691c-683681a0-1e49-499a-add7-0acb1ece9647
+                    description: Reprise
+                    status_id: fce5dcbe-4f82-418c-82ac-78ac1c8d1576
+                    priority_id: af91ddff-bf7e-4b14-81e1-0b5cf999cc7d
+                    assignee_id: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    client_created_at: '2023-06-29T08:10:15.009811Z'
+                    module_id: d5a2fcee-6a52-45eb-841d-fd6396bf6eef
+                    created_at: '2023-06-29T08:10:16.987837Z'
+                    created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    updated_at: '2023-06-29T08:17:28.078882Z'
+                    updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /projects/{projectId}/observations/{observationId}/attach-media:
+    post:
+      operationId: observationsAddImageObservation
+      summary: Add image observation
+      description: "You can now update an observation by adding an image with a media resource.\n\n Details \n\n projectId \n The ID of the project \n\n observationId \n the ID of the observation \n\n Body mandatory infos \n \n Details \n\n media_id \n the ID of the media \ncan be obtained using Medias handeling endpoints."
+      tags:
+      - Observations
+      parameters:
+      - name: projectId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `projectId` as published in the collection.
+      - name: observationId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `observationId` as published in the collection.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              media_id: <uuid>
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    id: 3a308254-a767-45b2-b949-b19496f0d064
+                    position: 8
+                    media_resource:
+                      id: 911e55ef-242d-4df7-b79c-ee62fe57d276
+                      file_name: lang2.png
+                      mime_type: image/png
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /projects/{project_id}/observations:
+    get:
+      operationId: observationsGetProjectObservationsList
+      summary: Get project observations list
+      description: "For a given project, you can list all the existing observations by IDs.\n\n Details \n\n project_id \n The ID of the project where the the observation will be created \n\n Query params optionals \n\n see Commmon behaviors / differential"
+      tags:
+      - Observations
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    observations:
+                    - observation_id: a59598d2-9a93-408d-b592-3e15b3dda236
+                      module_id: fcef77d8-21a9-4594-9bf7-6b06679fe1bb
+                      enabled: true
+                      name: aaaaaaaaaa
+                      status_id: a7462d5b-a0ab-4fb0-a984-54ba62a9f02e
+                      priority_id: 62df924d-a39f-4817-8f96-89a6a5aa7e0e
+                      client_created_at: '2024-05-22T12:45:12.656Z'
+                      client_updated_at: '2024-05-22T12:45:12.656Z'
+                      created_at: '2024-05-22T12:45:13.209756Z'
+                      created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                      updated_at: '2024-05-22T12:45:13.209756Z'
+                      updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    - observation_id: b36db168-f842-4708-8748-cbd92dcce9bb
+                      module_id: fcef77d8-21a9-4594-9bf7-6b06679fe1bb
+                      enabled: true
+                      name: bbbbbbbbbbb
+                      status_id: a7462d5b-a0ab-4fb0-a984-54ba62a9f02e
+                      priority_id: 62df924d-a39f-4817-8f96-89a6a5aa7e0e
+                      client_created_at: '2024-05-22T12:45:21.569Z'
+                      client_updated_at: '2024-05-22T12:45:21.569Z'
+                      created_at: '2024-05-22T12:45:21.577982Z'
+                      created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                      updated_at: '2024-05-22T12:45:21.577982Z'
+                      updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    - observation_id: a39ad104-431e-4cd7-9ce4-d34fbb616bea
+                      module_id: fcef77d8-21a9-4594-9bf7-6b06679fe1bb
+                      enabled: true
+                      name: ccccccccccccccc
+                      status_id: a7462d5b-a0ab-4fb0-a984-54ba62a9f02e
+                      priority_id: 62df924d-a39f-4817-8f96-89a6a5aa7e0e
+                      client_created_at: '2024-05-22T12:45:29.216Z'
+                      client_updated_at: '2024-05-22T12:45:29.216Z'
+                      created_at: '2024-05-22T12:45:29.212387Z'
+                      created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                      updated_at: '2024-05-22T12:45:29.212387Z'
+                      updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    - observation_id: 67f1f21e-3602-4d31-81ae-348b1d33bcee
+                      module_id: fcef77d8-21a9-4594-9bf7-6b06679fe1bb
+                      enabled: true
+                      name: eeeeeeeee
+                      status_id: a7462d5b-a0ab-4fb0-a984-54ba62a9f02e
+                      priority_id: 62df924d-a39f-4817-8f96-89a6a5aa7e0e
+                      client_created_at: '2024-05-27T12:38:49.976Z'
+                      client_updated_at: '2024-05-27T12:38:49.976Z'
+                      created_at: '2024-05-27T12:38:49.952373Z'
+                      created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                      updated_at: '2024-05-27T12:38:49.952373Z'
+                      updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    - observation_id: f94ebbe1-909a-43de-a4b4-3f415d1ba8be
+                      module_id: fcef77d8-21a9-4594-9bf7-6b06679fe1bb
+                      enabled: false
+                      name: dddddddddddd
+                      status_id: a7462d5b-a0ab-4fb0-a984-54ba62a9f02e
+                      priority_id: 62df924d-a39f-4817-8f96-89a6a5aa7e0e
+                      client_created_at: '2024-05-27T12:29:15.145Z'
+                      client_updated_at: '2024-05-27T12:29:15.145Z'
+                      created_at: '2024-05-27T12:29:15.184524Z'
+                      created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                      updated_at: '2024-05-28T12:29:58.795097Z'
+                      updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    need_to_relaunch: false
+                    continuous_token: 638524961987950970|0
+                    count: 5
+                    total_count: 5
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+    post:
+      operationId: observationsCreateObservation
+      summary: Create observation
+      description: "Going along with the option to create a project from scratch, you can now also create observations in a project using just a few parameters.\n\n Details \n\n project_id \n The ID of the project where the the observation will be created \n\n Body mandatory infos \n Details \n\n module_id \n Id of the module \n\n Body optional infos \n \n Details \n\n description \n Your best wording to describe the observation \n\n trade_id \n The ID of the category used in the observation \n\n common_observation_id \n The ID of the model used in the new observation \n\n priority_id \n The ID of the priority of the new observation. If not set the default one will be used \n\n status_id \n The ID of the status of the new observation. \nIf not set the default one will be used \n\n assignee_id \n The ID of the user that will have the new observation assigned \n\n phase_id \n The ID of the phase that is set for the new observation. \n\n company_id \n The ID of the company that will be assigned to the new observation \n\n plan_id \n The ID of the plan used for the observation \n\n position_x \n X coordinate of the item regarding the affected 2D plan \n\n position_y \n Y coordinate of the item regarding the affected 2D plan \n\n due_date \n The due date of the observation, set as a date format \n\n group_id \n id of the linked discussion group \nthis id is mandatory if the module settings is_group_mandatory=true \n\n latitude \n in decimal degres following ISO6709 \n\n longitude \n in decimal degres \nfollowing ISO6709 \n\n Please note that the combinations for description , trade_id and common_observation_id are limited to only 3 specific cases:\n\n Case 1 : Description, Trade Id, Common observation Id\n\n Case 2 : Trade Id, Common observation Id\n\n Case 3 : Description"
+      tags:
+      - Observations
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              description: <string>
+              module_id: <uuid>
+              group_id: '{{group_id}}'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Create_Observation_with_phase:
+                  value:
+                    id: f547f0a9-583d-4cf0-8f9b-dda8efd41dd6
+                    project_id: a1bf361f-abd4b854-523d-4857-8e82-b0d6325b07d1
+                    description: <string>
+                    priority_id: 94dccc2b-fecf-4725-86cb-3ec524c50654
+                    position_x: 0.5
+                    position_y: 0.5
+                    client_created_at: '2022-10-17T14:06:32.830934Z'
+                    module_id: 1e870757-f1df-452f-a86c-d4115c10bf43
+                    phase_id: 7675aa39-d7bd-4c5d-98eb-6025a668862d
+                    created_at: '2022-10-17T14:06:35.585692Z'
+                    created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    updated_at: '2022-10-17T14:06:35.585692Z'
+                    updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                Create_Observation_in_group:
+                  value:
+                    id: f547f0a9-583d-4cf0-8f9b-dda8efd41dd6
+                    project_id: a1bf361f-abd4b854-523d-4857-8e82-b0d6325b07d1
+                    description: <string>
+                    priority_id: 94dccc2b-fecf-4725-86cb-3ec524c50654
+                    position_x: 0.5
+                    position_y: 0.5
+                    client_created_at: '2022-10-17T14:06:32.830934Z'
+                    module_id: 1e870757-f1df-452f-a86c-d4115c10bf43
+                    phase_id: 7675aa39-d7bd-4c5d-98eb-6025a668862d
+                    group_id: 7675aa39-d7bd-4c5d-98eb-6025a6688633
+                    created_at: '2022-10-17T14:06:35.585692Z'
+                    created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    updated_at: '2022-10-17T14:06:35.585692Z'
+                    updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /projects/{project_id}/observations/filter:
+    post:
+      operationId: observationsGetFilteredObservationIds
+      summary: Get filtered observation IDs
+      description: "Get a filtered list of the observations.\n\n Details \n\n project_id \n The ID of the project where the the observation will be created \n\n Endpoint optional Query params \n Details \n\n limit \n max number od observations to get \n\n offset \n Returned after the first call. \nOffset index from where to begin getting observations. \nSend it for the next calls. \n\n Body optional infos \n \n Details \n\n modules_ids \n list of modules ids \n\n search_term \n string to filter descriptions \n\n status_ids \n list of status ids \n\n priority_ids \n list of priorities ids \n\n trade_ids \n list of categories ids \n\n plan_ids \n list of plans ids \n\n assignee_ids \n list of users ids \n\n company_ids \n list of companies ids \n\n creator_ids \n list of users ids \n\n phase_ids \n list of phases ids \n\n observation_ids \n list of observations ids \n\n due_date_from \n Date \n\n due_date_to \n Date \n\n created_at_from \n Date \n\n created_at_to \n Date"
+      tags:
+      - Observations
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              modules_ids:
+              - <uuid>
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Get_observations_ids_filtered_full_filter:
+                  value:
+                    observations:
+                    - observation_id: 42c8ba52-8564-4f91-b0d2-1d58e534bcdc
+                      name: obs1
+                      status_id: f0f9f6a7-7b62-4af6-b078-bca515ce08d9
+                      priority_id: 29472e27-9de7-4bc2-91da-53b3815eca10
+                      trade_id: ac2157a9-024b-42bf-8a03-d25ce5c39ca3
+                      common_observation_name: mdl export
+                      assignee_id: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                      company_id: 9d194f0c-b2de-4f63-818e-96b237281cbc
+                      due_date: '2024-04-30T00:00:00Z'
+                      client_created_at: '2024-03-22T10:22:09.379Z'
+                      client_updated_at: '2024-04-25T09:42:50.321401Z'
+                      created_at: '2024-03-22T10:22:09.403612Z'
+                      created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                      updated_at: '2024-04-25T09:42:50.329082Z'
+                      updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                      phase_id: 16afbdfd-8a25-4687-9446-d78770f76d47
+                    - observation_id: 65e62723-49a4-4c12-a2b6-6cd7d9982f09
+                      name: cat 1
+                      status_id: 13af83ef-27d4-45f5-9ddf-d017474dbfc9
+                      priority_id: 29472e27-9de7-4bc2-91da-53b3815eca10
+                      trade_id: ac2157a9-024b-42bf-8a03-d25ce5c39ca3
+                      common_observation_name: mdl export
+                      client_created_at: '2024-03-29T09:14:47.246Z'
+                      client_updated_at: '2024-03-29T09:14:47.246Z'
+                      created_at: '2024-03-29T09:14:47.973085Z'
+                      created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                      updated_at: '2024-03-29T09:14:47.973085Z'
+                      updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    - observation_id: fa897bff-1e7f-4c2e-8462-3d44e47e0678
+                      name: obs2
+                      status_id: 13af83ef-27d4-45f5-9ddf-d017474dbfc9
+                      priority_id: 29472e27-9de7-4bc2-91da-53b3815eca10
+                      client_created_at: '2024-03-22T10:22:27.598Z'
+                      client_updated_at: '2024-03-22T10:22:27.598Z'
+                      created_at: '2024-03-22T10:22:27.660162Z'
+                      created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                      updated_at: '2024-03-22T10:22:27.660162Z'
+                      updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    count: 3
+                    total_count: 3
+                    limit: 50
+                    offset: 0
+                Get_observations_ids_filtered:
+                  value:
+                    observations:
+                    - observation_id: 42c8ba52-8564-4f91-b0d2-1d58e534bcdc
+                      name: obs1
+                      status_id: f0f9f6a7-7b62-4af6-b078-bca515ce08d9
+                      priority_id: 29472e27-9de7-4bc2-91da-53b3815eca10
+                      trade_id: ac2157a9-024b-42bf-8a03-d25ce5c39ca3
+                      common_observation_name: mdl export
+                      assignee_id: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                      company_id: 9d194f0c-b2de-4f63-818e-96b237281cbc
+                      due_date: '2024-04-30T00:00:00Z'
+                      client_created_at: '2024-03-22T10:22:09.379Z'
+                      client_updated_at: '2024-04-25T09:42:50.321401Z'
+                      created_at: '2024-03-22T10:22:09.403612Z'
+                      created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                      updated_at: '2024-04-25T09:42:50.329082Z'
+                      updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                      phase_id: 16afbdfd-8a25-4687-9446-d78770f76d47
+                    - observation_id: 65e62723-49a4-4c12-a2b6-6cd7d9982f09
+                      name: cat 1
+                      status_id: 13af83ef-27d4-45f5-9ddf-d017474dbfc9
+                      priority_id: 29472e27-9de7-4bc2-91da-53b3815eca10
+                      trade_id: ac2157a9-024b-42bf-8a03-d25ce5c39ca3
+                      common_observation_name: mdl export
+                      client_created_at: '2024-03-29T09:14:47.246Z'
+                      client_updated_at: '2024-03-29T09:14:47.246Z'
+                      created_at: '2024-03-29T09:14:47.973085Z'
+                      created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                      updated_at: '2024-03-29T09:14:47.973085Z'
+                      updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    - observation_id: fa897bff-1e7f-4c2e-8462-3d44e47e0678
+                      name: obs2
+                      status_id: 13af83ef-27d4-45f5-9ddf-d017474dbfc9
+                      priority_id: 29472e27-9de7-4bc2-91da-53b3815eca10
+                      client_created_at: '2024-03-22T10:22:27.598Z'
+                      client_updated_at: '2024-03-22T10:22:27.598Z'
+                      created_at: '2024-03-22T10:22:27.660162Z'
+                      created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                      updated_at: '2024-03-22T10:22:27.660162Z'
+                      updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    count: 3
+                    total_count: 3
+                    limit: 50
+                    offset: 0
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /projects/{project_id}/observations/{observation_id}:
+    get:
+      operationId: observationsGetObservationDetails
+      summary: Get observation details
+      description: "Based on an observation ID, we can access the full version of it.\n\n To go deeper, you will need to check user, plan, and company info based on the returned IDs.\n\n Endpoint mandatory infos \n Details \n\n project_id \n The ID of the project where the the observation will be created \n\n observation_id \n The ID of the observation"
+      tags:
+      - Observations
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      - name: observation_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `observation_id` as published in the collection.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    id: 4a8ae783-e4f1-4d13-ae9f-feefa1a0f0cf
+                    enabled: true
+                    project_id: a1bf361f-abd4b854-523d-4857-8e82-b0d6325b07d1
+                    description: Test phase obs
+                    priority:
+                      id: 94dccc2b-fecf-4725-86cb-3ec524c50654
+                      color: '#AABBF0'
+                      icon: RoundOne
+                      names:
+                      - language: en
+                        translation: Low
+                      - language: fr
+                        translation: Observation Faible
+                    creator_id: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    creation_date: '2022-10-17T12:40:47.058Z'
+                    client_updated_at: '2022-10-17T12:40:47.058Z'
+                    module_id: ffbd9938-c88d-46b3-af75-79c29f76724f
+                    phase_id: 7675aa39-d7bd-4c5d-98eb-6025a668862d
+                    created_at: '2022-10-17T12:40:49.613444Z'
+                    created_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+                    updated_at: '2022-10-17T12:40:54.769595Z'
+                    updated_by: 25ff0593-dd4c64d0-1579-4354-8a2b-260b34025b6a
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /projects/{project_id}/observations/{observation_id}/messages:
+    post:
+      operationId: observationsAddObservationComment
+      summary: Add observation comment
+      description: "You can add comments, link files, or link items to an observation.\n\n Details \n\n project_id \n The ID of the project where the the observation will be commented \n\n observation_id \n The ID of the observation \n\n Body optional infos \n Details \n\n for sending a comment \n\n text \n your text \n\n to attach a file or an image \n\n media_resource_id \n the id of a previously uploaded file via the upload media endpoint \n\n media_resource_name \n the display name of the file \n\n to link an observation \n\n reference_type \n \"Observation\" \n\n reference_id \n the id of the linked observation \n\n to link a form instance \n\n reference_type \n \"Form\" \n\n reference_id \n the id of the linked form instance"
+      tags:
+      - Observations
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      - name: observation_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `observation_id` as published in the collection.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success_send_text:
+                  value:
+                    message_id: '525602108968271872'
+                Success_link_item:
+                  value:
+                    message_id: '525661302899605504'
+                Success_attach_file:
+                  value:
+                    message_id: '525661426749014016'
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+    get:
+      operationId: observationsGetObservationMessages
+      summary: Get observation messages
+      description: "Based on an observation ID, we can access its activity history.\n\n Details \n\n project_id \n The ID of the project where the the observation will be created \n\n observation_id \n The ID of the observation \n\n Query optional infos \n Details \n\n message_id \n id of a message to begin the reading \n\n get_newest \n if true, get the messages newest as the message_id \nfalse is the default value"
+      tags:
+      - Observations
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      - name: observation_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `observation_id` as published in the collection.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    messages:
+                    - message_id: '516983453749608448'
+                      channel_type: Observation
+                      content_type: ActionTracking
+                      created_at: '2023-11-27T14:27:40.4629455Z'
+                    - message_id: '516983456085835776'
+                      channel_type: Observation
+                      content_type: Content
+                      created_at: '2023-11-27T14:27:41.0203124Z'
+                      client_created_at: '2023-11-27T14:27:41.022Z'
+                      message:
+                        media_resources:
+                        - id: a2c195a0-e20b-4478-a14d-ff15c4a30947
+                          mime_type: image/png
+                          created_at: '2023-11-27T14:27:41.0203124Z'
+                    - message_id: '516984099139747840'
+                      channel_type: Observation
+                      content_type: ActionTracking
+                      created_at: '2023-11-27T14:30:14.335632Z'
+                    - message_id: '516984372897775616'
+                      channel_type: Observation
+                      content_type: Content
+                      created_at: '2023-11-27T14:31:19.6053099Z'
+                      client_created_at: '2023-11-27T14:31:19.608Z'
+                      message:
+                        references:
+                        - type: Observation
+                          id: 31a12174-b984-4d27-addd-2764755c989c
+                    - message_id: '516984526031814656'
+                      channel_type: Observation
+                      content_type: ActionTracking
+                      created_at: '2023-11-27T14:31:56.1144243Z'
+                    - message_id: '516984527478849536'
+                      channel_type: Observation
+                      content_type: Content
+                      created_at: '2023-11-27T14:31:56.4594085Z'
+                      client_created_at: '2023-11-27T14:31:56.545Z'
+                      message:
+                        media_resources:
+                        - id: b5542949-ff29-4fd4-a517-b25f3209411c
+                          mime_type: image/png
+                          created_at: '2023-11-27T14:31:56.4594085Z'
+                    - message_id: '516984663206526976'
+                      channel_type: Observation
+                      content_type: ActionTracking
+                      created_at: '2023-11-27T14:32:28.8204254Z'
+                    - message_id: '516984756827586560'
+                      channel_type: Observation
+                      content_type: ActionTracking
+                      created_at: '2023-11-27T14:32:51.1411903Z'
+                    - message_id: '517285591298080768'
+                      channel_type: Observation
+                      content_type: ActionTracking
+                      created_at: '2023-11-28T10:28:15.6680051Z'
+                    - message_id: '516983244671942656'
+                      channel_type: Observation
+                      content_type: Content
+                      created_at: '2023-11-28T10:32:02.7915791Z'
+                      client_created_at: '2023-11-27T14:26:50.614Z'
+                      client_updated_at: '2023-11-28T10:32:01.163Z'
+                      message:
+                        text:
+                          value: Premier comment modif
+                    - message_id: '520584181252620288'
+                      channel_type: Observation
+                      content_type: Content
+                      created_at: '2023-12-07T12:55:40.8022783Z'
+                      client_created_at: '2023-12-07T12:55:40.122Z'
+                      message:
+                        text:
+                          value: autre texte
+                    count: 11
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+components:
+  schemas:
+    ApiError:
+      type: object
+      description: Finalcad One error envelope. `api_code` is either a static code (mostly 4xx, e.g. INVALID_INSTANCE_STATE) or a constructed code of the form {ProcessCode}_ERR{n} / {ProcessCode}_WRN{n} (mostly 5xx).
+      properties:
+        statut:
+          type: integer
+          description: HTTP status code, repeated in the body (spelled `statut`).
+        api_code:
+          type: string
+          description: Internal Finalcad API error code.
+        message:
+          type: string
+          description: Short explanation of the abnormality encountered.
+        data:
+          type: object
+          description: Complementary data to help understand the error.
+          additionalProperties: true
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: Organization API key issued by Finalcad to organizations on an Enterprise licence. Sent on every call.
+    tokenAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: '`Authorization: token <your_api_key>`, or `Authorization: bearer <user_token>` for the legacy user-token flow (POST /auth).'

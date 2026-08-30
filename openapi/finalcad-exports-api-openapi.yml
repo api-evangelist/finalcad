@@ -1,0 +1,333 @@
+openapi: 3.2.0
+info:
+  title: Finalcad One Project Exports API
+  version: '2.41'
+  summary: 'Project-level operations for Finalcad One construction projects: project details, project libraries, members, locations (folders / plans / IFC), discussion groups, companies, modules (observations / forms / meetings), observations, forms and form answers, documents, phases, meetings and XLSX/PDF exports.'
+  description: 'Project-level operations for Finalcad One construction projects: project details, project libraries, members, locations (folders / plans / IFC), discussion groups, companies, modules (observations / forms / meetings), observations, forms and form answers, documents, phases, meetings and XLSX/PDF exports.
+
+
+    DERIVED, NOT PUBLISHED BY THE PROVIDER. Finalcad publishes no OpenAPI. This document was mechanically derived by API Evangelist from the first-party public Postman collection "Finalcad One API" served by Finalcad at https://developer.finalcad.com/ (collection JSON: https://developer.finalcad.com/api/collections/10995648/Tz5v1Es2), saved in this repo at collections/finalcad.postman_collection.json. Every path, method, header, query parameter, example request body and example response below is carried over from that collection; nothing was invented. Request/response bodies are typed as generic objects because the collection carries examples, not schemas. Four Finalcad employees'' personal e-mail addresses that appeared in the collection''s example payloads were replaced with placeholders; nothing else was changed.'
+  contact:
+    name: Finalcad One API — developer portal
+    url: https://developer.finalcad.com/
+  x-generated-by: API Evangelist enrichment pipeline (derived from the first-party Postman collection)
+  x-source: collections/finalcad.postman_collection.json
+  x-source-url: https://developer.finalcad.com/
+servers:
+- url: https://developer.finalcad.cloud/api
+  description: Production — the baseUrl variable published in the Finalcad One API Postman collection.
+- url: https://developer.sandbox.finalcad.cloud/api
+  description: Sandbox — published by Finalcad in the 'Retrieve data in Power BI' tutorial of the same collection.
+security:
+- apiKey: []
+  tokenAuth: []
+tags:
+- name: Exports
+paths:
+  /projects/{project_id}/forms/custom/generate:
+    post:
+      operationId: exportsCreateCustomReportForForms
+      summary: Create custom report for forms
+      description: "You can generate a unit report from a form instance using a custom report template.\n\n Details \n\n project_id \n The ID of the project where the form will be created \n\n body mandatory infos \n Details \n\n form_instance_id \n Id of the form instance \n\n custom_template_id \n id of the custom template \n(returned by the Get Custom template infos endpoint) \n\n output_file_format \n output file format \n(sould be part of the list returned by the Get Custom template infos endpoint) \n\n time_zone \n text of the time zone (defalut to the project timezone)"
+      tags:
+      - Exports
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              form_instance_id: <uuid>
+              custom_template_id: '{{custom_template_id}}'
+              output_file_format: PDF
+              time_zone: Europe/Paris
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    key: YzhhZWEyZmMtM2NjMy00MzdiLThiOTYtOGI0MzIxOTkxZDY0
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /projects/{project_id}/forms/report/generate:
+    post:
+      operationId: exportsCreateFormsUnitExportInPdf
+      summary: Create forms unit export in PDF
+      description: "You can generate a unit PDF report from a selection of form instances.\n\n Details \n\n project_id \n The ID of the project where the form will be created \n\n body mandatory selection info \n Details \n\n form_instance_ids \n list of the Id of the form instances \n\n body optional selection info \n Details \n\n module_id \n Id of the module \n\n status_ids \n list of the status id \n\n priority_ids \n list of the priotities id \n\n form_ids \n list of the form templates ids \n\n plan_ids \n list of the locations ids \n\n folder_ids \n list of the ids of the folders of locations \n\n assignee_ids \n list of assigned users ids \n\n assigned_company_ids \n list of assigned companies ids \n\n creator_ids \n list of creator ids \n\n due_date_from \n minimal due date \n\n due_date_to \n maximal due date \n\n updated_at_from \n updated fter this date \n\n updated_at_to \n updated before this date \n\n Body optional presentation info \n Details \n\n time_zone \n text of the time zone (defalut to the project timezone) \n\n logo1_url \n url of the logo used as company logo \n\n logo2_url \n url of the logo used as customer logo \n\n image_size \n small / medium / large / none \n\n with_linked_items \n if false (default) do not generate informations for linked items \n\n with_linked_items_location \n if false (default) do not generate informations about locations of linked items \n\n only_fileds_with_values \n if true, do not generate informations for the empty fields (false is the default)"
+      tags:
+      - Exports
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              form_instance_ids:
+              - <uuid>
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Export_for_a_template:
+                  value:
+                    key: ZGVmOGFmZDItNDMzZS00N2QyLWJjN2EtMDIzMGFlNmQ2ZDM3
+                Export_a_form_instance:
+                  value:
+                    key: ZjhiNjQ1NzQtZThhYS00YTQxLWE4NjAtZTk0YTI0YTNiMzFj
+                Export_a_module:
+                  value:
+                    key: MTEwNDhmMDgtYWI2ZC00YzI3LWFhODktYjZhODA3ZDRmNzcx
+                all_selection_fields:
+                  value:
+                    key: MTEwNDhmMDgtYWI2ZC00YzI3LWFhODktYjZhODA3ZDRmNzcx
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /projects/{project_id}/forms/report/get:
+    post:
+      operationId: exportsGetFormsUnitExportInPdf
+      summary: Get forms unit export in PDF
+      description: "Get the URL of a unit report generated by the \"Create Forms PDF Unit\" endpoint.\n\n Details \n\n project_id \n The ID of the project where the form will be created \n\n body mandatory info \n Details \n\n key \n key returned by \"Create Forms Pdf Unit\" endpoint \n\n NOTICE: if the endpoint return is_available = false, the pdf report is in progress. Please retry later"
+      tags:
+      - Exports
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              key: '{{rapport_unit_key}}'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    url: https://tf-report-generation-service-api-...
+                    is_available: true
+                    is_in_error: false
+                In_Progress:
+                  value:
+                    is_available: false
+                    is_in_error: false
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /projects/{project_id}/forms/report/xls:
+    post:
+      operationId: exportsCreateFormsExportInXlsx
+      summary: Create forms export in XLSX
+      description: "Generate a unit PDF report from a selection of form instances.\n\n Details \n\n project_id \n The ID of the project where the form will be created \n\n body mandatory selection info \n Details \n\n module_id \n Id of the module \n\n body optional selection info \n Details \n\n form_instance_ids \n list of the Id of the form instances \n\n status_ids \n list of the status id \n\n priority_ids \n list of the priotities id \n\n form_ids \n list of the form templates ids \n\n plan_ids \n list of the locations ids \n\n assignee_ids \n list of assigned users ids \n\n assigned_company_ids \n list of assigned companies ids \n\n creator_ids \n list of creator ids \n\n due_date_from \n minimal due date \n\n due_date_to \n maximal due date \n\n updated_at_from \n updated fter this date \n\n updated_at_to \n updated before this date \n\n search_term \n\n group_ids \n ids of the groups \n\n phase_ids \n ids of the phases \n\n Body optional presentation info \n Details \n\n time_zone \n text of the time zone (defalut to the project timezone)"
+      tags:
+      - Exports
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              module_id: d079cbfb-aa63-45d6-83e3-e20e537a7031
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    file_name: TestExport_Forms_2024-03-28-10-54-38.xlsx
+                    file_stream: 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cDovL3NjaGVtYXMub3BlbnhtbGZvcm1hdHMub3JnL3BhY2thZ2UvMjAwNi9tZXRhZGF0YS9jb3JlLXByb3BlcnRpZXMiPjxkY3Rlcm1zOmNyZWF0ZWQgeHNpOnR5cGU9ImRjdGVybXM6VzNDRFRGIj4yMDI0LTAzLTI4VDA5OjU0OjM4LjAyNzcwNzRaPC9kY3Rlcm1zOmNyZWF0ZWQ+PGRjdGVybXM6bW9kaWZpZWQgeHNpOnR5cGU9ImRjdGVybXM6VzNDRFRGIj4yMDI0LTAzLTI4VDA5OjU0OjM4LjAyNzcwNzhaPC9kY3Rlcm1zOm1vZGlmaWVkPjwvY29yZVByb3BlcnRpZXM+UEsDBBQAAAgAANNOfFjZ366CnAIAAJwCAAALAAAAX3JlbHMvLnJlbHPvu788P3htbCB2ZXJzaW9uPSIxLjAiIGVuY29kaW5nPSJ1dGYtOCI/PjxSZWxhdGlvbnNoaXBzIHhtbG5zPSJodHRwOi8vc2NoZW1hcy5vcGVueG1sZm9ybWF0cy5vcmcvcGFja2FnZS8yMDA2L3JlbGF0aW9uc2hpcHMiPjxSZWxhdGlvbnNoaXAgVHlwZT0iaHR0cDovL3NjaGVtYXMub3BlbnhtbGZvcm1hdHMub3JnL29mZmljZURvY3VtZW50LzIwMDYvcmVsYXRpb25zaGlwcy9vZmZpY2VEb2N1bWVudCIgVGFyZ2V0PSIveGwvd29ya2Jvb2sueG1sIiBJZD0iUmU0NGVhMjFkZDQ1YTQzZWEiIC8+PFJlbGF0aW9uc2hpcCBUeXBlPSJodHRwOi8vc2NoZW1hcy5vcGVueG1sZm9ybWF0cy5vcmcvb2ZmaWNlRG9jdW1lbnQvMjAwNi9yZWxhdGlvbnNoaXBzL2V4dGVuZGVkLXByb3BlcnRpZXMiIFRhcmdldD0iL2RvY1Byb3BzL2FwcC54bWwiIElkPSJySWQxIiAvPjxSZWxhdGlvbnNoaXAgVHlwZT0iaHR0cDovL3NjaGVtYXMub3BlbnhtbGZvcm1hdHMub3JnL3BhY2thZ2UvMjAwNi9yZWxhdGlvbnNoaXBzL21ldGFkYXRhL2NvcmUtcHJvcGVydGllcyIgVGFyZ2V0PSIvcGFja2FnZS9zZXJ2aWNlcy9tZXRhZGF0YS9jb3JlLXByb3BlcnRpZXMvYTgwOTg1ZDRiYzZlNDQyNTk4NDJjN2QxOTIzMDFmNDIucHNtZGNwIiBJZD0iUmM4OWNmMTIyNTZlZjRhZDIiIC8+PC9SZWxhdGlvbnNoaXBzPlBLAwQUAAAICADTTnxYAWurVfgAAAB1BAAAGgAAAHhsL19yZWxzL3dvcmtib29rLnhtbC5yZWxzzdRLbsMgEAbgq6DZ19hOmlZVSDbZZJvmAgiPH4oNCCZtcrYseqReodSVqk7VRTeWvAExwK8PhHi/va23l6EXLxhi56yCIstBoDWu6myj4Ez13SNsN+sD9prSith2Poq0xUYFLZF/kjKaFgcdM+fRppnahUFTGoZGem1OukFZ5vlKhp8ZwDPF8erxP4murjuDO2fOA1r6I1jGVgesnimkE0QQRx0aJAXy0vOpLCWD2FcKwr5agZDTieja42/KWGOGhykNry6cYotInPFd/ry31BVMVM5AVDLRYgaiBRMtZyBaMtH9lCJKe5FrxtJXy59PUYwSyT6PzQdQSwMEFAAACAgA0058WP1Nu/JDAQAAiQIAACMAAAB4bC93b3Jrc2hlZXRzL19yZWxzL3NoZWV0Mi54bWwucmVsc8WSS04DMQyGrzLKPpNH0+kE9bGBRRdsUC+QcZx26EwySlIoXI0FR+IKBBASSEiwY2n/9uffll+enpeb8zhUdxhTH/yKiJqTCj0E2/v9ipyyoy3ZrJc3OJhcKtKhn1JVWnxakUPO0wVjCQ44mlSHCX1RXIijySWMezYZOJo9Msl5w+JXBvnOrHYPE/6FGJzrAS8DnEb0+QcwOxRSHHp/JNXOxD3mD2wqXNd7M4CxNYTxU70Otgy+OmeMRSTV1q5I3NqWVOw/LQaP9B67Gk91Mt524Vx/dc/KIOP7x3cok0qKxUwBdUILquRsQQ3YlnYITooGjUHFphhuEXJirTOi0aCo1MAbKWbUgZRU8ZIySku6UILPNRdzsA172yyxMdjTgEyIhRPQKoqNtlQpqWlnnC4dyOfSzZF38Mth9fth2beHWr8CUEsDBBQAAAgIANNOfFhv/eqgSgEAANIFAAATAAAAW0NvbnRlbnRfVHlwZXNdLnhtbM2U204CMRCGX2XTW7NbQGOM4XCh3iqJvkDTzrIN20M6A8KzeeEj+QoOxaAhRIKQyE0n7cz8399D+vH23h8tXFvMIaENfiC6VUcU4HUw1k8GYkZ1eSNGw/7LMgIWXOpxIBqieCsl6gacwipE8JypQ3KKeJomMio9VROQvU7nWurgCTyVtNIQw/491GrWUvGw4OU1lttFcbeuW6EGQsXYWq2I03LuzRakDHVtNZigZ45bKowJlMEGgFxb5Vg5Zf1FFpY7mRGd0fEw7Ne+Kh0SlDFxNpEF/A2ToMW/Qbgz12Bj4zfiie8qWQPFWCV6VI71JJ/DmM2gZOXq2LOElXcDZtf+dsEXrcRGJTDPlPjR4NEGti/zh/ZeI7Rs4eQOsug+9GtI09yBMofuiV1s9A810jsXI5fnYuTqv4wQf5iwHo9/HllmQ5T5hx5+AlBLAQIUAxQAAAgIANNOfFhKIUMnYQEAAM8CAAAPAAAAAAAAAAAAAACkgQAAAAB4bC93b3JrYm9vay54bWxQSwECFAMUAAAICADTTnxYbQcfTZIBAACgBAAAEAAAAAAAAAAAAAAApIGOAQAAZG9jUHJvcHMvYXBwLnhtbFBLAQIUAxQAAAgIANNOfFiVZ04SnQMAABIOAAAUAAAAAAAAAAAAAACkgU4DAAB4bC9zaGFyZWRTdHJpbmdzLnhtbFBLAQIUAxQAAAgIANNOfFhbpZ2tlgQAANVNAAANAAAAAAAAAAAAAACkgR0HAAB4bC9zdHlsZXMueG1sUEsBAhQDFAAACAgA0058WDKwrVnCAwAA4g8AABgAAAAAAAAAAAAAAKSB3gsAAHhsL3dvcmtzaGVldHMvc2hlZXQxLnhtbFBLAQIUAxQAAAgIANNOfFg++MejHwUAAGAYAAAYAAAAAAAAAAAAAACkgdYPAAB4bC93b3Jrc2hlZXRzL3NoZWV0Mi54bWxQSwECFAMUAAAICADTTnxY6Y6GKHoDAADVDAAAGAAAAAAAAAAAAAAApIErFQAAeGwvd29ya3NoZWV0cy9zaGVldDMueG1sUEsBAhQDFAAACAgA0058WGWTqL8CAwAAMQkAABgAAAAAAAAAAAAAAKSB2xgAAHhsL3dvcmtzaGVldHMvc2hlZXQ0LnhtbFBLAQIUAxQAAAgIANNOfFhgTIezpgUAALgbAAATAAAAAAAAAAAAAACkgRMcAAB4bC90aGVtZS90aGVtZTEueG1sUEsBAhQDFAAACAAA0058WBEhjRLaAQAA2gEAAFEAAAAAAAAAAAAAAKSB6iEAAHBhY2thZ2Uvc2VydmljZXMvbWV0YWRhdGEvY29yZS1wcm9wZXJ0aWVzL2E4MDk4NWQ0YmM2ZTQ0MjU5ODQyYzdkMTkyMzAxZjQyLnBzbWRjcFBLAQIUAxQAAAgAANNOfFjZ366CnAIAAJwCAAALAAAAAAAAAAAAAACkgTMkAABfcmVscy8ucmVsc1BLAQIUAxQAAAgIANNOfFgBa6tV+AAAAHUEAAAaAAAAAAAAAAAAAACkgfgmAAB4bC9fcmVscy93b3JrYm9vay54bWwucmVsc1BLAQIUAxQAAAgIANNOfFj9TbvyQwEAAIkCAAAjAAAAAAAAAAAAAACkgSgoAAB4bC93b3Jrc2hlZXRzL19yZWxzL3NoZWV0Mi54bWwucmVsc1BLAQIUAxQAAAgIANNOfFhv/eqgSgEAANIFAAATAAAAAAAAAAAAAACkgawpAABbQ29udGVudF9UeXBlc10ueG1sUEsFBgAAAAAOAA4A4wMAACcrAAAAAA==
+                    content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /projects/{project_id}/observations/report/xls:
+    post:
+      operationId: exportsCreateObservationsExportInXlsx
+      summary: Create observations export in XLSX
+      description: "You can generate a unit PDF report from a selection of form instances.\n\n Details \n\n project_id \n The ID of the project where the form will be created \n\n body optional selection info \n Details \n\n observations_ids \n id of the observations \n\n module_id \n Id of the module \n\n status_ids \n list of the status id \n\n priority_ids \n list of the priotities id \n\n trades_ids \n list of the trades ids \n\n plan_ids \n list of the locations ids \n\n assignee_ids \n list of assigned users ids \n\n assigned_company_ids \n list of assigned companies ids \n\n creator_ids \n list of creator ids \n\n due_date_from \n minimal due date \n\n due_date_to \n maximal due date \n\n created_at_from \n created after this date \n\n created_at_to \n created before this date \n\n search_term \n\n group_ids \n ids of the groups \n\n phase_ids \n ids of the phases \n\n Body optional presentation info \n Details \n\n time_zone \n text of the time zone (defalut to the project timezone)"
+      tags:
+      - Exports
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path variable `project_id` as published in the collection.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example: {}
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Success:
+                  value:
+                    file_name: TestExport_Quality_2024-03-28-15-22-25.xlsx
+                    file_stream: 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x12Dw91T/G2vF6ytHXnS1drfXXz0AITvwplqxpTM3ks9hNNpb/nvBDDKZKbE1/4GUEsDBBQAAAgAAMxyfFiY4iQ62gEAANoBAABRAAAAcGFja2FnZS9zZXJ2aWNlcy9tZXRhZGF0YS9jb3JlLXByb3BlcnRpZXMvNDgwYzBhMWNmYTZiNDMzMDkzNTg2ZmQ5OGI0MTRjMGEucHNtZGNw77u/PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48Y29yZVByb3BlcnRpZXMgeG1sbnM6ZGM9Imh0dHA6Ly9wdXJsLm9yZy9kYy9lbGVtZW50cy8xLjEvIiB4bWxuczpkY3Rlcm1zPSJodHRwOi8vcHVybC5vcmcvZGMvdGVybXMvIiB4bWxuczp4c2k9Imh0dHA6Ly93d3cudzMub3JnLzIwMDEvWE1MU2NoZW1hLWluc3RhbmNlIiB4bWxucz0iaHR0cDovL3NjaGVtYXMub3BlbnhtbGZvcm1hdHMub3JnL3BhY2thZ2UvMjAwNi9tZXRhZGF0YS9jb3JlLXByb3BlcnRpZXMiPjxkY3Rlcm1zOmNyZWF0ZWQgeHNpOnR5cGU9ImRjdGVybXM6VzNDRFRGIj4yMDI0LTAzLTI4VDE0OjIyOjI1LjcyNTU4MDRaPC9kY3Rlcm1zOmNyZWF0ZWQ+PGRjdGVybXM6bW9kaWZpZWQgeHNpOnR5cGU9ImRjdGVybXM6VzNDRFRGIj4yMDI0LTAzLTI4VDE0OjIyOjI1LjcyNTU4MDdaPC9kY3Rlcm1zOm1vZGlmaWVkPjwvY29yZVByb3BlcnRpZXM+UEsDBBQAAAgAAMxyfFhEc0vcnAIAAJwCAAALAAAAX3JlbHMvLnJlbHPvu788P3htbCB2ZXJzaW9uPSIxLjAiIGVuY29kaW5nPSJ1dGYtOCI/PjxSZWxhdGlvbnNoaXBzIHhtbG5zPSJodHRwOi8vc2NoZW1hcy5vcGVueG1sZm9ybWF0cy5vcmcvcGFja2FnZS8yMDA2L3JlbGF0aW9uc2hpcHMiPjxSZWxhdGlvbnNoaXAgVHlwZT0iaHR0cDovL3NjaGVtYXMub3BlbnhtbGZvcm1hdHMub3JnL29mZmljZURvY3VtZW50LzIwMDYvcmVsYXRpb25zaGlwcy9vZmZpY2VEb2N1bWVu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
+                    content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+        '400':
+          description: Bad Request — an `api_code` static error code and message envelope. See errors/finalcad-problem-types.yml.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized — the API key or user token is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Server error — a constructed `{ProcessCode}_ERR{n}` api_code envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+components:
+  schemas:
+    ApiError:
+      type: object
+      description: Finalcad One error envelope. `api_code` is either a static code (mostly 4xx, e.g. INVALID_INSTANCE_STATE) or a constructed code of the form {ProcessCode}_ERR{n} / {ProcessCode}_WRN{n} (mostly 5xx).
+      properties:
+        statut:
+          type: integer
+          description: HTTP status code, repeated in the body (spelled `statut`).
+        api_code:
+          type: string
+          description: Internal Finalcad API error code.
+        message:
+          type: string
+          description: Short explanation of the abnormality encountered.
+        data:
+          type: object
+          description: Complementary data to help understand the error.
+          additionalProperties: true
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: Organization API key issued by Finalcad to organizations on an Enterprise licence. Sent on every call.
+    tokenAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: '`Authorization: token <your_api_key>`, or `Authorization: bearer <user_token>` for the legacy user-token flow (POST /auth).'
