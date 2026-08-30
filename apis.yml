@@ -568,6 +568,9 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: CapabilityMap
+  url: capabilities/finalcad-capability-edges.yml
+  name: Finalcad Business Capability Map
 - type: Overlay
   url: overlays/finalcad-projects-overlay.yaml
 - type: Overlay

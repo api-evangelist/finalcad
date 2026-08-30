@@ -1,0 +1,27 @@
+slug: finalcad
+provider: Finalcad
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Infrastructure
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 1
+edges:
+- tag: Observations
+  spec_file: finalcad-observations-api-openapi.yml
+  capability_id: BC-5040.60
+  capability_id_l1: BC-5040
+  capability_name: Construction Quality Management
+  confidence: 0.75
+  evidence: 'POST /projects/{project_id}/observations  observationsCreateObservation  Create observation;
+    POST /projects/{projectId}/observations/{observationId}/attach-media  Add image observation; vendor:
+    ''punch lists and defects ("observations")'''
+  reason: Observations are site defects/punch-list items raised, photographed and commented on during
+    construction — defect capture and closure on site, which is construction quality assurance/control
+    (BC-5040.60). Some ambiguity versus generic non-conformance management (BC-720.40), hence 0.75.
