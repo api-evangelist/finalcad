@@ -187,6 +187,8 @@ apis:
   humanURL: https://developer.finalcad.com/
   baseURL: https://developer.finalcad.cloud/api
   tags:
+  - Export
+  tags_raw:
   - Exports
   properties:
   - type: OpenAPI
@@ -227,6 +229,8 @@ apis:
   humanURL: https://developer.finalcad.com/
   baseURL: https://developer.finalcad.cloud/api
   tags:
+  - Language
+  tags_raw:
   - Languages
   properties:
   - type: OpenAPI
@@ -528,6 +532,8 @@ apis:
   humanURL: https://developer.finalcad.com/
   baseURL: https://developer.finalcad.cloud/api
   tags:
+  - Webhook
+  tags_raw:
   - Webhooks
   properties:
   - type: OpenAPI
