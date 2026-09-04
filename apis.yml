@@ -24,6 +24,22 @@ deliveryModel:
   - pricing
   generated: '2026-08-28'
   method: derived
+accessModel:
+  pricing: unknown
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Unknown
+  confidence: low
+  source:
+  - authentication
+  - rate-limits
+  - security
+  - sandbox
+  - {url: 'https://www.finalcad.com/', status: 301, note: 'declared website redirects to https://www.orisha.com/fr/construction/logiciel/finalcad — a different registrable domain (finalcad.com -> orisha.com), possible rename or acquisition (probed 2026-09-03, roadmap#169)'}
+  generated: '2026-09-03'
+  method: derived
 image: https://res.cloudinary.com/postman/image/upload/t_team_logo_pubdoc/v1/team/7ab6f429a9b1c16b8650531c70d19d77d2e28100973615e0de9f1663a5faf6b7
 url: https://raw.githubusercontent.com/api-evangelist/finalcad/refs/heads/main/apis.yml
 x-type: company
