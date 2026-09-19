@@ -287,6 +287,8 @@ apis:
   humanURL: https://developer.finalcad.com/
   baseURL: https://developer.finalcad.cloud/api
   tags:
+  - Location
+  tags_raw:
   - Locations
   properties:
   - type: OpenAPI
@@ -570,6 +572,8 @@ apis:
   humanURL: https://developer.finalcad.com/
   baseURL: https://developer.finalcad.cloud/api
   tags:
+  - Workspace
+  tags_raw:
   - Workspaces
   properties:
   - type: OpenAPI
