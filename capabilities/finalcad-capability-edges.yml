@@ -11,7 +11,7 @@ capability_model:
   attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
     CC BY 4.0
   notice: NOTICE
-edge_count: 1
+edge_count: 4
 edges:
 - tag: Observations
   spec_file: finalcad-observations-api-openapi.yml
@@ -25,3 +25,40 @@ edges:
   reason: Observations are site defects/punch-list items raised, photographed and commented on during
     construction — defect capture and closure on site, which is construction quality assurance/control
     (BC-5040.60). Some ambiguity versus generic non-conformance management (BC-720.40), hence 0.75.
+- tag: Documents
+  spec_file: finalcad-documents-api-openapi.yml
+  capability_id: BC-1130
+  capability_id_l1: BC-1130
+  capability_name: Engineering Document Management
+  confidence: 0.7
+  evidence: POST /projects/{project_id}/documents  "Create document or folders"; "Get documents and folders
+    by parent"
+  reason: Project-level document and folder lifecycle on construction projects is engineering document
+    management. The operations show a repository/CRUD surface but no numbering, revision control or transmittal
+    semantics, so the L1 is asserted without a narrower sub-capability.
+  recovered_from: vertical-engineering-services-edges.json
+- tag: Forms
+  spec_file: finalcad-forms-api-openapi.yml
+  capability_id: BC-1150.50
+  capability_id_l1: BC-1150
+  capability_name: Construction Quality Management
+  confidence: 0.7
+  evidence: 'vendor: "quality and safety inspection forms"; ops: "Create form", "Get form answers", "Add
+    form instance comment"'
+  reason: Forms and form answers in Finalcad are the on-site quality and safety inspection checklists,
+    which matches on-site QA/QC inspection management. Some ambiguity remains because forms are a generic
+    container that can also carry safety or handover checks.
+  recovered_from: vertical-engineering-services-edges.json
+- tag: Project  details
+  spec_file: finalcad-project-details-api-openapi.yml
+  capability_id: BC-900.30
+  capability_id_l1: BC-900
+  capability_name: Project Management
+  confidence: 0.7
+  evidence: POST /organizations/{organization_id}/projects projectDetailsCreateANewProject Create a new
+    project; GET /organizations/{organization_id}/projects Get projects list filtered; DELETE /projects/{project_id}
+    Delete a project
+  reason: Lifecycle management of construction project records (create, update, list, delete, restore,
+    logos) — project administration/tracking, mapped to Project Management. Some of it (logos) is cosmetic
+    config, hence 0.7.
+  recovered_from: vertical-engineering-services-edges.json
