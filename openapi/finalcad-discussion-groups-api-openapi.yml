@@ -3,10 +3,7 @@ info:
   title: Finalcad One Project Discussion groups API
   version: '2.41'
   summary: 'Project-level operations for Finalcad One construction projects: project details, project libraries, members, locations (folders / plans / IFC), discussion groups, companies, modules (observations / forms / meetings), observations, forms and form answers, documents, phases, meetings and XLSX/PDF exports.'
-  description: 'Project-level operations for Finalcad One construction projects: project details, project libraries, members, locations (folders / plans / IFC), discussion groups, companies, modules (observations / forms / meetings), observations, forms and form answers, documents, phases, meetings and XLSX/PDF exports.
-
-
-    DERIVED, NOT PUBLISHED BY THE PROVIDER. Finalcad publishes no OpenAPI. This document was mechanically derived by API Evangelist from the first-party public Postman collection "Finalcad One API" served by Finalcad at https://developer.finalcad.com/ (collection JSON: https://developer.finalcad.com/api/collections/10995648/Tz5v1Es2), saved in this repo at collections/finalcad.postman_collection.json. Every path, method, header, query parameter, example request body and example response below is carried over from that collection; nothing was invented. Request/response bodies are typed as generic objects because the collection carries examples, not schemas. Four Finalcad employees'' personal e-mail addresses that appeared in the collection''s example payloads were replaced with placeholders; nothing else was changed.'
+  description: 'Project-level operations for Finalcad One construction projects: project details, project libraries, members, locations (folders / plans / IFC), discussion groups, companies, modules (observations / forms / meetings), observations, forms and form answers, documents, phases, meetings and XLSX/PDF exports.'
   contact:
     name: Finalcad One API — developer portal
     url: https://developer.finalcad.com/
@@ -28,7 +25,40 @@ paths:
     post:
       operationId: discussionGroupsCreateDiscussionGroups
       summary: Create discussion groups
-      description: "To create a group, you need to name it and select project members. You can give access to the group members to specific plans added to the project.\n\n In the current version, we are only sharing plans in groups and not folders. Shared folders won't be visible in apps.\n\n Endpoint mandatory infos \n Details \n\n project_Id \n the id of the project to be modified \n\n body mandatory infos \n Details \n\n name \n name of the group \n\n user_ids \n list of users ids to be added to the group \n\n plan_ids \n list of the plans ids to be shared in the group"
+      description: 'To create a group, you need to name it and select project members. You can give access to the group members to specific plans added to the project.
+
+
+        In the current version, we are only sharing plans in groups and not folders. Shared folders won''t be visible in apps.
+
+
+        Endpoint mandatory infos
+
+        Details
+
+
+        project_Id
+
+        the id of the project to be modified
+
+
+        body mandatory infos
+
+        Details
+
+
+        name
+
+        name of the group
+
+
+        user_ids
+
+        list of users ids to be added to the group
+
+
+        plan_ids
+
+        list of the plans ids to be shared in the group'
       tags:
       - Discussion groups
       parameters:
@@ -92,7 +122,25 @@ paths:
     get:
       operationId: discussionGroupsGetDiscussionGroups
       summary: Get discussion groups
-      description: "You can get the list of all discussion groups in a project.\n\n Details \n\n project_Id \n the id of the project to be modified \n\n body mandatory infos \n Details \n\n search_term \n filter term on group name"
+      description: 'You can get the list of all discussion groups in a project.
+
+
+        Details
+
+
+        project_Id
+
+        the id of the project to be modified
+
+
+        body mandatory infos
+
+        Details
+
+
+        search_term
+
+        filter term on group name'
       tags:
       - Discussion groups
       parameters:
@@ -143,7 +191,32 @@ paths:
     get:
       operationId: discussionGroupsGetDiscussionGroupsForAnItem
       summary: Get discussion groups for an item
-      description: "You can find out in which discussion groups an item is shared.\n\n Details \n\n project_id \n The ID of the project where the the observation will be commented \n\n Query mandatory infos \n Details \n\n item_id \n id of the item \n\n item_type \n type of the item \ncan be Observation, Form, Plan, Folder, or Document"
+      description: 'You can find out in which discussion groups an item is shared.
+
+
+        Details
+
+
+        project_id
+
+        The ID of the project where the the observation will be commented
+
+
+        Query mandatory infos
+
+        Details
+
+
+        item_id
+
+        id of the item
+
+
+        item_type
+
+        type of the item
+
+        can be Observation, Form, Plan, Folder, or Document'
       tags:
       - Discussion groups
       parameters:
@@ -190,7 +263,22 @@ paths:
     get:
       operationId: discussionGroupsGetDiscussionGroup
       summary: Get discussion group
-      description: "You can get the details of a discussion group.\n\n Endpoint mandatory infos \n Details \n\n project_Id \n the id of the project to be modified \n\n group_id \n the id of the grou^p"
+      description: 'You can get the details of a discussion group.
+
+
+        Endpoint mandatory infos
+
+        Details
+
+
+        project_Id
+
+        the id of the project to be modified
+
+
+        group_id
+
+        the id of the grou^p'
       tags:
       - Discussion groups
       parameters:
@@ -248,7 +336,38 @@ paths:
     put:
       operationId: discussionGroupsUpdateDiscussionGroup
       summary: Update discussion group
-      description: "To create a discussion group, you need to name it and select project members.\n\n You can give access to the discussion group members to specific plans added to the project. In the current version, we are only sharing plans in groups and not folders.\n\n Shared folders won't be visible in apps.\n\n Endpoint mandatory infos \n Details \n\n project_Id \n the id of the project to be modified \n\n group_id \n Id of the modified group \n\n body mandatory infos \n Details \n\n name \n new name of the group"
+      description: 'To create a discussion group, you need to name it and select project members.
+
+
+        You can give access to the discussion group members to specific plans added to the project. In the current version, we are only sharing plans in groups and not folders.
+
+
+        Shared folders won''t be visible in apps.
+
+
+        Endpoint mandatory infos
+
+        Details
+
+
+        project_Id
+
+        the id of the project to be modified
+
+
+        group_id
+
+        Id of the modified group
+
+
+        body mandatory infos
+
+        Details
+
+
+        name
+
+        new name of the group'
       tags:
       - Discussion groups
       parameters:
@@ -314,7 +433,30 @@ paths:
     post:
       operationId: discussionGroupsAddMembersToDiscussionGroup
       summary: Add members to discussion group
-      description: "You can add members to a discussion group.\n\n Details \n\n project_Id \n the id of the project to be modified \n\n group_id \n Id the the modified group \n\n body mandatory infos \n Details \n\n user_ids \n list of users ids to be added to the group"
+      description: 'You can add members to a discussion group.
+
+
+        Details
+
+
+        project_Id
+
+        the id of the project to be modified
+
+
+        group_id
+
+        Id the the modified group
+
+
+        body mandatory infos
+
+        Details
+
+
+        user_ids
+
+        list of users ids to be added to the group'
       tags:
       - Discussion groups
       parameters:
@@ -377,7 +519,85 @@ paths:
     post:
       operationId: discussionGroupsAddDiscussionGroupMessage
       summary: Add discussion group message
-      description: "You can add messages or link files or items to a discussion group.\n\n Details \n\n project_id \n The ID of the project where the the observation will be commented \n\n group_id \n The ID of the group \n\n Body optional infos \n Details \n\n for sending a comment \n\n text \n your text \n\n to attach a file or an image \n\n media_resource_id \n the id of a previously uploaded file via the upload media endpoint \n\n media_resource_name \n the display name of the file \n\n to link an observation \n\n reference_type \n \"Observation\" \n\n reference_id \n the id of the linked observation \n\n to link a form instance \n\n reference_type \n \"Form\" \n\n reference_id \n the id of the linked form instance \n\n to link a document \n\n reference_type \n \"Document\" \n\n reference_id \n the id of the document"
+      description: 'You can add messages or link files or items to a discussion group.
+
+
+        Details
+
+
+        project_id
+
+        The ID of the project where the the observation will be commented
+
+
+        group_id
+
+        The ID of the group
+
+
+        Body optional infos
+
+        Details
+
+
+        for sending a comment
+
+
+        text
+
+        your text
+
+
+        to attach a file or an image
+
+
+        media_resource_id
+
+        the id of a previously uploaded file via the upload media endpoint
+
+
+        media_resource_name
+
+        the display name of the file
+
+
+        to link an observation
+
+
+        reference_type
+
+        "Observation"
+
+
+        reference_id
+
+        the id of the linked observation
+
+
+        to link a form instance
+
+
+        reference_type
+
+        "Form"
+
+
+        reference_id
+
+        the id of the linked form instance
+
+
+        to link a document
+
+
+        reference_type
+
+        "Document"
+
+
+        reference_id
+
+        the id of the document'
       tags:
       - Discussion groups
       parameters:
@@ -423,7 +643,30 @@ paths:
     get:
       operationId: discussionGroupsGetDiscussionGroupMessages
       summary: Get discussion group messages
-      description: "Based on a discussion group ID, you can access its activity history.\n\n Details \n\n project_id \n The ID of the project where the the observation will be created \n\n group_id \n The ID of the group \n\n Query optional infos \n Details \n\n message_id \n id of a message to begin the reading"
+      description: 'Based on a discussion group ID, you can access its activity history.
+
+
+        Details
+
+
+        project_id
+
+        The ID of the project where the the observation will be created
+
+
+        group_id
+
+        The ID of the group
+
+
+        Query optional infos
+
+        Details
+
+
+        message_id
+
+        id of a message to begin the reading'
       tags:
       - Discussion groups
       parameters:
@@ -464,7 +707,30 @@ paths:
     post:
       operationId: discussionGroupsRemoveMembersToDiscussionGroup
       summary: Remove members to discussion group
-      description: "You can remove members from a discussion group.\n\n Details \n\n project_Id \n the id of the project to be modified \n\n group_id \n Id the the modified group \n\n body mandatory infos \n Details \n\n user_ids \n list of users ids to be removed in the group"
+      description: 'You can remove members from a discussion group.
+
+
+        Details
+
+
+        project_Id
+
+        the id of the project to be modified
+
+
+        group_id
+
+        Id the the modified group
+
+
+        body mandatory infos
+
+        Details
+
+
+        user_ids
+
+        list of users ids to be removed in the group'
       tags:
       - Discussion groups
       parameters:

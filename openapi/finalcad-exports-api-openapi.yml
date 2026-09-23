@@ -3,10 +3,7 @@ info:
   title: Finalcad One Project Exports API
   version: '2.41'
   summary: 'Project-level operations for Finalcad One construction projects: project details, project libraries, members, locations (folders / plans / IFC), discussion groups, companies, modules (observations / forms / meetings), observations, forms and form answers, documents, phases, meetings and XLSX/PDF exports.'
-  description: 'Project-level operations for Finalcad One construction projects: project details, project libraries, members, locations (folders / plans / IFC), discussion groups, companies, modules (observations / forms / meetings), observations, forms and form answers, documents, phases, meetings and XLSX/PDF exports.
-
-
-    DERIVED, NOT PUBLISHED BY THE PROVIDER. Finalcad publishes no OpenAPI. This document was mechanically derived by API Evangelist from the first-party public Postman collection "Finalcad One API" served by Finalcad at https://developer.finalcad.com/ (collection JSON: https://developer.finalcad.com/api/collections/10995648/Tz5v1Es2), saved in this repo at collections/finalcad.postman_collection.json. Every path, method, header, query parameter, example request body and example response below is carried over from that collection; nothing was invented. Request/response bodies are typed as generic objects because the collection carries examples, not schemas. Four Finalcad employees'' personal e-mail addresses that appeared in the collection''s example payloads were replaced with placeholders; nothing else was changed.'
+  description: 'Project-level operations for Finalcad One construction projects: project details, project libraries, members, locations (folders / plans / IFC), discussion groups, companies, modules (observations / forms / meetings), observations, forms and form answers, documents, phases, meetings and XLSX/PDF exports.'
   contact:
     name: Finalcad One API — developer portal
     url: https://developer.finalcad.com/
@@ -28,7 +25,44 @@ paths:
     post:
       operationId: exportsCreateCustomReportForForms
       summary: Create custom report for forms
-      description: "You can generate a unit report from a form instance using a custom report template.\n\n Details \n\n project_id \n The ID of the project where the form will be created \n\n body mandatory infos \n Details \n\n form_instance_id \n Id of the form instance \n\n custom_template_id \n id of the custom template \n(returned by the Get Custom template infos endpoint) \n\n output_file_format \n output file format \n(sould be part of the list returned by the Get Custom template infos endpoint) \n\n time_zone \n text of the time zone (defalut to the project timezone)"
+      description: 'You can generate a unit report from a form instance using a custom report template.
+
+
+        Details
+
+
+        project_id
+
+        The ID of the project where the form will be created
+
+
+        body mandatory infos
+
+        Details
+
+
+        form_instance_id
+
+        Id of the form instance
+
+
+        custom_template_id
+
+        id of the custom template
+
+        (returned by the Get Custom template infos endpoint)
+
+
+        output_file_format
+
+        output file format
+
+        (sould be part of the list returned by the Get Custom template infos endpoint)
+
+
+        time_zone
+
+        text of the time zone (defalut to the project timezone)'
       tags:
       - Exports
       parameters:
@@ -82,7 +116,135 @@ paths:
     post:
       operationId: exportsCreateFormsUnitExportInPdf
       summary: Create forms unit export in PDF
-      description: "You can generate a unit PDF report from a selection of form instances.\n\n Details \n\n project_id \n The ID of the project where the form will be created \n\n body mandatory selection info \n Details \n\n form_instance_ids \n list of the Id of the form instances \n\n body optional selection info \n Details \n\n module_id \n Id of the module \n\n status_ids \n list of the status id \n\n priority_ids \n list of the priotities id \n\n form_ids \n list of the form templates ids \n\n plan_ids \n list of the locations ids \n\n folder_ids \n list of the ids of the folders of locations \n\n assignee_ids \n list of assigned users ids \n\n assigned_company_ids \n list of assigned companies ids \n\n creator_ids \n list of creator ids \n\n due_date_from \n minimal due date \n\n due_date_to \n maximal due date \n\n updated_at_from \n updated fter this date \n\n updated_at_to \n updated before this date \n\n Body optional presentation info \n Details \n\n time_zone \n text of the time zone (defalut to the project timezone) \n\n logo1_url \n url of the logo used as company logo \n\n logo2_url \n url of the logo used as customer logo \n\n image_size \n small / medium / large / none \n\n with_linked_items \n if false (default) do not generate informations for linked items \n\n with_linked_items_location \n if false (default) do not generate informations about locations of linked items \n\n only_fileds_with_values \n if true, do not generate informations for the empty fields (false is the default)"
+      description: 'You can generate a unit PDF report from a selection of form instances.
+
+
+        Details
+
+
+        project_id
+
+        The ID of the project where the form will be created
+
+
+        body mandatory selection info
+
+        Details
+
+
+        form_instance_ids
+
+        list of the Id of the form instances
+
+
+        body optional selection info
+
+        Details
+
+
+        module_id
+
+        Id of the module
+
+
+        status_ids
+
+        list of the status id
+
+
+        priority_ids
+
+        list of the priotities id
+
+
+        form_ids
+
+        list of the form templates ids
+
+
+        plan_ids
+
+        list of the locations ids
+
+
+        folder_ids
+
+        list of the ids of the folders of locations
+
+
+        assignee_ids
+
+        list of assigned users ids
+
+
+        assigned_company_ids
+
+        list of assigned companies ids
+
+
+        creator_ids
+
+        list of creator ids
+
+
+        due_date_from
+
+        minimal due date
+
+
+        due_date_to
+
+        maximal due date
+
+
+        updated_at_from
+
+        updated fter this date
+
+
+        updated_at_to
+
+        updated before this date
+
+
+        Body optional presentation info
+
+        Details
+
+
+        time_zone
+
+        text of the time zone (defalut to the project timezone)
+
+
+        logo1_url
+
+        url of the logo used as company logo
+
+
+        logo2_url
+
+        url of the logo used as customer logo
+
+
+        image_size
+
+        small / medium / large / none
+
+
+        with_linked_items
+
+        if false (default) do not generate informations for linked items
+
+
+        with_linked_items_location
+
+        if false (default) do not generate informations about locations of linked items
+
+
+        only_fileds_with_values
+
+        if true, do not generate informations for the empty fields (false is the default)'
       tags:
       - Exports
       parameters:
@@ -143,7 +305,28 @@ paths:
     post:
       operationId: exportsGetFormsUnitExportInPdf
       summary: Get forms unit export in PDF
-      description: "Get the URL of a unit report generated by the \"Create Forms PDF Unit\" endpoint.\n\n Details \n\n project_id \n The ID of the project where the form will be created \n\n body mandatory info \n Details \n\n key \n key returned by \"Create Forms Pdf Unit\" endpoint \n\n NOTICE: if the endpoint return is_available = false, the pdf report is in progress. Please retry later"
+      description: 'Get the URL of a unit report generated by the "Create Forms PDF Unit" endpoint.
+
+
+        Details
+
+
+        project_id
+
+        The ID of the project where the form will be created
+
+
+        body mandatory info
+
+        Details
+
+
+        key
+
+        key returned by "Create Forms Pdf Unit" endpoint
+
+
+        NOTICE: if the endpoint return is_available = false, the pdf report is in progress. Please retry later'
       tags:
       - Exports
       parameters:
@@ -200,7 +383,113 @@ paths:
     post:
       operationId: exportsCreateFormsExportInXlsx
       summary: Create forms export in XLSX
-      description: "Generate a unit PDF report from a selection of form instances.\n\n Details \n\n project_id \n The ID of the project where the form will be created \n\n body mandatory selection info \n Details \n\n module_id \n Id of the module \n\n body optional selection info \n Details \n\n form_instance_ids \n list of the Id of the form instances \n\n status_ids \n list of the status id \n\n priority_ids \n list of the priotities id \n\n form_ids \n list of the form templates ids \n\n plan_ids \n list of the locations ids \n\n assignee_ids \n list of assigned users ids \n\n assigned_company_ids \n list of assigned companies ids \n\n creator_ids \n list of creator ids \n\n due_date_from \n minimal due date \n\n due_date_to \n maximal due date \n\n updated_at_from \n updated fter this date \n\n updated_at_to \n updated before this date \n\n search_term \n\n group_ids \n ids of the groups \n\n phase_ids \n ids of the phases \n\n Body optional presentation info \n Details \n\n time_zone \n text of the time zone (defalut to the project timezone)"
+      description: 'Generate a unit PDF report from a selection of form instances.
+
+
+        Details
+
+
+        project_id
+
+        The ID of the project where the form will be created
+
+
+        body mandatory selection info
+
+        Details
+
+
+        module_id
+
+        Id of the module
+
+
+        body optional selection info
+
+        Details
+
+
+        form_instance_ids
+
+        list of the Id of the form instances
+
+
+        status_ids
+
+        list of the status id
+
+
+        priority_ids
+
+        list of the priotities id
+
+
+        form_ids
+
+        list of the form templates ids
+
+
+        plan_ids
+
+        list of the locations ids
+
+
+        assignee_ids
+
+        list of assigned users ids
+
+
+        assigned_company_ids
+
+        list of assigned companies ids
+
+
+        creator_ids
+
+        list of creator ids
+
+
+        due_date_from
+
+        minimal due date
+
+
+        due_date_to
+
+        maximal due date
+
+
+        updated_at_from
+
+        updated fter this date
+
+
+        updated_at_to
+
+        updated before this date
+
+
+        search_term
+
+
+        group_ids
+
+        ids of the groups
+
+
+        phase_ids
+
+        ids of the phases
+
+
+        Body optional presentation info
+
+        Details
+
+
+        time_zone
+
+        text of the time zone (defalut to the project timezone)'
       tags:
       - Exports
       parameters:
@@ -253,7 +542,108 @@ paths:
     post:
       operationId: exportsCreateObservationsExportInXlsx
       summary: Create observations export in XLSX
-      description: "You can generate a unit PDF report from a selection of form instances.\n\n Details \n\n project_id \n The ID of the project where the form will be created \n\n body optional selection info \n Details \n\n observations_ids \n id of the observations \n\n module_id \n Id of the module \n\n status_ids \n list of the status id \n\n priority_ids \n list of the priotities id \n\n trades_ids \n list of the trades ids \n\n plan_ids \n list of the locations ids \n\n assignee_ids \n list of assigned users ids \n\n assigned_company_ids \n list of assigned companies ids \n\n creator_ids \n list of creator ids \n\n due_date_from \n minimal due date \n\n due_date_to \n maximal due date \n\n created_at_from \n created after this date \n\n created_at_to \n created before this date \n\n search_term \n\n group_ids \n ids of the groups \n\n phase_ids \n ids of the phases \n\n Body optional presentation info \n Details \n\n time_zone \n text of the time zone (defalut to the project timezone)"
+      description: 'You can generate a unit PDF report from a selection of form instances.
+
+
+        Details
+
+
+        project_id
+
+        The ID of the project where the form will be created
+
+
+        body optional selection info
+
+        Details
+
+
+        observations_ids
+
+        id of the observations
+
+
+        module_id
+
+        Id of the module
+
+
+        status_ids
+
+        list of the status id
+
+
+        priority_ids
+
+        list of the priotities id
+
+
+        trades_ids
+
+        list of the trades ids
+
+
+        plan_ids
+
+        list of the locations ids
+
+
+        assignee_ids
+
+        list of assigned users ids
+
+
+        assigned_company_ids
+
+        list of assigned companies ids
+
+
+        creator_ids
+
+        list of creator ids
+
+
+        due_date_from
+
+        minimal due date
+
+
+        due_date_to
+
+        maximal due date
+
+
+        created_at_from
+
+        created after this date
+
+
+        created_at_to
+
+        created before this date
+
+
+        search_term
+
+
+        group_ids
+
+        ids of the groups
+
+
+        phase_ids
+
+        ids of the phases
+
+
+        Body optional presentation info
+
+        Details
+
+
+        time_zone
+
+        text of the time zone (defalut to the project timezone)'
       tags:
       - Exports
       parameters:

@@ -361,7 +361,39 @@ paths:
     get:
       operationId: modulesFormsGetFormCategories
       summary: Get form categories
-      description: "For a given project, get the list of all existing categories\nYou can filter by mmodule and parent category\n\n Endpoint mandatory info \n Details \n\n project_id \n The ID of the project \n\n Endpoint Query params \n Details \n\n module_id \n id of the filtered module id \n\n category_id \n id of the filtered category id \n\n with_disabled \n if true return the disabled categories"
+      description: 'For a given project, get the list of all existing categories
+
+        You can filter by mmodule and parent category
+
+
+        Endpoint mandatory info
+
+        Details
+
+
+        project_id
+
+        The ID of the project
+
+
+        Endpoint Query params
+
+        Details
+
+
+        module_id
+
+        id of the filtered module id
+
+
+        category_id
+
+        id of the filtered category id
+
+
+        with_disabled
+
+        if true return the disabled categories'
       tags:
       - Modules
       parameters:
@@ -621,7 +653,30 @@ paths:
     post:
       operationId: modulesObservationsCreateCommonObservation
       summary: Create common observation
-      description: "Create a model for a given category within a module.\n\n Details \n\n project_Id \n the id of the project to be modified \n\n body mandatory infos \n Details \n\n trade_id \n id of the trade who contain this common observations \n\n names \n list of langages and translations"
+      description: 'Create a model for a given category within a module.
+
+
+        Details
+
+
+        project_Id
+
+        the id of the project to be modified
+
+
+        body mandatory infos
+
+        Details
+
+
+        trade_id
+
+        id of the trade who contain this common observations
+
+
+        names
+
+        list of langages and translations'
       tags:
       - Modules
       parameters:
@@ -689,7 +744,20 @@ paths:
     get:
       operationId: modulesObservationsGetProjectCommonObservation
       summary: Get project common observation
-      description: "Get the details of a common observation (model).\n\n Details \n\n project_id \n the id of the project to be modified \n\n commonObs_id \n id of the common observation to be verified"
+      description: 'Get the details of a common observation (model).
+
+
+        Details
+
+
+        project_id
+
+        the id of the project to be modified
+
+
+        commonObs_id
+
+        id of the common observation to be verified'
       tags:
       - Modules
       parameters:
@@ -752,7 +820,21 @@ paths:
     get:
       operationId: modulesFormsGetFormModules
       summary: Get form modules
-      description: "For a given project, get the list of all existing form modules.\n\n Details \n\n project_id \n The ID of the project where the form has been created \n\n Query params optionals \n\n see Commmon behaviors / differential"
+      description: 'For a given project, get the list of all existing form modules.
+
+
+        Details
+
+
+        project_id
+
+        The ID of the project where the form has been created
+
+
+        Query params optionals
+
+
+        see Commmon behaviors / differential'
       tags:
       - Modules
       parameters:
@@ -879,7 +961,52 @@ paths:
     put:
       operationId: modulesFormsUpdateFormModule
       summary: Update form module
-      description: "You can modify a specific module in a given project.\n\n Endpoint mandatory infos \n Details \n\n project_Id \n the id of the project to be modified \n\n module_id \n the id of the module to be modified \n\n body optional infos \n \n Details \n\n name \n \n new name of the module \n\n icon \n \n name of the icon \n\n color \n \n rbg value of the color \n\n enabled \n \n enable or disable the module"
+      description: 'You can modify a specific module in a given project.
+
+
+        Endpoint mandatory infos
+
+        Details
+
+
+        project_Id
+
+        the id of the project to be modified
+
+
+        module_id
+
+        the id of the module to be modified
+
+
+        body optional infos
+
+
+        Details
+
+
+        name
+
+
+        new name of the module
+
+
+        icon
+
+
+        name of the icon
+
+
+        color
+
+
+        rbg value of the color
+
+
+        enabled
+
+
+        enable or disable the module'
       tags:
       - Modules
       parameters:
@@ -943,7 +1070,20 @@ paths:
     get:
       operationId: modulesFormsGetFormModule
       summary: Get form module
-      description: "You can get information about one module.\n\n Details \n\n project_Id \n the id of the project to be checked \n\n module_id \n the id of the module to be checked"
+      description: 'You can get information about one module.
+
+
+        Details
+
+
+        project_Id
+
+        the id of the project to be checked
+
+
+        module_id
+
+        the id of the module to be checked'
       tags:
       - Modules
       parameters:
@@ -1005,7 +1145,30 @@ paths:
     post:
       operationId: modulesFormsAddFormTemplateLink
       summary: Add form template link
-      description: "Activate a form template in a module.\n\n Details \n\n project_Id \n the id of the project to be modified \n\n module_id \n the id of the module to be modified \n\n body mandatory infos \n Details \n\n form_id \n id of the form template"
+      description: 'Activate a form template in a module.
+
+
+        Details
+
+
+        project_Id
+
+        the id of the project to be modified
+
+
+        module_id
+
+        the id of the module to be modified
+
+
+        body mandatory infos
+
+        Details
+
+
+        form_id
+
+        id of the form template'
       tags:
       - Modules
       parameters:
@@ -1075,7 +1238,30 @@ paths:
     post:
       operationId: modulesFormsRemoveFormTemplateLink
       summary: Remove form template link
-      description: "Deactivate a form template in a module.\n\n Details \n\n project_Id \n the id of the project to be modified \n\n module_id \n the id of the module to be modified \n\n body mandatory infos \n Details \n\n form_id \n id the the template"
+      description: 'Deactivate a form template in a module.
+
+
+        Details
+
+
+        project_Id
+
+        the id of the project to be modified
+
+
+        module_id
+
+        the id of the module to be modified
+
+
+        body mandatory infos
+
+        Details
+
+
+        form_id
+
+        id the the template'
       tags:
       - Modules
       parameters:
@@ -1145,7 +1331,103 @@ paths:
     post:
       operationId: modulesObservationsCreateObservationModule
       summary: Create observation module
-      description: "You can create a custom observation module in a specific project.\n\n Endpoint mandatory infos \n Details \n\n project_Id \n the id of the project to be modified \n\n body mandatory infos \n details \n\n name \n name of the new module \n\n icon \n name of the icon \n(look at finalcad libraries) \n\n color \n rbg value of the color \n(look at finalcad libraries) \n\n body optional infos \n \n Details \n\n settings \n\n is_observation_library_mandatory \n activate or not the trade choice \n(default is false) \n\n is_description_mandatory \n activate or not the description input \n(default is true) \n\n is_photo_mandatory \n activate or not the photo selection (mobile only) (default is true) \n\n is_company_mandatory \n activate or not the company choice (mobile only)(default is true) \n\n is_group_mandatory \n activate or not the group link choice (default is false) \n\n is_observation_library_enabled \n OBSOLETE activate or not the trade choice \n(default is false) \n\n is_description_enabled \n OBSOLETE activate or not the description input \n(default is true) \n\n is_photo_enabled \n OBSOLETE activate or not the photo selection (mobile only) (default is true) \n\n is_company_enabled \n OBSOLETE activate or not the company choice (mobile only)(default is true)"
+      description: 'You can create a custom observation module in a specific project.
+
+
+        Endpoint mandatory infos
+
+        Details
+
+
+        project_Id
+
+        the id of the project to be modified
+
+
+        body mandatory infos
+
+        details
+
+
+        name
+
+        name of the new module
+
+
+        icon
+
+        name of the icon
+
+        (look at finalcad libraries)
+
+
+        color
+
+        rbg value of the color
+
+        (look at finalcad libraries)
+
+
+        body optional infos
+
+
+        Details
+
+
+        settings
+
+
+        is_observation_library_mandatory
+
+        activate or not the trade choice
+
+        (default is false)
+
+
+        is_description_mandatory
+
+        activate or not the description input
+
+        (default is true)
+
+
+        is_photo_mandatory
+
+        activate or not the photo selection (mobile only) (default is true)
+
+
+        is_company_mandatory
+
+        activate or not the company choice (mobile only)(default is true)
+
+
+        is_group_mandatory
+
+        activate or not the group link choice (default is false)
+
+
+        is_observation_library_enabled
+
+        OBSOLETE activate or not the trade choice
+
+        (default is false)
+
+
+        is_description_enabled
+
+        OBSOLETE activate or not the description input
+
+        (default is true)
+
+
+        is_photo_enabled
+
+        OBSOLETE activate or not the photo selection (mobile only) (default is true)
+
+
+        is_company_enabled
+
+        OBSOLETE activate or not the company choice (mobile only)(default is true)'
       tags:
       - Modules
       parameters:
@@ -1221,7 +1503,23 @@ paths:
     get:
       operationId: modulesObservationsGetObservationModules
       summary: Get observation modules
-      description: "For a given project, get the list of all existing observations modules.\n\n Endpoint mandatory info \n Details \n\n project_id \n The ID of the project where the form has been created \n\n Query params optionals \n\n see Commmon behaviors / differential"
+      description: 'For a given project, get the list of all existing observations modules.
+
+
+        Endpoint mandatory info
+
+        Details
+
+
+        project_id
+
+        The ID of the project where the form has been created
+
+
+        Query params optionals
+
+
+        see Commmon behaviors / differential'
       tags:
       - Modules
       parameters:
@@ -1295,7 +1593,30 @@ paths:
     post:
       operationId: modulesFormsCreateFormModuleBySuggestion
       summary: Create form module by suggestion
-      description: "You can create a module using a standard form description (named a suggestion).\n\n The suggestions can be found in the \"Get modules suggestions\" at the organization or workspace level, depending on your use case.\n\n Endpoint mandatory infos \n Details \n\n project_Id \n the id of the project to be modified \n\n body mandatory infos \n Details \n\n from_module_id \n ID the the suggestion to be used as template"
+      description: 'You can create a module using a standard form description (named a suggestion).
+
+
+        The suggestions can be found in the "Get modules suggestions" at the organization or workspace level, depending on your use case.
+
+
+        Endpoint mandatory infos
+
+        Details
+
+
+        project_Id
+
+        the id of the project to be modified
+
+
+        body mandatory infos
+
+        Details
+
+
+        from_module_id
+
+        ID the the suggestion to be used as template'
       tags:
       - Modules
       parameters:
@@ -1359,7 +1680,30 @@ paths:
     post:
       operationId: modulesMeetingsEnableMeetingModule
       summary: Enable meeting module
-      description: "You can enable or disable the meeting module for a specific project.\n\n If the meeting module is already enabled, it will be returned without any modifications.\n\n Endpoint mandatory infos \n Details \n\n project_Id \n the id of the project to be modified \n\n body mandatory infos \n details \n\n enabled \n enable or disable the module"
+      description: 'You can enable or disable the meeting module for a specific project.
+
+
+        If the meeting module is already enabled, it will be returned without any modifications.
+
+
+        Endpoint mandatory infos
+
+        Details
+
+
+        project_Id
+
+        the id of the project to be modified
+
+
+        body mandatory infos
+
+        details
+
+
+        enabled
+
+        enable or disable the module'
       tags:
       - Modules
       parameters:
@@ -1431,7 +1775,25 @@ paths:
     get:
       operationId: modulesMeetingsGetMeetingModule
       summary: Get meeting module
-      description: "You can obtain information about a specific meeting module.\n\n The meeting module ID can be retrieved from the \"Enable module meeting\" endpoint.\n\n Endpoint mandatory infos \n Details \n\n project_Id \n the id of the project to be checked \n\n module_id \n the id of the module to be checked"
+      description: 'You can obtain information about a specific meeting module.
+
+
+        The meeting module ID can be retrieved from the "Enable module meeting" endpoint.
+
+
+        Endpoint mandatory infos
+
+        Details
+
+
+        project_Id
+
+        the id of the project to be checked
+
+
+        module_id
+
+        the id of the module to be checked'
       tags:
       - Modules
       parameters:
@@ -1495,7 +1857,52 @@ paths:
     put:
       operationId: modulesMeetingsUpdateMeetingModule
       summary: Update meeting module
-      description: "You can modify a specific meeting module within a particular project. The meeting module ID can be retrieved from the \"Enable module meeting\" endpoint.\n\n Endpoint mandatory infos \n Details \n\n project_Id \n the id of the project to be modified \n\n module_id \n the id of the module to be modified \n\n body optional infos \n Details \n\n name \n new name of the module \n\n icon \n name of the icon \n\n color \n rbg value of the color \n\n order \n position order \n\n enabled \n enable or disable the module"
+      description: 'You can modify a specific meeting module within a particular project. The meeting module ID can be retrieved from the "Enable module meeting" endpoint.
+
+
+        Endpoint mandatory infos
+
+        Details
+
+
+        project_Id
+
+        the id of the project to be modified
+
+
+        module_id
+
+        the id of the module to be modified
+
+
+        body optional infos
+
+        Details
+
+
+        name
+
+        new name of the module
+
+
+        icon
+
+        name of the icon
+
+
+        color
+
+        rbg value of the color
+
+
+        order
+
+        position order
+
+
+        enabled
+
+        enable or disable the module'
       tags:
       - Modules
       parameters:
@@ -1573,7 +1980,30 @@ paths:
     post:
       operationId: modulesObservationsCreateObservationModuleBasedOnSuggestions
       summary: Create observation module based on suggestions
-      description: "You can create an observation module using a standard description (referred to as a suggestion).\n\n These suggestions can be obtained from the module suggestions available at the organization or workspace level, depending on your use case.\n\n Endpoint mandatory infos \n Details \n\n project_Id \n the id of the project to be modified \n\n body mandatory infos \n Details \n\n from_module_id \n ID the the suggestion to be used as template"
+      description: 'You can create an observation module using a standard description (referred to as a suggestion).
+
+
+        These suggestions can be obtained from the module suggestions available at the organization or workspace level, depending on your use case.
+
+
+        Endpoint mandatory infos
+
+        Details
+
+
+        project_Id
+
+        the id of the project to be modified
+
+
+        body mandatory infos
+
+        Details
+
+
+        from_module_id
+
+        ID the the suggestion to be used as template'
       tags:
       - Modules
       parameters:
@@ -1621,7 +2051,55 @@ paths:
     put:
       operationId: modulesObservationsModifyObservationModule
       summary: Modify observation module
-      description: "You can modify a specific module in a specific project.\n\n Details \n\n project_Id \n the id of the project to be modified \n\n module_id \n the id of the module to be modified \n\n body optional infos \n Details \n\n name \n new name of the module \n\n icon \n name of the icon \n\n color \n rbg value of the color \n\n order \n position order \n\n enabled \n enable or disable the module \n\n settings \n please look at create module observation documentation"
+      description: 'You can modify a specific module in a specific project.
+
+
+        Details
+
+
+        project_Id
+
+        the id of the project to be modified
+
+
+        module_id
+
+        the id of the module to be modified
+
+
+        body optional infos
+
+        Details
+
+
+        name
+
+        new name of the module
+
+
+        icon
+
+        name of the icon
+
+
+        color
+
+        rbg value of the color
+
+
+        order
+
+        position order
+
+
+        enabled
+
+        enable or disable the module
+
+
+        settings
+
+        please look at create module observation documentation'
       tags:
       - Modules
       parameters:
@@ -1672,7 +2150,20 @@ paths:
     get:
       operationId: modulesObservationsGetObservationModule
       summary: Get observation module
-      description: "You can get information about one module.\n\n Details \n\n project_Id \n the id of the project to be checked \n\n module_id \n the id of the module to be checked"
+      description: 'You can get information about one module.
+
+
+        Details
+
+
+        project_Id
+
+        the id of the project to be checked
+
+
+        module_id
+
+        the id of the module to be checked'
       tags:
       - Modules
       parameters:
@@ -1748,7 +2239,30 @@ paths:
     post:
       operationId: modulesObservationsCreateTrade
       summary: Create trade
-      description: "Create a category for a given module.\n\n Details \n\n project_Id \n the id of the project to be modified \n\n body mandatory infos \n Details \n\n module_id \n ID of the module who use this trades \n\n names \n list of language and names translation"
+      description: 'Create a category for a given module.
+
+
+        Details
+
+
+        project_Id
+
+        the id of the project to be modified
+
+
+        body mandatory infos
+
+        Details
+
+
+        module_id
+
+        ID of the module who use this trades
+
+
+        names
+
+        list of language and names translation'
       tags:
       - Modules
       parameters:
@@ -1816,7 +2330,25 @@ paths:
     get:
       operationId: modulesObservationsGetProjectTradesByModule
       summary: Get project trades by module
-      description: "Given the project and a module you can get the list of the trades for this module\n\n Endpoint mandatory infos \n Details \n\n projectId \n the id of the project to be modified \n\n Query mandatory parameters \n\n module_id \n id of the module"
+      description: 'Given the project and a module you can get the list of the trades for this module
+
+
+        Endpoint mandatory infos
+
+        Details
+
+
+        projectId
+
+        the id of the project to be modified
+
+
+        Query mandatory parameters
+
+
+        module_id
+
+        id of the module'
       tags:
       - Modules
       parameters:
@@ -2081,7 +2613,20 @@ paths:
     get:
       operationId: modulesObservationsGetProjectTrade
       summary: Get project trade
-      description: "Given the project, you can get the details of a trade.\n\n Details \n\n projectId \n the id of the project to be modified \n\n tradeId \n Id of the trade to be verified"
+      description: 'Given the project, you can get the details of a trade.
+
+
+        Details
+
+
+        projectId
+
+        the id of the project to be modified
+
+
+        tradeId
+
+        Id of the trade to be verified'
       tags:
       - Modules
       parameters:
@@ -2144,7 +2689,22 @@ paths:
     get:
       operationId: modulesObservationsGetProjectCommonObservationsByTrade
       summary: Get project common observations by trade
-      description: "For a given project you can list the model (= common observation) available for a trade\n\n Endpoint mandatory infos \n Details \n\n project_id \n the id of the project to be modified \n\n trade_id \n the id the the trade"
+      description: 'For a given project you can list the model (= common observation) available for a trade
+
+
+        Endpoint mandatory infos
+
+        Details
+
+
+        project_id
+
+        the id of the project to be modified
+
+
+        trade_id
+
+        the id the the trade'
       tags:
       - Modules
       parameters:

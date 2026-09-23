@@ -3,10 +3,7 @@ info:
   title: Finalcad One Project Phases API
   version: '2.41'
   summary: 'Project-level operations for Finalcad One construction projects: project details, project libraries, members, locations (folders / plans / IFC), discussion groups, companies, modules (observations / forms / meetings), observations, forms and form answers, documents, phases, meetings and XLSX/PDF exports.'
-  description: 'Project-level operations for Finalcad One construction projects: project details, project libraries, members, locations (folders / plans / IFC), discussion groups, companies, modules (observations / forms / meetings), observations, forms and form answers, documents, phases, meetings and XLSX/PDF exports.
-
-
-    DERIVED, NOT PUBLISHED BY THE PROVIDER. Finalcad publishes no OpenAPI. This document was mechanically derived by API Evangelist from the first-party public Postman collection "Finalcad One API" served by Finalcad at https://developer.finalcad.com/ (collection JSON: https://developer.finalcad.com/api/collections/10995648/Tz5v1Es2), saved in this repo at collections/finalcad.postman_collection.json. Every path, method, header, query parameter, example request body and example response below is carried over from that collection; nothing was invented. Request/response bodies are typed as generic objects because the collection carries examples, not schemas. Four Finalcad employees'' personal e-mail addresses that appeared in the collection''s example payloads were replaced with placeholders; nothing else was changed.'
+  description: 'Project-level operations for Finalcad One construction projects: project details, project libraries, members, locations (folders / plans / IFC), discussion groups, companies, modules (observations / forms / meetings), observations, forms and form answers, documents, phases, meetings and XLSX/PDF exports.'
   contact:
     name: Finalcad One API — developer portal
     url: https://developer.finalcad.com/
@@ -28,7 +25,21 @@ paths:
     get:
       operationId: phasesGetPhases
       summary: Get phases
-      description: "Before updating your phase list, you might want to have an overview of the phases already deployed in your project. This helps you manage your project based on the current context.\n\n Details \n\n project_Id \n the id of the project to be checked \n\n Query params optionals \n\n see Commmon behaviors / differential"
+      description: 'Before updating your phase list, you might want to have an overview of the phases already deployed in your project. This helps you manage your project based on the current context.
+
+
+        Details
+
+
+        project_Id
+
+        the id of the project to be checked
+
+
+        Query params optionals
+
+
+        see Commmon behaviors / differential'
       tags:
       - Phases
       parameters:
@@ -116,7 +127,38 @@ paths:
     post:
       operationId: phasesCreatePhase
       summary: Create phase
-      description: "You can create a list of phases for your project.\n\n Creating a new phase for a project only involves giving it a name.\n\n Phases are ordered, which determines where each specific phase is displayed in the list of phases.\n\n Endpoint mandatory infos \n Details \n\n project_Id \n the id of the project to be modified \n\n body mandatory infos \n Details \n\n name \n name of the phase \n\n order \n ordre of the new phase in the list of phase"
+      description: 'You can create a list of phases for your project.
+
+
+        Creating a new phase for a project only involves giving it a name.
+
+
+        Phases are ordered, which determines where each specific phase is displayed in the list of phases.
+
+
+        Endpoint mandatory infos
+
+        Details
+
+
+        project_Id
+
+        the id of the project to be modified
+
+
+        body mandatory infos
+
+        Details
+
+
+        name
+
+        name of the phase
+
+
+        order
+
+        ordre of the new phase in the list of phase'
       tags:
       - Phases
       parameters:
@@ -174,7 +216,35 @@ paths:
     put:
       operationId: phasesUpdatePhase
       summary: Update phase
-      description: "Update a phase.\n\n Details \n\n project_Id \n the id of the project to be modified \n\n phase_id \n id of the phase to be modified \n\n body optional infos \n Details \n\n name \n new name of the phase \n\n order \n new order of the phase in the list"
+      description: 'Update a phase.
+
+
+        Details
+
+
+        project_Id
+
+        the id of the project to be modified
+
+
+        phase_id
+
+        id of the phase to be modified
+
+
+        body optional infos
+
+        Details
+
+
+        name
+
+        new name of the phase
+
+
+        order
+
+        new order of the phase in the list'
       tags:
       - Phases
       parameters:
@@ -242,7 +312,25 @@ paths:
     delete:
       operationId: phasesDeletePhase
       summary: Delete phase
-      description: "Delete a phase from the list.\n\n Phases already assigned to existing items will be tagged as deleted entities.\n\n Endpoint mandatory infos \n Details \n\n project_Id \n the id of the project to be modified \n\n phase_id \n id of the phase to be deleted"
+      description: 'Delete a phase from the list.
+
+
+        Phases already assigned to existing items will be tagged as deleted entities.
+
+
+        Endpoint mandatory infos
+
+        Details
+
+
+        project_Id
+
+        the id of the project to be modified
+
+
+        phase_id
+
+        id of the phase to be deleted'
       tags:
       - Phases
       parameters:

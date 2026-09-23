@@ -3,10 +3,7 @@ info:
   title: Finalcad One Organization Management Members API
   version: '2.41'
   summary: 'Organization-level administration of a Finalcad One Enterprise tenant: workspaces, members and roles, observation status / trade / common-observation / priority / form-template libraries, form and observation module types, data referentials, and Power BI dataset configuration.'
-  description: 'Organization-level administration of a Finalcad One Enterprise tenant: workspaces, members and roles, observation status / trade / common-observation / priority / form-template libraries, form and observation module types, data referentials, and Power BI dataset configuration.
-
-
-    DERIVED, NOT PUBLISHED BY THE PROVIDER. Finalcad publishes no OpenAPI. This document was mechanically derived by API Evangelist from the first-party public Postman collection "Finalcad One API" served by Finalcad at https://developer.finalcad.com/ (collection JSON: https://developer.finalcad.com/api/collections/10995648/Tz5v1Es2), saved in this repo at collections/finalcad.postman_collection.json. Every path, method, header, query parameter, example request body and example response below is carried over from that collection; nothing was invented. Request/response bodies are typed as generic objects because the collection carries examples, not schemas. Four Finalcad employees'' personal e-mail addresses that appeared in the collection''s example payloads were replaced with placeholders; nothing else was changed.'
+  description: 'Organization-level administration of a Finalcad One Enterprise tenant: workspaces, members and roles, observation status / trade / common-observation / priority / form-template libraries, form and observation module types, data referentials, and Power BI dataset configuration.'
   contact:
     name: Finalcad One API — developer portal
     url: https://developer.finalcad.com/
@@ -28,7 +25,17 @@ paths:
     get:
       operationId: membersGetUserInformation
       summary: Get user information
-      description: "You can check member info.\n\n Endpoint mandatory infos \n Details \n\n user_id \n the id of the user to be checked"
+      description: 'You can check member info.
+
+
+        Endpoint mandatory infos
+
+        Details
+
+
+        user_id
+
+        the id of the user to be checked'
       tags:
       - Members
       parameters:
@@ -83,7 +90,50 @@ paths:
     post:
       operationId: membersAddMembers
       summary: Add members
-      description: "To ease this step, you can directly add a list of members. Your invitations can fall into two cases:\n\n The email is already linked to a Finalcad One account. The member will be directly added to the project and receive a notification.\n\n The email is not linked to a Finalcad One account. The member will be invited to create an account by email. Meanwhile, the invitations will be visible as pending in the organization member list.\n\n To invite a member to your project, an email needs to be associated with a project role. See Get roles . \n\n Endpoint mandatory infos \n Details \n\n organization_id \n the id of the project to be modified \n\n body mandatory infos \n Details \n\n role_users \n list of roles and users \neach contains : \n\n role_id \n organization role id to be used \nif missing , use the default one \n\n users_info \n list of user_id or email as string"
+      description: 'To ease this step, you can directly add a list of members. Your invitations can fall into two cases:
+
+
+        The email is already linked to a Finalcad One account. The member will be directly added to the project and receive a notification.
+
+
+        The email is not linked to a Finalcad One account. The member will be invited to create an account by email. Meanwhile, the invitations will be visible as pending in the organization member list.
+
+
+        To invite a member to your project, an email needs to be associated with a project role. See Get roles .
+
+
+        Endpoint mandatory infos
+
+        Details
+
+
+        organization_id
+
+        the id of the project to be modified
+
+
+        body mandatory infos
+
+        Details
+
+
+        role_users
+
+        list of roles and users
+
+        each contains :
+
+
+        role_id
+
+        organization role id to be used
+
+        if missing , use the default one
+
+
+        users_info
+
+        list of user_id or email as string'
       tags:
       - Members
       parameters:
@@ -130,7 +180,32 @@ paths:
     post:
       operationId: membersChangeRole
       summary: Change role
-      description: "You can change the role of a user.\n\n Endpoint mandatory infos \n Details \n\n organization_id \n the id of the project to be modified \n\n body mandatory infos \n Details \n\n role_id \n organization role id to be used \n\n users_info \n list of user_id to be changed"
+      description: 'You can change the role of a user.
+
+
+        Endpoint mandatory infos
+
+        Details
+
+
+        organization_id
+
+        the id of the project to be modified
+
+
+        body mandatory infos
+
+        Details
+
+
+        role_id
+
+        organization role id to be used
+
+
+        users_info
+
+        list of user_id to be changed'
       tags:
       - Members
       parameters:
@@ -176,7 +251,37 @@ paths:
     post:
       operationId: membersChangeSeveralRoles
       summary: Change several roles
-      description: "You can change several roles for several users.\n\n Endpoint mandatory infos \n Details \n\n organization_id \n the id of the organization to be modified \n\n body mandatory infos \n Details \n --- \n\n List of \n\n role_id \n organization role id to be used \n\n users_info \n list of user_id to be changed"
+      description: 'You can change several roles for several users.
+
+
+        Endpoint mandatory infos
+
+        Details
+
+
+        organization_id
+
+        the id of the organization to be modified
+
+
+        body mandatory infos
+
+        Details
+
+        ---
+
+
+        List of
+
+
+        role_id
+
+        organization role id to be used
+
+
+        users_info
+
+        list of user_id to be changed'
       tags:
       - Members
       parameters:
@@ -217,7 +322,45 @@ paths:
     post:
       operationId: membersGetMembers
       summary: Get members
-      description: "Before adding members to your project, you might want to have an overview of the current organization users and their roles.\n\n Endpoint mandatory infos \n Details \n\n organization_id \n the id of the organization to be checked \n\n Query params optionals \n\n see Commmon behaviors / differential \n\n Body optional infos \n Details \n\n search_term \n search term for the email user field \n\n roles \n list of organization roles to filter the users list \nthis filed is ignored if the search_term is used \n\n with_processing_members \n include or not the processing users"
+      description: 'Before adding members to your project, you might want to have an overview of the current organization users and their roles.
+
+
+        Endpoint mandatory infos
+
+        Details
+
+
+        organization_id
+
+        the id of the organization to be checked
+
+
+        Query params optionals
+
+
+        see Commmon behaviors / differential
+
+
+        Body optional infos
+
+        Details
+
+
+        search_term
+
+        search term for the email user field
+
+
+        roles
+
+        list of organization roles to filter the users list
+
+        this filed is ignored if the search_term is used
+
+
+        with_processing_members
+
+        include or not the processing users'
       tags:
       - Members
       parameters:
@@ -1172,7 +1315,19 @@ paths:
     get:
       operationId: membersGetRoles
       summary: Get roles
-      description: "You can get organization roles here that you will associate with new members.\n\n Organization admin : Manages the organization and sees all projects\n\n Workspace manager : Can manage the workspace and can create and manage their projects\n\n Organization member : Can create and manage their projects\n\n Organization guest : Can see their projects"
+      description: 'You can get organization roles here that you will associate with new members.
+
+
+        Organization admin : Manages the organization and sees all projects
+
+
+        Workspace manager : Can manage the workspace and can create and manage their projects
+
+
+        Organization member : Can create and manage their projects
+
+
+        Organization guest : Can see their projects'
       tags:
       - Members
       parameters:
@@ -1470,7 +1625,29 @@ paths:
     post:
       operationId: membersRemoveMembers
       summary: Remove members
-      description: "You can remove users from an organization.\n\n Endpoint mandatory infos \n Details \n\n organisation_id \n the id of the organizationto be modified \n\n body mandatory infos \n Details \n\n user_ids \n List of ids to be removed \n This is not the User_id but the Id field returned by Get members"
+      description: 'You can remove users from an organization.
+
+
+        Endpoint mandatory infos
+
+        Details
+
+
+        organisation_id
+
+        the id of the organizationto be modified
+
+
+        body mandatory infos
+
+        Details
+
+
+        user_ids
+
+        List of ids to be removed
+
+        This is not the User_id but the Id field returned by Get members'
       tags:
       - Members
       parameters:

@@ -3,10 +3,7 @@ info:
   title: Finalcad One Webhooks API
   version: '2.41'
   summary: Webhook subscription management for the Finalcad One platform — list subscribable event codes, and create, read, update and delete hooks that POST to a client URL when an event fires.
-  description: 'Webhook subscription management for the Finalcad One platform — list subscribable event codes, and create, read, update and delete hooks that POST to a client URL when an event fires.
-
-
-    DERIVED, NOT PUBLISHED BY THE PROVIDER. Finalcad publishes no OpenAPI. This document was mechanically derived by API Evangelist from the first-party public Postman collection "Finalcad One API" served by Finalcad at https://developer.finalcad.com/ (collection JSON: https://developer.finalcad.com/api/collections/10995648/Tz5v1Es2), saved in this repo at collections/finalcad.postman_collection.json. Every path, method, header, query parameter, example request body and example response below is carried over from that collection; nothing was invented. Request/response bodies are typed as generic objects because the collection carries examples, not schemas. Four Finalcad employees'' personal e-mail addresses that appeared in the collection''s example payloads were replaced with placeholders; nothing else was changed.'
+  description: Webhook subscription management for the Finalcad One platform — list subscribable event codes, and create, read, update and delete hooks that POST to a client URL when an event fires.
   contact:
     name: Finalcad One API — developer portal
     url: https://developer.finalcad.com/
@@ -28,7 +25,41 @@ paths:
     post:
       operationId: createHook
       summary: Create hook
-      description: "Subscribe to a new webhook.\n\n body mandatory info \n Details \n\n event \n code of the event \n\n business_organization_id \n id of the organization \n\n project_id \n id of the project \n\n client_url \n url to be called then the hook occurs \n\n body optionals info \n\n client_token \n\n client_header_key"
+      description: 'Subscribe to a new webhook.
+
+
+        body mandatory info
+
+        Details
+
+
+        event
+
+        code of the event
+
+
+        business_organization_id
+
+        id of the organization
+
+
+        project_id
+
+        id of the project
+
+
+        client_url
+
+        url to be called then the hook occurs
+
+
+        body optionals info
+
+
+        client_token
+
+
+        client_header_key'
       tags:
       - Webhooks
       requestBody:
@@ -85,7 +116,9 @@ paths:
     get:
       operationId: getEventsList
       summary: Get events list
-      description: "Get the list of all possible events. \nA generic event automatically subscribes to all sub-events (those with the same hundreds digit)."
+      description: 'Get the list of all possible events.
+
+        A generic event automatically subscribes to all sub-events (those with the same hundreds digit).'
       tags:
       - Webhooks
       responses:
@@ -126,7 +159,15 @@ paths:
     get:
       operationId: getHooksForTheOrganization
       summary: Get hooks for the organization
-      description: "Get the list of subscribed webhook events for a given organization.\n\n Details \n\n organization_id \n id of the organization"
+      description: 'Get the list of subscribed webhook events for a given organization.
+
+
+        Details
+
+
+        organization_id
+
+        id of the organization'
       tags:
       - Webhooks
       parameters:
@@ -192,7 +233,17 @@ paths:
     get:
       operationId: getHook
       summary: Get hook
-      description: "Get the details of a specific webhook.\n\n Endpoint mandatory info \n Details \n\n hook_id \n The ID of the hook"
+      description: 'Get the details of a specific webhook.
+
+
+        Endpoint mandatory info
+
+        Details
+
+
+        hook_id
+
+        The ID of the hook'
       tags:
       - Webhooks
       parameters:
@@ -245,7 +296,15 @@ paths:
     delete:
       operationId: deleteHook
       summary: Delete hook
-      description: "You can delete a subscription.\n\n Details \n\n hook_id \n id of the hook"
+      description: 'You can delete a subscription.
+
+
+        Details
+
+
+        hook_id
+
+        id of the hook'
       tags:
       - Webhooks
       parameters:
@@ -279,7 +338,21 @@ paths:
     put:
       operationId: updateHook
       summary: Update hook
-      description: "You can update a subscription.\n\n Details \n\n hook_id \n id of the hook \n\n body params \n\n same as hook creation"
+      description: 'You can update a subscription.
+
+
+        Details
+
+
+        hook_id
+
+        id of the hook
+
+
+        body params
+
+
+        same as hook creation'
       tags:
       - Webhooks
       parameters:

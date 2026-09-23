@@ -3,10 +3,7 @@ info:
   title: Finalcad One Organization Management Referential API
   version: '2.41'
   summary: 'Organization-level administration of a Finalcad One Enterprise tenant: workspaces, members and roles, observation status / trade / common-observation / priority / form-template libraries, form and observation module types, data referentials, and Power BI dataset configuration.'
-  description: 'Organization-level administration of a Finalcad One Enterprise tenant: workspaces, members and roles, observation status / trade / common-observation / priority / form-template libraries, form and observation module types, data referentials, and Power BI dataset configuration.
-
-
-    DERIVED, NOT PUBLISHED BY THE PROVIDER. Finalcad publishes no OpenAPI. This document was mechanically derived by API Evangelist from the first-party public Postman collection "Finalcad One API" served by Finalcad at https://developer.finalcad.com/ (collection JSON: https://developer.finalcad.com/api/collections/10995648/Tz5v1Es2), saved in this repo at collections/finalcad.postman_collection.json. Every path, method, header, query parameter, example request body and example response below is carried over from that collection; nothing was invented. Request/response bodies are typed as generic objects because the collection carries examples, not schemas. Four Finalcad employees'' personal e-mail addresses that appeared in the collection''s example payloads were replaced with placeholders; nothing else was changed.'
+  description: 'Organization-level administration of a Finalcad One Enterprise tenant: workspaces, members and roles, observation status / trade / common-observation / priority / form-template libraries, form and observation module types, data referentials, and Power BI dataset configuration.'
   contact:
     name: Finalcad One API — developer portal
     url: https://developer.finalcad.com/
@@ -28,7 +25,21 @@ paths:
     get:
       operationId: referentialGetDataReferentials
       summary: Get data referentials
-      description: "Get the list of all data referentials for your organization.\n\n Details \n\n organization_id \n id of your organization \n\n Query params optionals \n\n see Commmon behaviors / differential"
+      description: 'Get the list of all data referentials for your organization.
+
+
+        Details
+
+
+        organization_id
+
+        id of your organization
+
+
+        Query params optionals
+
+
+        see Commmon behaviors / differential'
       tags:
       - Referential
       parameters:
@@ -148,7 +159,30 @@ paths:
     post:
       operationId: referentialCreateDataReferential
       summary: Create data referential
-      description: "Create a new referential.\n\n Details \n\n organization_id \n id of your organization \n\n body mandatory params \n Details \n\n media_id \n Id the a previously uploaded media file \n\n name \n name of the referential"
+      description: 'Create a new referential.
+
+
+        Details
+
+
+        organization_id
+
+        id of your organization
+
+
+        body mandatory params
+
+        Details
+
+
+        media_id
+
+        Id the a previously uploaded media file
+
+
+        name
+
+        name of the referential'
       tags:
       - Referential
       parameters:
@@ -212,7 +246,20 @@ paths:
     get:
       operationId: referentialGetDataReferential
       summary: Get data referential
-      description: "Get the list of all data referentials for your organization.\n\n Details \n\n organization_id \n id of your organization \n\n referential_id \n id of the referential"
+      description: 'Get the list of all data referentials for your organization.
+
+
+        Details
+
+
+        organization_id
+
+        id of your organization
+
+
+        referential_id
+
+        id of the referential'
       tags:
       - Referential
       parameters:
@@ -296,7 +343,22 @@ paths:
     delete:
       operationId: referentialDeleteDataReferential
       summary: Delete data referential
-      description: "Delete a referential.\n\n Endpoint mandatory parameters \n Details \n\n organization_id \n id of your organization \n\n referential_id \n id of the referential"
+      description: 'Delete a referential.
+
+
+        Endpoint mandatory parameters
+
+        Details
+
+
+        organization_id
+
+        id of your organization
+
+
+        referential_id
+
+        id of the referential'
       tags:
       - Referential
       parameters:
@@ -337,7 +399,30 @@ paths:
     put:
       operationId: referentialRenameDataReferential
       summary: Rename data referential
-      description: "Rename a referential.\n\n Details \n\n organization_id \n id of your organization \n\n referential_id \n if of the referential \n\n body mandatory params \n Details \n\n name \n name of the referential"
+      description: 'Rename a referential.
+
+
+        Details
+
+
+        organization_id
+
+        id of your organization
+
+
+        referential_id
+
+        if of the referential
+
+
+        body mandatory params
+
+        Details
+
+
+        name
+
+        name of the referential'
       tags:
       - Referential
       parameters:
@@ -429,7 +514,35 @@ paths:
     put:
       operationId: referentialUpdateDataReferential
       summary: Update data referential
-      description: "Replace a new referential's content.\n\n It is your responsibility to verify that the file structure is the same as the previous one. \n\n Endpoint mandatory parameters \n Details \n\n organization_id \n id of your organization \n\n referential_id \n id of the referential \n\n body mandatory params \n Details \n\n media_id \n Id the a previously uploaded media file"
+      description: 'Replace a new referential''s content.
+
+
+        It is your responsibility to verify that the file structure is the same as the previous one.
+
+
+        Endpoint mandatory parameters
+
+        Details
+
+
+        organization_id
+
+        id of your organization
+
+
+        referential_id
+
+        id of the referential
+
+
+        body mandatory params
+
+        Details
+
+
+        media_id
+
+        Id the a previously uploaded media file'
       tags:
       - Referential
       parameters:

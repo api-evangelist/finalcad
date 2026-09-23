@@ -3,10 +3,7 @@ info:
   title: Finalcad One Project Documents API
   version: '2.41'
   summary: 'Project-level operations for Finalcad One construction projects: project details, project libraries, members, locations (folders / plans / IFC), discussion groups, companies, modules (observations / forms / meetings), observations, forms and form answers, documents, phases, meetings and XLSX/PDF exports.'
-  description: 'Project-level operations for Finalcad One construction projects: project details, project libraries, members, locations (folders / plans / IFC), discussion groups, companies, modules (observations / forms / meetings), observations, forms and form answers, documents, phases, meetings and XLSX/PDF exports.
-
-
-    DERIVED, NOT PUBLISHED BY THE PROVIDER. Finalcad publishes no OpenAPI. This document was mechanically derived by API Evangelist from the first-party public Postman collection "Finalcad One API" served by Finalcad at https://developer.finalcad.com/ (collection JSON: https://developer.finalcad.com/api/collections/10995648/Tz5v1Es2), saved in this repo at collections/finalcad.postman_collection.json. Every path, method, header, query parameter, example request body and example response below is carried over from that collection; nothing was invented. Request/response bodies are typed as generic objects because the collection carries examples, not schemas. Four Finalcad employees'' personal e-mail addresses that appeared in the collection''s example payloads were replaced with placeholders; nothing else was changed.'
+  description: 'Project-level operations for Finalcad One construction projects: project details, project libraries, members, locations (folders / plans / IFC), discussion groups, companies, modules (observations / forms / meetings), observations, forms and form answers, documents, phases, meetings and XLSX/PDF exports.'
   contact:
     name: Finalcad One API — developer portal
     url: https://developer.finalcad.com/
@@ -28,7 +25,52 @@ paths:
     post:
       operationId: documentsCreateDocumentOrFolders
       summary: Create document or folders
-      description: "Folders allow for document organization, as well as preview and context. Each folder comes with a name.\n\n You can specify where to add the folder in your hierarchy by designating its parent (another folder or the root).\n\n All kinds of documents can be added within this document module.\n\n Endpoint mandatory infos \n Details \n\n project_Id \n the id of the project to be modified \n\n body mandatory infos \n Details \n\n name \n name of the folder or document \n\n media_id \n id of the document media \nsould be present only for document generation \n(a folder has no media) \n\n body optional infos \n Details \n\n parent_id \n the id of the parent folder in the hierarchy"
+      description: 'Folders allow for document organization, as well as preview and context. Each folder comes with a name.
+
+
+        You can specify where to add the folder in your hierarchy by designating its parent (another folder or the root).
+
+
+        All kinds of documents can be added within this document module.
+
+
+        Endpoint mandatory infos
+
+        Details
+
+
+        project_Id
+
+        the id of the project to be modified
+
+
+        body mandatory infos
+
+        Details
+
+
+        name
+
+        name of the folder or document
+
+
+        media_id
+
+        id of the document media
+
+        sould be present only for document generation
+
+        (a folder has no media)
+
+
+        body optional infos
+
+        Details
+
+
+        parent_id
+
+        the id of the parent folder in the hierarchy'
       tags:
       - Documents
       parameters:
@@ -97,7 +139,23 @@ paths:
     get:
       operationId: documentsGetDocumentsAndFolders
       summary: Get documents and folders
-      description: "Before creating folders or documents, you might want to have an overview of those already deployed in your project. This helps you manage them based on the current context.\n\n Endpoint mandatory infos \n Details \n\n project_Id \n the id of the project to be modified \n\n Query params optionals \n\n see Commmon behaviors / differential"
+      description: 'Before creating folders or documents, you might want to have an overview of those already deployed in your project. This helps you manage them based on the current context.
+
+
+        Endpoint mandatory infos
+
+        Details
+
+
+        project_Id
+
+        the id of the project to be modified
+
+
+        Query params optionals
+
+
+        see Commmon behaviors / differential'
       tags:
       - Documents
       parameters:
@@ -165,7 +223,23 @@ paths:
     get:
       operationId: documentsGetDocumentsAndFoldersByParent
       summary: Get documents and folders by parent
-      description: "Before creating folders or documents, you might want to have an overview of those already deployed in your project. This helps you manage them based on the current context.\n\n Endpoint mandatory infos \n Details \n\n project_Id \n the id of the project to be modified \n\n Query params optionals \n\n see Commmon behaviors / differential"
+      description: 'Before creating folders or documents, you might want to have an overview of those already deployed in your project. This helps you manage them based on the current context.
+
+
+        Endpoint mandatory infos
+
+        Details
+
+
+        project_Id
+
+        the id of the project to be modified
+
+
+        Query params optionals
+
+
+        see Commmon behaviors / differential'
       tags:
       - Documents
       parameters:
@@ -251,7 +325,25 @@ paths:
     get:
       operationId: documentsGetDocumentOrFolder
       summary: Get document or folder
-      description: "Before creating folders or documents, you might want to have an overview of those already deployed in your project. This helps you manage them based on the current context.\n\n You can retrieve both folders and documents.\n\n Endpoint mandatory infos \n Details \n\n project_Id \n the id of the project to be modified \n\n document_id \n id the the document or folde to be checked"
+      description: 'Before creating folders or documents, you might want to have an overview of those already deployed in your project. This helps you manage them based on the current context.
+
+
+        You can retrieve both folders and documents.
+
+
+        Endpoint mandatory infos
+
+        Details
+
+
+        project_Id
+
+        the id of the project to be modified
+
+
+        document_id
+
+        id the the document or folde to be checked'
       tags:
       - Documents
       parameters:
@@ -311,7 +403,42 @@ paths:
     put:
       operationId: documentsUpdateDocumentOrFolder
       summary: Update document or folder
-      description: "You can move and edit folder names. You can also move, edit document names, and update documents.\n\n Endpoint mandatory infos \n Details \n\n project_Id \n the id of the project to be modified \n\n document_id \n id of the document or folder to be modified \n\n body optional infos \n Details \n\n name \n new name of the document or folder \n\n parent_id \n the id of the new parent folder in the hierarchy \n\n media_id \n id of new media (for document change only)"
+      description: 'You can move and edit folder names. You can also move, edit document names, and update documents.
+
+
+        Endpoint mandatory infos
+
+        Details
+
+
+        project_Id
+
+        the id of the project to be modified
+
+
+        document_id
+
+        id of the document or folder to be modified
+
+
+        body optional infos
+
+        Details
+
+
+        name
+
+        new name of the document or folder
+
+
+        parent_id
+
+        the id of the new parent folder in the hierarchy
+
+
+        media_id
+
+        id of new media (for document change only)'
       tags:
       - Documents
       parameters:
@@ -380,7 +507,20 @@ paths:
     delete:
       operationId: documentsDeleteDocumentOrFolder
       summary: Delete document or folder
-      description: "You can delete a document or a folder of documents.\n\n Details \n\n project_Id \n the id of the project to be modified \n\n document_id \n id of the document or folder to be deleted"
+      description: 'You can delete a document or a folder of documents.
+
+
+        Details
+
+
+        project_Id
+
+        the id of the project to be modified
+
+
+        document_id
+
+        id of the document or folder to be deleted'
       tags:
       - Documents
       parameters:

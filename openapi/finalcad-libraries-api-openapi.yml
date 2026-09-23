@@ -24,7 +24,13 @@ paths:
     get:
       operationId: getListOfTimeZones
       summary: Get list of time zones
-      description: "Each project is linked to a specific time zone.\n\n By default, if not specified, Paris time is chosen. To create your project, you may want to select a different time zone.\n\n To assist you in this process, you can request the list of available time zones here."
+      description: 'Each project is linked to a specific time zone.
+
+
+        By default, if not specified, Paris time is chosen. To create your project, you may want to select a different time zone.
+
+
+        To assist you in this process, you can request the list of available time zones here.'
       tags:
       - Libraries
       responses:
@@ -109,7 +115,48 @@ paths:
     put:
       operationId: librariesObservationLibraryAddOrUpdateOrganizationCommonObservations
       summary: Add or update organization common observations
-      description: "For a given category, you can add models to your library. For each, you can define translations. You can also update existing models.\n\n Compared to creation, you need to specify the ID of the ones you want to manage.\n\n Endpoint mandatory parameters \n Details \n\n organization_id \n id of your organization \n\n Body parameters \n Details \n\n a list of \n\n trade_id \n id of the category \n\n id \n id of the model if modified \n\n icon \n icon name \n\n names \n list of names and langages"
+      description: 'For a given category, you can add models to your library. For each, you can define translations. You can also update existing models.
+
+
+        Compared to creation, you need to specify the ID of the ones you want to manage.
+
+
+        Endpoint mandatory parameters
+
+        Details
+
+
+        organization_id
+
+        id of your organization
+
+
+        Body parameters
+
+        Details
+
+
+        a list of
+
+
+        trade_id
+
+        id of the category
+
+
+        id
+
+        id of the model if modified
+
+
+        icon
+
+        icon name
+
+
+        names
+
+        list of names and langages'
       tags:
       - Libraries
       parameters:
@@ -180,7 +227,35 @@ paths:
     delete:
       operationId: librariesObservationLibraryDeleteOrganizationCommonObservations
       summary: Delete organization common observations
-      description: "You can provide the list of model IDs and their corresponding category IDs that you want to remove from your library. Those values won't be used as default project values, but they will still be usable in existing projects.\n\n Endpoint mandatory parameters \n Details \n\n organization_id \n id of your organization \n\n Body parameters \n Details \n\n a list of \n\n id \n id of the model \n\n trade_id \n id of the category"
+      description: 'You can provide the list of model IDs and their corresponding category IDs that you want to remove from your library. Those values won''t be used as default project values, but they will still be usable in existing projects.
+
+
+        Endpoint mandatory parameters
+
+        Details
+
+
+        organization_id
+
+        id of your organization
+
+
+        Body parameters
+
+        Details
+
+
+        a list of
+
+
+        id
+
+        id of the model
+
+
+        trade_id
+
+        id of the category'
       tags:
       - Libraries
       parameters:
@@ -230,7 +305,30 @@ paths:
     get:
       operationId: librariesFormTemplatesGetOrganizationFormTemplates
       summary: Get organization form templates
-      description: "Get the list of form templates in your organization.\n\n Endpoint mandatory parameters \n Details \n\n organization_id \n id of your organization \n\n Query params optionals \n\n limit \n number max of elements to get \n\n offset \n index of the first returned element"
+      description: 'Get the list of form templates in your organization.
+
+
+        Endpoint mandatory parameters
+
+        Details
+
+
+        organization_id
+
+        id of your organization
+
+
+        Query params optionals
+
+
+        limit
+
+        number max of elements to get
+
+
+        offset
+
+        index of the first returned element'
       tags:
       - Libraries
       parameters:
@@ -298,7 +396,22 @@ paths:
     get:
       operationId: librariesFormTemplatesGetFormTemplate
       summary: Get form template
-      description: "You can get a complete form template description.\n\n Endpoint mandatory infos \n Details \n\n project_Id \n the id of the project to be modified \n\n form_id \n id the the form template used by the form instance (look at get form detail to found it)"
+      description: 'You can get a complete form template description.
+
+
+        Endpoint mandatory infos
+
+        Details
+
+
+        project_Id
+
+        the id of the project to be modified
+
+
+        form_id
+
+        id the the form template used by the form instance (look at get form detail to found it)'
       tags:
       - Libraries
       parameters:
@@ -515,7 +628,22 @@ paths:
     get:
       operationId: librariesFormTemplatesGetCustomTemplateAssociationInformation
       summary: Get custom template association information
-      description: "Get the association between a form template and a custom report template.\n\n Endpoint mandatory parameters \n Details \n\n organization_id \n id of your organization \n\n form_id \n the id of the form template"
+      description: 'Get the association between a form template and a custom report template.
+
+
+        Endpoint mandatory parameters
+
+        Details
+
+
+        organization_id
+
+        id of your organization
+
+
+        form_id
+
+        the id of the form template'
       tags:
       - Libraries
       parameters:
@@ -591,7 +719,30 @@ paths:
     post:
       operationId: librariesFormTemplatesSetOrganizationFormTemplateCustomReportAssociation
       summary: Set organization form template custom report association
-      description: "Set the association between a form template and a custom report template previously uploaded.\n\n Endpoint mandatory parameters \n Details \n\n organization_id \n id of your organization \n\n form_id \n id the the form template \n\n Body mandatory params \n\n media_id \n id returned by the media upload process"
+      description: 'Set the association between a form template and a custom report template previously uploaded.
+
+
+        Endpoint mandatory parameters
+
+        Details
+
+
+        organization_id
+
+        id of your organization
+
+
+        form_id
+
+        id the the form template
+
+
+        Body mandatory params
+
+
+        media_id
+
+        id returned by the media upload process'
       tags:
       - Libraries
       parameters:
@@ -645,7 +796,22 @@ paths:
     get:
       operationId: librariesFormTemplatesGetFormTemplatesStatuses
       summary: Get form templates statuses
-      description: "For a given form template you can list his statuses\n\n Endpoint mandatory infos \n Details \n\n organization_id \n the id of your organization \n\n form_id \n the form template id"
+      description: 'For a given form template you can list his statuses
+
+
+        Endpoint mandatory infos
+
+        Details
+
+
+        organization_id
+
+        the id of your organization
+
+
+        form_id
+
+        the form template id'
       tags:
       - Libraries
       parameters:
@@ -715,7 +881,35 @@ paths:
     get:
       operationId: librariesModulesFormModuleTypeGetModules
       summary: Get modules
-      description: "Get the list of all existing form modules for a workspace.\n\n Endpoint mandatory info \n Details \n\n organization_id \n The ID of your organization \n\n workspace_id \n id of your workspace \n\n Query params optionals \n\n limit \n number max of rows returned \n\n offset \n number of the first record in the list"
+      description: 'Get the list of all existing form modules for a workspace.
+
+
+        Endpoint mandatory info
+
+        Details
+
+
+        organization_id
+
+        The ID of your organization
+
+
+        workspace_id
+
+        id of your workspace
+
+
+        Query params optionals
+
+
+        limit
+
+        number max of rows returned
+
+
+        offset
+
+        number of the first record in the list'
       tags:
       - Libraries
       parameters:
@@ -1047,7 +1241,57 @@ paths:
     post:
       operationId: librariesModulesFormModuleTypeCreateModule
       summary: Create module
-      description: "You can create a custom form module in a specific workspace.\n\n Endpoint mandatory infos \n Details \n\n organization_Id \n the id of the organization to be modified \n\n workspace_id \n id of your workspace \n\n body mandatory infos \n Details \n\n name \n name of the new module \n\n icon \n name of the icon \n(look at finalcad libraries) \n\n color \n rbg value of the color \n(look at finalcad libraries) \n\n visibility \n visibiity of the module in the module suggestion s list in the project creation \nDefault=>checked by default \nAvailable => unchecked by default \nNotAvailable => not in the list"
+      description: 'You can create a custom form module in a specific workspace.
+
+
+        Endpoint mandatory infos
+
+        Details
+
+
+        organization_Id
+
+        the id of the organization to be modified
+
+
+        workspace_id
+
+        id of your workspace
+
+
+        body mandatory infos
+
+        Details
+
+
+        name
+
+        name of the new module
+
+
+        icon
+
+        name of the icon
+
+        (look at finalcad libraries)
+
+
+        color
+
+        rbg value of the color
+
+        (look at finalcad libraries)
+
+
+        visibility
+
+        visibiity of the module in the module suggestion s list in the project creation
+
+        Default=>checked by default
+
+        Available => unchecked by default
+
+        NotAvailable => not in the list'
       tags:
       - Libraries
       parameters:
@@ -1115,7 +1359,32 @@ paths:
     post:
       operationId: librariesModulesFormModuleTypeDeleteModule
       summary: Delete module
-      description: "You can delete a specific module in a specific workspace.\n\n Endpoint mandatory infos \n Details \n\n organization_Id \n the id of the project to be modified \n\n workspace_id \n id of your workspace \n\n body mandatory infos \n Details \n\n module_ids \n ist of modules ids"
+      description: 'You can delete a specific module in a specific workspace.
+
+
+        Endpoint mandatory infos
+
+        Details
+
+
+        organization_Id
+
+        the id of the project to be modified
+
+
+        workspace_id
+
+        id of your workspace
+
+
+        body mandatory infos
+
+        Details
+
+
+        module_ids
+
+        ist of modules ids'
       tags:
       - Libraries
       parameters:
@@ -1164,7 +1433,27 @@ paths:
     get:
       operationId: librariesModulesGetModulesSuggestions
       summary: Get modules suggestions
-      description: "Get all the predefined module suggestions for project creation if the project should be created in a workspace or an organization.\n\n Endpoint mandatory info \n Details \n\n organization_id \n The ID of your organization \n\n Endpoint Query optionals info \n Details \n\n workspace_id \n id of your workspace"
+      description: 'Get all the predefined module suggestions for project creation if the project should be created in a workspace or an organization.
+
+
+        Endpoint mandatory info
+
+        Details
+
+
+        organization_id
+
+        The ID of your organization
+
+
+        Endpoint Query optionals info
+
+        Details
+
+
+        workspace_id
+
+        id of your workspace'
       tags:
       - Libraries
       parameters:
@@ -3259,7 +3548,62 @@ paths:
     put:
       operationId: librariesModulesFormModuleTypeUpdateModule
       summary: Update module
-      description: "You can modify a specific form module in a specific workspace.\n\n Endpoint mandatory infos \n Details \n\n organization_Id \n the id of the organization to be modified \n\n workspace_id \n id of your workspace \n\n module_id \n id of the module to be modified \n\n body options infos \n Details \n\n name \n name of the new module \n\n icon \n name of the icon \n(look at finalcad libraries) \n\n color \n rbg value of the color \n(look at finalcad libraries) \n\n visibility \n visibiity of the module in the module suggestion s list in project creation \nDefault=>checked by default \nAvailable => unchecked by default \nNotAvailable => not in the list"
+      description: 'You can modify a specific form module in a specific workspace.
+
+
+        Endpoint mandatory infos
+
+        Details
+
+
+        organization_Id
+
+        the id of the organization to be modified
+
+
+        workspace_id
+
+        id of your workspace
+
+
+        module_id
+
+        id of the module to be modified
+
+
+        body options infos
+
+        Details
+
+
+        name
+
+        name of the new module
+
+
+        icon
+
+        name of the icon
+
+        (look at finalcad libraries)
+
+
+        color
+
+        rbg value of the color
+
+        (look at finalcad libraries)
+
+
+        visibility
+
+        visibiity of the module in the module suggestion s list in project creation
+
+        Default=>checked by default
+
+        Available => unchecked by default
+
+        NotAvailable => not in the list'
       tags:
       - Libraries
       parameters:
@@ -3331,7 +3675,38 @@ paths:
     post:
       operationId: librariesModulesFormModuleTypeCreateCategory
       summary: Create category
-      description: "You can create a new category in your module in your organization.\n\n Endpoint mandatory info \n Details \n\n organization_id \n The ID of your organization \n\n module_id \n id of your module \n\n Body params mandatory \n\n name \n name of the category \n\n Body params optionals \n\n parent_id \n parent category id if any"
+      description: 'You can create a new category in your module in your organization.
+
+
+        Endpoint mandatory info
+
+        Details
+
+
+        organization_id
+
+        The ID of your organization
+
+
+        module_id
+
+        id of your module
+
+
+        Body params mandatory
+
+
+        name
+
+        name of the category
+
+
+        Body params optionals
+
+
+        parent_id
+
+        parent category id if any'
       tags:
       - Libraries
       parameters:
@@ -3400,7 +3775,35 @@ paths:
     put:
       operationId: librariesModulesFormModuleTypeUpdateCategory
       summary: Update category
-      description: "You can rename a category in your module at the organization level.\n\n Endpoint mandatory info \n Details \n\n organization_id \n The ID of your organization \n\n module_id \n id of your module \n\n category_id \n id of the category \n\n Body params mandatory \n\n name \n new name of the category"
+      description: 'You can rename a category in your module at the organization level.
+
+
+        Endpoint mandatory info
+
+        Details
+
+
+        organization_id
+
+        The ID of your organization
+
+
+        module_id
+
+        id of your module
+
+
+        category_id
+
+        id of the category
+
+
+        Body params mandatory
+
+
+        name
+
+        new name of the category'
       tags:
       - Libraries
       parameters:
@@ -3454,7 +3857,27 @@ paths:
     delete:
       operationId: librariesModulesFormModuleTypeDeleteCategory
       summary: Delete category
-      description: "You can delete a category in your module at the organization level.\n\n Endpoint mandatory info \n Details \n\n organization_id \n The ID of your organization \n\n module_id \n id of your module \n\n category_id \n id of the category"
+      description: 'You can delete a category in your module at the organization level.
+
+
+        Endpoint mandatory info
+
+        Details
+
+
+        organization_id
+
+        The ID of your organization
+
+
+        module_id
+
+        id of your module
+
+
+        category_id
+
+        id of the category'
       tags:
       - Libraries
       parameters:
@@ -3506,7 +3929,37 @@ paths:
     post:
       operationId: librariesModulesFormModuleTypeAddFormLink
       summary: Add form link
-      description: "You can link form templates to a module in a workspace.\n\n Endpoint mandatory infos \n Details \n\n organization_id \n id of your organization \n\n workspace_id \n id of your workspace \n\n module_id \n id of the module \n\n body mandatory infos \n Details \n\n form_ids \n list of ids of the forms"
+      description: 'You can link form templates to a module in a workspace.
+
+
+        Endpoint mandatory infos
+
+        Details
+
+
+        organization_id
+
+        id of your organization
+
+
+        workspace_id
+
+        id of your workspace
+
+
+        module_id
+
+        id of the module
+
+
+        body mandatory infos
+
+        Details
+
+
+        form_ids
+
+        list of ids of the forms'
       tags:
       - Libraries
       parameters:
@@ -3562,7 +4015,37 @@ paths:
     post:
       operationId: librariesModulesFormModuleTypeRemoveFormLink
       summary: Remove form link
-      description: "You can remove the link of form templates to a module in a workspace.\n\n Endpoint mandatory infos \n Details \n\n organization_id \n id of your organization \n\n workspace_id \n id of your workspace \n\n module_id \n id of the module \n\n body mandatory infos \n Details \n\n form_ids \n list of ids of the forms"
+      description: 'You can remove the link of form templates to a module in a workspace.
+
+
+        Endpoint mandatory infos
+
+        Details
+
+
+        organization_id
+
+        id of your organization
+
+
+        workspace_id
+
+        id of your workspace
+
+
+        module_id
+
+        id of the module
+
+
+        body mandatory infos
+
+        Details
+
+
+        form_ids
+
+        list of ids of the forms'
       tags:
       - Libraries
       parameters:
@@ -3634,7 +4117,43 @@ paths:
     get:
       operationId: librariesPriorityLibraryGetOrganizationPrioritiesLibrary
       summary: Get organization priorities library
-      description: "Before updating your priorities, you might want to have an overview of the ones deployed in your organization.\n\n This helps you manage your organization based on the current context.\n\n Endpoint mandatory parameters \n Details \n\n organization_id \n id of your organization \n\n Query params optionals \n\n limit \n number max of elements to get \n\n offset \n index of the first returned element \n\n Quary mandatory params \n détail \n\n module_type \n Observations or Forms"
+      description: 'Before updating your priorities, you might want to have an overview of the ones deployed in your organization.
+
+
+        This helps you manage your organization based on the current context.
+
+
+        Endpoint mandatory parameters
+
+        Details
+
+
+        organization_id
+
+        id of your organization
+
+
+        Query params optionals
+
+
+        limit
+
+        number max of elements to get
+
+
+        offset
+
+        index of the first returned element
+
+
+        Quary mandatory params
+
+        détail
+
+
+        module_type
+
+        Observations or Forms'
       tags:
       - Libraries
       parameters:
@@ -3921,7 +4440,69 @@ paths:
     put:
       operationId: librariesPriorityLibraryUpdateOrganizationPrioritiesLibrary
       summary: Update organization priorities library
-      description: "Update your list of priorities.\n\n This cannot be done one by one. you need to manage your entire list of observation or form priorities to preserve all existing priorities. So, in case you want to...\n\n add new priorities to your list, you need to get the existing list, add the new ones to this list, and then send your request\n\n remove priorities from your list, you need to get the existing list, remove the targeted ones, and then send the request\n\n update some priorities, you need to get the existing list, change the targeted field values, and then send the request\n\n Endpoint mandatory parameters \n Details \n\n organization_id \n id of your organization \n\n Body parameters \n détail \n\n module_type \n observation or form \n\n and a list of \n\n position \n order in the list \n\n color \n rgb code of the color \n\n icon \n icon name \n\n is_default \n true for the default one \nfalse else \n\n names \n list of names and langages"
+      description: 'Update your list of priorities.
+
+
+        This cannot be done one by one. you need to manage your entire list of observation or form priorities to preserve all existing priorities. So, in case you want to...
+
+
+        add new priorities to your list, you need to get the existing list, add the new ones to this list, and then send your request
+
+
+        remove priorities from your list, you need to get the existing list, remove the targeted ones, and then send the request
+
+
+        update some priorities, you need to get the existing list, change the targeted field values, and then send the request
+
+
+        Endpoint mandatory parameters
+
+        Details
+
+
+        organization_id
+
+        id of your organization
+
+
+        Body parameters
+
+        détail
+
+
+        module_type
+
+        observation or form
+
+
+        and a list of
+
+
+        position
+
+        order in the list
+
+
+        color
+
+        rgb code of the color
+
+
+        icon
+
+        icon name
+
+
+        is_default
+
+        true for the default one
+
+        false else
+
+
+        names
+
+        list of names and langages'
       tags:
       - Libraries
       parameters:
@@ -4309,7 +4890,30 @@ paths:
     get:
       operationId: librariesObservationStatusLibraryGetOrganizationObservationStatusLibrary
       summary: Get organization observation status library
-      description: "Before updating your observation statuses, you might want to have an overview of the ones deployed in your organization. This helps you manage your organization based on the current context.\n\n Endpoint mandatory parameters \n Details \n\n organization_id \n id of your organization \n\n Query params optionals \n\n limit \n number max of elements to get \n\n offset \n index of the first returned element"
+      description: 'Before updating your observation statuses, you might want to have an overview of the ones deployed in your organization. This helps you manage your organization based on the current context.
+
+
+        Endpoint mandatory parameters
+
+        Details
+
+
+        organization_id
+
+        id of your organization
+
+
+        Query params optionals
+
+
+        limit
+
+        number max of elements to get
+
+
+        offset
+
+        index of the first returned element'
       tags:
       - Libraries
       parameters:
@@ -4561,7 +5165,79 @@ paths:
     put:
       operationId: librariesObservationStatusLibraryUpdateOrganizationObservationStatusLibrary
       summary: Update organization observation status library
-      description: "Update your list of observation statuses. This cannot be done one by one; you need to manage the entire list. The behavior is aligned with the update of organization priorities.\n\n Endpoint mandatory parameters \n Details \n\n organization_id \n id of your organization \n\n Body parameters \n Details \n\n projects_ids \n observation or formlist of projects ids to be modified \nnull for modifiing the organization itself \n\n and a list of \n\n id \n id of the status if exist \n\n position \n order in the list \n\n color \n rgb code of the color \n\n icon \n icon name \n\n is_default \n true for the default one \nfalse else \n\n names \n list of names and langages \n\n to_statuses \n list of next statuses in the workflow \n\n id \n id of the status \n\n project_role_ids \n usable in this roles"
+      description: 'Update your list of observation statuses. This cannot be done one by one; you need to manage the entire list. The behavior is aligned with the update of organization priorities.
+
+
+        Endpoint mandatory parameters
+
+        Details
+
+
+        organization_id
+
+        id of your organization
+
+
+        Body parameters
+
+        Details
+
+
+        projects_ids
+
+        observation or formlist of projects ids to be modified
+
+        null for modifiing the organization itself
+
+
+        and a list of
+
+
+        id
+
+        id of the status if exist
+
+
+        position
+
+        order in the list
+
+
+        color
+
+        rgb code of the color
+
+
+        icon
+
+        icon name
+
+
+        is_default
+
+        true for the default one
+
+        false else
+
+
+        names
+
+        list of names and langages
+
+
+        to_statuses
+
+        list of next statuses in the workflow
+
+
+        id
+
+        id of the status
+
+
+        project_role_ids
+
+        usable in this roles'
       tags:
       - Libraries
       parameters:
@@ -4799,7 +5475,30 @@ paths:
     get:
       operationId: librariesObservationLibraryGetOrganizationTradesAndCommonObservations
       summary: Get organization trades and common observations
-      description: "Before updating your observation library, you might want to have an overview of the ones deployed in your organization. This helps you manage your organization based on the current context.\n\n Endpoint mandatory parameters \n Details \n\n organization_id \n id of your organization \n\n Query params optionals \n\n limit \n number max of elements to get \n\n offset \n index of the first returned element"
+      description: 'Before updating your observation library, you might want to have an overview of the ones deployed in your organization. This helps you manage your organization based on the current context.
+
+
+        Endpoint mandatory parameters
+
+        Details
+
+
+        organization_id
+
+        id of your organization
+
+
+        Query params optionals
+
+
+        limit
+
+        number max of elements to get
+
+
+        offset
+
+        index of the first returned element'
       tags:
       - Libraries
       parameters:
@@ -4862,7 +5561,38 @@ paths:
     put:
       operationId: librariesObservationLibraryAddOrUpdateOrganizationTrades
       summary: Add or update organization trades
-      description: "You can add categories to your library. For each, you can define translations. You can update existing categories.\n\n Compared to category creation, you need to specify the ID of the category you want to manage.\n\n Endpoint mandatory parameters \n Details \n\n organization_id \n id of your organization \n\n Body parameters \n Details \n\n a list of \n\n id \n id of the category \n\n names \n list of names and langages"
+      description: 'You can add categories to your library. For each, you can define translations. You can update existing categories.
+
+
+        Compared to category creation, you need to specify the ID of the category you want to manage.
+
+
+        Endpoint mandatory parameters
+
+        Details
+
+
+        organization_id
+
+        id of your organization
+
+
+        Body parameters
+
+        Details
+
+
+        a list of
+
+
+        id
+
+        id of the category
+
+
+        names
+
+        list of names and langages'
       tags:
       - Libraries
       parameters:
@@ -4928,7 +5658,25 @@ paths:
     delete:
       operationId: librariesObservationLibraryDeleteOrganizationTrades
       summary: Delete organization trades
-      description: "You can provide the list of category IDs you want to remove from your library. Those values won't be used as default project values, but they will still be usable in existing projects.\n\n Endpoint mandatory parameters \n Details \n\n organization_id \n id of your organization \n\n Body parameters \n Details \n\n a list of ids"
+      description: 'You can provide the list of category IDs you want to remove from your library. Those values won''t be used as default project values, but they will still be usable in existing projects.
+
+
+        Endpoint mandatory parameters
+
+        Details
+
+
+        organization_id
+
+        id of your organization
+
+
+        Body parameters
+
+        Details
+
+
+        a list of ids'
       tags:
       - Libraries
       parameters:
@@ -4977,7 +5725,28 @@ paths:
     delete:
       operationId: librariesFormTemplatesDeleteOrganizationFormTemplate
       summary: Delete organization form template
-      description: "You can provide the list of form template IDs you want to remove from your library. The templates will still be usable in existing projects.\n\n Deletion cannot be undone.\n\n Endpoint mandatory parameters \n Details \n\n organization_id \n id of your organization \n\n Body parameters \n Details \n\n a list of ids"
+      description: 'You can provide the list of form template IDs you want to remove from your library. The templates will still be usable in existing projects.
+
+
+        Deletion cannot be undone.
+
+
+        Endpoint mandatory parameters
+
+        Details
+
+
+        organization_id
+
+        id of your organization
+
+
+        Body parameters
+
+        Details
+
+
+        a list of ids'
       tags:
       - Libraries
       parameters:

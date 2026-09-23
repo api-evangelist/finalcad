@@ -3,10 +3,7 @@ info:
   title: Finalcad One Project Forms API
   version: '2.41'
   summary: 'Project-level operations for Finalcad One construction projects: project details, project libraries, members, locations (folders / plans / IFC), discussion groups, companies, modules (observations / forms / meetings), observations, forms and form answers, documents, phases, meetings and XLSX/PDF exports.'
-  description: 'Project-level operations for Finalcad One construction projects: project details, project libraries, members, locations (folders / plans / IFC), discussion groups, companies, modules (observations / forms / meetings), observations, forms and form answers, documents, phases, meetings and XLSX/PDF exports.
-
-
-    DERIVED, NOT PUBLISHED BY THE PROVIDER. Finalcad publishes no OpenAPI. This document was mechanically derived by API Evangelist from the first-party public Postman collection "Finalcad One API" served by Finalcad at https://developer.finalcad.com/ (collection JSON: https://developer.finalcad.com/api/collections/10995648/Tz5v1Es2), saved in this repo at collections/finalcad.postman_collection.json. Every path, method, header, query parameter, example request body and example response below is carried over from that collection; nothing was invented. Request/response bodies are typed as generic objects because the collection carries examples, not schemas. Four Finalcad employees'' personal e-mail addresses that appeared in the collection''s example payloads were replaced with placeholders; nothing else was changed.'
+  description: 'Project-level operations for Finalcad One construction projects: project details, project libraries, members, locations (folders / plans / IFC), discussion groups, companies, modules (observations / forms / meetings), observations, forms and form answers, documents, phases, meetings and XLSX/PDF exports.'
   contact:
     name: Finalcad One API — developer portal
     url: https://developer.finalcad.com/
@@ -28,7 +25,311 @@ paths:
     post:
       operationId: formsCreateAnswer
       summary: Create answer
-      description: "Based on a form ID, you can fill the different fields of the form. Here is the list of field types you can fill from the API:\n\n Short answer\n\n Paragraph\n\n Single choice\n\n Multiple choice\n\n Control\n\n Phone\n\n Email\n\n Disclaimer\n\n Grid\n\n Signature\n\n Linked files\n\n To do so, you have to get the field ID and type by using the \"Get form answer\" endpoint. Include the following info in the endpoint.\n\n Endpoint mandatory info \n Details \n\n project_id \n The ID of the project where the form has been created \n\n Body mandatory info \n Details \n\n form_instance_id \n The ID of the form instance \n\n field_id \n The ID of the field you want to update \n\n Depending on type_field_presentation and type_field_data for each field you have to fill in the endpoint the following information\n\n Type \n type_field_data \n type_field_presentation \n Other field data \n Value to fill in the endpoint \n\n Text \n Text \n ShortAnswer \n \n value_string \n\n Paragraph \n Text \n Paragraph \n \n value_string \n\n Phone number \n Text \n PhoneNumber \n \n value_string \n\n Email \n Text \n Email \n \n value_string \n\n Number \n Number \n ShortAnswer \n \n value_numeric \n\n Date \n Calendar \n ShortAnswer \n form_field_sa_calendar.format_calendar \n=DateOnly \n value_date1 \n\n Time \n Calendar \n ShortAnswer \n form_field_sa_calendar.format_calendar \n=TimeOnly \n value_time1 \n\n Date&Time \n Calendar \n ShortAnswer \n form_field_sa_calendar.format_calendar \n=DateAndTime \n value_date1 and value_time1 \n\n RadioButton \n Text \n SingleChoice \n \n array_field_choices \n\n Checkboxes \n Text \n MultipleChoice \n \n array_field_choices \n\n OkKo (control) \nOkKoNeutral \n Text \n Control \n \n array_field_choices \n\n OkKo+NA \n Text \n Control \n form_field_sa_control.na_values_allowed=true \n na_value/ array_field_choices \n\n Grid \n Resources \n \n FormLink \n\n Disclaimer \n Text \n Disclaimer \n \n value_boolean \n\n Linked file \n Resources \n Attachments \n \n see below \n\n Signature \n Resources \n Signature \n \n see below \n\n Theses fields can not be set \n\n formula \n Text \n Formula \n\n For attaching files to a linked files field \nfirst, create a text answer for the field\nnext,use the 'link file to answer' to attach a media\nrepeat theses 2 steps for attaching another file\n\n For attaching files to to a signature field \nfirst, create a text answer for the field\nnext,use the 'link file to answer' to attach an image media\n\n For attaching items to a control field \nfirst, create an answer for the field\nnext,use the 'link item to answer' to attach an item\nrepeat the second step for attaching another item\n\n For grid row creation ,\nthe body should include 2 others keys :\ncreate_form_template_instance with value=true\ncreate_form_template_instance_for_grid with value=true\n\n For grid field creation \nthe body should include 2 others keys\ncreate_form_template_instance with value=true\nform_template_instance_id with value returned in value_form_template_instance_id by the grid creation\n\n It is not recommended to create a grid row without filling its fields\n\n For paragraph's you can add formated text html syntax with the following tag's"
+      description: 'Based on a form ID, you can fill the different fields of the form. Here is the list of field types you can fill from the API:
+
+
+        Short answer
+
+
+        Paragraph
+
+
+        Single choice
+
+
+        Multiple choice
+
+
+        Control
+
+
+        Phone
+
+
+        Email
+
+
+        Disclaimer
+
+
+        Grid
+
+
+        Signature
+
+
+        Linked files
+
+
+        To do so, you have to get the field ID and type by using the "Get form answer" endpoint. Include the following info in the endpoint.
+
+
+        Endpoint mandatory info
+
+        Details
+
+
+        project_id
+
+        The ID of the project where the form has been created
+
+
+        Body mandatory info
+
+        Details
+
+
+        form_instance_id
+
+        The ID of the form instance
+
+
+        field_id
+
+        The ID of the field you want to update
+
+
+        Depending on type_field_presentation and type_field_data for each field you have to fill in the endpoint the following information
+
+
+        Type
+
+        type_field_data
+
+        type_field_presentation
+
+        Other field data
+
+        Value to fill in the endpoint
+
+
+        Text
+
+        Text
+
+        ShortAnswer
+
+
+        value_string
+
+
+        Paragraph
+
+        Text
+
+        Paragraph
+
+
+        value_string
+
+
+        Phone number
+
+        Text
+
+        PhoneNumber
+
+
+        value_string
+
+
+        Email
+
+        Text
+
+        Email
+
+
+        value_string
+
+
+        Number
+
+        Number
+
+        ShortAnswer
+
+
+        value_numeric
+
+
+        Date
+
+        Calendar
+
+        ShortAnswer
+
+        form_field_sa_calendar.format_calendar
+
+        =DateOnly
+
+        value_date1
+
+
+        Time
+
+        Calendar
+
+        ShortAnswer
+
+        form_field_sa_calendar.format_calendar
+
+        =TimeOnly
+
+        value_time1
+
+
+        Date&Time
+
+        Calendar
+
+        ShortAnswer
+
+        form_field_sa_calendar.format_calendar
+
+        =DateAndTime
+
+        value_date1 and value_time1
+
+
+        RadioButton
+
+        Text
+
+        SingleChoice
+
+
+        array_field_choices
+
+
+        Checkboxes
+
+        Text
+
+        MultipleChoice
+
+
+        array_field_choices
+
+
+        OkKo (control)
+
+        OkKoNeutral
+
+        Text
+
+        Control
+
+
+        array_field_choices
+
+
+        OkKo+NA
+
+        Text
+
+        Control
+
+        form_field_sa_control.na_values_allowed=true
+
+        na_value/ array_field_choices
+
+
+        Grid
+
+        Resources
+
+
+        FormLink
+
+
+        Disclaimer
+
+        Text
+
+        Disclaimer
+
+
+        value_boolean
+
+
+        Linked file
+
+        Resources
+
+        Attachments
+
+
+        see below
+
+
+        Signature
+
+        Resources
+
+        Signature
+
+
+        see below
+
+
+        Theses fields can not be set
+
+
+        formula
+
+        Text
+
+        Formula
+
+
+        For attaching files to a linked files field
+
+        first, create a text answer for the field
+
+        next,use the ''link file to answer'' to attach a media
+
+        repeat theses 2 steps for attaching another file
+
+
+        For attaching files to to a signature field
+
+        first, create a text answer for the field
+
+        next,use the ''link file to answer'' to attach an image media
+
+
+        For attaching items to a control field
+
+        first, create an answer for the field
+
+        next,use the ''link item to answer'' to attach an item
+
+        repeat the second step for attaching another item
+
+
+        For grid row creation ,
+
+        the body should include 2 others keys :
+
+        create_form_template_instance with value=true
+
+        create_form_template_instance_for_grid with value=true
+
+
+        For grid field creation
+
+        the body should include 2 others keys
+
+        create_form_template_instance with value=true
+
+        form_template_instance_id with value returned in value_form_template_instance_id by the grid creation
+
+
+        It is not recommended to create a grid row without filling its fields
+
+
+        For paragraph''s you can add formated text html syntax with the following tag''s'
       tags:
       - Forms
       parameters:
@@ -135,7 +436,40 @@ paths:
     post:
       operationId: formsLinkItemToAnswer
       summary: Link item to answer
-      description: "You can link an observation or a form to a form answer of a control field.\n\n Details \n\n project_id \n The ID of the project where the form reside \n\n Body mandatory info \n Details \n\n form_instance_id \n The ID of the form instance \n\n form_answer_id \n The ID of the answer you want to link \n\n target_id \n id of the linked item \n\n target_type \n sould be \"Observation\" or \"Form\" depending of the type of the linked item"
+      description: 'You can link an observation or a form to a form answer of a control field.
+
+
+        Details
+
+
+        project_id
+
+        The ID of the project where the form reside
+
+
+        Body mandatory info
+
+        Details
+
+
+        form_instance_id
+
+        The ID of the form instance
+
+
+        form_answer_id
+
+        The ID of the answer you want to link
+
+
+        target_id
+
+        id of the linked item
+
+
+        target_type
+
+        sould be "Observation" or "Form" depending of the type of the linked item'
       tags:
       - Forms
       parameters:
@@ -189,7 +523,68 @@ paths:
     put:
       operationId: formsUpdateAnswer
       summary: Update answer
-      description: "Based on a form ID, you can update the different fields of the form. Here is the list of field types you can fill from the API:\n\n Short answer\n\n Paragraph\n\n Single choice\n\n Multiple choice\n\n Control\n\n Phone\n\n Email\n\n Grid\n\n Disclaimer\n\n To do so, you have to get the field ID and type by using the \"Get form answer\" endpoint. Include the following info in the endpoint.\n\n Endpoint mandatory info \n Details \n\n project_id \n The ID of the project where the form has been created \n\n form_answer_id \n The ID of the form anwser \n\n Depending on type_field_presentation and type_field_data for each field you have to fill in the endpoint the following information\nbut the value_form_template_instance_id is mandatory\n\n Check the table on Post create form answer.\n\n if no value is sent in the endpoint, the existing value will remain the same\n\n for linked files type,\nyou can remove an attached file by deleting the answer"
+      description: 'Based on a form ID, you can update the different fields of the form. Here is the list of field types you can fill from the API:
+
+
+        Short answer
+
+
+        Paragraph
+
+
+        Single choice
+
+
+        Multiple choice
+
+
+        Control
+
+
+        Phone
+
+
+        Email
+
+
+        Grid
+
+
+        Disclaimer
+
+
+        To do so, you have to get the field ID and type by using the "Get form answer" endpoint. Include the following info in the endpoint.
+
+
+        Endpoint mandatory info
+
+        Details
+
+
+        project_id
+
+        The ID of the project where the form has been created
+
+
+        form_answer_id
+
+        The ID of the form anwser
+
+
+        Depending on type_field_presentation and type_field_data for each field you have to fill in the endpoint the following information
+
+        but the value_form_template_instance_id is mandatory
+
+
+        Check the table on Post create form answer.
+
+
+        if no value is sent in the endpoint, the existing value will remain the same
+
+
+        for linked files type,
+
+        you can remove an attached file by deleting the answer'
       tags:
       - Forms
       parameters:
@@ -252,7 +647,22 @@ paths:
     delete:
       operationId: formsDeleteAnswer
       summary: Delete answer
-      description: "Based on a form ID, you can delete the form answer of a form.\n\n Endpoint mandatory info \n Details \n\n project_id \n The ID of the project where the form has been created \n\n form_answer_id \n The ID of the form anwser"
+      description: 'Based on a form ID, you can delete the form answer of a form.
+
+
+        Endpoint mandatory info
+
+        Details
+
+
+        project_id
+
+        The ID of the project where the form has been created
+
+
+        form_answer_id
+
+        The ID of the form anwser'
       tags:
       - Forms
       parameters:
@@ -293,7 +703,36 @@ paths:
     post:
       operationId: formsLinkFileToAnswer
       summary: Link file to answer
-      description: "You can link a file to the following form answer types:\n\n attachments\n\n signature\n\n Details \n\n project_id \n The ID of the project where the form reside \n\n answer_id \n if of the answer \n\n Body mandatory info \n Details \n\n media_id \n id of the previously uploaded media"
+      description: 'You can link a file to the following form answer types:
+
+
+        attachments
+
+
+        signature
+
+
+        Details
+
+
+        project_id
+
+        The ID of the project where the form reside
+
+
+        answer_id
+
+        if of the answer
+
+
+        Body mandatory info
+
+        Details
+
+
+        media_id
+
+        id of the previously uploaded media'
       tags:
       - Forms
       parameters:
@@ -357,7 +796,30 @@ paths:
     post:
       operationId: formsUnlinkFileToAnswer
       summary: Unlink file to answer
-      description: "You can unlink a file in signature form answers.\n\n Details \n\n project_id \n The ID of the project where the form reside \n\n answer_id \n if of the answer \n\n Body mandatory info \n Details \n\n media_ids \n list of the media associated with the answer"
+      description: 'You can unlink a file in signature form answers.
+
+
+        Details
+
+
+        project_id
+
+        The ID of the project where the form reside
+
+
+        answer_id
+
+        if of the answer
+
+
+        Body mandatory info
+
+        Details
+
+
+        media_ids
+
+        list of the media associated with the answer'
       tags:
       - Forms
       parameters:
@@ -407,7 +869,21 @@ paths:
     get:
       operationId: formsGetProjectFormsList
       summary: Get project forms list
-      description: "For a given project, you can list all the existing forms by IDs.\n\n Details \n\n project_Id \n The Id of the project \n\n Query params optionals \n\n see Commmon behaviors / differential"
+      description: 'For a given project, you can list all the existing forms by IDs.
+
+
+        Details
+
+
+        project_Id
+
+        The Id of the project
+
+
+        Query params optionals
+
+
+        see Commmon behaviors / differential'
       tags:
       - Forms
       parameters:
@@ -466,7 +942,105 @@ paths:
     post:
       operationId: formsCreateForm
       summary: Create form
-      description: "Going along with the option to create a project from scratch, you can now also create forms using just a few parameters.\n\n Details \n\n project_id \n The ID of the project where the form will be created \n\n body optional info \n Details \n\n form_id \n The ID of the form template to be used \n\n name \n the name of the form instance \n\n body optional info \n Details \n\n priority_id \n The ID of the priority the form will be assigned \n\n status_id \n The ID of the status used for the new form. If not set the default one will be used \n\n assignee_id \n The user ID of the person that will be assigned to the form \n\n company_id \n The ID of the company that will be assigned to the form \n\n phase_id \n The ID of the phase that is set for the new form \n\n plan_id \n The ID of the plan that will be used ofr the form \n\n position_x \n X position of the pin on the plan \n\n position_y \n Y position of the pin on the plan \n\n due_date \n The date the form is due, set as a timestamp \n\n module_id \n Id of the module \n\n category_id \n id of the category \n\n latitude \n in decimal degres following ISO6709 \n\n longitude \n in decimal degres \nfollowing ISO6709 \n\n NOTICE: This endpoint only creates the form. It cannot edit the fields of the form"
+      description: 'Going along with the option to create a project from scratch, you can now also create forms using just a few parameters.
+
+
+        Details
+
+
+        project_id
+
+        The ID of the project where the form will be created
+
+
+        body optional info
+
+        Details
+
+
+        form_id
+
+        The ID of the form template to be used
+
+
+        name
+
+        the name of the form instance
+
+
+        body optional info
+
+        Details
+
+
+        priority_id
+
+        The ID of the priority the form will be assigned
+
+
+        status_id
+
+        The ID of the status used for the new form. If not set the default one will be used
+
+
+        assignee_id
+
+        The user ID of the person that will be assigned to the form
+
+
+        company_id
+
+        The ID of the company that will be assigned to the form
+
+
+        phase_id
+
+        The ID of the phase that is set for the new form
+
+
+        plan_id
+
+        The ID of the plan that will be used ofr the form
+
+
+        position_x
+
+        X position of the pin on the plan
+
+
+        position_y
+
+        Y position of the pin on the plan
+
+
+        due_date
+
+        The date the form is due, set as a timestamp
+
+
+        module_id
+
+        Id of the module
+
+
+        category_id
+
+        id of the category
+
+
+        latitude
+
+        in decimal degres following ISO6709
+
+
+        longitude
+
+        in decimal degres
+
+        following ISO6709
+
+
+        NOTICE: This endpoint only creates the form. It cannot edit the fields of the form'
       tags:
       - Forms
       parameters:
@@ -550,7 +1124,21 @@ paths:
     get:
       operationId: formsGetProjectFormsDifferential
       summary: Get project forms differential
-      description: "For a given project, you can list all the existing form instances.\n\n Details \n\n project_id \n The ID of the project \n\n Query params optionals \n\n see Commmon behaviors / differential"
+      description: 'For a given project, you can list all the existing form instances.
+
+
+        Details
+
+
+        project_id
+
+        The ID of the project
+
+
+        Query params optionals
+
+
+        see Commmon behaviors / differential'
       tags:
       - Forms
       parameters:
@@ -627,7 +1215,25 @@ paths:
     get:
       operationId: formsGetFormAnswers
       summary: Get form answers
-      description: "Based on a form ID and a form instance ID, we can access all the answers filled by users.\n\n Details \n\n project_Id \n the id of the project to be modified \n\n form_id \n id the the form template used by the form instance (look at get form detail to found it) \n\n form_instance_id \n id of the form instance to be checked"
+      description: 'Based on a form ID and a form instance ID, we can access all the answers filled by users.
+
+
+        Details
+
+
+        project_Id
+
+        the id of the project to be modified
+
+
+        form_id
+
+        id the the form template used by the form instance (look at get form detail to found it)
+
+
+        form_instance_id
+
+        id of the form instance to be checked'
       tags:
       - Forms
       parameters:
@@ -702,7 +1308,72 @@ paths:
     post:
       operationId: formsAddFormInstanceComment
       summary: Add form instance comment
-      description: "You can add comments, link files, or link items to a form instance.\n\n Details \n\n project_id \n The ID of the project where the the form will be commented \n\n form_id \n The ID of the form instace \n\n Body optional infos \n Details \n\n for sending a comment \n\n text \n your text \n\n to attach a file or an image \n\n media_resource_id \n the id of a previously uploaded file via the upload media endpoint \n\n media_resource_name \n the display name of the file \n\n to link an observation \n\n reference_type \n \"Observation\" \n\n reference_id \n the id of the linked observation \n\n to link a form instance \n\n reference_type \n \"Form\" \n\n reference_id \n the id of the linked form instance"
+      description: 'You can add comments, link files, or link items to a form instance.
+
+
+        Details
+
+
+        project_id
+
+        The ID of the project where the the form will be commented
+
+
+        form_id
+
+        The ID of the form instace
+
+
+        Body optional infos
+
+        Details
+
+
+        for sending a comment
+
+
+        text
+
+        your text
+
+
+        to attach a file or an image
+
+
+        media_resource_id
+
+        the id of a previously uploaded file via the upload media endpoint
+
+
+        media_resource_name
+
+        the display name of the file
+
+
+        to link an observation
+
+
+        reference_type
+
+        "Observation"
+
+
+        reference_id
+
+        the id of the linked observation
+
+
+        to link a form instance
+
+
+        reference_type
+
+        "Form"
+
+
+        reference_id
+
+        the id of the linked form instance'
       tags:
       - Forms
       parameters:
@@ -757,7 +1428,23 @@ paths:
     get:
       operationId: formsGetFormDetails
       summary: Get form details
-      description: "Based on a form instance ID, we can access its full properties.\n\n To go deeper, you will need to check user, plan, company info, and form answers based on the returned IDs.\n\n Details \n\n project_Id \n the id of the project to be modified \n\n form_instance_id \n the id of the form instance to be checked"
+      description: 'Based on a form instance ID, we can access its full properties.
+
+
+        To go deeper, you will need to check user, plan, company info, and form answers based on the returned IDs.
+
+
+        Details
+
+
+        project_Id
+
+        the id of the project to be modified
+
+
+        form_instance_id
+
+        the id of the form instance to be checked'
       tags:
       - Forms
       parameters:
@@ -825,7 +1512,92 @@ paths:
     put:
       operationId: formsUpdateForm
       summary: Update form
-      description: "You now have the possibility to update form details via the API.\n\n If you don't include information for an optional detail in the endpoint, the existing value will be kept.\n\n Endpoint mandatory info \n Details \n\n project_id \n The ID of the project where the form will be created \n\n form_instance_id \n The ID of the form instance \n\n body optional info \n Details \n\n name \n The name you want to be assigned to the form \n\n priority_id \n The ID of the priority the form will be assigned \n\n status_id \n The ID of the status used for the form. If not set the default one will be used \n\n assignee_id \n The user ID of the person that will be assigned to the form \n\n company_id \n The ID of the company that will be assigned to the form \n\n phase_id \n The ID of the phase that is set for the form \n\n plan_id \n The ID of the plan that will be used for the form \n\n position_x \n X coordinate of the item regarding the affected 2D plan \n\n position_y \n Y coordinate of the item regarding the affected 2D plan \n\n due_date \n The date the form is due, set as a timestamp \n\n latitude \n in decimal degres following ISO6709 \n\n longitude \n in decimal degres \nfollowing ISO6709"
+      description: 'You now have the possibility to update form details via the API.
+
+
+        If you don''t include information for an optional detail in the endpoint, the existing value will be kept.
+
+
+        Endpoint mandatory info
+
+        Details
+
+
+        project_id
+
+        The ID of the project where the form will be created
+
+
+        form_instance_id
+
+        The ID of the form instance
+
+
+        body optional info
+
+        Details
+
+
+        name
+
+        The name you want to be assigned to the form
+
+
+        priority_id
+
+        The ID of the priority the form will be assigned
+
+
+        status_id
+
+        The ID of the status used for the form. If not set the default one will be used
+
+
+        assignee_id
+
+        The user ID of the person that will be assigned to the form
+
+
+        company_id
+
+        The ID of the company that will be assigned to the form
+
+
+        phase_id
+
+        The ID of the phase that is set for the form
+
+
+        plan_id
+
+        The ID of the plan that will be used for the form
+
+
+        position_x
+
+        X coordinate of the item regarding the affected 2D plan
+
+
+        position_y
+
+        Y coordinate of the item regarding the affected 2D plan
+
+
+        due_date
+
+        The date the form is due, set as a timestamp
+
+
+        latitude
+
+        in decimal degres following ISO6709
+
+
+        longitude
+
+        in decimal degres
+
+        following ISO6709'
       tags:
       - Forms
       parameters:
@@ -894,7 +1666,37 @@ paths:
     get:
       operationId: formsGetFormInstanceMessages
       summary: Get form instance messages
-      description: "Based on a form instance ID, we can access its activity history.\n\n Details \n\n project_id \n The ID of the project where the the observation will be created \n\n form_id \n The ID of the form instance \n\n Query optional infos \n Details \n\n message_id \n id of a message to begin the reading \n\n get_newest \n if true, get the messages newest as the message_id \nfalse is the default value"
+      description: 'Based on a form instance ID, we can access its activity history.
+
+
+        Details
+
+
+        project_id
+
+        The ID of the project where the the observation will be created
+
+
+        form_id
+
+        The ID of the form instance
+
+
+        Query optional infos
+
+        Details
+
+
+        message_id
+
+        id of a message to begin the reading
+
+
+        get_newest
+
+        if true, get the messages newest as the message_id
+
+        false is the default value'
       tags:
       - Forms
       parameters:

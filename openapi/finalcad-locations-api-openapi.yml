@@ -3,10 +3,7 @@ info:
   title: Finalcad One Project Locations API
   version: '2.41'
   summary: 'Project-level operations for Finalcad One construction projects: project details, project libraries, members, locations (folders / plans / IFC), discussion groups, companies, modules (observations / forms / meetings), observations, forms and form answers, documents, phases, meetings and XLSX/PDF exports.'
-  description: 'Project-level operations for Finalcad One construction projects: project details, project libraries, members, locations (folders / plans / IFC), discussion groups, companies, modules (observations / forms / meetings), observations, forms and form answers, documents, phases, meetings and XLSX/PDF exports.
-
-
-    DERIVED, NOT PUBLISHED BY THE PROVIDER. Finalcad publishes no OpenAPI. This document was mechanically derived by API Evangelist from the first-party public Postman collection "Finalcad One API" served by Finalcad at https://developer.finalcad.com/ (collection JSON: https://developer.finalcad.com/api/collections/10995648/Tz5v1Es2), saved in this repo at collections/finalcad.postman_collection.json. Every path, method, header, query parameter, example request body and example response below is carried over from that collection; nothing was invented. Request/response bodies are typed as generic objects because the collection carries examples, not schemas. Four Finalcad employees'' personal e-mail addresses that appeared in the collection''s example payloads were replaced with placeholders; nothing else was changed.'
+  description: 'Project-level operations for Finalcad One construction projects: project details, project libraries, members, locations (folders / plans / IFC), discussion groups, companies, modules (observations / forms / meetings), observations, forms and form answers, documents, phases, meetings and XLSX/PDF exports.'
   contact:
     name: Finalcad One API — developer portal
     url: https://developer.finalcad.com/
@@ -28,7 +25,30 @@ paths:
     put:
       operationId: locationsUpdateFolder
       summary: Update folder
-      description: "You can move (change the parent) or rename a folder.\n\n Details \n\n project_Id \n the id of the project to be modified \n\n body optional infos \n Details \n\n name \n new name of the folder \n\n parent_id \n id of the new parent of the folder"
+      description: 'You can move (change the parent) or rename a folder.
+
+
+        Details
+
+
+        project_Id
+
+        the id of the project to be modified
+
+
+        body optional infos
+
+        Details
+
+
+        name
+
+        new name of the folder
+
+
+        parent_id
+
+        id of the new parent of the folder'
       tags:
       - Locations
       parameters:
@@ -92,7 +112,22 @@ paths:
     delete:
       operationId: locationsDeleteFolder
       summary: Delete folder
-      description: "You can delete a folder.\n\n Endpoint mandatory infos \n Details \n\n project_Id \n the id of the project to be modified \n\n folder_id \n the id of the folder"
+      description: 'You can delete a folder.
+
+
+        Endpoint mandatory infos
+
+        Details
+
+
+        project_Id
+
+        the id of the project to be modified
+
+
+        folder_id
+
+        the id of the folder'
       tags:
       - Locations
       parameters:
@@ -133,7 +168,23 @@ paths:
     get:
       operationId: locationsGetFolderTree
       summary: Get folder tree
-      description: "Before creating folders, you might want to have an overview of the ones deployed in your project. This helps you manage it based on the current context.\n\n Endpoint mandatory infos \n Details \n\n project_id \n the id of the project to be modified \n\n Query params optionals \n\n see Commmon behaviors / differential"
+      description: 'Before creating folders, you might want to have an overview of the ones deployed in your project. This helps you manage it based on the current context.
+
+
+        Endpoint mandatory infos
+
+        Details
+
+
+        project_id
+
+        the id of the project to be modified
+
+
+        Query params optionals
+
+
+        see Commmon behaviors / differential'
       tags:
       - Locations
       parameters:
@@ -193,7 +244,38 @@ paths:
     post:
       operationId: locationsCreateFolder
       summary: Create folder
-      description: "Folders allow plans organization but also preview and context. A folder comes with a name.\n\n You can specify where to add the folder in your hierarchy by specifying its parent (another folder or the root).\n\n Details \n\n project_Id \n the id of the project to be modified \n\n body mandatory infos \n Details \n\n name \n name of the folder \n\n body optional infos \n Details \n\n parent_id \n the id of the parent folder in the hierarchy"
+      description: 'Folders allow plans organization but also preview and context. A folder comes with a name.
+
+
+        You can specify where to add the folder in your hierarchy by specifying its parent (another folder or the root).
+
+
+        Details
+
+
+        project_Id
+
+        the id of the project to be modified
+
+
+        body mandatory infos
+
+        Details
+
+
+        name
+
+        name of the folder
+
+
+        body optional infos
+
+        Details
+
+
+        parent_id
+
+        the id of the parent folder in the hierarchy'
       tags:
       - Locations
       parameters:
@@ -260,7 +342,32 @@ paths:
     get:
       operationId: locationsGetFolderContent
       summary: Get folder content
-      description: "You can get the content (plans and/or folders) for a folder\n\n Endpoint mandatory infos \n Details \n\n project_id \n the id of the project to be modified \n\n Endpoint optional query infos \n Details \n\n folder_id \n id of the parent folder \n\n type \n folder or plan or null"
+      description: 'You can get the content (plans and/or folders) for a folder
+
+
+        Endpoint mandatory infos
+
+        Details
+
+
+        project_id
+
+        the id of the project to be modified
+
+
+        Endpoint optional query infos
+
+        Details
+
+
+        folder_id
+
+        id of the parent folder
+
+
+        type
+
+        folder or plan or null'
       tags:
       - Locations
       parameters:
@@ -325,7 +432,23 @@ paths:
     get:
       operationId: locationsGetPlanTree
       summary: Get plan tree
-      description: "Before creating new plans, you might want to have an overview of the ones deployed in your project. This helps you manage it based on the current context.\n\n Endpoint mandatory infos \n Details \n\n project_Id \n the id of the project to be modified \n\n Query params optionals \n\n see Commmon behaviors / differential"
+      description: 'Before creating new plans, you might want to have an overview of the ones deployed in your project. This helps you manage it based on the current context.
+
+
+        Endpoint mandatory infos
+
+        Details
+
+
+        project_Id
+
+        the id of the project to be modified
+
+
+        Query params optionals
+
+
+        see Commmon behaviors / differential'
       tags:
       - Locations
       parameters:
@@ -401,7 +524,68 @@ paths:
     post:
       operationId: locationsCreatePlans
       summary: Create plans
-      description: "Plans will be used in applications to localize items. You can specify where to add the plans in your hierarchy by specifying its parent (a folder or the root).\n\n Adding a media to a plan is mandatory. You need to go through \"Upload medias\" to get a media ID.\n\n Here is information regarding plan formats that can be used:\n\n Plans Format \n Details \n\n PNG, JPG \n Image format with fixed size and zoom \n\n DWG, PDF \n Vector format with infinite zoom \n\n Endpoint mandatory infos \n Details \n\n project_Id \n the id of the project to be modified \n\n body mandatory infos \n Details \n\n name \n name of the plan \n\n media_id \n id of the media of the plan \n\n body optional infos \n Details \n\n folder_id \n the id of the parent folder in the hierarchy \n\n plan_id \n the id of the new plan (if omitted, an id should be automatcly affected)"
+      description: 'Plans will be used in applications to localize items. You can specify where to add the plans in your hierarchy by specifying its parent (a folder or the root).
+
+
+        Adding a media to a plan is mandatory. You need to go through "Upload medias" to get a media ID.
+
+
+        Here is information regarding plan formats that can be used:
+
+
+        Plans Format
+
+        Details
+
+
+        PNG, JPG
+
+        Image format with fixed size and zoom
+
+
+        DWG, PDF
+
+        Vector format with infinite zoom
+
+
+        Endpoint mandatory infos
+
+        Details
+
+
+        project_Id
+
+        the id of the project to be modified
+
+
+        body mandatory infos
+
+        Details
+
+
+        name
+
+        name of the plan
+
+
+        media_id
+
+        id of the media of the plan
+
+
+        body optional infos
+
+        Details
+
+
+        folder_id
+
+        the id of the parent folder in the hierarchy
+
+
+        plan_id
+
+        the id of the new plan (if omitted, an id should be automatcly affected)'
       tags:
       - Locations
       parameters:
@@ -464,7 +648,61 @@ paths:
     post:
       operationId: locationsUploadIfc
       summary: Upload IFC
-      description: "Upload an IFC or RVT file part.\n\n Endpoint mandatory infos \n Details \n\n project_id \n id of the project \n\n form-data mandatory infos \n Details \n\n segment_index \n number of the chunk segment (first is 0) \n\n last_chunk \n true if it is the last chunk \n\n total_size \n total size of the file \n\n name \n name of the file \nwith ifc or rvt extension \n\n folder_id \n id of the parent folder \n\n id \n id of the new plan \nshould not exist \n\n stream \n chunk content"
+      description: 'Upload an IFC or RVT file part.
+
+
+        Endpoint mandatory infos
+
+        Details
+
+
+        project_id
+
+        id of the project
+
+
+        form-data mandatory infos
+
+        Details
+
+
+        segment_index
+
+        number of the chunk segment (first is 0)
+
+
+        last_chunk
+
+        true if it is the last chunk
+
+
+        total_size
+
+        total size of the file
+
+
+        name
+
+        name of the file
+
+        with ifc or rvt extension
+
+
+        folder_id
+
+        id of the parent folder
+
+
+        id
+
+        id of the new plan
+
+        should not exist
+
+
+        stream
+
+        chunk content'
       tags:
       - Locations
       parameters:
@@ -547,7 +785,25 @@ paths:
     get:
       operationId: locationsGetPlan
       summary: Get plan
-      description: "Given the plan ID, you can get its media details and then download it.\n\n You need to go through \"Get media\" to extract it with the media_resource ID.\n\n Endpoint mandatory infos \n Details \n\n project_id \n the id of the project to be modified \n\n plan_id \n the id of the plan to be checked"
+      description: 'Given the plan ID, you can get its media details and then download it.
+
+
+        You need to go through "Get media" to extract it with the media_resource ID.
+
+
+        Endpoint mandatory infos
+
+        Details
+
+
+        project_id
+
+        the id of the project to be modified
+
+
+        plan_id
+
+        the id of the plan to be checked'
       tags:
       - Locations
       parameters:
@@ -587,7 +843,46 @@ paths:
     put:
       operationId: locationsUpdatePlan
       summary: Update plan
-      description: "Update an existing plan in your project:\n\n Name\n\n Move it to another folder\n\n Update media\n\n Endpoint mandatory infos \n Details \n\n project_Id \n the id of the project to be modified \n\n body optional infos \n Details \n\n name \n new name of the plan \n\n folder_id \n id of the new parent folder \n\n media_id \n id of the new media of the plan"
+      description: 'Update an existing plan in your project:
+
+
+        Name
+
+
+        Move it to another folder
+
+
+        Update media
+
+
+        Endpoint mandatory infos
+
+        Details
+
+
+        project_Id
+
+        the id of the project to be modified
+
+
+        body optional infos
+
+        Details
+
+
+        name
+
+        new name of the plan
+
+
+        folder_id
+
+        id of the new parent folder
+
+
+        media_id
+
+        id of the new media of the plan'
       tags:
       - Locations
       parameters:
@@ -657,7 +952,20 @@ paths:
     delete:
       operationId: locationsDeletePlan
       summary: Delete plan
-      description: "You can delete an existing plan in your project.\n\n Details \n\n project_Id \n the id of the project to be modified \n\n plan_id \n the id of the plan"
+      description: 'You can delete an existing plan in your project.
+
+
+        Details
+
+
+        project_Id
+
+        the id of the project to be modified
+
+
+        plan_id
+
+        the id of the plan'
       tags:
       - Locations
       parameters:
@@ -698,7 +1006,47 @@ paths:
     post:
       operationId: locationsCreatePlansFromDocument
       summary: Create plans from document
-      description: "You can create a plan from a document.\n\n Endpoint mandatory infos \n Details \n\n project_Id \n the id of the project to be modified \n\n body mandatory infos \n Details \n\n document_id \n id of the document \n\n body optional infos \n Details \n\n folder_id \n the id of the parent folder in the hierarchy \n\n plan_id \n the id of the new plan (if omitted, an id should be automatcly affected) \n\n name \n name of the plan (default to document name)"
+      description: 'You can create a plan from a document.
+
+
+        Endpoint mandatory infos
+
+        Details
+
+
+        project_Id
+
+        the id of the project to be modified
+
+
+        body mandatory infos
+
+        Details
+
+
+        document_id
+
+        id of the document
+
+
+        body optional infos
+
+        Details
+
+
+        folder_id
+
+        the id of the parent folder in the hierarchy
+
+
+        plan_id
+
+        the id of the new plan (if omitted, an id should be automatcly affected)
+
+
+        name
+
+        name of the plan (default to document name)'
       tags:
       - Locations
       parameters:

@@ -3,10 +3,7 @@ info:
   title: Finalcad One Project Project members management API
   version: '2.41'
   summary: 'Project-level operations for Finalcad One construction projects: project details, project libraries, members, locations (folders / plans / IFC), discussion groups, companies, modules (observations / forms / meetings), observations, forms and form answers, documents, phases, meetings and XLSX/PDF exports.'
-  description: 'Project-level operations for Finalcad One construction projects: project details, project libraries, members, locations (folders / plans / IFC), discussion groups, companies, modules (observations / forms / meetings), observations, forms and form answers, documents, phases, meetings and XLSX/PDF exports.
-
-
-    DERIVED, NOT PUBLISHED BY THE PROVIDER. Finalcad publishes no OpenAPI. This document was mechanically derived by API Evangelist from the first-party public Postman collection "Finalcad One API" served by Finalcad at https://developer.finalcad.com/ (collection JSON: https://developer.finalcad.com/api/collections/10995648/Tz5v1Es2), saved in this repo at collections/finalcad.postman_collection.json. Every path, method, header, query parameter, example request body and example response below is carried over from that collection; nothing was invented. Request/response bodies are typed as generic objects because the collection carries examples, not schemas. Four Finalcad employees'' personal e-mail addresses that appeared in the collection''s example payloads were replaced with placeholders; nothing else was changed.'
+  description: 'Project-level operations for Finalcad One construction projects: project details, project libraries, members, locations (folders / plans / IFC), discussion groups, companies, modules (observations / forms / meetings), observations, forms and form answers, documents, phases, meetings and XLSX/PDF exports.'
   contact:
     name: Finalcad One API — developer portal
     url: https://developer.finalcad.com/
@@ -28,7 +25,32 @@ paths:
     post:
       operationId: projectMembersManagementChangeRole
       summary: Change role
-      description: "You can change the role of project users.\n\n Endpoint mandatory infos \n Details \n\n projectId \n the id of the project to be modified \n\n body mandatory infos \n Details \n\n role_id \n id if the role to be affected \n\n user_ids \n list of user ids be be momdified"
+      description: 'You can change the role of project users.
+
+
+        Endpoint mandatory infos
+
+        Details
+
+
+        projectId
+
+        the id of the project to be modified
+
+
+        body mandatory infos
+
+        Details
+
+
+        role_id
+
+        id if the role to be affected
+
+
+        user_ids
+
+        list of user ids be be momdified'
       tags:
       - Project members management
       parameters:
@@ -73,7 +95,23 @@ paths:
     get:
       operationId: projectMembersManagementGetMembers
       summary: Get members
-      description: "Before adding members to your project, you might want to have an overview of the current project users and their roles.\n\n Endpoint mandatory infos \n Details \n\n projectId \n the id of the project to be modified \n\n Query params optionals \n\n see Commmon behaviors / differential"
+      description: 'Before adding members to your project, you might want to have an overview of the current project users and their roles.
+
+
+        Endpoint mandatory infos
+
+        Details
+
+
+        projectId
+
+        the id of the project to be modified
+
+
+        Query params optionals
+
+
+        see Commmon behaviors / differential'
       tags:
       - Project members management
       parameters:
@@ -144,7 +182,51 @@ paths:
     post:
       operationId: projectMembersManagementAddMembersToAProject
       summary: Add members to a project
-      description: "To ease this step, you can directly add a list of members. Your invitations can fall into two cases:\n\n The email is already linked to a Finalcad One account. The member will be directly added to the project and receive a notification\n\n The email is not linked to a Finalcad One account. The member will be invited to create an account by email. Meanwhile, the invitations will be visible as pending in the project member list\n\n To invite a member to your project, an email needs to be associated with a project role. See Get project roles .\n\n Endpoint mandatory infos \n Details \n\n projectId \n the id of the project to be modified \n\n Endpoint optional query infos \n Details \n\n doNotSendEmail \n if true, no email are send to the final user \n\n body mandatory infos \n Details \n\n email \n the email of the newly member \n\n project_role_id \n the id of the role od the user"
+      description: 'To ease this step, you can directly add a list of members. Your invitations can fall into two cases:
+
+
+        The email is already linked to a Finalcad One account. The member will be directly added to the project and receive a notification
+
+
+        The email is not linked to a Finalcad One account. The member will be invited to create an account by email. Meanwhile, the invitations will be visible as pending in the project member list
+
+
+        To invite a member to your project, an email needs to be associated with a project role. See Get project roles .
+
+
+        Endpoint mandatory infos
+
+        Details
+
+
+        projectId
+
+        the id of the project to be modified
+
+
+        Endpoint optional query infos
+
+        Details
+
+
+        doNotSendEmail
+
+        if true, no email are send to the final user
+
+
+        body mandatory infos
+
+        Details
+
+
+        email
+
+        the email of the newly member
+
+
+        project_role_id
+
+        the id of the role od the user'
       tags:
       - Project members management
       parameters:
@@ -209,7 +291,25 @@ paths:
     post:
       operationId: projectMembersManagementRemoveMembersInAProject
       summary: Remove members in a project
-      description: "You can remove users from a project.\n\n Endpoint mandatory infos \n Details \n\n projectId \n the id of the project to be modified \n\n body mandatory infos \n Details \n\n List of user ids to be removed"
+      description: 'You can remove users from a project.
+
+
+        Endpoint mandatory infos
+
+        Details
+
+
+        projectId
+
+        the id of the project to be modified
+
+
+        body mandatory infos
+
+        Details
+
+
+        List of user ids to be removed'
       tags:
       - Project members management
       parameters:
@@ -324,7 +424,29 @@ paths:
     get:
       operationId: projectMembersManagementGetProjectRoles
       summary: Get project roles
-      description: "You can here get project roles format that you will associate with new members.\n\n To ensure confidence and project management we come with different of project roles.\n\n See here to learn more.\n\n Endpoint mandatory infos \n Details \n\n project_id \n the id of the project to be modified \n\n Query params optionals \n\n see Commmon behaviors / differential"
+      description: 'You can here get project roles format that you will associate with new members.
+
+
+        To ensure confidence and project management we come with different of project roles.
+
+
+        See here to learn more.
+
+
+        Endpoint mandatory infos
+
+        Details
+
+
+        project_id
+
+        the id of the project to be modified
+
+
+        Query params optionals
+
+
+        see Commmon behaviors / differential'
       tags:
       - Project members management
       parameters:

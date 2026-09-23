@@ -3,10 +3,7 @@ info:
   title: Finalcad One Project Meetings API
   version: '2.41'
   summary: 'Project-level operations for Finalcad One construction projects: project details, project libraries, members, locations (folders / plans / IFC), discussion groups, companies, modules (observations / forms / meetings), observations, forms and form answers, documents, phases, meetings and XLSX/PDF exports.'
-  description: 'Project-level operations for Finalcad One construction projects: project details, project libraries, members, locations (folders / plans / IFC), discussion groups, companies, modules (observations / forms / meetings), observations, forms and form answers, documents, phases, meetings and XLSX/PDF exports.
-
-
-    DERIVED, NOT PUBLISHED BY THE PROVIDER. Finalcad publishes no OpenAPI. This document was mechanically derived by API Evangelist from the first-party public Postman collection "Finalcad One API" served by Finalcad at https://developer.finalcad.com/ (collection JSON: https://developer.finalcad.com/api/collections/10995648/Tz5v1Es2), saved in this repo at collections/finalcad.postman_collection.json. Every path, method, header, query parameter, example request body and example response below is carried over from that collection; nothing was invented. Request/response bodies are typed as generic objects because the collection carries examples, not schemas. Four Finalcad employees'' personal e-mail addresses that appeared in the collection''s example payloads were replaced with placeholders; nothing else was changed.'
+  description: 'Project-level operations for Finalcad One construction projects: project details, project libraries, members, locations (folders / plans / IFC), discussion groups, companies, modules (observations / forms / meetings), observations, forms and form answers, documents, phases, meetings and XLSX/PDF exports.'
   contact:
     name: Finalcad One API — developer portal
     url: https://developer.finalcad.com/
@@ -28,7 +25,21 @@ paths:
     get:
       operationId: meetingsGetMeetings
       summary: Get meetings
-      description: "Get the list of meetings for a given project.\n\n Details \n\n project_Id \n the id of the project to be modified \n\n Query params optionals \n\n see Commmon behaviors / differential"
+      description: 'Get the list of meetings for a given project.
+
+
+        Details
+
+
+        project_Id
+
+        the id of the project to be modified
+
+
+        Query params optionals
+
+
+        see Commmon behaviors / differential'
       tags:
       - Meetings
       parameters:
@@ -95,7 +106,20 @@ paths:
     get:
       operationId: meetingsGetMeetingDetails
       summary: Get meeting details
-      description: "Get the details of a specific meeting for a given project.\n\n Details \n\n project_Id \n the id of the project to be modified \n\n meeting_id \n id of the meeting"
+      description: 'Get the details of a specific meeting for a given project.
+
+
+        Details
+
+
+        project_Id
+
+        the id of the project to be modified
+
+
+        meeting_id
+
+        id of the meeting'
       tags:
       - Meetings
       parameters:

@@ -3,10 +3,7 @@ info:
   title: Finalcad One Organization Management Workspaces API
   version: '2.41'
   summary: 'Organization-level administration of a Finalcad One Enterprise tenant: workspaces, members and roles, observation status / trade / common-observation / priority / form-template libraries, form and observation module types, data referentials, and Power BI dataset configuration.'
-  description: 'Organization-level administration of a Finalcad One Enterprise tenant: workspaces, members and roles, observation status / trade / common-observation / priority / form-template libraries, form and observation module types, data referentials, and Power BI dataset configuration.
-
-
-    DERIVED, NOT PUBLISHED BY THE PROVIDER. Finalcad publishes no OpenAPI. This document was mechanically derived by API Evangelist from the first-party public Postman collection "Finalcad One API" served by Finalcad at https://developer.finalcad.com/ (collection JSON: https://developer.finalcad.com/api/collections/10995648/Tz5v1Es2), saved in this repo at collections/finalcad.postman_collection.json. Every path, method, header, query parameter, example request body and example response below is carried over from that collection; nothing was invented. Request/response bodies are typed as generic objects because the collection carries examples, not schemas. Four Finalcad employees'' personal e-mail addresses that appeared in the collection''s example payloads were replaced with placeholders; nothing else was changed.'
+  description: 'Organization-level administration of a Finalcad One Enterprise tenant: workspaces, members and roles, observation status / trade / common-observation / priority / form-template libraries, form and observation module types, data referentials, and Power BI dataset configuration.'
   contact:
     name: Finalcad One API — developer portal
     url: https://developer.finalcad.com/
@@ -28,7 +25,32 @@ paths:
     get:
       operationId: workspacesGetWorkspaces
       summary: Get workspaces
-      description: "Before creating or updating a project, you might want to have a clear view of your organization's workspaces and have their IDs.\n\n Endpoint mandatory parameters \n Details \n\n organization_id \n id of your organization \n\n Endpoint optional query parameters \n Details \n\n parent_id \n filter the workspaces from their parent id \n\n with_children \n if false, to not return the children"
+      description: 'Before creating or updating a project, you might want to have a clear view of your organization''s workspaces and have their IDs.
+
+
+        Endpoint mandatory parameters
+
+        Details
+
+
+        organization_id
+
+        id of your organization
+
+
+        Endpoint optional query parameters
+
+        Details
+
+
+        parent_id
+
+        filter the workspaces from their parent id
+
+
+        with_children
+
+        if false, to not return the children'
       tags:
       - Workspaces
       parameters:
@@ -115,7 +137,42 @@ paths:
     post:
       operationId: workspacesCreateWorkspace
       summary: Create workspace
-      description: "You can create workspaces.\n\n Endpoint mandatory parameters \n Details \n\n organization_id \n id of your organization \n\n body mandatory parameters \n Details \n\n name \n iname of the workspace \n\n body optional parameters \n Details \n\n client_reference \n workspace reference at a client point of view \n\n parent_id \n id of the parent workpace in the hierarchy"
+      description: 'You can create workspaces.
+
+
+        Endpoint mandatory parameters
+
+        Details
+
+
+        organization_id
+
+        id of your organization
+
+
+        body mandatory parameters
+
+        Details
+
+
+        name
+
+        iname of the workspace
+
+
+        body optional parameters
+
+        Details
+
+
+        client_reference
+
+        workspace reference at a client point of view
+
+
+        parent_id
+
+        id of the parent workpace in the hierarchy'
       tags:
       - Workspaces
       parameters:
@@ -178,7 +235,22 @@ paths:
     get:
       operationId: workspacesGetWorkspace
       summary: Get workspace
-      description: "Before creating or updating a project, you might want to have a clear view of your organisation workspaces and have their iDs.\n\n Endpoint mandatory parameters \n Details \n\n organization_id \n id of your organization \n\n workspace_id \n id of the workspace"
+      description: 'Before creating or updating a project, you might want to have a clear view of your organisation workspaces and have their iDs.
+
+
+        Endpoint mandatory parameters
+
+        Details
+
+
+        organization_id
+
+        id of your organization
+
+
+        workspace_id
+
+        id of the workspace'
       tags:
       - Workspaces
       parameters:
@@ -237,7 +309,37 @@ paths:
     put:
       operationId: workspacesUpdateWorkspace
       summary: Update workspace
-      description: "You can update a workspace.\n\n Endpoint mandatory parameters \n Details \n\n organization_id \n id of your organization \n\n workspace_id \n id of the workspace \n\n body mandatory parameters \n Details \n\n client_reference \n workspace refernce at a client point of view \n\n name \n name of the workspace"
+      description: 'You can update a workspace.
+
+
+        Endpoint mandatory parameters
+
+        Details
+
+
+        organization_id
+
+        id of your organization
+
+
+        workspace_id
+
+        id of the workspace
+
+
+        body mandatory parameters
+
+        Details
+
+
+        client_reference
+
+        workspace refernce at a client point of view
+
+
+        name
+
+        name of the workspace'
       tags:
       - Workspaces
       parameters:
@@ -301,7 +403,43 @@ paths:
     post:
       operationId: workspacesAddMembers
       summary: Add members
-      description: "You can add a user to a workspace.\n\n The user can be a Finalcad user or not. In this case, provide only their email to create them.\n\n Endpoint mandatory parameters \n Details \n\n organization_id \n id of your organization \n\n workspace_id \n id of the workspace \n\n body mandatory parameters \n Details \n\n sould be one of \n\n user_email \n email of the user if not exsting in the Finalcad datas \n\n user_id \n user_id of a Finalcad user"
+      description: 'You can add a user to a workspace.
+
+
+        The user can be a Finalcad user or not. In this case, provide only their email to create them.
+
+
+        Endpoint mandatory parameters
+
+        Details
+
+
+        organization_id
+
+        id of your organization
+
+
+        workspace_id
+
+        id of the workspace
+
+
+        body mandatory parameters
+
+        Details
+
+
+        sould be one of
+
+
+        user_email
+
+        email of the user if not exsting in the Finalcad datas
+
+
+        user_id
+
+        user_id of a Finalcad user'
       tags:
       - Workspaces
       parameters:
@@ -350,7 +488,35 @@ paths:
     get:
       operationId: workspacesFormTemplatesGetWorkspaceFormTemplates
       summary: Get workspace form templates
-      description: "Get the list of form templates in a workspace.\n\n Endpoint mandatory parameters \n Details \n\n organization_id \n id of your organization \n\n workspace_id \n id of the workspace \n\n Query params optionals \n\n limit \n number max of elements to get \n\n offset \n index of the first returned element"
+      description: 'Get the list of form templates in a workspace.
+
+
+        Endpoint mandatory parameters
+
+        Details
+
+
+        organization_id
+
+        id of your organization
+
+
+        workspace_id
+
+        id of the workspace
+
+
+        Query params optionals
+
+
+        limit
+
+        number max of elements to get
+
+
+        offset
+
+        index of the first returned element'
       tags:
       - Workspaces
       parameters:
@@ -419,7 +585,38 @@ paths:
     post:
       operationId: workspacesFormTemplatesSetWorkspaceFormTemplateCustomReportAssociation
       summary: Set workspace form template custom report association
-      description: "Set the association between a form template and a custom report template previously uploaded.\n\n The form template must have been created at this level (i.e., not inherited from an upper hierarchical level).\n\n Endpoint mandatory parameters \n Details \n\n organization_id \n id of your organization \n\n workspace_id \n id of the workspace \n\n form_id \n id the the form template \n\n Body mandatory params \n\n media_id \n id returned by the media upload process"
+      description: 'Set the association between a form template and a custom report template previously uploaded.
+
+
+        The form template must have been created at this level (i.e., not inherited from an upper hierarchical level).
+
+
+        Endpoint mandatory parameters
+
+        Details
+
+
+        organization_id
+
+        id of your organization
+
+
+        workspace_id
+
+        id of the workspace
+
+
+        form_id
+
+        id the the form template
+
+
+        Body mandatory params
+
+
+        media_id
+
+        id returned by the media upload process'
       tags:
       - Workspaces
       parameters:
@@ -474,7 +671,37 @@ paths:
     get:
       operationId: workspacesGetMembers
       summary: Get members
-      description: "You can get the list of all members of a workspace.\n\n Endpoint mandatory parameters \n Details \n\n organization_id \n id of your organization \n\n workspace_id \n id of the workspace \n\n Endpoint optional parameters \n Details \n\n limit \n number max of elemnts to be get \n\n offset \n index of the first elemnt to be get"
+      description: 'You can get the list of all members of a workspace.
+
+
+        Endpoint mandatory parameters
+
+        Details
+
+
+        organization_id
+
+        id of your organization
+
+
+        workspace_id
+
+        id of the workspace
+
+
+        Endpoint optional parameters
+
+        Details
+
+
+        limit
+
+        number max of elemnts to be get
+
+
+        offset
+
+        index of the first elemnt to be get'
       tags:
       - Workspaces
       parameters:
@@ -548,7 +775,35 @@ paths:
     get:
       operationId: workspacesModulesFormModuleTypeGetModules
       summary: Get modules
-      description: "Get the list of all existing form modules for a workspace.\n\n Endpoint mandatory info \n Details \n\n organization_id \n The ID of your organization \n\n workspace_id \n id of your workspace \n\n Query params optionals \n\n limit \n number max of rows returned \n\n offset \n number of the first record in the list"
+      description: 'Get the list of all existing form modules for a workspace.
+
+
+        Endpoint mandatory info
+
+        Details
+
+
+        organization_id
+
+        The ID of your organization
+
+
+        workspace_id
+
+        id of your workspace
+
+
+        Query params optionals
+
+
+        limit
+
+        number max of rows returned
+
+
+        offset
+
+        number of the first record in the list'
       tags:
       - Workspaces
       parameters:
@@ -894,7 +1149,57 @@ paths:
     post:
       operationId: workspacesModulesFormModuleTypeCreateModule
       summary: Create module
-      description: "You can create a custom form module in a specific workspace.\n\n Endpoint mandatory infos \n Details \n\n organization_Id \n the id of the organization to be modified \n\n workspace_id \n id of your workspace \n\n body mandatory infos \n Details \n\n name \n name of the new module \n\n icon \n name of the icon \n(look at finalcad libraries) \n\n color \n rbg value of the color \n(look at finalcad libraries) \n\n visibility \n visibiity of the module in the module suggestion s list in the project creation \nDefault=>checked by default \nAvailable => unchecked by default \nNotAvailable => not in the list"
+      description: 'You can create a custom form module in a specific workspace.
+
+
+        Endpoint mandatory infos
+
+        Details
+
+
+        organization_Id
+
+        the id of the organization to be modified
+
+
+        workspace_id
+
+        id of your workspace
+
+
+        body mandatory infos
+
+        Details
+
+
+        name
+
+        name of the new module
+
+
+        icon
+
+        name of the icon
+
+        (look at finalcad libraries)
+
+
+        color
+
+        rbg value of the color
+
+        (look at finalcad libraries)
+
+
+        visibility
+
+        visibiity of the module in the module suggestion s list in the project creation
+
+        Default=>checked by default
+
+        Available => unchecked by default
+
+        NotAvailable => not in the list'
       tags:
       - Workspaces
       parameters:
@@ -963,7 +1268,32 @@ paths:
     post:
       operationId: workspacesModulesFormModuleTypeDeleteModule
       summary: Delete module
-      description: "You can delete a specific module in a specific workspace.\n\n Endpoint mandatory infos \n Details \n\n organization_Id \n the id of the project to be modified \n\n workspace_id \n id of your workspace \n\n body mandatory infos \n Details \n\n module_ids \n ist of modules ids"
+      description: 'You can delete a specific module in a specific workspace.
+
+
+        Endpoint mandatory infos
+
+        Details
+
+
+        organization_Id
+
+        the id of the project to be modified
+
+
+        workspace_id
+
+        id of your workspace
+
+
+        body mandatory infos
+
+        Details
+
+
+        module_ids
+
+        ist of modules ids'
       tags:
       - Workspaces
       parameters:
@@ -1013,7 +1343,22 @@ paths:
     get:
       operationId: workspacesModulesGetModuleSuggestions
       summary: Get module suggestions
-      description: "Get all the predefined module suggestions for project creation if the project should be created in a workspace.\n\n Endpoint mandatory info \n Details \n\n organization_id \n The ID of your organization \n\n workspace_id \n id of your workspace"
+      description: 'Get all the predefined module suggestions for project creation if the project should be created in a workspace.
+
+
+        Endpoint mandatory info
+
+        Details
+
+
+        organization_id
+
+        The ID of your organization
+
+
+        workspace_id
+
+        id of your workspace'
       tags:
       - Workspaces
       parameters:
@@ -2034,7 +2379,62 @@ paths:
     put:
       operationId: workspacesModulesFormModuleTypeUpdateModule
       summary: Update module
-      description: "You can modify a specific form module in a specific workspace.\n\n Endpoint mandatory infos \n Details \n\n organization_Id \n the id of the organization to be modified \n\n workspace_id \n id of your workspace \n\n module_id \n id of the module to be modified \n\n body options infos \n Details \n\n name \n name of the new module \n\n icon \n name of the icon \n(look at finalcad libraries) \n\n color \n rbg value of the color \n(look at finalcad libraries) \n\n visibility \n visibiity of the module in the module suggestion s list in project creation \nDefault=>checked by default \nAvailable => unchecked by default \nNotAvailable => not in the list"
+      description: 'You can modify a specific form module in a specific workspace.
+
+
+        Endpoint mandatory infos
+
+        Details
+
+
+        organization_Id
+
+        the id of the organization to be modified
+
+
+        workspace_id
+
+        id of your workspace
+
+
+        module_id
+
+        id of the module to be modified
+
+
+        body options infos
+
+        Details
+
+
+        name
+
+        name of the new module
+
+
+        icon
+
+        name of the icon
+
+        (look at finalcad libraries)
+
+
+        color
+
+        rbg value of the color
+
+        (look at finalcad libraries)
+
+
+        visibility
+
+        visibiity of the module in the module suggestion s list in project creation
+
+        Default=>checked by default
+
+        Available => unchecked by default
+
+        NotAvailable => not in the list'
       tags:
       - Workspaces
       parameters:
@@ -2107,7 +2507,43 @@ paths:
     post:
       operationId: workspacesModulesFormModuleTypeCreateCategory
       summary: Create category
-      description: "You can create a new category in your module in your workspace.\n\n Endpoint mandatory info \n Details \n\n organization_id \n The ID of your organization \n\n workspace_id \n id of your workspace \n\n module_id \n id of your module \n\n Body params mandatory \n\n name \n name of the category \n\n Body params optionals \n\n parent_id \n parent category id if any"
+      description: 'You can create a new category in your module in your workspace.
+
+
+        Endpoint mandatory info
+
+        Details
+
+
+        organization_id
+
+        The ID of your organization
+
+
+        workspace_id
+
+        id of your workspace
+
+
+        module_id
+
+        id of your module
+
+
+        Body params mandatory
+
+
+        name
+
+        name of the category
+
+
+        Body params optionals
+
+
+        parent_id
+
+        parent category id if any'
       tags:
       - Workspaces
       parameters:
@@ -2163,7 +2599,40 @@ paths:
     put:
       operationId: workspacesModulesFormModuleTypeUpdateCategory
       summary: Update category
-      description: "You can rename a category in your module in your workspace.\n\n Endpoint mandatory info \n Details \n\n organization_id \n The ID of your organization \n\n workspace_id \n id of your workspace \n\n module_id \n id of your module \n\n category_id \n id of the category \n\n Body params mandatory \n\n name \n new name of the category"
+      description: 'You can rename a category in your module in your workspace.
+
+
+        Endpoint mandatory info
+
+        Details
+
+
+        organization_id
+
+        The ID of your organization
+
+
+        workspace_id
+
+        id of your workspace
+
+
+        module_id
+
+        id of your module
+
+
+        category_id
+
+        id of the category
+
+
+        Body params mandatory
+
+
+        name
+
+        new name of the category'
       tags:
       - Workspaces
       parameters:
@@ -2223,7 +2692,32 @@ paths:
     delete:
       operationId: workspacesModulesFormModuleTypeDeleteCategory
       summary: Delete category
-      description: "You can delete a category in your module in your workspace.\n\n Endpoint mandatory info \n Details \n\n organization_id \n The ID of your organization \n\n workspace_id \n id of your workspace \n\n module_id \n id of your module \n\n category_id \n id of the category"
+      description: 'You can delete a category in your module in your workspace.
+
+
+        Endpoint mandatory info
+
+        Details
+
+
+        organization_id
+
+        The ID of your organization
+
+
+        workspace_id
+
+        id of your workspace
+
+
+        module_id
+
+        id of your module
+
+
+        category_id
+
+        id of the category'
       tags:
       - Workspaces
       parameters:
@@ -2276,7 +2770,37 @@ paths:
     post:
       operationId: workspacesModulesFormModuleTypeAddFormLink
       summary: Add form link
-      description: "You can link form templates to a module in a workspace.\n\n Endpoint mandatory infos \n Details \n\n organization_id \n id of your organization \n\n workspace_id \n id of your workspace \n\n module_id \n id of the module \n\n body mandatory infos \n Details \n\n form_ids \n list of ids of the forms"
+      description: 'You can link form templates to a module in a workspace.
+
+
+        Endpoint mandatory infos
+
+        Details
+
+
+        organization_id
+
+        id of your organization
+
+
+        workspace_id
+
+        id of your workspace
+
+
+        module_id
+
+        id of the module
+
+
+        body mandatory infos
+
+        Details
+
+
+        form_ids
+
+        list of ids of the forms'
       tags:
       - Workspaces
       parameters:
@@ -2333,7 +2857,37 @@ paths:
     post:
       operationId: workspacesModulesFormModuleTypeRemoveFormLink
       summary: Remove form link
-      description: "You can remove the link of form templates to a module in a workspace.\n\n Endpoint mandatory infos \n Details \n\n organization_id \n id of your organization \n\n workspace_id \n id of your workspace \n\n module_id \n id of the module \n\n body mandatory infos \n Details \n\n form_ids \n list of ids of the forms"
+      description: 'You can remove the link of form templates to a module in a workspace.
+
+
+        Endpoint mandatory infos
+
+        Details
+
+
+        organization_id
+
+        id of your organization
+
+
+        workspace_id
+
+        id of your workspace
+
+
+        module_id
+
+        id of the module
+
+
+        body mandatory infos
+
+        Details
+
+
+        form_ids
+
+        list of ids of the forms'
       tags:
       - Workspaces
       parameters:
@@ -2406,7 +2960,45 @@ paths:
     get:
       operationId: workspacesPriorityLibraryGetWorkspacePrioritiesLibrary
       summary: Get workspace priorities library
-      description: "Before updating your priorities, you might want to have an overview of the ones deployed in your workspace. This helps you manage your workspace based on the current context.\n\n Endpoint mandatory parameters \n Details \n\n organization_id \n id of your organization \n\n workspace_id \n id of the workspace \n\n Query params optionals \n\n limit \n number max of elements to get \n\n offset \n index of the first returned element \n\n Quary mandatory params \n Details \n\n module_type \n Observations or Forms"
+      description: 'Before updating your priorities, you might want to have an overview of the ones deployed in your workspace. This helps you manage your workspace based on the current context.
+
+
+        Endpoint mandatory parameters
+
+        Details
+
+
+        organization_id
+
+        id of your organization
+
+
+        workspace_id
+
+        id of the workspace
+
+
+        Query params optionals
+
+
+        limit
+
+        number max of elements to get
+
+
+        offset
+
+        index of the first returned element
+
+
+        Quary mandatory params
+
+        Details
+
+
+        module_type
+
+        Observations or Forms'
       tags:
       - Workspaces
       parameters:
@@ -2754,7 +3346,74 @@ paths:
     put:
       operationId: workspacesPriorityLibraryUpdateWorkspacePrioritiesLibrary
       summary: Update workspace priorities library
-      description: "Update your list of priorities.\n\n This cannot be done one by one. You need to manage your entire list of observation or form priorities to preserve all existing priorities. So in case you want to...\n\n add new priorities to your list, you need to get the existing list, add the new ones to this list, and then send your request.\n\n remove priorities from your list, you need to get the existing list, remove the targeted ones, and then send the request.\n\n update some priorities, you need to get the existing list, change the targeted field values, and then send the request.\n\n Endpoint mandatory parameters \n Details \n\n organization_id \n id of your organization \n\n workspace_id \n id of the workspace \n\n Body parameters \n Details \n\n module_type \n observation or form \n\n and a list of \n\n position \n order in the list \n\n color \n rgb code of the color \n\n icon \n icon name \n\n is_default \n true for the default one \nfalse else \n\n names \n list of names and langages"
+      description: 'Update your list of priorities.
+
+
+        This cannot be done one by one. You need to manage your entire list of observation or form priorities to preserve all existing priorities. So in case you want to...
+
+
+        add new priorities to your list, you need to get the existing list, add the new ones to this list, and then send your request.
+
+
+        remove priorities from your list, you need to get the existing list, remove the targeted ones, and then send the request.
+
+
+        update some priorities, you need to get the existing list, change the targeted field values, and then send the request.
+
+
+        Endpoint mandatory parameters
+
+        Details
+
+
+        organization_id
+
+        id of your organization
+
+
+        workspace_id
+
+        id of the workspace
+
+
+        Body parameters
+
+        Details
+
+
+        module_type
+
+        observation or form
+
+
+        and a list of
+
+
+        position
+
+        order in the list
+
+
+        color
+
+        rgb code of the color
+
+
+        icon
+
+        icon name
+
+
+        is_default
+
+        true for the default one
+
+        false else
+
+
+        names
+
+        list of names and langages'
       tags:
       - Workspaces
       parameters:
@@ -2938,7 +3597,32 @@ paths:
     delete:
       operationId: workspacesRemoveMembers
       summary: Remove members
-      description: "You can remove a user from a workspace\n\n Endpoint mandatory parameters \n Details \n\n organization_id \n id of your organization \n\n workspace_id \n id of the workspace \n\n body mandatory parameters \n Details \n\n user_id \n the user_id of the user"
+      description: 'You can remove a user from a workspace
+
+
+        Endpoint mandatory parameters
+
+        Details
+
+
+        organization_id
+
+        id of your organization
+
+
+        workspace_id
+
+        id of the workspace
+
+
+        body mandatory parameters
+
+        Details
+
+
+        user_id
+
+        the user_id of the user'
       tags:
       - Workspaces
       parameters:
@@ -2987,7 +3671,33 @@ paths:
     delete:
       operationId: workspacesFormTemplatesDeleteWorkspaceFormTemplate
       summary: Delete workspace form template
-      description: "You can provide the list of form template IDs you want to remove from your library. Templates will still be usable in existing projects.\n\n Deletion cannot be undone.\n\n Endpoint mandatory parameters \n Details \n\n organization_id \n id of your organization \n\n workspace_id \n id of your workspace \n\n Body parameters \n Details \n\n a list of ids"
+      description: 'You can provide the list of form template IDs you want to remove from your library. Templates will still be usable in existing projects.
+
+
+        Deletion cannot be undone.
+
+
+        Endpoint mandatory parameters
+
+        Details
+
+
+        organization_id
+
+        id of your organization
+
+
+        workspace_id
+
+        id of your workspace
+
+
+        Body parameters
+
+        Details
+
+
+        a list of ids'
       tags:
       - Workspaces
       parameters:

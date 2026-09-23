@@ -3,10 +3,7 @@ info:
   title: Finalcad One Medias API
   version: '2.41'
   summary: 'Media upload and retrieval for the Finalcad One platform: single-shot upload, chunked upload (init / append / terminate / abort) for files over 5 MB, and downloadable media resource URLs.'
-  description: 'Media upload and retrieval for the Finalcad One platform: single-shot upload, chunked upload (init / append / terminate / abort) for files over 5 MB, and downloadable media resource URLs.
-
-
-    DERIVED, NOT PUBLISHED BY THE PROVIDER. Finalcad publishes no OpenAPI. This document was mechanically derived by API Evangelist from the first-party public Postman collection "Finalcad One API" served by Finalcad at https://developer.finalcad.com/ (collection JSON: https://developer.finalcad.com/api/collections/10995648/Tz5v1Es2), saved in this repo at collections/finalcad.postman_collection.json. Every path, method, header, query parameter, example request body and example response below is carried over from that collection; nothing was invented. Request/response bodies are typed as generic objects because the collection carries examples, not schemas. Four Finalcad employees'' personal e-mail addresses that appeared in the collection''s example payloads were replaced with placeholders; nothing else was changed.'
+  description: 'Media upload and retrieval for the Finalcad One platform: single-shot upload, chunked upload (init / append / terminate / abort) for files over 5 MB, and downloadable media resource URLs.'
   contact:
     name: Finalcad One API — developer portal
     url: https://developer.finalcad.com/
@@ -28,7 +25,40 @@ paths:
     post:
       operationId: uploadMedias
       summary: Upload medias
-      description: "Upload media less than 5 megabytes . \n\n For media larger than 5 megabytes, you need to use chunk upload .\n\n form_data mandatory infos \n Details \n\n media \n stream of the media \n\n returned infos \n Details \n\n id \n id of the newly created media \n\n file_name \n filename of the media \n\n mime_type \n mime type of the media"
+      description: 'Upload media less than 5 megabytes .
+
+
+        For media larger than 5 megabytes, you need to use chunk upload .
+
+
+        form_data mandatory infos
+
+        Details
+
+
+        media
+
+        stream of the media
+
+
+        returned infos
+
+        Details
+
+
+        id
+
+        id of the newly created media
+
+
+        file_name
+
+        filename of the media
+
+
+        mime_type
+
+        mime type of the media'
       tags:
       - Medias
       requestBody:
@@ -76,7 +106,29 @@ paths:
     get:
       operationId: getMediaResource
       summary: Get media resource
-      description: "Given the media resource ID, you can get the media content.\n\n Warnings \n \n This is limited to media less than 10 MB\n\n Endpoints do not work for retrieving 3D media\n\n The media_resource_id is the ID returned by an endpoint that links a media to something (for example, the endpoint to create a plan). This is not the media_id used in the media upload endpoints\n\n Endpoint mandatory infos \n Details \n\n media_resource_id \n the id of the media to be downloaded"
+      description: 'Given the media resource ID, you can get the media content.
+
+
+        Warnings
+
+
+        This is limited to media less than 10 MB
+
+
+        Endpoints do not work for retrieving 3D media
+
+
+        The media_resource_id is the ID returned by an endpoint that links a media to something (for example, the endpoint to create a plan). This is not the media_id used in the media upload endpoints
+
+
+        Endpoint mandatory infos
+
+        Details
+
+
+        media_resource_id
+
+        the id of the media to be downloaded'
       tags:
       - Medias
       parameters:
@@ -111,7 +163,26 @@ paths:
     get:
       operationId: getMediaResourceUrl
       summary: Get media resource URL
-      description: "Given the media resource ID, you can get a downloadable URL.\n\n ⚠️ Warnings \n \n Endpoints do not work for retrieving 3D plan media (returns a 404 error)\n\n The media_resource_id is the ID returned by an endpoint that links a media to something (for example, the endpoint to create a plan). This is not the media_id used in the media upload endpoints.\n\n Endpoint mandatory infos \n Details \n\n media_resource_id \n the id of the media to be downloaded"
+      description: 'Given the media resource ID, you can get a downloadable URL.
+
+
+        ⚠️ Warnings
+
+
+        Endpoints do not work for retrieving 3D plan media (returns a 404 error)
+
+
+        The media_resource_id is the ID returned by an endpoint that links a media to something (for example, the endpoint to create a plan). This is not the media_id used in the media upload endpoints.
+
+
+        Endpoint mandatory infos
+
+        Details
+
+
+        media_resource_id
+
+        the id of the media to be downloaded'
       tags:
       - Medias
       parameters:

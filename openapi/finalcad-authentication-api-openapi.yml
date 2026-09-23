@@ -3,10 +3,7 @@ info:
   title: Finalcad One Authentication API
   version: '2.41'
   summary: Obtain a user token for the Finalcad One API. The API Key identifies the calling organization (`X-API-Key`); the user token carries the caller's rights.
-  description: 'Obtain a user token for the Finalcad One API. The API Key identifies the calling organization (`X-API-Key`); the user token carries the caller''s rights.
-
-
-    DERIVED, NOT PUBLISHED BY THE PROVIDER. Finalcad publishes no OpenAPI. This document was mechanically derived by API Evangelist from the first-party public Postman collection "Finalcad One API" served by Finalcad at https://developer.finalcad.com/ (collection JSON: https://developer.finalcad.com/api/collections/10995648/Tz5v1Es2), saved in this repo at collections/finalcad.postman_collection.json. Every path, method, header, query parameter, example request body and example response below is carried over from that collection; nothing was invented. Request/response bodies are typed as generic objects because the collection carries examples, not schemas. Four Finalcad employees'' personal e-mail addresses that appeared in the collection''s example payloads were replaced with placeholders; nothing else was changed.'
+  description: Obtain a user token for the Finalcad One API.
   contact:
     name: Finalcad One API — developer portal
     url: https://developer.finalcad.com/

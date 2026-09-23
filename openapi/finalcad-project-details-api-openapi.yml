@@ -1,12 +1,9 @@
 openapi: 3.2.0
 info:
-  title: Finalcad One Project Project  details API
+  title: Finalcad One Project Project details API
   version: '2.41'
   summary: 'Project-level operations for Finalcad One construction projects: project details, project libraries, members, locations (folders / plans / IFC), discussion groups, companies, modules (observations / forms / meetings), observations, forms and form answers, documents, phases, meetings and XLSX/PDF exports.'
-  description: 'Project-level operations for Finalcad One construction projects: project details, project libraries, members, locations (folders / plans / IFC), discussion groups, companies, modules (observations / forms / meetings), observations, forms and form answers, documents, phases, meetings and XLSX/PDF exports.
-
-
-    DERIVED, NOT PUBLISHED BY THE PROVIDER. Finalcad publishes no OpenAPI. This document was mechanically derived by API Evangelist from the first-party public Postman collection "Finalcad One API" served by Finalcad at https://developer.finalcad.com/ (collection JSON: https://developer.finalcad.com/api/collections/10995648/Tz5v1Es2), saved in this repo at collections/finalcad.postman_collection.json. Every path, method, header, query parameter, example request body and example response below is carried over from that collection; nothing was invented. Request/response bodies are typed as generic objects because the collection carries examples, not schemas. Four Finalcad employees'' personal e-mail addresses that appeared in the collection''s example payloads were replaced with placeholders; nothing else was changed.'
+  description: 'Project-level operations for Finalcad One construction projects: project details, project libraries, members, locations (folders / plans / IFC), discussion groups, companies, modules (observations / forms / meetings), observations, forms and form answers, documents, phases, meetings and XLSX/PDF exports.'
   contact:
     name: Finalcad One API — developer portal
     url: https://developer.finalcad.com/
@@ -28,7 +25,97 @@ paths:
     post:
       operationId: projectDetailsCreateANewProject
       summary: Create a new project
-      description: "Creating a project from scratch can be as easy as 1, 2, 3.\n\n You need to specify your project name. To ensure that your project is correctly localized, language and time zone are mandatory.\n\n But you can go further:\n\n bodymandatory informations \n Details \n\n name \n Your best wording to describe your project. It will be displayed everywhere \n\n body optional information \n Details \n\n description \n Text field that should contain less than 255 characters \n\n workspace_id \n The workspace in which you want to create the project \n\n case_number \n Project reference aligned with your internal classification \n\n address \n Where your project is located \n\n end_date \n Your targeted project end date \n\n language \n If not set it will be French. \n\n time_zone \n See Get list of time zones \n\n module_ids \n An array of modules ids to be added \nsee Get modules suggestions at organization or workspace level depending of your usage \n\n Langage help: \nCatalan = \"ca\"\nChinese = \"zh-Hans\"\nEnglish = \"en\"\nFrench = \"fr\"\nGerman = \"de-DE\"\nItalian = \"it\"\nJapanese = \"ja\"\nNetherland = \"nl-NL\"\nPortuguese = \"pt\"\nSpanish = \"es\"\nThai = \"th\"\nVietnamese = \"vi\""
+      description: 'Creating a project from scratch can be as easy as 1, 2, 3.
+
+
+        You need to specify your project name. To ensure that your project is correctly localized, language and time zone are mandatory.
+
+
+        But you can go further:
+
+
+        bodymandatory informations
+
+        Details
+
+
+        name
+
+        Your best wording to describe your project. It will be displayed everywhere
+
+
+        body optional information
+
+        Details
+
+
+        description
+
+        Text field that should contain less than 255 characters
+
+
+        workspace_id
+
+        The workspace in which you want to create the project
+
+
+        case_number
+
+        Project reference aligned with your internal classification
+
+
+        address
+
+        Where your project is located
+
+
+        end_date
+
+        Your targeted project end date
+
+
+        language
+
+        If not set it will be French.
+
+
+        time_zone
+
+        See Get list of time zones
+
+
+        module_ids
+
+        An array of modules ids to be added
+
+        see Get modules suggestions at organization or workspace level depending of your usage
+
+
+        Langage help:
+
+        Catalan = "ca"
+
+        Chinese = "zh-Hans"
+
+        English = "en"
+
+        French = "fr"
+
+        German = "de-DE"
+
+        Italian = "it"
+
+        Japanese = "ja"
+
+        Netherland = "nl-NL"
+
+        Portuguese = "pt"
+
+        Spanish = "es"
+
+        Thai = "th"
+
+        Vietnamese = "vi"'
       tags:
       - Project  details
       parameters:
@@ -162,7 +249,69 @@ paths:
     put:
       operationId: projectDetailsUpdateProject
       summary: Update project
-      description: "Update your project details.\n\n Endpoint mandatory infos \n Details \n\n projectId \n the id of the project to be modified \n\n Body optional informations \n Details \n\n name \n Your best wording to describe your project. It will be displayed everywhere \n\n description \n Text field that should contain less than 255 characters \n\n case_number \n Project reference aligned with your internal classification \n\n address \n Where your project is located \n\n end_date \n Your targeted project end date \n\n language \n If not set it will be French. \n\n time_zone \n See Get list of time zones \n\n media_id \n id of the media to use as project photo \n\n status \n status of the project \nshould be \"Done\" or \"InProgress\""
+      description: 'Update your project details.
+
+
+        Endpoint mandatory infos
+
+        Details
+
+
+        projectId
+
+        the id of the project to be modified
+
+
+        Body optional informations
+
+        Details
+
+
+        name
+
+        Your best wording to describe your project. It will be displayed everywhere
+
+
+        description
+
+        Text field that should contain less than 255 characters
+
+
+        case_number
+
+        Project reference aligned with your internal classification
+
+
+        address
+
+        Where your project is located
+
+
+        end_date
+
+        Your targeted project end date
+
+
+        language
+
+        If not set it will be French.
+
+
+        time_zone
+
+        See Get list of time zones
+
+
+        media_id
+
+        id of the media to use as project photo
+
+
+        status
+
+        status of the project
+
+        should be "Done" or "InProgress"'
       tags:
       - Project  details
       parameters:
@@ -248,7 +397,10 @@ paths:
     get:
       operationId: projectDetailsCheckProjectSettings
       summary: Check project settings
-      description: "Users with the correct level of rights can edit project parameters.\n\n You may want to check if and which updates have been made."
+      description: 'Users with the correct level of rights can edit project parameters.
+
+
+        You may want to check if and which updates have been made.'
       tags:
       - Project  details
       parameters:
@@ -303,7 +455,17 @@ paths:
     delete:
       operationId: projectDetailsDeleteAProject
       summary: Delete a project
-      description: "You can delete a project.\n\n Endpoint mandatory info \n Details \n\n project_id \n The ID of the project you want to delete"
+      description: 'You can delete a project.
+
+
+        Endpoint mandatory info
+
+        Details
+
+
+        project_id
+
+        The ID of the project you want to delete'
       tags:
       - Project  details
       parameters:
@@ -338,7 +500,32 @@ paths:
     post:
       operationId: projectDetailsAddProjectLogo
       summary: Add project logo
-      description: "You can add a logo to a project.\n\n Endpoint mandatory info \n Details \n\n project_id \n The ID of the project where the form will be created \n\n body mandatory infos \n Details \n\n media_id \n id of the previuosly uploaded image \n\n media_name \n display name of the logo"
+      description: 'You can add a logo to a project.
+
+
+        Endpoint mandatory info
+
+        Details
+
+
+        project_id
+
+        The ID of the project where the form will be created
+
+
+        body mandatory infos
+
+        Details
+
+
+        media_id
+
+        id of the previuosly uploaded image
+
+
+        media_name
+
+        display name of the logo'
       tags:
       - Project  details
       parameters:
@@ -394,7 +581,25 @@ paths:
     delete:
       operationId: projectDetailsRemoveProjectLogos
       summary: Remove project logos
-      description: "You can remove a logo from a project.\n\n Details \n\n project_id \n The ID of the project where the form will be created \n\n body mandatory info \n Details \n\n logo_ids \n list of the logo ids to be removed"
+      description: 'You can remove a logo from a project.
+
+
+        Details
+
+
+        project_id
+
+        The ID of the project where the form will be created
+
+
+        body mandatory info
+
+        Details
+
+
+        logo_ids
+
+        list of the logo ids to be removed'
       tags:
       - Project  details
       parameters:
@@ -437,7 +642,17 @@ paths:
     get:
       operationId: projectDetailsGetProjectLogos
       summary: Get project logos
-      description: "You can get the list of project logos.\n\n Endpoint mandatory info \n Details \n\n project_id \n The ID of the project where the form will be created"
+      description: 'You can get the list of project logos.
+
+
+        Endpoint mandatory info
+
+        Details
+
+
+        project_id
+
+        The ID of the project where the form will be created'
       tags:
       - Project  details
       parameters:
@@ -508,7 +723,20 @@ paths:
     post:
       operationId: projectDetailsRestoreAProject
       summary: Restore a project
-      description: "You can restore a project.\n\n The project_id must be stored on your side before deletion, as it is not possible to retrieve the list of deleted projects from an organization.\n\n Endpoint mandatory info \n Details \n\n project_id \n The ID of the project you want to delete"
+      description: 'You can restore a project.
+
+
+        The project_id must be stored on your side before deletion, as it is not possible to retrieve the list of deleted projects from an organization.
+
+
+        Endpoint mandatory info
+
+        Details
+
+
+        project_id
+
+        The ID of the project you want to delete'
       tags:
       - Project  details
       parameters:

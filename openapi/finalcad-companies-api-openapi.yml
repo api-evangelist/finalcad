@@ -3,10 +3,7 @@ info:
   title: Finalcad One Project Companies API
   version: '2.41'
   summary: 'Project-level operations for Finalcad One construction projects: project details, project libraries, members, locations (folders / plans / IFC), discussion groups, companies, modules (observations / forms / meetings), observations, forms and form answers, documents, phases, meetings and XLSX/PDF exports.'
-  description: 'Project-level operations for Finalcad One construction projects: project details, project libraries, members, locations (folders / plans / IFC), discussion groups, companies, modules (observations / forms / meetings), observations, forms and form answers, documents, phases, meetings and XLSX/PDF exports.
-
-
-    DERIVED, NOT PUBLISHED BY THE PROVIDER. Finalcad publishes no OpenAPI. This document was mechanically derived by API Evangelist from the first-party public Postman collection "Finalcad One API" served by Finalcad at https://developer.finalcad.com/ (collection JSON: https://developer.finalcad.com/api/collections/10995648/Tz5v1Es2), saved in this repo at collections/finalcad.postman_collection.json. Every path, method, header, query parameter, example request body and example response below is carried over from that collection; nothing was invented. Request/response bodies are typed as generic objects because the collection carries examples, not schemas. Four Finalcad employees'' personal e-mail addresses that appeared in the collection''s example payloads were replaced with placeholders; nothing else was changed.'
+  description: 'Project-level operations for Finalcad One construction projects: project details, project libraries, members, locations (folders / plans / IFC), discussion groups, companies, modules (observations / forms / meetings), observations, forms and form answers, documents, phases, meetings and XLSX/PDF exports.'
   contact:
     name: Finalcad One API — developer portal
     url: https://developer.finalcad.com/
@@ -27,8 +24,22 @@ paths:
   /projects/{project_id}/companies:
     get:
       operationId: companiesGetProjectCompaniesList
-      summary: Get  project companies list
-      description: "Before updating your company list, you might want to have an overview of the ones deployed in your project. This helps you manage your project based on the current context.\n\n Details \n\n project_Id \n the id of the project to be checked \n\n Query params optionals \n\n see Commmon behaviors / differential"
+      summary: Get project companies list
+      description: 'Before updating your company list, you might want to have an overview of the ones deployed in your project. This helps you manage your project based on the current context.
+
+
+        Details
+
+
+        project_Id
+
+        the id of the project to be checked
+
+
+        Query params optionals
+
+
+        see Commmon behaviors / differential'
       tags:
       - Companies
       parameters:
@@ -88,7 +99,42 @@ paths:
     put:
       operationId: companiesUpdateProjectCompanyName
       summary: Update project company name
-      description: "Update your list of companies. Only the selected companies will change.\n\n Endpoint mandatory infos \n Details \n\n project_Id \n the id of the project to be modified \n\n body mandatory infos \n Details \n\n id \n id of the company to be modified \n\n name \n new name of the company \n\n body optionalinfos \n Details \n\n reference \n company reference in your referential system"
+      description: 'Update your list of companies. Only the selected companies will change.
+
+
+        Endpoint mandatory infos
+
+        Details
+
+
+        project_Id
+
+        the id of the project to be modified
+
+
+        body mandatory infos
+
+        Details
+
+
+        id
+
+        id of the company to be modified
+
+
+        name
+
+        new name of the company
+
+
+        body optionalinfos
+
+        Details
+
+
+        reference
+
+        company reference in your referential system'
       tags:
       - Companies
       parameters:
@@ -144,7 +190,25 @@ paths:
     delete:
       operationId: companiesDeleteProjectCompanies
       summary: Delete project companies
-      description: "You can provide the list of company IDs you want to remove from your project. The existing assignments will be tagged as deleted entities.\n\n Details \n\n project_Id \n the id of the project to be modified \n\n body mandatory infos \n Details \n\n company_ids \n list of companies ids to be deleted"
+      description: 'You can provide the list of company IDs you want to remove from your project. The existing assignments will be tagged as deleted entities.
+
+
+        Details
+
+
+        project_Id
+
+        the id of the project to be modified
+
+
+        body mandatory infos
+
+        Details
+
+
+        company_ids
+
+        list of companies ids to be deleted'
       tags:
       - Companies
       parameters:
@@ -187,7 +251,28 @@ paths:
     post:
       operationId: companiesCreateProjectCompanies
       summary: Create project companies
-      description: "Creating a new company for a project only means giving it a name. Additionally, you can do it as a list of companies.\n\n Details \n\n project_Id \n the id of the project to be modified \n\n body mandatory infos \n Details \n\n companies \n list of names and references of the new companies \n \nthe reference is the company reference in your referential system and is optional"
+      description: 'Creating a new company for a project only means giving it a name. Additionally, you can do it as a list of companies.
+
+
+        Details
+
+
+        project_Id
+
+        the id of the project to be modified
+
+
+        body mandatory infos
+
+        Details
+
+
+        companies
+
+        list of names and references of the new companies
+
+
+        the reference is the company reference in your referential system and is optional'
       tags:
       - Companies
       parameters:
@@ -244,7 +329,20 @@ paths:
     get:
       operationId: companiesGetCompanyInfo
       summary: Get company info
-      description: "Given the project company ID, you can check its name.\n\n Details \n\n project_Id \n the id of the project to be modified \n\n company_id \n id of the company to be checked"
+      description: 'Given the project company ID, you can check its name.
+
+
+        Details
+
+
+        project_Id
+
+        the id of the project to be modified
+
+
+        company_id
+
+        id of the company to be checked'
       tags:
       - Companies
       parameters:
@@ -294,7 +392,28 @@ paths:
     post:
       operationId: companiesAddMembers
       summary: Add members
-      description: "Given the project company ID, you can add members (members should exist in the project).\n\n Details \n\n project_Id \n the id of the project to be modified \n\n company_id \n id of the company to be checked \n\n Body mandatory infos \n Details \n\n list of users ids"
+      description: 'Given the project company ID, you can add members (members should exist in the project).
+
+
+        Details
+
+
+        project_Id
+
+        the id of the project to be modified
+
+
+        company_id
+
+        id of the company to be checked
+
+
+        Body mandatory infos
+
+        Details
+
+
+        list of users ids'
       tags:
       - Companies
       parameters:
@@ -361,7 +480,28 @@ paths:
     post:
       operationId: companiesRemoveMembers
       summary: Remove members
-      description: "Given the project company ID, you can remove members.\n\n Details \n\n project_Id \n the id of the project to be modified \n\n company_id \n id of the company to be checked \n\n Body mandatory infos \n Details \n\n list of users ids"
+      description: 'Given the project company ID, you can remove members.
+
+
+        Details
+
+
+        project_Id
+
+        the id of the project to be modified
+
+
+        company_id
+
+        id of the company to be checked
+
+
+        Body mandatory infos
+
+        Details
+
+
+        list of users ids'
       tags:
       - Companies
       parameters:

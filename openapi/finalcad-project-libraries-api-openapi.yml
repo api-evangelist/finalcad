@@ -3,10 +3,7 @@ info:
   title: Finalcad One Project Project libraries API
   version: '2.41'
   summary: 'Project-level operations for Finalcad One construction projects: project details, project libraries, members, locations (folders / plans / IFC), discussion groups, companies, modules (observations / forms / meetings), observations, forms and form answers, documents, phases, meetings and XLSX/PDF exports.'
-  description: 'Project-level operations for Finalcad One construction projects: project details, project libraries, members, locations (folders / plans / IFC), discussion groups, companies, modules (observations / forms / meetings), observations, forms and form answers, documents, phases, meetings and XLSX/PDF exports.
-
-
-    DERIVED, NOT PUBLISHED BY THE PROVIDER. Finalcad publishes no OpenAPI. This document was mechanically derived by API Evangelist from the first-party public Postman collection "Finalcad One API" served by Finalcad at https://developer.finalcad.com/ (collection JSON: https://developer.finalcad.com/api/collections/10995648/Tz5v1Es2), saved in this repo at collections/finalcad.postman_collection.json. Every path, method, header, query parameter, example request body and example response below is carried over from that collection; nothing was invented. Request/response bodies are typed as generic objects because the collection carries examples, not schemas. Four Finalcad employees'' personal e-mail addresses that appeared in the collection''s example payloads were replaced with placeholders; nothing else was changed.'
+  description: 'Project-level operations for Finalcad One construction projects: project details, project libraries, members, locations (folders / plans / IFC), discussion groups, companies, modules (observations / forms / meetings), observations, forms and form answers, documents, phases, meetings and XLSX/PDF exports.'
   contact:
     name: Finalcad One API — developer portal
     url: https://developer.finalcad.com/
@@ -28,7 +25,21 @@ paths:
     get:
       operationId: projectLibrariesGetProjectCommonObservations
       summary: Get project common observations
-      description: "For a given project, you can list the models (= common observations) available by module ID.\n\n Details \n\n project_id \n the id of the project to be modified \n\n Query params optionals \n\n see Commmon behaviors / differential"
+      description: 'For a given project, you can list the models (= common observations) available by module ID.
+
+
+        Details
+
+
+        project_id
+
+        the id of the project to be modified
+
+
+        Query params optionals
+
+
+        see Commmon behaviors / differential'
       tags:
       - Project libraries
       parameters:
@@ -95,7 +106,21 @@ paths:
     get:
       operationId: projectLibrariesGetProjectFormPriorities
       summary: Get project form priorities
-      description: "For a given project, you can list all the available form priorities.\n\n Details \n\n projectId \n the id of the project to be modified \n\n Query params optionals \n\n see Commmon behaviors / differential"
+      description: 'For a given project, you can list all the available form priorities.
+
+
+        Details
+
+
+        projectId
+
+        the id of the project to be modified
+
+
+        Query params optionals
+
+
+        see Commmon behaviors / differential'
       tags:
       - Project libraries
       parameters:
@@ -216,7 +241,33 @@ paths:
     get:
       operationId: projectLibrariesGetProjectFormTemplates
       summary: Get project form templates
-      description: "For a given project you can list all the available form templates for a module and a category\n\n Endpoint mandatory infos \n Details \n\n projectId \n the id of the project to be modified \n\n Query mandatory params \n\n module_id \n id of the module checked \n\n Query optionals params \n\n category_id \n id of the category of the module checked"
+      description: 'For a given project you can list all the available form templates for a module and a category
+
+
+        Endpoint mandatory infos
+
+        Details
+
+
+        projectId
+
+        the id of the project to be modified
+
+
+        Query mandatory params
+
+
+        module_id
+
+        id of the module checked
+
+
+        Query optionals params
+
+
+        category_id
+
+        id of the category of the module checked'
       tags:
       - Project libraries
       parameters:
@@ -324,8 +375,22 @@ paths:
   /projects/{project_id}/observations-priorities:
     get:
       operationId: projectLibrariesGetProjectObservationPriorities
-      summary: Get project observation  priorities
-      description: "For a given project, you can list all the available observation priorities.\n\n Details \n\n projectId \n the id of the project to be modified \n\n Query params optionals \n\n see Commmon behaviors / differential link"
+      summary: Get project observation priorities
+      description: 'For a given project, you can list all the available observation priorities.
+
+
+        Details
+
+
+        projectId
+
+        the id of the project to be modified
+
+
+        Query params optionals
+
+
+        see Commmon behaviors / differential link'
       tags:
       - Project libraries
       parameters:
@@ -398,7 +463,21 @@ paths:
     get:
       operationId: projectLibrariesGetProjectObservationStatus
       summary: Get project observation status
-      description: "For a given project, you can list all the available observation statuses.\n\n Details \n\n projectId \n the id of the project to be modified \n\n Query params optionals \n\n see Commmon behaviors / differential"
+      description: 'For a given project, you can list all the available observation statuses.
+
+
+        Details
+
+
+        projectId
+
+        the id of the project to be modified
+
+
+        Query params optionals
+
+
+        see Commmon behaviors / differential'
       tags:
       - Project libraries
       parameters:
@@ -517,7 +596,26 @@ paths:
     get:
       operationId: projectLibrariesGetProjectObservationNextStatus
       summary: Get project observation next status
-      description: "For a given project, you can get the next statuses following your workflow choices for a given status.\n\n Details \n\n projectId \n the id of the project to be modified \n\n status_id \n the id of the status \n\n Query params optionals \n\n see Commmon behaviors / differential"
+      description: 'For a given project, you can get the next statuses following your workflow choices for a given status.
+
+
+        Details
+
+
+        projectId
+
+        the id of the project to be modified
+
+
+        status_id
+
+        the id of the status
+
+
+        Query params optionals
+
+
+        see Commmon behaviors / differential'
       tags:
       - Project libraries
       parameters:
@@ -741,7 +839,23 @@ paths:
     get:
       operationId: projectLibrariesGetProjectTrades
       summary: Get project trades
-      description: "Given the project, you can get the list of trades.\n\n Endpoint mandatory infos \n Details \n\n projectId \n the id of the project to be modified \n\n Query params optionals \n\n see Commmon behaviors / differential"
+      description: 'Given the project, you can get the list of trades.
+
+
+        Endpoint mandatory infos
+
+        Details
+
+
+        projectId
+
+        the id of the project to be modified
+
+
+        Query params optionals
+
+
+        see Commmon behaviors / differential'
       tags:
       - Project libraries
       parameters:

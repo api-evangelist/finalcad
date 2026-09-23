@@ -3,10 +3,7 @@ info:
   title: Finalcad One Organization Management Datasets API
   version: '2.41'
   summary: 'Organization-level administration of a Finalcad One Enterprise tenant: workspaces, members and roles, observation status / trade / common-observation / priority / form-template libraries, form and observation module types, data referentials, and Power BI dataset configuration.'
-  description: 'Organization-level administration of a Finalcad One Enterprise tenant: workspaces, members and roles, observation status / trade / common-observation / priority / form-template libraries, form and observation module types, data referentials, and Power BI dataset configuration.
-
-
-    DERIVED, NOT PUBLISHED BY THE PROVIDER. Finalcad publishes no OpenAPI. This document was mechanically derived by API Evangelist from the first-party public Postman collection "Finalcad One API" served by Finalcad at https://developer.finalcad.com/ (collection JSON: https://developer.finalcad.com/api/collections/10995648/Tz5v1Es2), saved in this repo at collections/finalcad.postman_collection.json. Every path, method, header, query parameter, example request body and example response below is carried over from that collection; nothing was invented. Request/response bodies are typed as generic objects because the collection carries examples, not schemas. Four Finalcad employees'' personal e-mail addresses that appeared in the collection''s example payloads were replaced with placeholders; nothing else was changed.'
+  description: 'Organization-level administration of a Finalcad One Enterprise tenant: workspaces, members and roles, observation status / trade / common-observation / priority / form-template libraries, form and observation module types, data referentials, and Power BI dataset configuration.'
   contact:
     name: Finalcad One API — developer portal
     url: https://developer.finalcad.com/
@@ -28,7 +25,17 @@ paths:
     get:
       operationId: datasetsGetDatasets
       summary: Get datasets
-      description: "Get the list of datasets for the organization.\n\n Endpoint mandatory parameters \n Details \n\n organization_id \n id of your organization"
+      description: 'Get the list of datasets for the organization.
+
+
+        Endpoint mandatory parameters
+
+        Details
+
+
+        organization_id
+
+        id of your organization'
       tags:
       - Datasets
       parameters:
@@ -98,7 +105,32 @@ paths:
     post:
       operationId: datasetsPostDatasets
       summary: Post datasets
-      description: "Set the list of active datasets.\n\n Endpoint mandatory parameters \n Details \n\n organization_id \n id of your organization \n\n body mandatory \n\n data_sets \n list of the active datasets \nall missing dataset are invalidated \n\n Dataset list :\nCommonObservations, Companies, FormInstances, FormTemplates, Modules, Observations, Phases, Plans, Statuses, Projects, Workspaces, Documents, Users, FormAnswers, UserActivities, Priorities, ProjectsUsersRoles"
+      description: 'Set the list of active datasets.
+
+
+        Endpoint mandatory parameters
+
+        Details
+
+
+        organization_id
+
+        id of your organization
+
+
+        body mandatory
+
+
+        data_sets
+
+        list of the active datasets
+
+        all missing dataset are invalidated
+
+
+        Dataset list :
+
+        CommonObservations, Companies, FormInstances, FormTemplates, Modules, Observations, Phases, Plans, Statuses, Projects, Workspaces, Documents, Users, FormAnswers, UserActivities, Priorities, ProjectsUsersRoles'
       tags:
       - Datasets
       parameters:
@@ -175,7 +207,22 @@ paths:
     get:
       operationId: datasetsGetDatasetContent
       summary: Get dataset content
-      description: "Get the content for an active dataset (limited to 10MB).\n\n Endpoint mandatory parameters \n Details \n\n organization_id \n id of your organization \n\n name \n name of the dataset"
+      description: 'Get the content for an active dataset (limited to 10MB).
+
+
+        Endpoint mandatory parameters
+
+        Details
+
+
+        organization_id
+
+        id of your organization
+
+
+        name
+
+        name of the dataset'
       tags:
       - Datasets
       parameters:
@@ -210,7 +257,22 @@ paths:
     get:
       operationId: datasetsGetDatasetUrl
       summary: Get dataset URL
-      description: "Get a downloadable URL for an active dataset.\n\n Endpoint mandatory parameters \n Details \n\n organization_id \n id of your organization \n\n name \n name of the dataset"
+      description: 'Get a downloadable URL for an active dataset.
+
+
+        Endpoint mandatory parameters
+
+        Details
+
+
+        organization_id
+
+        id of your organization
+
+
+        name
+
+        name of the dataset'
       tags:
       - Datasets
       parameters:
